@@ -1,0 +1,1391 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+                      "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Jewish calendar calculation in C#</title>
+</head>
+<body>
+
+<h1 id="caption">Jewish calendar calculation in C#</h1>
+
+<p id="copyright">
+Source code <tt>Copyright &copy; by Ulrich and Ziporah Greve (2005)</tt>
+<br/>
+<span class="copyrightblue">
+The code is freely usable for non-profit purposes when
+this Copyright notice is included.
+</span>
+</p>
+
+<h2>Table Of Contents</h2>
+
+<ul>
+<li><a href="#leapyear">Determining if a Jewish year is a leap year</a></li>
+<li><a href="#jewishmonths">Numbering of the Jewish months, converting a Jewish month number into a string</a></li>
+<li><a href="#gregoriantojewish">Converting Gregorian dates to Jewish dates</a></li>
+<li><a href="#jewishtogregorian">Converting Jewish dates to Gregorian dates</a></li>
+<li><a href="#weekday">Getting the weekday of a Gregorian or Jewish date</a></li>
+<li><a href="#countdays">Getting the number of days in a Gregorian or Jewish month</a></li>
+<li><a href="#astro">Sunrise, sunset, degrees below horizons, proportional hours</a></li>
+<li><a href="#israeldst">Calculating Israeli Daylight Savings Time</a></li>
+<li><a href="#holidays">Calculating Jewish holidays</a></li>
+</ul>
+
+<p>
+Jewish calendar calculation is possible by the <tt>HebrewCalender</tt> class
+in the <tt>System.Globalization</tt> namespace.
+</p>
+
+<h2><a id="leapyear">Determining if a Jewish year is a leap year</a></h2>
+
+<p>
+The function <tt>IsLeapYear(year)</tt> in the <tt>HebrewCalendar</tt> class 
+returns true if the passed jewish year is a leap year, false otherwise.
+</p>
+
+<h2><a id="jewishmonths">Numbering of the Jewish months, converting a Jewish month number into a string</a></h2>
+
+<p>
+The Jewish months are numbered in the following way:
+</p>
+
+<p>
+1. in non-leap years:
+</p>
+
+<table border="border">
+<tr><th>Name of Jewish month</th><th>Month number</th></tr>
+<tr><td>Tishri</td><td>1</td></tr>
+<tr><td>Heshvan</td><td>2</td></tr>
+<tr><td>Kislev</td><td>3</td></tr>
+<tr><td>Tevet</td><td>4</td></tr>
+<tr><td>Shevat</td><td>5</td></tr>
+<tr><td>Adar</td><td>6</td></tr>
+<tr><td>Nisan</td><td>7</td></tr>
+<tr><td>Iyar</td><td>8</td></tr>
+<tr><td>Sivan</td><td>9</td></tr>
+<tr><td>Tammuz</td><td>10</td></tr>
+<tr><td>Av</td><td>11</td></tr>
+<tr><td>Elul</td><td>12</td></tr>
+</table>
+
+<p>
+2. in leap years:
+</p>
+
+<table border="border">
+<tr><th>Name of Jewish month</th><th>Month number</th></tr>
+<tr><td>Tishri</td><td>1</td></tr>
+<tr><td>Heshvan</td><td>2</td></tr>
+<tr><td>Kislev</td><td>3</td></tr>
+<tr><td>Tevet</td><td>4</td></tr>
+<tr><td>Shevat</td><td>5</td></tr>
+<tr><td>Adar I</td><td>6</td></tr>
+<tr><td>Adar II</td><td>7</td></tr>
+<tr><td>Nisan</td><td>8</td></tr>
+<tr><td>Iyar</td><td>9</td></tr>
+<tr><td>Sivan</td><td>10</td></tr>
+<tr><td>Tammuz</td><td>11</td></tr>
+<tr><td>Av</td><td>12</td></tr>
+<tr><td>Elul</td><td>13</td></tr>
+</table>
+
+<p>
+Please note the different ordering from Nisan on for non-leap and leap years.
+For example, in a non-leap year, Nisan has number 7, and in a leap year, Nisan
+has number 8.
+</p>
+
+<p>
+The following function can be used to get the name of the given Jewish month
+in the given Jewish year:
+</p>
+
+<pre>
+public string GetJewishMonthName(int monat, int jahr, HebrewCalendar kalender)
+{
+  string jMonthName = "";
+  switch (monat)
+  {
+    case 1: jMonthName = "Tischri"; break;
+    case 2: jMonthName = "Cheschwan"; break;
+    case 3: jMonthName = "Kislew"; break;
+    case 4: jMonthName = "Tewet"; break;
+    case 5: jMonthName = "Schwat"; break;
+    case 6: if (kalender.IsLeapYear(jahr))
+      jMonthName = "Adar I";
+        else
+      jMonthName = "Adar";
+        break;
+    case 7: if (kalender.IsLeapYear(jahr))
+      jMonthName = "Adar II";
+        else
+      jMonthName = "Nisan";
+        break;
+    case 8: if (kalender.IsLeapYear(jahr))
+      jMonthName = "Nisan";
+        else
+      jMonthName = "Iyar";
+        break;
+    case 9: if (kalender.IsLeapYear(jahr))
+      jMonthName = "Iyar";
+        else
+      jMonthName = "Sivan";
+        break;
+    case 10: if (kalender.IsLeapYear(jahr))
+      jMonthName = "Sivan";
+        else
+      jMonthName = "Tammuz";
+        break;
+    case 11: if (kalender.IsLeapYear(jahr))
+      jMonthName = "Tammuz";
+        else
+      jMonthName = "Av";
+        break;
+    case 12: if (kalender.IsLeapYear(jahr))
+      jMonthName = "Av";
+        else
+      jMonthName = "Elul";
+        break;
+    case 13: if (kalender.IsLeapYear(jahr))
+      jMonthName = "Elul";
+        break;
+    }
+  return jMonthName;
+}
+</pre>
+
+<h2><a id="gregoriantojewish">Converting Gregorian dates to Jewish dates</a></h2>
+
+<p>
+After creating an object of the <tt>DateTime</tt> class with the desired
+Gregorian year, month and day, use the <tt>GetDayOfMonth</tt>,
+<tt>GetMonth</tt> and <tt>GetYear</tt> methods of an <tt>HebrewCalendar</tt>
+object in order to get the Jewish day, month and year of the date.
+</p>
+
+<pre>
+HebrewCalendar heb = new HebrewCalendar();
+
+int gday = 12;  // only example
+int gmonth = 2;
+int gyear = 2005;
+
+DateTime dt = new DateTime(gyear, gmonth, gday);
+
+int jday = heb.GetDayOfMonth(dt);
+int jmonth = heb.GetMonth(dt);
+int jyear = heb.GetYear(dt);
+
+int leap = jyear;
+string jmonthstr = "";
+
+if(heb.IsLeapYear(leap))
+{
+
+    if(jmonth == 1)
+    {
+        jmonthstr = "Tischrej";
+    }
+    else if(jmonth == 2)
+    {
+        jmonthstr = "Cheschwan";
+    }
+    else if(jmonth == 3)
+    {
+        jmonthstr = "Kislew";
+    }
+    else if(jmonth == 4)
+    {
+        jmonthstr = "Tewet";
+    }
+    else if(jmonth == 5)
+    {
+        jmonthstr = "Schwat";
+    }
+    else if(jmonth == 6)
+    {
+        jmonthstr = "Adar I";
+    }
+    else if(jmonth == 7)
+    {
+        jmonthstr = "Adar II";
+    }
+    else if(jmonth == 8)
+    {
+        jmonthstr = "Nissan";
+    }
+    else if(jmonth == 9)
+    {
+        jmonthstr = "Ijar";
+    }
+    else if(jmonth == 10)
+    {
+        jmonthstr = "Siwan";
+    }
+    else if(jmonth == 11)
+    {
+        jmonthstr = "Tammus";
+    }
+    else if(jmonth == 12)
+    {
+        jmonthstr = "Aw";
+    }
+    else if(jmonth == 13)
+    {
+        jmonthstr = "Elul";
+    }
+}
+else
+{
+    if(jmonth == 1)
+    {
+        jmonthstr = "Tischrej";
+    }
+    else if(jmonth == 2)
+    {
+        jmonthstr = "Cheschwan";
+    }
+    else if(jmonth == 3)
+    {
+        jmonthstr = "Kislew";
+    }
+    else if(jmonth == 4)
+    {
+        jmonthstr = "Tewet";
+    }
+    else if(jmonth == 5)
+    {
+        jmonthstr = "Schwat";
+    }
+    else if(jmonth == 6)
+    {
+        jmonthstr = "Adar";
+    }
+    else if(jmonth == 7)
+    {
+        jmonthstr = "Nissan";
+    }
+    else if(jmonth == 8)
+    {
+        jmonthstr = "Ijar";
+    }
+    else if(jmonth == 9)
+    {
+        jmonthstr = "Siwan";
+    }
+    else if(jmonth == 10)
+    {
+        jmonthstr = "Tammus";
+    }
+    else if(jmonth == 11)
+    {
+        jmonthstr = "Aw";
+    }
+    else if(jmonth == 12)
+    {
+        jmonthstr = "Elul";
+    }
+}
+string datum = "Date: " + jday + "." + jmonthstr + " " + jyear + ".";
+</pre>
+
+<h2><a id="jewishtogregorian">Converting Jewish dates to Gregorian dates</a></h2>
+
+<p>
+After creating an object of the <tt>DateTime</tt> class with the desired
+Jewish year, month and day and an object of class <tt>HebrewCalendar</tt>,
+se the <tt>GetDayOfMonth</tt>, <tt>GetMonth</tt> and <tt>GetYear</tt>
+methods of an <tt>GregorianCalendar</tt> object in order to get the
+Jewish day, month and year of the date.
+</p>
+
+<pre>
+GregorianCalendar gre = new GregorianCalendar();
+
+DateTime dt = new DateTime(jyear, jmonth, jday, new HebrewCalendar());
+
+int gday = gre.GetDayOfMonth(dt);
+int gmonth = gre.GetMonth(dt);
+int gyear = gre.GetYear(dt);
+
+string gmonthstr = "";
+
+    if(gmonth == 1)
+    {
+        gmonthstr = "January";
+    }
+    else if(gmonth == 2)
+    {
+        gmonthstr = "February";
+    }
+    else if(gmonth == 3)
+    {
+        gmonthstr = "March";
+    }
+    else if(gmonth == 4)
+    {
+        gmonthstr = "April";
+    }
+    else if(gmonth == 5)
+    {
+        gmonthstr = "May";
+    }
+    else if(gmonth == 6)
+    {
+        gmonthstr = "June";
+    }
+    else if(gmonth == 7)
+    {
+        gmonthstr = "July";
+    }
+    else if(gmonth == 8)
+    {
+        gmonthstr = "August";
+    }
+    else if(gmonth == 9)
+    {
+        gmonthstr = "September";
+    }
+    else if(gmonth == 10)
+    {
+        gmonthstr = "October";
+    }
+    else if(gmonth == 11)
+    {
+        gmonthstr = "November";
+    }
+    else if(gmonth == 12)
+    {
+        gmonthstr = "December";
+    }   
+string datum = "Date: " + gday + "." + gmonthstr + " " + gyear + ".";
+
+</pre>
+
+<h2><a id="weekday">Getting the weekday of a Gregorian or Jewish date</a></h2>
+
+<p>
+The function <tt>GetDayOfWeek</tt> of the <tt>GregorianCalendar</tt> or
+<tt>HebrewCalendar</tt> class takes a <tt>DateTime</tt> and returns a
+<tt>DayOfWeek</tt> enumeration type with the weekday of the passed date.
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+GregorianCalendar gcal = new GregorianCalendar();
+HebrewCalendar hcal = new HebrewCalendar();
+DayOfWeek dow;
+dow = hcal.GetDayOfWeek(new DateTime(5766, 1, 1, hcal));
+Console.WriteLine(dow);
+dow = gcal.GetDayOfWeek(new DateTime(1981, 6, 17, gcal));
+Console.WriteLine(dow);
+</pre>
+
+<h2><a id="countdays">Getting the number of days in a Gregorian or Jewish month</a></h2>
+
+<p>
+The function <tt>GetDaysInMonth(year, month)</tt> of an object of
+<tt>HebrewCalendar</tt> or <tt>GregorianCalendar</tt> class
+returns the count of the days in the passed Jewish or
+Gregorian month.
+</p>
+
+<p>
+Example (hebrew):
+</p>
+
+<pre>
+GregorianCalendar gcal = new GregorianCalendar();
+int daycount = gcal.GetDaysInMonth(2005, 4);
+Console.WriteLine(daycount);
+</pre>
+
+<p>
+Example (gregorian):
+</p>
+<pre>
+HebrewCalendar hcal = new HebrewCalendar();
+int daycount = hcal.GetDaysInMonth(5769, 3);
+Console.WriteLine(daycount);
+</pre>
+
+<h2><a id="astro">Sunrise, sunset, degrees below horizons, proportional hours</a></h2>
+
+<ul>
+<li><tt>GetSunrise</tt>:
+    Calculates the sunrise on the given date for the given location</li>
+<li><tt>GetSunriseDegreesBelowHorizon</tt>:
+    Calculates degrees below horizon before sunrise on the given date
+    for the given location</li>
+<li><tt>GetSunset</tt>: 
+    Calculates the sunset on the given date for the given location</li>
+<li><tt>GetSunsetDegreesBelowHorizon</tt>:
+    Calculates degrees below horizon after sunset on the given date
+    for the given location</li>
+<li><tt>GetProportionalHours</tt>:
+    Calculates the time of the given proportional hour
+    for the given sunrise and sunrise time</li>
+<li><tt>GetShaaZmanit</tt>:
+    Calculates the Sha'a Zmanit (length of a proportional hour)
+    for the given sunrise and sunrise time</li>
+</ul>
+
+<p>
+Here is the code of these methods. They use astronomical code shown
+below these methods.
+</p>
+
+<pre>
+class TimesCalculation {
+  public AstronomicalTime GetSunrise(DateTime currentDate, Location loc)
+  {
+    AstronomicalTime sunrise;
+    TimesCalculationInternal calcInternal = new TimesCalculationInternal();
+    sunrise = calcInternal.GetSunsetOrSunrise(currentDate,
+      Occurrence.Sunrise, loc);
+    return sunrise;
+  }
+  public AstronomicalTime GetSunset(DateTime currentDate, Location loc)
+  {
+      AstronomicalTime sunset;
+      TimesCalculationInternal calcInternal = new TimesCalculationInternal();
+      sunset = calcInternal.GetSunsetOrSunrise(currentDate,
+        Occurrence.Sunset, loc);
+      return sunset;
+  }
+
+  public AstronomicalTime GetSunriseDegreesBelowHorizon(DateTime currentDate,
+                                                        double DegreesBelowHorizon,
+                                                        Location loc)
+  {
+    AstronomicalTime sunrise = GetSunrise(currentDate, loc);
+    TimesCalculationInternal calcInternal = new TimesCalculationInternal();
+    AstronomicalTime db = calcInternal.GetDegreesBelowHorizon(currentDate,
+      DegreesBelowHorizon, loc);
+    return sunrise - db;
+  }
+  public AstronomicalTime GetSunsetDegreesBelowHorizon(DateTime currentDate,
+                                                       double DegreesBelowHorizon,
+                                                       Location loc)
+  {
+    AstronomicalTime sunset = GetSunset(currentDate, loc);
+    TimesCalculationInternal calcInternal = new TimesCalculationInternal();
+    AstronomicalTime db = calcInternal.GetDegreesBelowHorizon(currentDate,
+      DegreesBelowHorizon, loc);
+    return sunset + db;
+  }
+
+  public AstronomicalTime GetProportionalHours(AstronomicalTime sunrise,
+                                               AstronomicalTime sunset,
+                                               double ProportionalHours)
+  {
+    int sunriseTime = sunrise.Hour * 60 + sunrise.Minute;
+    int sunsetTime = sunset.Hour * 60 + sunset.Minute;
+    int result = sunriseTime +
+                 (int) (((sunsetTime - sunriseTime) * ProportionalHours) / 12);
+
+    return new AstronomicalTime(result / 60, result % 60);
+  }
+  public AstronomicalTime GetShaaZmanit(AstronomicalTime sunrise,
+                                        AstronomicalTime sunset)
+  {
+    int sunriseTime = sunrise.Hour * 60 + sunrise.Minute;
+    int sunsetTime = sunset.Hour * 60 + sunset.Minute;
+    int result = (int) ((sunsetTime - sunriseTime) / 12);
+
+    return new AstronomicalTime(result / 60, result % 60);
+  }
+}
+</pre>
+
+<p>
+Code containing the Astronomical calculation:
+</p>
+
+<pre>
+using System;
+
+public class AstronomicalTime
+{
+	public AstronomicalTime(int hour, int min)
+	{
+		this.Hour = hour;
+		this.Minute = min;
+	}
+
+	public static AstronomicalTime operator +(AstronomicalTime t,
+						int min)
+	{
+		AstronomicalTime result = new AstronomicalTime(t.Hour, t.Minute + min);
+		while (result.Minute &gt;= 60)
+		{
+			result.Minute -= 60;
+			result.Hour++;
+		}
+		return result;
+	}
+	public static AstronomicalTime operator -(AstronomicalTime t,
+						int min)
+	{
+		AstronomicalTime result = new AstronomicalTime(t.Hour, t.Minute - min);
+		while (result.Minute &lt; 0)
+		{
+			result.Minute += 60;
+			result.Hour--;
+		}
+		return result;
+	}
+
+	public static AstronomicalTime operator +(AstronomicalTime t,
+						AstronomicalTime tAdd)
+	{
+		return t + (int) (tAdd.Hour * 60 + tAdd.Minute);
+	}
+	public static AstronomicalTime operator -(AstronomicalTime t,
+						AstronomicalTime tSub)
+	{
+		return t - (int) (tSub.Hour * 60 + tSub.Minute);
+	}
+
+	public int Hour, Minute;
+}
+
+public enum LatitudeTypeEnum
+{
+	North, South
+}
+
+public enum LongitudeTypeEnum
+{
+	East, West
+}
+
+public struct Location
+{
+	public string Name;
+	public int LatitudeDegrees;
+	public int LatitudeMinutes;
+	public LatitudeTypeEnum LatitudeType;
+	public int LongitudeDegrees;
+	public int LongitudeMinutes;
+	public LongitudeTypeEnum LongitudeType;
+	public int TimeZone;
+	public int Elevation;
+
+	public override string ToString()
+	{
+		return Name;
+		/*
+		return Name + ": " +
+			"Latitude: " + Convert.ToString(LatitudeDegrees)
+				+ " degrees, " + Convert.ToString(LatitudeMinutes)
+				+ " minutes " + Convert.ToString(LatitudeType) + "; " +
+			"Longitude: " + Convert.ToString(LongitudeDegrees)
+				+ " degrees, " + Convert.ToString(LongitudeMinutes)
+				+ " minutes " + Convert.ToString(LongitudeType) + "; " +
+			"Time zone: " + Convert.ToString(TimeZone) + "; " +
+			"Elevation: " + Convert.ToString(Elevation);
+		*/
+	}
+}
+
+
+enum Occurrence
+{
+	Sunrise, Sunset
+}
+
+class TimesCalculationInternal
+{
+	private bool leap(int y)
+	{
+		if (y % 400 == 0)
+			return true;
+		if (y % 100 != 0)
+		{
+			if (y % 4 == 0)
+				return true;
+		}
+		return false;
+	}
+
+	private int doy(int d, int m, int y)
+	{
+		int[] monCount = {0, 1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366};
+
+		if ((m &gt; 2) &amp;&amp; (leap(y)))
+			return monCount[m] + d + 1;
+		else  
+			return monCount[m] + d;
+	}
+
+	private double todec(double deg, double min)
+	{
+		return (deg + min / 60.0);
+	}
+
+	private double M(double x) 
+	{
+		return (0.9856 * x - 3.251);
+	}
+
+	private double L(double x)
+	{
+		return (x + 1.916 * Math.Sin(0.01745 * x) + 0.02 * Math.Sin(2 * 0.01745 * x) + 282.565);
+	}
+
+	private double adj(double x)
+	{
+		return (-0.06571 * x - 6.620);
+	}
+
+	private double rad2deg(double rad)
+	{
+		return 57.29578 * rad;
+	}
+
+	private double[] suntime(int d, int m, int y,
+				int zendeg, int zenmin,
+				int londeg, int lonmin, int ew,
+				int latdeg, int latmin, int ns,
+				int tz, int elevation)
+	{
+		double lonhr;
+		double longitude, latitude;
+		double coslat, sinlat, cosz;
+		double sindec, cosdec;
+		double xm_rise,  xm_set;
+		double xl_rise,  xl_set;
+		double a_rise,   a_set;
+		double ahr_rise, ahr_set;
+		double h_rise,   h_set;
+		double t_rise,   t_set;
+		double ut_rise,  ut_set;
+
+		int day;
+
+		if (zendeg == 90)
+		{
+			double z = zendeg + zenmin / 60.0;
+			double earthRadiusInMeters = 6356.9 * 1000.0;
+			double elevationAdjustment = rad2deg
+				(Math.Acos(earthRadiusInMeters /
+					(earthRadiusInMeters + elevation)));
+			z += elevationAdjustment;
+			zendeg = (int) Math.Floor(z);
+			zenmin = (int) ((z - Math.Floor(z)) * 60.0);
+		}
+  
+		day = doy(d, m, y);
+
+		cosz = Math.Cos(0.01745 * todec(zendeg, zenmin));
+
+		longitude = todec(londeg, lonmin) * ((ew == 0) ? 1 : -1);
+		lonhr     = longitude / 15.0;
+		latitude  = todec(latdeg, latmin) * ((ns == 0) ? 1 : -1);
+		coslat    = Math.Cos(0.01745 * latitude);
+		sinlat    = Math.Sin(0.01745 * latitude);
+
+		t_rise = day + (6.0 + lonhr) / 24.0;
+		t_set  = day + (18.0 + lonhr) / 24.0;
+
+		xm_rise = M(t_rise);
+		xl_rise = L(xm_rise);
+		xm_set  = M(t_set);
+		xl_set  = L(xm_set);
+  
+		a_rise = 57.29578 * Math.Atan( 0.91746 * Math.Tan(0.01745 * xl_rise) );
+		a_set  = 57.29578 * Math.Atan( 0.91746 * Math.Tan(0.01745 * xl_set) );
+
+		if (Math.Abs(a_rise + 360.0 - xl_rise) &gt; 90.0)
+			a_rise += 180.0;
+		if (a_rise &gt; 360.0)
+			a_rise -= 360.0;
+
+		if (Math.Abs(a_set + 360.0 - xl_set) &gt; 90.0)
+			a_set += 180.0;
+		if (a_set &gt; 360.0)
+			a_set -= 360.0;
+
+		ahr_rise = a_rise / 15.0;
+		sindec = 0.39782 * Math.Sin(0.01745 * xl_rise);
+		cosdec = Math.Sqrt(1.0 - sindec * sindec);
+		h_rise = (cosz - sindec * sinlat) / (cosdec * coslat);
+
+		ahr_set = a_set / 15.0;
+		sindec = 0.39782 * Math.Sin(0.01745 * xl_set);
+		cosdec = Math.Sqrt(1.0 - sindec * sindec);
+		h_set = (cosz - sindec * sinlat) / (cosdec * coslat);
+
+		if (Math.Abs(h_rise) &lt;= 1.0)
+			h_rise = 57.29578 * Math.Acos(h_rise);
+		else
+			return null; //NO_SUNRISE;
+
+		if (Math.Abs(h_set) &lt;= 1.0)
+			h_set = 57.29578 * Math.Acos(h_set);
+		else
+			return null; //NO_SUNSET;
+
+		ut_rise  = ((360.0 - h_rise) / 15.0) + ahr_rise + adj(t_rise) + lonhr;
+		ut_set  = (h_rise / 15.0) + ahr_set + adj(t_set) + lonhr;
+
+		double sunrise = ut_rise + tz;  // sunrise
+		double sunset = ut_set  + tz;  // sunset
+		double[] result = {sunrise, sunset};
+		return result;
+	}
+	private AstronomicalTime timeadj(double t)
+	{
+		int hour, min;
+		double time;
+        
+		time = t;
+
+		if (time &lt; 0)
+			time += 24.0;
+
+		hour = (int) Math.Floor(time);
+		min  = (int) Math.Floor((time - hour) * 60.0 + 0.5);
+
+		if (min &gt;= 60) 
+		{
+			hour += 1;
+			min  -= 60;
+		}
+
+		if (hour &gt; 24)
+			hour -= 24;
+
+		return new AstronomicalTime(hour, min);
+	}
+
+	public AstronomicalTime GetSunsetOrSunrise(DateTime currentDate,
+				Occurrence occurrence,
+				Location loc)
+	{
+		double[] sunriseSunset = suntime(currentDate.Day, currentDate.Month, currentDate.Year,
+			90, 50,
+			loc.LongitudeDegrees, loc.LongitudeMinutes, (loc.LongitudeType == LongitudeTypeEnum.West) ? 0 : 1,
+			loc.LatitudeDegrees, loc.LatitudeMinutes, (loc.LatitudeType == LatitudeTypeEnum.South) ? 1 : 0,
+			loc.TimeZone, loc.Elevation);
+		if (sunriseSunset != null)
+		{
+			AstronomicalTime sunrise = timeadj(sunriseSunset[0]);
+			AstronomicalTime sunset = timeadj(sunriseSunset[1]);
+    
+			while (sunrise.Hour &gt; 12)
+				sunrise.Hour -= 12;
+			while (sunset.Hour &lt; 12)
+				sunset.Hour += 12;
+
+			AstronomicalTime result = null;
+			if (occurrence == Occurrence.Sunrise) result = sunrise;
+			if (occurrence == Occurrence.Sunset) result = sunset;
+
+				return result;
+		}
+		else
+			return null;
+	}
+
+	public AstronomicalTime GetDegreesBelowHorizon(DateTime currentDate,
+				double DegreesBelowHorizon,
+				Location loc)
+	{
+		double[] sunriseSunset = suntime(currentDate.Day, currentDate.Month, currentDate.Year,
+			90, 50,
+			loc.LongitudeDegrees, loc.LongitudeMinutes, (loc.LongitudeType == LongitudeTypeEnum.West) ? 0 : 1,
+			loc.LatitudeDegrees, loc.LatitudeMinutes, (loc.LatitudeType == LatitudeTypeEnum.South) ? 1 : 0,
+			loc.TimeZone, loc.Elevation);
+		if (sunriseSunset != null)
+		{
+			double db = DegreesBelowHorizon + 90.0;
+			int deghour = (int) db;
+			db = db - (double) deghour;
+			db *= 60.0;
+			int degmin = (int) db;
+
+			double[] sunriseSunset2 = suntime(currentDate.Day, currentDate.Month, currentDate.Year,
+				deghour, degmin,
+				loc.LongitudeDegrees, loc.LongitudeMinutes, (loc.LongitudeType == LongitudeTypeEnum.West) ? 0 : 1,
+				loc.LatitudeDegrees, loc.LatitudeMinutes, (loc.LatitudeType == LatitudeTypeEnum.South) ? 1 : 0,
+				loc.TimeZone, loc.Elevation);
+			if (sunriseSunset2 != null)
+			{
+				AstronomicalTime sunset = timeadj(sunriseSunset[1]);
+				AstronomicalTime sunset2 = timeadj(sunriseSunset2[1]);
+
+				while (sunset.Hour &lt; 12)
+					sunset.Hour += 12;
+				while (sunset2.Hour &lt; 12)
+					sunset2.Hour += 12;
+
+				int iS = sunset.Hour * 60 + sunset.Minute;
+				int iS2 = sunset2.Hour * 60 + sunset2.Minute;
+				int iDiff = iS2-iS;
+
+				return new AstronomicalTime(iDiff / 60, iDiff % 60);
+			}
+			else
+				return null;
+		}
+		else
+			return null;
+	}
+}
+</pre>
+
+<p>
+Here is a test program:
+</p>
+
+<pre>
+public class test
+{
+	public static void Main()
+	{
+		Location loc;
+		loc.Name = "Pforzheim";
+		loc.LatitudeDegrees = 48;
+		loc.LatitudeMinutes = 54;
+		loc.LatitudeType = LatitudeTypeEnum.North;
+		loc.LongitudeDegrees = 8;
+		loc.LongitudeMinutes = 42;
+		loc.LongitudeType = LongitudeTypeEnum.East;
+		loc.TimeZone = 1;
+		loc.Elevation = 263;
+
+		TimesCalculation tc = new TimesCalculation();
+
+		DateTime dt = new DateTime(2005, 11, 21);
+		Console.WriteLine("Times are for Pforzheim, 21th of November 2005");
+		AstronomicalTime sunrise, sunset, t;
+		sunrise = tc.GetSunrise(dt, loc);
+		sunset = tc.GetSunset(dt, loc);
+		Console.WriteLine("Sunrise: " + sunrise.Hour + ":" + sunrise.Minute);
+		t = sunrise - 72;
+		Console.WriteLine("Sunrise - 72 min: " + t.Hour + ":" + t.Minute);
+		t = sunrise - 90;
+		Console.WriteLine("Sunrise - 90 min: " + t.Hour + ":" + t.Minute);
+		Console.WriteLine("Sunset: " + sunset.Hour + ":" + sunset.Minute);
+		t = sunset - 18;
+		Console.WriteLine("Sunset - 18 min: " + t.Hour + ":" + t.Minute);
+		t = sunset + 45;
+		Console.WriteLine("Sunset + 45 min: " + t.Hour + ":" + t.Minute);
+		t = sunset + 60;
+		Console.WriteLine("Sunset + 60 min: " + t.Hour + ":" + t.Minute);
+		t = sunset + 72;
+		Console.WriteLine("Sunset + 72 min: " + t.Hour + ":" + t.Minute);
+		t = tc.GetSunriseDegreesBelowHorizon(dt, 11, loc);
+		Console.WriteLine("Sunrise - 11° below horizon: " + t.Hour + ":" + t.Minute);
+		t = tc.GetSunsetDegreesBelowHorizon(dt, 8.75, loc);
+		Console.WriteLine("Sunset + 8.75° below horizon: " + t.Hour + ":" + t.Minute);
+		t = tc.GetProportionalHours(sunrise, sunset, 3);
+		Console.WriteLine("Proportional Hour 3: " + t.Hour + ":" + t.Minute);
+		t = tc.GetShaaZmanit(sunrise, sunset);
+		Console.WriteLine("Sha'a Zmanit: " + t.Hour + ":" + t.Minute);
+	}
+}
+</pre>
+
+<h2><a id="israeldst">Calculating Israeli Daylight Savings Time</a></h2>
+
+<p>
+Daylight Savings Time starts in Israel on the last Friday before 2nd of April
+and ends on the Sunday between Rosh Hashana and Yom Kippur.
+</p>
+
+<p>
+The following methods determines for a given date whether Israeli
+Daylight Savings Time is in effect on that day:
+</p>
+
+<pre>
+private bool IsIsraeliSummerTime(DateTime currentDate)
+  {
+    GregorianCalendar gcal = new GregorianCalendar();
+    DateTime startDate = new DateTime
+		(currentDate.Year, 4, 2); 
+    // Begin: Last Friday before 2 April
+    startDate = startDate - new TimeSpan(1, 0, 0, 0);
+
+    while (startDate.DayOfWeek != DayOfWeek.Friday)
+	startDate = startDate - new TimeSpan(1, 0, 0, 0);
+
+    // End: Sunday between Rosh Hashanah and Yom Kippur
+    DateTime dt = new DateTime(currentDate.Year, 12, 31);
+    HebrewCalendar hcal = new HebrewCalendar();
+    int hebrewYear = hcal.GetYear(dt);
+    DateTime endDate = new DateTime(hebrewYear, 1, 10, hcal);
+    endDate = endDate - new TimeSpan(1, 0, 0, 0);
+
+    while (endDate.DayOfWeek != DayOfWeek.Sunday)
+	endDate = endDate - new TimeSpan(1, 0, 0, 0);
+	if (currentDate &gt;= startDate &amp;&amp; currentDate &lt; endDate)
+	return true;
+    else
+	return false;
+}
+</pre>
+
+<h2><a id="holidays">Calculating Jewish holidays</a></h2>
+
+
+
+<p>
+The following code implements the class <tt>JewishHolidays</tt> which
+contains the method <tt>GetHolidaysForDate(dt, hcal, diasporaOrIsrael)</tt>.
+It takes the date <tt>dt</tt> for which the holidays should be calculated,
+an object <tt>hcal</tt> of class <tt>HebrewCalendar</tt> and a flag
+<tt>diasporaOrIsrael</tt> which can have the values
+<tt>DiasporaOrIsrael.Diaspora</tt> or <tt>DiasporaOrIsrael.Israel</tt>
+depending on whether holidas for Diaspora or Israel should be calculated.
+It returns a list of <tt>Holiday</tt> values.
+</p>
+
+<pre>
+ public enum DiasporaOrIsrael
+ {
+ 	Diaspora,
+ 	Israel
+ }
+
+ public enum Holiday
+ {
+ 	
+ 	RoshHodesh,
+ 	ErevRoshHaShana,
+ 	RoshHaShanaI,
+ 	RoshHaShanaII,
+ 	TzomGedaliah,
+ 	ErevYomKippur,
+ 	YomKippur,
+ 	ErevSuccoth,
+ 	Succoth,
+ 	SuccothI,
+ 	SuccothII,
+ 	HolHamoed,
+ 	HoschanaRaba,
+ 	SheminiAtzeret,
+ 	SimhathTorah,
+ 	FastofTebeth,
+ 	TuBiShevat,
+ 	ShabbatHagadol,
+ 	ErevPessach,
+ 	PessachI,
+ 	PessachII,
+ 	PessachVII,
+ 	PessachVIII,
+ 	YomHashoah,
+ 	YomHazicaron,
+ 	YomHaatzmaut,
+ 	LagBaomer,
+ 	ErevShavuoth,
+ 	Shavuoth,
+ 	ShavuothI,
+ 	ShavuothII,
+ 	TzomTammuz,
+ 	FastofAv,
+ 	ChanukkaI,
+ 	ChanukkaII,
+ 	ChanukkaIII,
+ 	ChanukkaIV,
+ 	ChanukkaV,
+ 	ChanukkaVI,
+ 	ChanukkaVII,
+ 	ChanukkaVIII,
+ 	FastOfEsther,
+ 	Purim,
+ 	ShushanPurim,
+ 	PurimKatan,
+ 	ShushanPurimKatan,
+ 	PessachSheni,
+ 	TuBeav
+ }
+ 
+ class JewishHolidays
+ {
+ 	
+ 	
+ 	public ArrayList GetHolidaysForDate(DateTime dt, HebrewCalendar hcal, DiasporaOrIsrael diasporaOrIsrael)
+ 	{
+ 		int hebrewDay = hcal.GetDayOfMonth(dt);
+ 		int hebrewMonth = hcal.GetMonth(dt);
+ 		int hebrewYear = hcal.GetYear(dt);
+
+ 		int hebrewMonthNisan = 7;
+ 		if(hcal.IsLeapYear(hebrewYear)) hebrewMonthNisan = 8;
+ 		int hebrewMonthIyar = 8;
+ 		if(hcal.IsLeapYear(hebrewYear)) hebrewMonthIyar = 9;
+ 		int hebrewMonthSivan = 9;
+ 		if(hcal.IsLeapYear(hebrewYear)) hebrewMonthSivan = 10;
+ 		
+ 		int hebrewMonthTammuz = 10;
+ 		if(hcal.IsLeapYear(hebrewYear)) hebrewMonthTammuz = 11;
+ 		int hebrewMonthAv = 11;
+ 		if(hcal.IsLeapYear(hebrewYear)) hebrewMonthAv = 12; 
+ 		int hebrewMonthElul = 12;
+ 		if(hcal.IsLeapYear(hebrewYear)) hebrewMonthElul = 13; 
+
+ 		ArrayList holidays = new ArrayList();
+ 		
+ 		 if(hebrewDay == 30)
+ 		 	holidays.Add(Holiday.RoshHodesh);
+ 		 
+ 		 if(hebrewDay == 1 &amp;&amp; hebrewMonth != 1)
+ 		 	holidays.Add(Holiday.RoshHodesh);
+ 		
+ 		//------- Tishri
+ 		if(hebrewDay == 29 &amp;&amp; hebrewMonth == hebrewMonthElul)
+ 			holidays.Add(Holiday.ErevRoshHaShana);
+ 		if (hebrewDay == 1 &amp;&amp; hebrewMonth == 1) // 1 Tishri
+	 		holidays.Add(Holiday.RoshHaShanaI);
+ 		if (hebrewDay == 2 &amp;&amp; hebrewMonth == 1) // 2 Tishri
+	 		holidays.Add(Holiday.RoshHaShanaII);
+ 		if (GetWeekdayOfHebrewDate(3, 1, hebrewYear) == DayOfWeek.Saturday) // 3 Tishri
+ 		{
+	 		if (hebrewDay == 4 &amp;&amp; hebrewMonth == 1) // 4 Tishri
+		 		holidays.Add(Holiday.TzomGedaliah);
+ 		}
+ 		else
+ 		{
+	 		if (hebrewDay == 3 &amp;&amp; hebrewMonth == 1) // 3 Tishri
+		 		holidays.Add(Holiday.TzomGedaliah);
+ 		}
+ 		
+ 		if(hebrewDay == 9 &amp;&amp; hebrewMonth == 1)
+ 			holidays.Add(Holiday.ErevYomKippur);
+ 		
+ 		if(hebrewDay == 10 &amp;&amp; hebrewMonth == 1) //10 Tishri
+ 			holidays.Add(Holiday.YomKippur);
+ 		
+ 		if(hebrewDay == 14 &amp;&amp; hebrewMonth == 1)
+ 			holidays.Add(Holiday.ErevSuccoth);
+ 		
+ 		if(hebrewDay == 15 &amp;&amp; hebrewMonth == 1) //15 Tishri
+ 		{
+ 			if (diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
+	 			holidays.Add(Holiday.SuccothI);
+ 			else
+	 			holidays.Add(Holiday.Succoth);
+ 		}
+ 		if(hebrewDay == 16 &amp;&amp; hebrewMonth == 1) //16 Tishri
+ 		{
+ 			if (diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
+ 				holidays.Add(Holiday.SuccothII);
+ 			else
+ 				holidays.Add(Holiday.HolHamoed);
+ 		}
+ 		if(hebrewDay == 17 &amp;&amp; hebrewMonth == 1) //17 Tishri
+ 			holidays.Add(Holiday.HolHamoed);
+ 		if(hebrewDay == 18 &amp;&amp; hebrewMonth == 1)
+ 			holidays.Add(Holiday.HolHamoed);
+ 		if(hebrewDay == 19 &amp;&amp; hebrewMonth == 1)
+ 			holidays.Add(Holiday.HolHamoed);
+ 		if(hebrewDay == 20 &amp;&amp; hebrewMonth == 1)
+ 			holidays.Add(Holiday.HolHamoed);
+ 		if(hebrewDay == 21 &amp;&amp; hebrewMonth == 1)
+ 			holidays.Add(Holiday.HoschanaRaba);
+ 		if(hebrewDay == 22 &amp;&amp; hebrewMonth == 1 &amp;&amp;
+ 		   diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
+ 			holidays.Add(Holiday.SheminiAtzeret);
+ 		if(hebrewDay == 23 &amp;&amp; hebrewMonth == 1 &amp;&amp;
+ 		   diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
+ 			holidays.Add(Holiday.SimhathTorah);
+ 		if(hebrewDay == 22 &amp;&amp; hebrewMonth == 1 &amp;&amp;
+ 		   diasporaOrIsrael == DiasporaOrIsrael.Israel)
+ 		{
+ 			holidays.Add(Holiday.SheminiAtzeret);
+ 			holidays.Add(Holiday.SimhathTorah);
+ 		}
+
+ 		//------- Kislev/Tevet
+ 		
+ 		if(hebrewDay == 25 &amp;&amp; hebrewMonth == 3)
+ 			holidays.Add(Holiday.ChanukkaI);
+ 		if(hebrewDay == 26 &amp;&amp; hebrewMonth == 3)
+ 			holidays.Add(Holiday.ChanukkaII);
+ 		if(hebrewDay == 27 &amp;&amp; hebrewMonth == 3)
+ 			holidays.Add(Holiday.ChanukkaIII);
+ 		if(hebrewDay == 28 &amp;&amp; hebrewMonth == 3)
+ 			holidays.Add(Holiday.ChanukkaIV);
+ 		if(hebrewDay == 29 &amp;&amp; hebrewMonth == 3)
+ 			holidays.Add(Holiday.ChanukkaV);
+ 		  
+ 		int daysInKislew = hcal.GetDaysInMonth(hebrewYear, 3);
+ 		
+ 		if(daysInKislew == 29) {
+ 			
+ 			if(hebrewDay == 1 &amp;&amp; hebrewMonth == 4)
+ 				holidays.Add(Holiday.ChanukkaVI);
+ 			if(hebrewDay == 2 &amp;&amp; hebrewMonth == 4)
+ 				holidays.Add(Holiday.ChanukkaVII);
+ 			if(hebrewDay == 3 &amp;&amp; hebrewMonth == 4)
+ 				holidays.Add(Holiday.ChanukkaVIII);
+ 		}
+ 		
+ 		else {
+ 			
+ 			if(hebrewDay == 30 &amp;&amp; hebrewMonth == 3)
+ 				holidays.Add(Holiday.ChanukkaVI);
+ 			if(hebrewDay == 1 &amp;&amp; hebrewMonth == 4)
+ 				holidays.Add(Holiday.ChanukkaVII);
+ 			if(hebrewDay == 2 &amp;&amp; hebrewMonth == 4)
+ 				holidays.Add(Holiday.ChanukkaVIII);
+ 		}
+
+ 		//------- Tevet
+ 		if(hebrewDay == 10 &amp;&amp; hebrewMonth == 4)
+ 			holidays.Add(Holiday.FastofTebeth);
+ 		
+ 		//------- Shevat
+ 		if(hebrewDay == 15 &amp;&amp; hebrewMonth == 5)
+ 			holidays.Add(Holiday.TuBiShevat);
+ 		
+ 		//------- Adar
+
+ 		if(hcal.IsLeapYear(hebrewYear)) {
+ 			
+ 			if(GetWeekdayOfHebrewDate(13, 7, hebrewYear) == DayOfWeek.Saturday) {
+ 			
+ 				if(hebrewDay == 11 &amp;&amp; hebrewMonth == 7)
+ 					holidays.Add(Holiday.FastOfEsther);
+ 			}else{
+ 				
+ 				if(hebrewDay == 13 &amp;&amp; hebrewMonth == 7)
+ 					holidays.Add(Holiday.FastOfEsther);
+ 			}
+
+ 			
+ 			if(hebrewDay == 14 &amp;&amp; hebrewMonth == 7)
+ 				holidays.Add(Holiday.Purim);
+ 			
+ 			if(hebrewDay == 15 &amp;&amp; hebrewMonth == 7)
+ 				holidays.Add(Holiday.ShushanPurim);
+ 			
+ 			// ------------------- Purim Katan ------------------------
+ 			
+ 			if(hebrewDay == 14 &amp;&amp; hebrewMonth == 6)
+ 				holidays.Add(Holiday.PurimKatan);
+ 			
+ 			if(hebrewDay == 15 &amp;&amp; hebrewMonth == 6)
+ 				holidays.Add(Holiday.ShushanPurimKatan);
+ 			
+ 			// --------------------------------------------------------
+ 	
+ 		}
+ 		
+ 		else {
+ 			
+ 			
+ 			if(GetWeekdayOfHebrewDate(13, 6, hebrewYear) == DayOfWeek.Saturday) {
+ 			
+ 				if(hebrewDay == 11 &amp;&amp; hebrewMonth == 6)
+ 					holidays.Add(Holiday.FastOfEsther);
+ 			}else{
+ 				
+ 				if(hebrewDay == 13 &amp;&amp; hebrewMonth == 6)
+ 					holidays.Add(Holiday.FastOfEsther);
+ 			}
+ 			
+ 			if(hebrewDay == 14 &amp;&amp; hebrewMonth == 6)
+ 				holidays.Add(Holiday.Purim);
+ 			
+ 			if(hebrewDay == 15 &amp;&amp; hebrewMonth == 6)
+ 				holidays.Add(Holiday.ShushanPurim);
+ 			
+ 		}
+ 		
+ 		//------- Nisan
+
+ 		int hebrewDayOfShabbatHagadol = 14;
+ 		while (GetWeekdayOfHebrewDate(hebrewDayOfShabbatHagadol, hebrewMonthNisan,
+ 		                              hebrewYear) != DayOfWeek.Saturday)
+ 			hebrewDayOfShabbatHagadol--;
+ 		if (hebrewDay == hebrewDayOfShabbatHagadol &amp;&amp; hebrewMonth == hebrewMonthNisan)
+ 			holidays.Add(Holiday.ShabbatHagadol);
+
+ 		if(hebrewDay == 14 &amp;&amp; hebrewMonth == hebrewMonthNisan)
+ 			holidays.Add(Holiday.ErevPessach);
+ 		
+		if(hebrewDay == 15 &amp;&amp; hebrewMonth == hebrewMonthNisan)
+			holidays.Add(Holiday.PessachI);
+ 		
+		if(hebrewDay == 16 &amp;&amp; hebrewMonth == hebrewMonthNisan)
+		{
+	 		if(diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
+ 				holidays.Add(Holiday.PessachII);	
+	 		else
+	 			holidays.Add(Holiday.HolHamoed);
+ 		}
+
+ 		if(hebrewDay == 17 &amp;&amp; hebrewMonth == hebrewMonthNisan)
+ 			holidays.Add(Holiday.HolHamoed);
+ 		if(hebrewDay == 18 &amp;&amp; hebrewMonth == hebrewMonthNisan)
+ 			holidays.Add(Holiday.HolHamoed);
+ 		if(hebrewDay == 19 &amp;&amp; hebrewMonth == hebrewMonthNisan)
+ 			holidays.Add(Holiday.HolHamoed);
+ 		if(hebrewDay == 20 &amp;&amp; hebrewMonth == hebrewMonthNisan)
+ 			holidays.Add(Holiday.HolHamoed);
+		if(hebrewDay == 21 &amp;&amp; hebrewMonth == hebrewMonthNisan)
+ 			holidays.Add(Holiday.PessachVII);
+ 		if(diasporaOrIsrael == DiasporaOrIsrael.Diaspora) {
+ 		
+ 			if(hebrewDay == 22 &amp;&amp; hebrewMonth == hebrewMonthNisan)
+ 				holidays.Add(Holiday.PessachVIII);
+ 		}
+ 		
+ 		// Yom HaShoah: 27 Nisan
+ 		/*
+ 		 * ERRATA:
+ 		 * In May, 1997 the Israeli government changed the definition of
+ 		 * Yom HaShoah to state that if it falls on a Sunday it will be
+ 		 * postponed to the following day.
+ 		 */
+ 		/*
+ 		 * Rule for Yom HaShoah: 27 Nisan on Saturday/Friday -> Thursday
+ 		 */
+ 		int hebrewDayYomHashoah = 27;
+ 		if (hebrewYear &gt;= 5757)
+ 		{
+ 			if (GetWeekdayOfHebrewDate(27, hebrewMonthNisan, hebrewYear) == DayOfWeek.Sunday)
+ 				hebrewDayYomHashoah++;
+ 		}
+		if (GetWeekdayOfHebrewDate(27, hebrewMonthNisan, hebrewYear) == DayOfWeek.Saturday)
+			hebrewDayYomHashoah -= 2;
+		if (GetWeekdayOfHebrewDate(27, hebrewMonthNisan, hebrewYear) == DayOfWeek.Friday)
+			hebrewDayYomHashoah--;
+		if(hebrewDay == hebrewDayYomHashoah &amp;&amp; hebrewMonth == hebrewMonthNisan)
+ 		   	holidays.Add(Holiday.YomHashoah);
+
+ 		//------- Iyar
+ 		// Yom HaZikaron: 4 Iyar
+ 		// Yom HaAtzmaut: 5 Iyar
+ 		
+ 		/*
+ 		 * Yom HaZikaron, normally on Iyar 4, is advanced to Wednesday if it
+ 		 * falls on Thursday or Friday.
+ 		 */
+ 		/*
+ 		 * ERRATA:
+ 		 * In 2004, the Israeli government decided to postpone Yom ha-Zikkaron
+ 		 * (as well as Israel Independence Day) by one day whenever Iyyar 4
+ 		 * falls on Sunday [Ha'Aretz, February 2, 2004]
+ 		 */
+ 		/*
+ 		 * Additional rule for Yom Ha'atzmaut: 5 Iyar on Saturday/Friday -> Thursday
+ 		 *   http://www.ou.org/torah/tt/5764/shemini64/featuretidbit.htm
+ 		 */
+ 		int hebrewDayYomHazicaron = 4;
+ 		int hebrewDayYomHaatzmaut = 5;
+ 		if (GetWeekdayOfHebrewDate(4, hebrewMonthIyar, hebrewYear) == DayOfWeek.Thursday)
+ 			hebrewDayYomHazicaron--;
+ 		if (GetWeekdayOfHebrewDate(4, hebrewMonthIyar, hebrewYear) == DayOfWeek.Friday)
+ 			hebrewDayYomHazicaron -= 2;
+ 		if (GetWeekdayOfHebrewDate(5, hebrewMonthIyar, hebrewYear) == DayOfWeek.Friday)
+ 			hebrewDayYomHaatzmaut--;
+ 		if (GetWeekdayOfHebrewDate(5, hebrewMonthIyar, hebrewYear) == DayOfWeek.Saturday)
+ 			hebrewDayYomHaatzmaut -= 2;
+ 		if (hebrewYear &gt;= 5764)
+ 		{
+ 			if (GetWeekdayOfHebrewDate(4, hebrewMonthIyar, hebrewYear) == DayOfWeek.Sunday)
+ 			{
+ 				hebrewDayYomHazicaron++;
+ 				hebrewDayYomHaatzmaut++;
+ 			}
+ 		}
+		if(hebrewDay == hebrewDayYomHazicaron &amp;&amp; hebrewMonth == hebrewMonthIyar)
+ 		   	holidays.Add(Holiday.YomHazicaron);
+		if(hebrewDay == hebrewDayYomHaatzmaut &amp;&amp; hebrewMonth == hebrewMonthIyar)
+ 		   	holidays.Add(Holiday.YomHaatzmaut);
+ 		 
+		if(hebrewDay == 18 &amp;&amp; hebrewMonth == hebrewMonthIyar)
+ 		   	holidays.Add(Holiday.LagBaomer);
+		
+		// *********** Pessach Scheni **********
+		
+		if(hebrewDay == 14 &amp;&amp; hebrewMonth == hebrewMonthIyar)
+			holidays.Add(Holiday.PessachSheni);
+		
+		// ******** End Pessach Scheni *********
+ 		
+		//------- Sivan
+		
+		if(hebrewDay == 5 &amp;&amp; hebrewMonth == hebrewMonthSivan)
+			holidays.Add(Holiday.ErevShavuoth);
+		
+		if(diasporaOrIsrael == DiasporaOrIsrael.Diaspora) {
+		
+			if(hebrewDay == 6 &amp;&amp; hebrewMonth == hebrewMonthSivan)
+				holidays.Add(Holiday.ShavuothI);
+			if(hebrewDay == 7 &amp;&amp; hebrewMonth == hebrewMonthSivan)
+				holidays.Add(Holiday.ShavuothII);
+			
+		}else{
+			
+			if(hebrewDay == 6 &amp;&amp; hebrewMonth == hebrewMonthSivan)
+				holidays.Add(Holiday.Shavuoth);
+			
+		}
+
+ 		//------- Tammuz
+ 		
+ 		if(GetWeekdayOfHebrewDate(17, hebrewMonthTammuz, hebrewYear) == DayOfWeek.Saturday)
+ 		{
+ 			if(hebrewDay == 18 &amp;&amp; hebrewMonth == hebrewMonthTammuz)
+ 				holidays.Add(Holiday.TzomTammuz);
+ 		}
+ 		
+ 		else {
+ 			
+ 			if(hebrewDay == 17 &amp;&amp; hebrewMonth == hebrewMonthTammuz)
+ 				holidays.Add(Holiday.TzomTammuz);
+ 		}
+ 		
+ 		//------- Av
+ 		
+ 		if(hebrewDay == 15 &amp;&amp; hebrewMonth == hebrewMonthAv)
+ 			holidays.Add(Holiday.TuBeav);
+ 		
+ 		if(GetWeekdayOfHebrewDate(9, hebrewMonthAv, hebrewYear) == DayOfWeek.Saturday)
+ 		{
+ 			if(hebrewDay == 10 &amp;&amp; hebrewMonth == hebrewMonthAv)
+ 				holidays.Add(Holiday.FastofAv);
+ 		}
+ 		
+ 		else {
+ 			
+ 			if(hebrewDay == 9 &amp;&amp; hebrewMonth == hebrewMonthAv)
+ 				holidays.Add(Holiday.FastofAv);
+ 		}
+ 		
+ 	
+ 		return holidays;
+ 	}
+ 	
+ 	private DayOfWeek GetWeekdayOfHebrewDate(int day, int month, int year)
+ 	{
+ 		HebrewCalendar hcal = new HebrewCalendar();
+ 		DateTime dt = new DateTime(year, month, day, hcal);
+ 		return hcal.GetDayOfWeek(dt);
+ 	}
+ }
+
+</pre>
+
+<hr/>
+
+<p>
+    <a href="http://validator.w3.org/check?uri=referer"><img
+        src="http://www.w3.org/Icons/valid-xhtml11"
+        alt="Valid XHTML 1.1" height="31" width="88" /></a>
+</p>
+
+</body>
+</html>
