@@ -33,21 +33,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.dgEntries = new System.Windows.Forms.DataGridView();
-            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
             this.gbCalendar = new System.Windows.Forms.GroupBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -122,6 +116,12 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pbWeb = new System.Windows.Forms.PictureBox();
             this.lblNextProblem = new System.Windows.Forms.Label();
+            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
             this.pnlDayAfter.SuspendLayout();
@@ -203,7 +203,7 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgEntries.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dgEntries.Location = new System.Drawing.Point(16, 282);
+            this.dgEntries.Location = new System.Drawing.Point(16, 272);
             this.dgEntries.Name = "dgEntries";
             this.dgEntries.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dgEntries.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -220,65 +220,9 @@
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgEntries.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgEntries.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.Size = new System.Drawing.Size(835, 303);
+            this.dgEntries.Size = new System.Drawing.Size(835, 250);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
-            // 
-            // DateColumn
-            // 
-            this.DateColumn.DataPropertyName = "DateTime";
-            dataGridViewCellStyle2.Format = "dd MMM yyyy";
-            dataGridViewCellStyle2.NullValue = null;
-            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DateColumn.HeaderText = "תאריך";
-            this.DateColumn.Name = "DateColumn";
-            this.DateColumn.ReadOnly = true;
-            this.DateColumn.Width = 120;
-            // 
-            // DayNightColumn
-            // 
-            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
-            this.DayNightColumn.HeaderText = "יום/לילה";
-            this.DayNightColumn.Name = "DayNightColumn";
-            this.DayNightColumn.ReadOnly = true;
-            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DayNightColumn.Width = 70;
-            // 
-            // IntervalColumn
-            // 
-            this.IntervalColumn.DataPropertyName = "Interval";
-            this.IntervalColumn.HeaderText = "הפלגה";
-            this.IntervalColumn.Name = "IntervalColumn";
-            this.IntervalColumn.ReadOnly = true;
-            this.IntervalColumn.Width = 50;
-            // 
-            // DayOfWeekColumn
-            // 
-            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
-            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
-            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
-            this.DayOfWeekColumn.ReadOnly = true;
-            this.DayOfWeekColumn.Width = 50;
-            // 
-            // NotesColumn
-            // 
-            this.NotesColumn.DataPropertyName = "Notes";
-            this.NotesColumn.HeaderText = "הערות";
-            this.NotesColumn.Name = "NotesColumn";
-            this.NotesColumn.ReadOnly = true;
-            this.NotesColumn.Width = 402;
-            // 
-            // btnDeleteColumn
-            // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
-            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.btnDeleteColumn.HeaderText = "מחק";
-            this.btnDeleteColumn.Name = "btnDeleteColumn";
-            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.btnDeleteColumn.Text = "מחק שורה";
-            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
-            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
             // 
             // gbCalendar
             // 
@@ -469,7 +413,7 @@
             // 
             this.lblNextdayDate.BackColor = System.Drawing.Color.Wheat;
             this.lblNextdayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblNextdayDate.Font = new System.Drawing.Font("Narkisim", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblNextdayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextdayDate.ForeColor = System.Drawing.SystemColors.Desktop;
             this.lblNextdayDate.Location = new System.Drawing.Point(331, -1);
             this.lblNextdayDate.Name = "lblNextdayDate";
@@ -546,7 +490,7 @@
             // 
             this.lblTomorrowDate.BackColor = System.Drawing.Color.Wheat;
             this.lblTomorrowDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTomorrowDate.Font = new System.Drawing.Font("Narkisim", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblTomorrowDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTomorrowDate.ForeColor = System.Drawing.SystemColors.Desktop;
             this.lblTomorrowDate.Location = new System.Drawing.Point(331, -1);
             this.lblTomorrowDate.Name = "lblTomorrowDate";
@@ -623,7 +567,7 @@
             // 
             this.lblTodayDate.BackColor = System.Drawing.Color.Wheat;
             this.lblTodayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTodayDate.Font = new System.Drawing.Font("Narkisim", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblTodayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTodayDate.ForeColor = System.Drawing.SystemColors.Desktop;
             this.lblTodayDate.Location = new System.Drawing.Point(331, -1);
             this.lblTodayDate.Name = "lblTodayDate";
@@ -700,7 +644,7 @@
             // 
             this.lblYesterdayDate.BackColor = System.Drawing.Color.Wheat;
             this.lblYesterdayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblYesterdayDate.Font = new System.Drawing.Font("Narkisim", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblYesterdayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblYesterdayDate.ForeColor = System.Drawing.SystemColors.Desktop;
             this.lblYesterdayDate.Location = new System.Drawing.Point(331, 0);
             this.lblYesterdayDate.Name = "lblYesterdayDate";
@@ -933,7 +877,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(14, 266);
+            this.label14.Location = new System.Drawing.Point(14, 257);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(40, 12);
             this.label14.TabIndex = 12;
@@ -1067,19 +1011,75 @@
             // 
             this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextProblem.ForeColor = System.Drawing.Color.Brown;
-            this.lblNextProblem.Location = new System.Drawing.Point(16, 256);
+            this.lblNextProblem.Location = new System.Drawing.Point(16, 247);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblNextProblem.Size = new System.Drawing.Size(835, 16);
             this.lblNextProblem.TabIndex = 16;
             this.lblNextProblem.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // DateColumn
+            // 
+            this.DateColumn.DataPropertyName = "DateTime";
+            dataGridViewCellStyle2.Format = "dd MMM yyyy";
+            dataGridViewCellStyle2.NullValue = null;
+            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DateColumn.HeaderText = "תאריך";
+            this.DateColumn.Name = "DateColumn";
+            this.DateColumn.ReadOnly = true;
+            this.DateColumn.Width = 120;
+            // 
+            // DayNightColumn
+            // 
+            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
+            this.DayNightColumn.HeaderText = "יום/לילה";
+            this.DayNightColumn.Name = "DayNightColumn";
+            this.DayNightColumn.ReadOnly = true;
+            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DayNightColumn.Width = 70;
+            // 
+            // IntervalColumn
+            // 
+            this.IntervalColumn.DataPropertyName = "Interval";
+            this.IntervalColumn.HeaderText = "הפלגה";
+            this.IntervalColumn.Name = "IntervalColumn";
+            this.IntervalColumn.ReadOnly = true;
+            this.IntervalColumn.Width = 50;
+            // 
+            // DayOfWeekColumn
+            // 
+            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
+            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
+            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
+            this.DayOfWeekColumn.ReadOnly = true;
+            this.DayOfWeekColumn.Width = 50;
+            // 
+            // NotesColumn
+            // 
+            this.NotesColumn.DataPropertyName = "Notes";
+            this.NotesColumn.HeaderText = "הערות";
+            this.NotesColumn.Name = "NotesColumn";
+            this.NotesColumn.ReadOnly = true;
+            this.NotesColumn.Width = 422;
+            // 
+            // btnDeleteColumn
+            // 
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
+            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.btnDeleteColumn.HeaderText = "מחק";
+            this.btnDeleteColumn.Name = "btnDeleteColumn";
+            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.btnDeleteColumn.Text = "מחק שורה";
+            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
+            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(863, 599);
+            this.ClientSize = new System.Drawing.Size(863, 534);
             this.Controls.Add(this.pbWeb);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.groupBox1);
@@ -1166,12 +1166,6 @@
         private System.Windows.Forms.ToolStripPanel RightToolStripPanel;
         private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
         private System.Windows.Forms.ToolStripContentPanel ContentPanel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DayNightColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IntervalColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DayOfWeekColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NotesColumn;
-        private System.Windows.Forms.DataGridViewLinkColumn btnDeleteColumn;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem קובץToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem שמורToolStripMenuItem;
@@ -1207,6 +1201,12 @@
         private System.Windows.Forms.Label lblTomorrowDay;
         private System.Windows.Forms.Label lblTomorrowNight;
         private System.Windows.Forms.ToolStripMenuItem קבועToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DayNightColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IntervalColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DayOfWeekColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NotesColumn;
+        private System.Windows.Forms.DataGridViewLinkColumn btnDeleteColumn;
 
 
 
