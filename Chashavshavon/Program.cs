@@ -28,7 +28,7 @@ namespace Chashavshavon
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
             if (args.Length > 0)
             {
                 Application.Run(new frmMain(args[0]));
@@ -37,6 +37,18 @@ namespace Chashavshavon
             {
                 Application.Run(new frmMain());
             }
+        }
+
+        static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            System.IO.File.AppendAllText(System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv",
+                "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"" +
+                (e.Exception.InnerException != null ? e.Exception.InnerException.Message : e.Exception.Message) +
+                "\"" + Environment.NewLine);
+            MessageBox.Show("ארעה שגיאה" + "\n\n" + (e.Exception.InnerException != null ? e.Exception.InnerException.Message : e.Exception.Message),
+                            "שגיאה",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
         }
 
         public static bool IsConnectedToInternet()
