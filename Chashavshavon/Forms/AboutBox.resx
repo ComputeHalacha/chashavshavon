@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="chash" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\chash.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="label4.Text" xml:space="preserve">
+    <value>התוכנית הזאת נוצרה לעזור בחשבון החודשי של הבית היהודי ע"פ ההלכה.
+התוכנית ניתנת בחינם.
+אסור לשום אדם או גוף לגבות אפ' פרוטה אחת עבור התוכנה הזאת.
+נא להודיעינו אם נתקלתם בשום הפרה של התנאי הזאת.
+לשאלות, הערות, בירורים או לבקש קוד התוכנית ניתן להתקשר לטל. 08-974-1364. </value>
   </data>
 </root>

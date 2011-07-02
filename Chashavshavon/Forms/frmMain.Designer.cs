@@ -33,15 +33,21 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.dgEntries = new System.Windows.Forms.DataGridView();
+            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
             this.gbCalendar = new System.Windows.Forms.GroupBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -110,18 +116,13 @@
             this.רענןToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.העדפותToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.קבועToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AbouToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pbWeb = new System.Windows.Forms.PictureBox();
             this.lblNextProblem = new System.Windows.Forms.Label();
-            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.pbWeb = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
             this.pnlDayAfter.SuspendLayout();
@@ -223,6 +224,62 @@
             this.dgEntries.Size = new System.Drawing.Size(835, 250);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
+            // 
+            // DateColumn
+            // 
+            this.DateColumn.DataPropertyName = "DateTime";
+            dataGridViewCellStyle2.Format = "dd MMM yyyy";
+            dataGridViewCellStyle2.NullValue = null;
+            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DateColumn.HeaderText = "תאריך";
+            this.DateColumn.Name = "DateColumn";
+            this.DateColumn.ReadOnly = true;
+            this.DateColumn.Width = 120;
+            // 
+            // DayNightColumn
+            // 
+            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
+            this.DayNightColumn.HeaderText = "יום/לילה";
+            this.DayNightColumn.Name = "DayNightColumn";
+            this.DayNightColumn.ReadOnly = true;
+            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DayNightColumn.Width = 70;
+            // 
+            // IntervalColumn
+            // 
+            this.IntervalColumn.DataPropertyName = "Interval";
+            this.IntervalColumn.HeaderText = "הפלגה";
+            this.IntervalColumn.Name = "IntervalColumn";
+            this.IntervalColumn.ReadOnly = true;
+            this.IntervalColumn.Width = 50;
+            // 
+            // DayOfWeekColumn
+            // 
+            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
+            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
+            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
+            this.DayOfWeekColumn.ReadOnly = true;
+            this.DayOfWeekColumn.Width = 50;
+            // 
+            // NotesColumn
+            // 
+            this.NotesColumn.DataPropertyName = "Notes";
+            this.NotesColumn.HeaderText = "הערות";
+            this.NotesColumn.Name = "NotesColumn";
+            this.NotesColumn.ReadOnly = true;
+            this.NotesColumn.Width = 422;
+            // 
+            // btnDeleteColumn
+            // 
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
+            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.btnDeleteColumn.HeaderText = "מחק";
+            this.btnDeleteColumn.Name = "btnDeleteColumn";
+            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.btnDeleteColumn.Text = "מחק שורה";
+            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
+            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
             // 
             // gbCalendar
             // 
@@ -817,7 +874,7 @@
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbDay.Location = new System.Drawing.Point(274, 79);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(48, 18);
+            this.rbDay.Size = new System.Drawing.Size(43, 17);
             this.rbDay.TabIndex = 4;
             this.rbDay.Text = "יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -839,7 +896,7 @@
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbNight.Location = new System.Drawing.Point(269, 63);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(57, 18);
+            this.rbNight.Size = new System.Drawing.Size(48, 17);
             this.rbNight.TabIndex = 3;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "לילה";
@@ -888,7 +945,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.קובץToolStripMenuItem,
             this.העדפותToolStripMenuItem,
-            this.קבועToolStripMenuItem});
+            this.קבועToolStripMenuItem,
+            this.AbouToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(863, 24);
@@ -984,6 +1042,13 @@
             this.קבועToolStripMenuItem.Text = "ק&בוע";
             this.קבועToolStripMenuItem.Click += new System.EventHandler(this.קבועToolStripMenuItem_Click);
             // 
+            // AbouToolStripMenuItem
+            // 
+            this.AbouToolStripMenuItem.Name = "AbouToolStripMenuItem";
+            this.AbouToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.AbouToolStripMenuItem.Text = "&אודות";
+            this.AbouToolStripMenuItem.Click += new System.EventHandler(this.AbouToolStripMenuItem_Click);
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "xml";
@@ -994,18 +1059,6 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // pbWeb
-            // 
-            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
-            this.pbWeb.Location = new System.Drawing.Point(1, 28);
-            this.pbWeb.Name = "pbWeb";
-            this.pbWeb.Size = new System.Drawing.Size(53, 51);
-            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbWeb.TabIndex = 15;
-            this.pbWeb.TabStop = false;
-            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
             // 
             // lblNextProblem
             // 
@@ -1018,61 +1071,17 @@
             this.lblNextProblem.TabIndex = 16;
             this.lblNextProblem.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // DateColumn
+            // pbWeb
             // 
-            this.DateColumn.DataPropertyName = "DateTime";
-            dataGridViewCellStyle2.Format = "dd MMM yyyy";
-            dataGridViewCellStyle2.NullValue = null;
-            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DateColumn.HeaderText = "תאריך";
-            this.DateColumn.Name = "DateColumn";
-            this.DateColumn.ReadOnly = true;
-            this.DateColumn.Width = 120;
-            // 
-            // DayNightColumn
-            // 
-            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
-            this.DayNightColumn.HeaderText = "יום/לילה";
-            this.DayNightColumn.Name = "DayNightColumn";
-            this.DayNightColumn.ReadOnly = true;
-            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DayNightColumn.Width = 70;
-            // 
-            // IntervalColumn
-            // 
-            this.IntervalColumn.DataPropertyName = "Interval";
-            this.IntervalColumn.HeaderText = "הפלגה";
-            this.IntervalColumn.Name = "IntervalColumn";
-            this.IntervalColumn.ReadOnly = true;
-            this.IntervalColumn.Width = 50;
-            // 
-            // DayOfWeekColumn
-            // 
-            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
-            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
-            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
-            this.DayOfWeekColumn.ReadOnly = true;
-            this.DayOfWeekColumn.Width = 50;
-            // 
-            // NotesColumn
-            // 
-            this.NotesColumn.DataPropertyName = "Notes";
-            this.NotesColumn.HeaderText = "הערות";
-            this.NotesColumn.Name = "NotesColumn";
-            this.NotesColumn.ReadOnly = true;
-            this.NotesColumn.Width = 422;
-            // 
-            // btnDeleteColumn
-            // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
-            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.btnDeleteColumn.HeaderText = "מחק";
-            this.btnDeleteColumn.Name = "btnDeleteColumn";
-            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.btnDeleteColumn.Text = "מחק שורה";
-            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
-            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
+            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
+            this.pbWeb.Location = new System.Drawing.Point(1, 28);
+            this.pbWeb.Name = "pbWeb";
+            this.pbWeb.Size = new System.Drawing.Size(53, 51);
+            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbWeb.TabIndex = 15;
+            this.pbWeb.TabStop = false;
+            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
             // 
             // frmMain
             // 
@@ -1207,6 +1216,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DayOfWeekColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn NotesColumn;
         private System.Windows.Forms.DataGridViewLinkColumn btnDeleteColumn;
+        private System.Windows.Forms.ToolStripMenuItem AbouToolStripMenuItem;
 
 
 
