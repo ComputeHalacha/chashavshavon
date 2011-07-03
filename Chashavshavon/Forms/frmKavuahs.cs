@@ -30,8 +30,7 @@ namespace Chashavshavon
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            this.kavuahBindingSource.RemoveCurrent();
-            Properties.Settings.Default.Save();
+            this.kavuahBindingSource.RemoveCurrent();            
         }
 
         private void button3_Click(object sender, EventArgs e)

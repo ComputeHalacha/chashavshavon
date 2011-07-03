@@ -56,5 +56,19 @@ namespace Chashavshavon
             InternetConnectionState_e flags = 0;
             return InternetGetConnectedState(ref flags, 0);
         }
+
+        #region Extention Methods
+        /// <summary>
+        /// Tests to see if an object equals any one of the objects in a list.
+        /// This function works like the SQL keyword "IN" - "SELECT * FROM Orders WHERE OrderId IN (5432, 9886, 8824)".
+        /// </summary>
+        /// <param name="test">Object to be searched for - is supplied by the compiler using the caller object</param>
+        /// <param name="list">List of objects to search in.</param>
+        /// <returns></returns>		
+        public static bool In(this Object o, params object[] list)
+        {
+            return Array.IndexOf(list, o) > -1;
+        }
+        #endregion
     }
 }

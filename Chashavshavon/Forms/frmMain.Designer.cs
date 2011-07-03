@@ -49,6 +49,8 @@
             this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
             this.gbCalendar = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -104,19 +106,22 @@
             this.btnEnter = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.קובץToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.שמורToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.שמירהבשםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.חדשToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.פתחToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.NewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItemRemote = new System.Windows.Forms.ToolStripMenuItem();
+            this.RemoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.מקןרToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.רענןToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.העדפותToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.קבועToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AbouToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.PrintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TextListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.KavuahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -223,7 +228,7 @@
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgEntries.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgEntries.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.Size = new System.Drawing.Size(835, 250);
+            this.dgEntries.Size = new System.Drawing.Size(906, 378);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             // 
@@ -286,6 +291,8 @@
             // gbCalendar
             // 
             this.gbCalendar.BackColor = System.Drawing.Color.White;
+            this.gbCalendar.Controls.Add(this.button2);
+            this.gbCalendar.Controls.Add(this.button1);
             this.gbCalendar.Controls.Add(this.label13);
             this.gbCalendar.Controls.Add(this.label12);
             this.gbCalendar.Controls.Add(this.label11);
@@ -301,17 +308,43 @@
             this.gbCalendar.Controls.Add(this.pnlYesterday);
             this.gbCalendar.Location = new System.Drawing.Point(16, 42);
             this.gbCalendar.Name = "gbCalendar";
-            this.gbCalendar.Size = new System.Drawing.Size(485, 205);
+            this.gbCalendar.Size = new System.Drawing.Size(555, 205);
             this.gbCalendar.TabIndex = 13;
             this.gbCalendar.TabStop = false;
             this.gbCalendar.Text = "לוח";
+            // 
+            // button2
+            // 
+            this.button2.AutoSize = true;
+            this.button2.Image = global::Chashavshavon.Properties.Resources.printer;
+            this.button2.Location = new System.Drawing.Point(10, 105);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(63, 71);
+            this.button2.TabIndex = 20;
+            this.button2.Text = "הדפס";
+            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // button1
+            // 
+            this.button1.AutoSize = true;
+            this.button1.Image = global::Chashavshavon.Properties.Resources.page_previous;
+            this.button1.Location = new System.Drawing.Point(10, 29);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(61, 71);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "רשימה";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnList_Click);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label13.ForeColor = System.Drawing.Color.Maroon;
-            this.label13.Location = new System.Drawing.Point(240, 14);
+            this.label13.Location = new System.Drawing.Point(309, 14);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(46, 12);
             this.label13.TabIndex = 11;
@@ -322,7 +355,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label12.ForeColor = System.Drawing.Color.Maroon;
-            this.label12.Location = new System.Drawing.Point(368, 14);
+            this.label12.Location = new System.Drawing.Point(437, 14);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(37, 12);
             this.label12.TabIndex = 10;
@@ -333,7 +366,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label11.ForeColor = System.Drawing.Color.Maroon;
-            this.label11.Location = new System.Drawing.Point(312, 14);
+            this.label11.Location = new System.Drawing.Point(381, 14);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(22, 12);
             this.label11.TabIndex = 9;
@@ -344,7 +377,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label10.ForeColor = System.Drawing.Color.Maroon;
-            this.label10.Location = new System.Drawing.Point(431, 167);
+            this.label10.Location = new System.Drawing.Point(498, 167);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(51, 12);
             this.label10.TabIndex = 8;
@@ -355,7 +388,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label9.ForeColor = System.Drawing.Color.Maroon;
-            this.label9.Location = new System.Drawing.Point(451, 127);
+            this.label9.Location = new System.Drawing.Point(518, 127);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(27, 12);
             this.label9.TabIndex = 7;
@@ -366,7 +399,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Narkisim", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label8.ForeColor = System.Drawing.Color.Blue;
-            this.label8.Location = new System.Drawing.Point(433, 82);
+            this.label8.Location = new System.Drawing.Point(500, 82);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(48, 20);
             this.label8.TabIndex = 6;
@@ -377,7 +410,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label7.ForeColor = System.Drawing.Color.Maroon;
-            this.label7.Location = new System.Drawing.Point(440, 49);
+            this.label7.Location = new System.Drawing.Point(507, 49);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(40, 12);
             this.label7.TabIndex = 5;
@@ -388,7 +421,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label6.ForeColor = System.Drawing.Color.Maroon;
-            this.label6.Location = new System.Drawing.Point(159, 15);
+            this.label6.Location = new System.Drawing.Point(228, 15);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(28, 12);
             this.label6.TabIndex = 4;
@@ -399,7 +432,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label5.ForeColor = System.Drawing.Color.Maroon;
-            this.label5.Location = new System.Drawing.Point(57, 15);
+            this.label5.Location = new System.Drawing.Point(126, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(22, 12);
             this.label5.TabIndex = 3;
@@ -413,7 +446,7 @@
             this.pnlDayAfter.Controls.Add(this.lblNextDayEntryStuff);
             this.pnlDayAfter.Controls.Add(this.lblNextDayWeekDay);
             this.pnlDayAfter.Controls.Add(this.lblNextdayDate);
-            this.pnlDayAfter.Location = new System.Drawing.Point(12, 150);
+            this.pnlDayAfter.Location = new System.Drawing.Point(81, 150);
             this.pnlDayAfter.Name = "pnlDayAfter";
             this.pnlDayAfter.Size = new System.Drawing.Size(415, 41);
             this.pnlDayAfter.TabIndex = 2;
@@ -490,7 +523,7 @@
             this.pnlTomorrow.Controls.Add(this.lblTomorrowEntryStuff);
             this.pnlTomorrow.Controls.Add(this.lblTomorrowWeekDay);
             this.pnlTomorrow.Controls.Add(this.lblTomorrowDate);
-            this.pnlTomorrow.Location = new System.Drawing.Point(12, 110);
+            this.pnlTomorrow.Location = new System.Drawing.Point(81, 110);
             this.pnlTomorrow.Name = "pnlTomorrow";
             this.pnlTomorrow.Size = new System.Drawing.Size(415, 41);
             this.pnlTomorrow.TabIndex = 1;
@@ -567,7 +600,7 @@
             this.pnlToday.Controls.Add(this.lblTodayEntryStuff);
             this.pnlToday.Controls.Add(this.lblTodayWeekDay);
             this.pnlToday.Controls.Add(this.lblTodayDate);
-            this.pnlToday.Location = new System.Drawing.Point(12, 70);
+            this.pnlToday.Location = new System.Drawing.Point(81, 70);
             this.pnlToday.Name = "pnlToday";
             this.pnlToday.Size = new System.Drawing.Size(415, 41);
             this.pnlToday.TabIndex = 1;
@@ -644,7 +677,7 @@
             this.pnlYesterday.Controls.Add(this.lblYesterdayEntryStuff);
             this.pnlYesterday.Controls.Add(this.lblYesterdayWeekDay);
             this.pnlYesterday.Controls.Add(this.lblYesterdayDate);
-            this.pnlYesterday.Location = new System.Drawing.Point(12, 29);
+            this.pnlYesterday.Location = new System.Drawing.Point(81, 29);
             this.pnlYesterday.Name = "pnlYesterday";
             this.pnlYesterday.Size = new System.Drawing.Size(415, 41);
             this.pnlYesterday.TabIndex = 0;
@@ -728,7 +761,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtNotes);
             this.groupBox1.Controls.Add(this.btnEnter);
-            this.groupBox1.Location = new System.Drawing.Point(515, 42);
+            this.groupBox1.Location = new System.Drawing.Point(586, 42);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(336, 205);
             this.groupBox1.TabIndex = 11;
@@ -945,111 +978,133 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.קובץToolStripMenuItem,
-            this.העדפותToolStripMenuItem,
-            this.קבועToolStripMenuItem,
-            this.AbouToolStripMenuItem});
+            this.FileToolStripMenuItem,
+            this.PreferencesToolStripMenuItem,
+            this.KavuahToolStripMenuItem,
+            this.AboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(863, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(934, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // קובץToolStripMenuItem
+            // FileToolStripMenuItem
             // 
-            this.קובץToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.שמורToolStripMenuItem,
-            this.שמירהבשםToolStripMenuItem,
-            this.חדשToolStripMenuItem,
-            this.פתחToolStripMenuItem,
+            this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SaveToolStripMenuItem,
+            this.SaveAsToolStripMenuItem,
+            this.NewToolStripMenuItem,
+            this.OpenToolStripMenuItem,
             this.toolStripSeparator1,
-            this.toolStripMenuItemRemote,
+            this.RemoteToolStripMenuItem,
             this.toolStripSeparator2,
-            this.מקןרToolStripMenuItem,
-            this.רענןToolStripMenuItem});
-            this.קובץToolStripMenuItem.Name = "קובץToolStripMenuItem";
-            this.קובץToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.קובץToolStripMenuItem.Text = "&קובץ";
+            this.RefreshToolStripMenuItem,
+            this.SourceToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.PrintToolStripMenuItem,
+            this.TextListToolStripMenuItem});
+            this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.FileToolStripMenuItem.Text = "&קובץ";
             // 
-            // שמורToolStripMenuItem
+            // SaveToolStripMenuItem
             // 
-            this.שמורToolStripMenuItem.Name = "שמורToolStripMenuItem";
-            this.שמורToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.שמורToolStripMenuItem.Text = "&שמור";
-            this.שמורToolStripMenuItem.Click += new System.EventHandler(this.שמורToolStripMenuItem_Click);
+            this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.SaveToolStripMenuItem.Text = "&שמור";
+            this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
-            // שמירהבשםToolStripMenuItem
+            // SaveAsToolStripMenuItem
             // 
-            this.שמירהבשםToolStripMenuItem.Name = "שמירהבשםToolStripMenuItem";
-            this.שמירהבשםToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.שמירהבשםToolStripMenuItem.Text = "שמיר&ה בשם";
-            this.שמירהבשםToolStripMenuItem.Click += new System.EventHandler(this.שמירהבשםToolStripMenuItem_Click);
+            this.SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem";
+            this.SaveAsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.SaveAsToolStripMenuItem.Text = "שמיר&ה בשם";
+            this.SaveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
-            // חדשToolStripMenuItem
+            // NewToolStripMenuItem
             // 
-            this.חדשToolStripMenuItem.Name = "חדשToolStripMenuItem";
-            this.חדשToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.חדשToolStripMenuItem.Text = "&חדש";
-            this.חדשToolStripMenuItem.Click += new System.EventHandler(this.חדשToolStripMenuItem_Click);
+            this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.NewToolStripMenuItem.Text = "&חדש";
+            this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
-            // פתחToolStripMenuItem
+            // OpenToolStripMenuItem
             // 
-            this.פתחToolStripMenuItem.Name = "פתחToolStripMenuItem";
-            this.פתחToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.פתחToolStripMenuItem.Text = "&פתח";
-            this.פתחToolStripMenuItem.Click += new System.EventHandler(this.פתחToolStripMenuItem_Click);
+            this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
+            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.OpenToolStripMenuItem.Text = "&פתח";
+            this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
             // 
-            // toolStripMenuItemRemote
+            // RemoteToolStripMenuItem
             // 
-            this.toolStripMenuItemRemote.Name = "toolStripMenuItemRemote";
-            this.toolStripMenuItemRemote.Size = new System.Drawing.Size(141, 22);
-            this.toolStripMenuItemRemote.Text = "&קובצי רשת";
-            this.toolStripMenuItemRemote.Click += new System.EventHandler(this.toolStripMenuItemRemote_Click);
+            this.RemoteToolStripMenuItem.Name = "RemoteToolStripMenuItem";
+            this.RemoteToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.RemoteToolStripMenuItem.Text = "&קובצי רשת";
+            this.RemoteToolStripMenuItem.Click += new System.EventHandler(this.toolStripMenuItemRemote_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(138, 6);
             // 
-            // מקןרToolStripMenuItem
+            // RefreshToolStripMenuItem
             // 
-            this.מקןרToolStripMenuItem.Name = "מקןרToolStripMenuItem";
-            this.מקןרToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.מקןרToolStripMenuItem.Text = "&מקןר";
-            this.מקןרToolStripMenuItem.Click += new System.EventHandler(this.מקןרToolStripMenuItem_Click);
+            this.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem";
+            this.RefreshToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.RefreshToolStripMenuItem.Text = "&רענן";
+            this.RefreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
             // 
-            // רענןToolStripMenuItem
+            // SourceToolStripMenuItem
             // 
-            this.רענןToolStripMenuItem.Name = "רענןToolStripMenuItem";
-            this.רענןToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.רענןToolStripMenuItem.Text = "&רענן";
-            this.רענןToolStripMenuItem.Click += new System.EventHandler(this.רענןToolStripMenuItem_Click);
+            this.SourceToolStripMenuItem.Name = "SourceToolStripMenuItem";
+            this.SourceToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.SourceToolStripMenuItem.Text = "&מקןר";
+            this.SourceToolStripMenuItem.Click += new System.EventHandler(this.SourceToolStripMenuItem_Click);
             // 
-            // העדפותToolStripMenuItem
+            // toolStripSeparator3
             // 
-            this.העדפותToolStripMenuItem.Name = "העדפותToolStripMenuItem";
-            this.העדפותToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.העדפותToolStripMenuItem.Text = "&העדפות";
-            this.העדפותToolStripMenuItem.Click += new System.EventHandler(this.העדפותToolStripMenuItem_Click);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(138, 6);
             // 
-            // קבועToolStripMenuItem
+            // PrintToolStripMenuItem
             // 
-            this.קבועToolStripMenuItem.Name = "קבועToolStripMenuItem";
-            this.קבועToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.קבועToolStripMenuItem.Text = "ק&בוע";
-            this.קבועToolStripMenuItem.Click += new System.EventHandler(this.קבועToolStripMenuItem_Click);
+            this.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem";
+            this.PrintToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.PrintToolStripMenuItem.Text = "הדפס";
+            this.PrintToolStripMenuItem.Click += new System.EventHandler(this.PrintToolStripMenuItem_Click);
             // 
-            // AbouToolStripMenuItem
+            // TextListToolStripMenuItem
             // 
-            this.AbouToolStripMenuItem.Name = "AbouToolStripMenuItem";
-            this.AbouToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.AbouToolStripMenuItem.Text = "&אודות";
-            this.AbouToolStripMenuItem.Click += new System.EventHandler(this.AbouToolStripMenuItem_Click);
+            this.TextListToolStripMenuItem.Name = "TextListToolStripMenuItem";
+            this.TextListToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.TextListToolStripMenuItem.Text = "רשימה";
+            this.TextListToolStripMenuItem.Click += new System.EventHandler(this.TextListToolStripMenuItem_Click);
+            // 
+            // PreferencesToolStripMenuItem
+            // 
+            this.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem";
+            this.PreferencesToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.PreferencesToolStripMenuItem.Text = "&העדפות";
+            this.PreferencesToolStripMenuItem.Click += new System.EventHandler(this.PreferencesToolStripMenuItem_Click);
+            // 
+            // KavuahToolStripMenuItem
+            // 
+            this.KavuahToolStripMenuItem.Name = "KavuahToolStripMenuItem";
+            this.KavuahToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.KavuahToolStripMenuItem.Text = "ק&בוע";
+            this.KavuahToolStripMenuItem.Click += new System.EventHandler(this.KavuahToolStripMenuItem_Click);
+            // 
+            // AboutToolStripMenuItem
+            // 
+            this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.AboutToolStripMenuItem.Text = "&אודות";
+            this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AbouToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -1090,7 +1145,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(863, 534);
+            this.ClientSize = new System.Drawing.Size(934, 662);
             this.Controls.Add(this.pbWeb);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.groupBox1);
@@ -1175,26 +1230,26 @@
         private System.Windows.Forms.ToolStripPanel LeftToolStripPanel;
         private System.Windows.Forms.ToolStripContentPanel ContentPanel;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem קובץToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem שמורToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem העדפותToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem פתחToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem FileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PreferencesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label lblZmanim;
         private System.Windows.Forms.Label lblLocation;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ToolStripMenuItem חדשToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem NewToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem מקןרToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem רענןToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SourceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RefreshToolStripMenuItem;
         private System.Windows.Forms.Label lblWarning;
-        private System.Windows.Forms.ToolStripMenuItem שמירהבשםToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveAsToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemote;
+        private System.Windows.Forms.ToolStripMenuItem RemoteToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.PictureBox pbWeb;
         private System.Windows.Forms.Label lblNextProblem;
@@ -1208,14 +1263,19 @@
         private System.Windows.Forms.Label lblNextDayNight;
         private System.Windows.Forms.Label lblTomorrowDay;
         private System.Windows.Forms.Label lblTomorrowNight;
-        private System.Windows.Forms.ToolStripMenuItem קבועToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem KavuahToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DayNightColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn IntervalColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DayOfWeekColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn NotesColumn;
         private System.Windows.Forms.DataGridViewLinkColumn btnDeleteColumn;
-        private System.Windows.Forms.ToolStripMenuItem AbouToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem PrintToolStripMenuItem;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem TextListToolStripMenuItem;
 
 
 

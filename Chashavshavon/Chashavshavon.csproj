@@ -180,6 +180,8 @@
   <ItemGroup>
     <None Include="Resources\chash.png" />
     <None Include="Resources\delete.png" />
+    <None Include="Resources\printer.png" />
+    <None Include="Resources\page_previous.png" />
     <Content Include="Utility_VBScript.ico" />
     <Content Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html" />
     <Content Include="Locations.xml">
