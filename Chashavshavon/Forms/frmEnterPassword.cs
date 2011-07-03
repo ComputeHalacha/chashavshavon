@@ -18,7 +18,7 @@ namespace Chashavshavon
             this._password = password;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnEnter_Click(object sender, EventArgs e)
         {
             this.DialogResult = Utils.GeneralUtils.Encrypt(this.textBox1.Text, "kedoshimteeheeyoo") == this._password ? DialogResult.Yes : DialogResult.No;
         }

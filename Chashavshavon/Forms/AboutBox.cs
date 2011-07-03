@@ -60,12 +60,13 @@ namespace Chashavshavon
             this.label4.Font = new System.Drawing.Font("Tahoma", 7F);
             this.label4.Location = new System.Drawing.Point(20, 48);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(387, 72);
+            this.label4.Size = new System.Drawing.Size(387, 82);
             this.label4.TabIndex = 5;
             this.label4.Text = resources.GetString("label4.Text");
             // 
             // button1
             // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.Location = new System.Drawing.Point(366, 258);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -107,7 +108,9 @@ namespace Chashavshavon
             // 
             // AboutBox
             // 
+            this.AcceptButton = this.button1;
             this.BackColor = System.Drawing.Color.Tan;
+            this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(453, 293);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);

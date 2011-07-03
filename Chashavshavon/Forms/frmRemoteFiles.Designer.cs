@@ -40,11 +40,11 @@ namespace Chashavshavon
             this.btnOpen = new System.Windows.Forms.Button();
             this.lbFileNames = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnDeleteUser = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnSaveCurrent = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.txtCurrentFileName = new System.Windows.Forms.TextBox();
-            this.btnDeleteUser = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -122,9 +122,9 @@ namespace Chashavshavon
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.BackColor = System.Drawing.Color.White;
             this.groupBox2.Controls.Add(this.btnDelete);
             this.groupBox2.Controls.Add(this.btnOpen);
@@ -189,6 +189,17 @@ namespace Chashavshavon
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "הזדהות";
             // 
+            // btnDeleteUser
+            // 
+            this.btnDeleteUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteUser.Location = new System.Drawing.Point(84, 153);
+            this.btnDeleteUser.Name = "btnDeleteUser";
+            this.btnDeleteUser.Size = new System.Drawing.Size(86, 23);
+            this.btnDeleteUser.TabIndex = 11;
+            this.btnDeleteUser.Text = "מחק";
+            this.btnDeleteUser.UseVisualStyleBackColor = true;
+            this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnSaveCurrent);
@@ -230,17 +241,6 @@ namespace Chashavshavon
             this.txtCurrentFileName.Size = new System.Drawing.Size(171, 19);
             this.txtCurrentFileName.TabIndex = 12;
             // 
-            // btnDeleteUser
-            // 
-            this.btnDeleteUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteUser.Location = new System.Drawing.Point(84, 153);
-            this.btnDeleteUser.Name = "btnDeleteUser";
-            this.btnDeleteUser.Size = new System.Drawing.Size(86, 23);
-            this.btnDeleteUser.TabIndex = 11;
-            this.btnDeleteUser.Text = "מחק";
-            this.btnDeleteUser.UseVisualStyleBackColor = true;
-            this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
-            // 
             // frmRemoteFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -257,7 +257,7 @@ namespace Chashavshavon
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "קובצי רשת";
             this.Load += new System.EventHandler(this.frmRemoteFiles_Load);
             this.groupBox2.ResumeLayout(false);
