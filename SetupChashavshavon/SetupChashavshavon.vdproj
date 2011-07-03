@@ -216,7 +216,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_7E172A37D631474E8EC1488097B379EF"
                     {
-                    "Name" = "8:חשבשבון"
+                    "Name" = "8:Chashavshavon"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -265,20 +265,20 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:חשבשבון - Chashavshavon"
-        "ProductCode" = "8:{5AC496B2-A13B-430B-B8D8-DF2DB46BA007}"
-        "PackageCode" = "8:{560FCC79-938D-4B10-B235-1997C0F4B03A}"
+        "ProductName" = "8:Chashavshavon"
+        "ProductCode" = "8:{F94E54F1-100E-4FD9-8EA5-1C481C029243}"
+        "PackageCode" = "8:{8476AF81-0F34-484C-8E36-53F67A09091F}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.3.7"
+        "ProductVersion" = "8:2.3.8"
         "Manufacturer" = "8:Chaim B. Sommers"
         "ARPHELPTELEPHONE" = "8:08-974-1364"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:חשבשבון - Chashavshavon"
+        "Title" = "8:Chashavshavon"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Chaim B. Sommers"
         "Keywords" = "8:"
@@ -419,7 +419,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_605162003A034B6D91F31C90C8922AEE"
             {
-            "Name" = "8:תוכנית חשבשבון"
+            "Name" = "8:Chashavshavon"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -433,7 +433,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8528430C173244FB8C67D39942AE7FD2"
             {
-            "Name" = "8:תוכנית חשבשבון"
+            "Name" = "8:Chashavshavon"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
