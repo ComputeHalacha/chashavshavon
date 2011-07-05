@@ -19,7 +19,8 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <PublishUrl>http://localhost/Chashavshavon/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
