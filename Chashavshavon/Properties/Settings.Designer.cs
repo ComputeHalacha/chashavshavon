@@ -145,5 +145,17 @@ namespace Chashavshavon.Properties {
                 return ((string)(this["LocalURL"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ChashFilesPath {
+            get {
+                return ((string)(this["ChashFilesPath"]));
+            }
+            set {
+                this["ChashFilesPath"] = value;
+            }
+        }
     }
 }

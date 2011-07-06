@@ -29,12 +29,12 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -49,8 +49,8 @@
             this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
             this.gbCalendar = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnPrintCalendar = new System.Windows.Forms.Button();
+            this.btnViewTextCalendar = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -119,6 +119,9 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.PrintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TextListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemPrintEntryList = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemEntryList = new System.Windows.Forms.ToolStripMenuItem();
             this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.KavuahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,8 +131,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblNextProblem = new System.Windows.Forms.Label();
             this.pbWeb = new System.Windows.Forms.PictureBox();
-            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.printDialog1 = new System.Windows.Forms.PrintDialog();
+            this.btnPrintEntryList = new System.Windows.Forms.Button();
+            this.btnViewTextEntryList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
             this.pnlDayAfter.SuspendLayout();
@@ -189,14 +192,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgEntries.BackgroundColor = System.Drawing.Color.White;
             this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.Wheat;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Wheat;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgEntries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgEntries.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DateColumn,
@@ -205,29 +208,29 @@
             this.DayOfWeekColumn,
             this.NotesColumn,
             this.btnDeleteColumn});
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgEntries.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgEntries.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgEntries.Location = new System.Drawing.Point(16, 272);
             this.dgEntries.Name = "dgEntries";
             this.dgEntries.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dgEntries.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dgEntries.RowHeadersVisible = false;
-            dataGridViewCellStyle24.BackColor = System.Drawing.Color.White;
-            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dgEntries.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgEntries.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.Size = new System.Drawing.Size(906, 378);
@@ -237,9 +240,9 @@
             // DateColumn
             // 
             this.DateColumn.DataPropertyName = "DateTime";
-            dataGridViewCellStyle20.Format = "dd MMM yyyy";
-            dataGridViewCellStyle20.NullValue = null;
-            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle8.Format = "dd MMM yyyy";
+            dataGridViewCellStyle8.NullValue = null;
+            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle8;
             this.DateColumn.HeaderText = "תאריך";
             this.DateColumn.Name = "DateColumn";
             this.DateColumn.ReadOnly = true;
@@ -280,9 +283,9 @@
             // 
             // btnDeleteColumn
             // 
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.Blue;
-            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Blue;
+            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle9;
             this.btnDeleteColumn.HeaderText = "מחק";
             this.btnDeleteColumn.Name = "btnDeleteColumn";
             this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -293,8 +296,8 @@
             // gbCalendar
             // 
             this.gbCalendar.BackColor = System.Drawing.Color.White;
-            this.gbCalendar.Controls.Add(this.button2);
-            this.gbCalendar.Controls.Add(this.button1);
+            this.gbCalendar.Controls.Add(this.btnPrintCalendar);
+            this.gbCalendar.Controls.Add(this.btnViewTextCalendar);
             this.gbCalendar.Controls.Add(this.label13);
             this.gbCalendar.Controls.Add(this.label12);
             this.gbCalendar.Controls.Add(this.label11);
@@ -315,31 +318,31 @@
             this.gbCalendar.TabStop = false;
             this.gbCalendar.Text = "לוח";
             // 
-            // button2
+            // btnPrintCalendar
             // 
-            this.button2.AutoSize = true;
-            this.button2.Image = global::Chashavshavon.Properties.Resources.printer;
-            this.button2.Location = new System.Drawing.Point(10, 105);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(63, 71);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "הדפס";
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.btnPrint_Click);
+            this.btnPrintCalendar.AutoSize = true;
+            this.btnPrintCalendar.Image = global::Chashavshavon.Properties.Resources.printer;
+            this.btnPrintCalendar.Location = new System.Drawing.Point(10, 105);
+            this.btnPrintCalendar.Name = "btnPrintCalendar";
+            this.btnPrintCalendar.Size = new System.Drawing.Size(63, 71);
+            this.btnPrintCalendar.TabIndex = 20;
+            this.btnPrintCalendar.Text = "הדפס";
+            this.btnPrintCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPrintCalendar.UseVisualStyleBackColor = true;
+            this.btnPrintCalendar.Click += new System.EventHandler(this.btnPrintCalendar_Click);
             // 
-            // button1
+            // btnViewTextCalendar
             // 
-            this.button1.AutoSize = true;
-            this.button1.Image = global::Chashavshavon.Properties.Resources.page_previous;
-            this.button1.Location = new System.Drawing.Point(10, 29);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(61, 71);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "רשימה";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.btnList_Click);
+            this.btnViewTextCalendar.AutoSize = true;
+            this.btnViewTextCalendar.Image = global::Chashavshavon.Properties.Resources.page_previous;
+            this.btnViewTextCalendar.Location = new System.Drawing.Point(10, 29);
+            this.btnViewTextCalendar.Name = "btnViewTextCalendar";
+            this.btnViewTextCalendar.Size = new System.Drawing.Size(61, 71);
+            this.btnViewTextCalendar.TabIndex = 19;
+            this.btnViewTextCalendar.Text = "רשימה";
+            this.btnViewTextCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnViewTextCalendar.UseVisualStyleBackColor = true;
+            this.btnViewTextCalendar.Click += new System.EventHandler(this.btnViewTextCalendar_Click);
             // 
             // label13
             // 
@@ -911,7 +914,7 @@
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbDay.Location = new System.Drawing.Point(274, 79);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(43, 17);
+            this.rbDay.Size = new System.Drawing.Size(48, 18);
             this.rbDay.TabIndex = 4;
             this.rbDay.Text = "יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -933,7 +936,7 @@
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbNight.Location = new System.Drawing.Point(269, 63);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(48, 17);
+            this.rbNight.Size = new System.Drawing.Size(57, 18);
             this.rbNight.TabIndex = 3;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "לילה";
@@ -1004,7 +1007,10 @@
             this.SourceToolStripMenuItem,
             this.toolStripSeparator3,
             this.PrintToolStripMenuItem,
-            this.TextListToolStripMenuItem});
+            this.TextListToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.toolStripMenuItemPrintEntryList,
+            this.toolStripMenuItemEntryList});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
             this.FileToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.FileToolStripMenuItem.Text = "&קובץ";
@@ -1012,80 +1018,97 @@
             // SaveToolStripMenuItem
             // 
             this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
-            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.SaveToolStripMenuItem.Text = "&שמור";
             this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // SaveAsToolStripMenuItem
             // 
             this.SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem";
-            this.SaveAsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.SaveAsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.SaveAsToolStripMenuItem.Text = "שמיר&ה בשם";
             this.SaveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // NewToolStripMenuItem
             // 
             this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
-            this.NewToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.NewToolStripMenuItem.Text = "&חדש";
             this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
             // OpenToolStripMenuItem
             // 
             this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
-            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.OpenToolStripMenuItem.Text = "&פתח";
             this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(185, 6);
             // 
             // RemoteToolStripMenuItem
             // 
             this.RemoteToolStripMenuItem.Name = "RemoteToolStripMenuItem";
-            this.RemoteToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.RemoteToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.RemoteToolStripMenuItem.Text = "&קובצי רשת";
             this.RemoteToolStripMenuItem.Click += new System.EventHandler(this.toolStripMenuItemRemote_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(185, 6);
             // 
             // RefreshToolStripMenuItem
             // 
             this.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem";
-            this.RefreshToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.RefreshToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.RefreshToolStripMenuItem.Text = "&רענן";
             this.RefreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
             // 
             // SourceToolStripMenuItem
             // 
             this.SourceToolStripMenuItem.Name = "SourceToolStripMenuItem";
-            this.SourceToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.SourceToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.SourceToolStripMenuItem.Text = "&מקןר";
             this.SourceToolStripMenuItem.Click += new System.EventHandler(this.SourceToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(185, 6);
             // 
             // PrintToolStripMenuItem
             // 
             this.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem";
-            this.PrintToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.PrintToolStripMenuItem.Text = "הדפס";
+            this.PrintToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.PrintToolStripMenuItem.Text = "הדפס לוח שבועי";
             this.PrintToolStripMenuItem.Click += new System.EventHandler(this.PrintToolStripMenuItem_Click);
             // 
             // TextListToolStripMenuItem
             // 
             this.TextListToolStripMenuItem.Name = "TextListToolStripMenuItem";
-            this.TextListToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.TextListToolStripMenuItem.Text = "רשימה";
+            this.TextListToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.TextListToolStripMenuItem.Text = "רשימה - לוח שבועי";
             this.TextListToolStripMenuItem.Click += new System.EventHandler(this.TextListToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(185, 6);
+            // 
+            // toolStripMenuItemPrintEntryList
+            // 
+            this.toolStripMenuItemPrintEntryList.Name = "toolStripMenuItemPrintEntryList";
+            this.toolStripMenuItemPrintEntryList.Size = new System.Drawing.Size(188, 22);
+            this.toolStripMenuItemPrintEntryList.Text = "הדפס רשימת וסתות";
+            // 
+            // toolStripMenuItemEntryList
+            // 
+            this.toolStripMenuItemEntryList.Name = "toolStripMenuItemEntryList";
+            this.toolStripMenuItemEntryList.Size = new System.Drawing.Size(188, 22);
+            this.toolStripMenuItemEntryList.Text = "רשימה - וסתות";
             // 
             // PreferencesToolStripMenuItem
             // 
@@ -1142,14 +1165,31 @@
             this.pbWeb.TabStop = false;
             this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
             // 
-            // printDocument1
+            // btnPrintEntryList
             // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            this.btnPrintEntryList.AutoSize = true;
+            this.btnPrintEntryList.Image = global::Chashavshavon.Properties.Resources.printer;
+            this.btnPrintEntryList.Location = new System.Drawing.Point(852, 359);
+            this.btnPrintEntryList.Name = "btnPrintEntryList";
+            this.btnPrintEntryList.Size = new System.Drawing.Size(63, 71);
+            this.btnPrintEntryList.TabIndex = 22;
+            this.btnPrintEntryList.Text = "הדפס";
+            this.btnPrintEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPrintEntryList.UseVisualStyleBackColor = true;
+            this.btnPrintEntryList.Click += new System.EventHandler(this.btnPrintEntryList_Click);
             // 
-            // printDialog1
+            // btnViewTextEntryList
             // 
-            this.printDialog1.Document = this.printDocument1;
-            this.printDialog1.UseEXDialog = true;
+            this.btnViewTextEntryList.AutoSize = true;
+            this.btnViewTextEntryList.Image = global::Chashavshavon.Properties.Resources.page_previous;
+            this.btnViewTextEntryList.Location = new System.Drawing.Point(852, 283);
+            this.btnViewTextEntryList.Name = "btnViewTextEntryList";
+            this.btnViewTextEntryList.Size = new System.Drawing.Size(61, 71);
+            this.btnViewTextEntryList.TabIndex = 21;
+            this.btnViewTextEntryList.Text = "רשימה";
+            this.btnViewTextEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnViewTextEntryList.UseVisualStyleBackColor = true;
+            this.btnViewTextEntryList.Click += new System.EventHandler(this.btnViewTextEntryList_Click);
             // 
             // frmMain
             // 
@@ -1157,6 +1197,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(934, 662);
+            this.Controls.Add(this.btnPrintEntryList);
+            this.Controls.Add(this.btnViewTextEntryList);
             this.Controls.Add(this.pbWeb);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.groupBox1);
@@ -1284,11 +1326,14 @@
         private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem PrintToolStripMenuItem;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPrintCalendar;
+        private System.Windows.Forms.Button btnViewTextCalendar;
         private System.Windows.Forms.ToolStripMenuItem TextListToolStripMenuItem;
-        private System.Drawing.Printing.PrintDocument printDocument1;
-        private System.Windows.Forms.PrintDialog printDialog1;
+        private System.Windows.Forms.Button btnPrintEntryList;
+        private System.Windows.Forms.Button btnViewTextEntryList;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPrintEntryList;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEntryList;
 
 
 

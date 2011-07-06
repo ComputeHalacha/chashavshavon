@@ -27,7 +27,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_93285080BEEAB3946E3B077C70DEB25A"
+        "MsmKey" = "8:_D81C1DFFEE7ED88373B3AC8241F65972"
         "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -40,7 +40,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_93285080BEEAB3946E3B077C70DEB25A"
+        "OwnerKey" = "8:_D81C1DFFEE7ED88373B3AC8241F65972"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -168,14 +168,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_93285080BEEAB3946E3B077C70DEB25A"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D81C1DFFEE7ED88373B3AC8241F65972"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_93285080BEEAB3946E3B077C70DEB25A"
+                    "_D81C1DFFEE7ED88373B3AC8241F65972"
                     {
                     "Name" = "8:Microsoft.VisualBasic.PowerPacks.Vs.dll"
                     "Attributes" = "3:512"
@@ -872,7 +872,7 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D4CFE6BBEC5140268B0B625AB5AC4ABB"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_AC3E61C5C68B47748B5917282E6D25C1"
             {
             "SourcePath" = "8:"
             "TargetName" = "8:"

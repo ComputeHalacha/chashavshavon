@@ -94,6 +94,12 @@
     <Compile Include="Forms\frmAddKavuah.Designer.cs">
       <DependentUpon>frmAddKavuah.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBrowser.Designer.cs">
+      <DependentUpon>frmBrowser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmEnterPassword.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddKavuah.resx">
       <DependentUpon>frmAddKavuah.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBrowser.resx">
+      <DependentUpon>frmBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEnterPassword.resx">
       <DependentUpon>frmEnterPassword.cs</DependentUpon>

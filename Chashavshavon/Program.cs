@@ -29,6 +29,17 @@ namespace Chashavshavon
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+
+            if(string.IsNullOrEmpty(Properties.Settings.Default.ChashFilesPath))
+            {
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Chashavshavon Files";
+                if (!System.IO.Directory.Exists(path))
+                {
+                    System.IO.Directory.CreateDirectory(path);
+                }
+                Properties.Settings.Default.ChashFilesPath = path;
+                Properties.Settings.Default.Save();
+            }
             if (args.Length > 0)
             {
                 Application.Run(new frmMain(args[0]));
