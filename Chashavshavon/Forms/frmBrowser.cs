@@ -19,6 +19,12 @@ namespace Chashavshavon
             this._isForPrint = print;
         }
 
+        private void frmBrowser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //Just making sure... browsers are resource guzzlers
+            this.webBrowser1.Dispose();
+        }      
+
         private void printToolStripButton_Click(object sender, EventArgs e)
         {
             this.webBrowser1.ShowPrintDialog();
@@ -55,6 +61,6 @@ namespace Chashavshavon
             {
                 this.webBrowser1.DocumentText = value;
             }
-        }        
+        }          
     }
 }
