@@ -186,7 +186,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Utils\RemoteFunctions.cs" />
-    <Compile Include="Utils\SunriseSetTimesCalcs.cs" />
+    <Compile Include="Utils\Zmanim.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\chash.png" />

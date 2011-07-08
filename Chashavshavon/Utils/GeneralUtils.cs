@@ -10,27 +10,6 @@ namespace Chashavshavon.Utils
     public abstract class GeneralUtils
     {
         private GeneralUtils() { }      
-
-        /// <summary>
-        /// Determines if the two given DateTime object refer to the same day.
-        /// NOTE: This function does not take into account the time factor of the given DateTime objects, if they refer to the same date, the function returns true
-        /// </summary>
-        /// <param name="firstDate"></param>
-        /// <param name="secondDate"></param>
-        /// <returns></returns>
-        public static bool IsSameday(DateTime firstDate, DateTime secondDate)
-        {
-            bool isSameDate = false;
-            if( firstDate.Year == secondDate.Year
-                &&
-                firstDate.Month == secondDate.Month
-                &&
-                firstDate.Day == secondDate.Day)
-            {
-                isSameDate = true;
-            }
-            return isSameDate;
-        }
        
         #region String Encryption Functions
         /// <summary>
