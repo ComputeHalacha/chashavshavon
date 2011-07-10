@@ -1,4 +1,4 @@
-namespace Chashavshavon
+ο»Ώnamespace Chashavshavon
 {
     partial class frmRemoteFiles
     {
@@ -54,21 +54,21 @@ namespace Chashavshavon
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(181, 28);
+            this.label1.Location = new System.Drawing.Point(189, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "ων ξωϊξω";
+            this.label1.Text = "Χ©Χ ΧΧ©ΧªΧΧ©";
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(206, 74);
+            this.label2.Location = new System.Drawing.Point(213, 74);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 12);
             this.label2.TabIndex = 2;
-            this.label2.Text = "ριρξδ";
+            this.label2.Text = "Χ΅Χ™Χ΅ΧΧ”";
             // 
             // btnClose
             // 
@@ -77,7 +77,7 @@ namespace Chashavshavon
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 7;
-            this.btnClose.Text = "ρβεψ";
+            this.btnClose.Text = "Χ΅Χ’Χ•Χ¨";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -88,7 +88,7 @@ namespace Chashavshavon
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(86, 23);
             this.btnEnter.TabIndex = 9;
-            this.btnEnter.Text = "λπρ";
+            this.btnEnter.Text = "Χ›Χ Χ΅";
             this.btnEnter.UseVisualStyleBackColor = true;
             this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
             // 
@@ -99,14 +99,14 @@ namespace Chashavshavon
             this.btnNewUser.Name = "btnNewUser";
             this.btnNewUser.Size = new System.Drawing.Size(86, 23);
             this.btnNewUser.TabIndex = 10;
-            this.btnNewUser.Text = "ηγω";
+            this.btnNewUser.Text = "Χ—Χ“Χ©";
             this.btnNewUser.UseVisualStyleBackColor = true;
             this.btnNewUser.Click += new System.EventHandler(this.btnNewUser_Click);
             // 
             // txtUserName
             // 
             this.txtUserName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUserName.Location = new System.Drawing.Point(14, 43);
+            this.txtUserName.Location = new System.Drawing.Point(15, 43);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(225, 19);
             this.txtUserName.TabIndex = 3;
@@ -114,7 +114,7 @@ namespace Chashavshavon
             // txtPassword
             // 
             this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassword.Location = new System.Drawing.Point(14, 89);
+            this.txtPassword.Location = new System.Drawing.Point(15, 89);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(225, 19);
@@ -134,7 +134,7 @@ namespace Chashavshavon
             this.groupBox2.Size = new System.Drawing.Size(351, 354);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "χεαφιν";
+            this.groupBox2.Text = "Χ§Χ‘Χ¦Χ™ Χ¨Χ©Χª Χ§Χ™Χ™ΧΧ™Χ";
             // 
             // btnDelete
             // 
@@ -143,7 +143,7 @@ namespace Chashavshavon
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(86, 23);
             this.btnDelete.TabIndex = 17;
-            this.btnDelete.Text = "ξηχ";
+            this.btnDelete.Text = "ΧΧ—Χ§";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -154,7 +154,7 @@ namespace Chashavshavon
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(86, 23);
             this.btnOpen.TabIndex = 11;
-            this.btnOpen.Text = "τϊη";
+            this.btnOpen.Text = "Χ¤ΧªΧ—";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
@@ -187,7 +187,7 @@ namespace Chashavshavon
             this.groupBox1.Size = new System.Drawing.Size(255, 245);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "δζγδεϊ";
+            this.groupBox1.Text = "Χ”Χ–Χ“Χ”Χ•Χª";
             // 
             // btnDeleteUser
             // 
@@ -196,7 +196,7 @@ namespace Chashavshavon
             this.btnDeleteUser.Name = "btnDeleteUser";
             this.btnDeleteUser.Size = new System.Drawing.Size(86, 23);
             this.btnDeleteUser.TabIndex = 11;
-            this.btnDeleteUser.Text = "ξηχ";
+            this.btnDeleteUser.Text = "ΧΧ—Χ§";
             this.btnDeleteUser.UseVisualStyleBackColor = true;
             this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
             // 
@@ -210,7 +210,7 @@ namespace Chashavshavon
             this.groupBox3.Size = new System.Drawing.Size(254, 83);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "ωξεψ χεαυ δπεληι αψωϊ";
+            this.groupBox3.Text = "Χ©ΧΧ•Χ¨ Χ§Χ•Χ‘Χ¥ Χ”Χ Χ•Χ›Χ—Χ™ Χ‘Χ¨Χ©Χª";
             // 
             // btnSaveCurrent
             // 
@@ -219,7 +219,7 @@ namespace Chashavshavon
             this.btnSaveCurrent.Name = "btnSaveCurrent";
             this.btnSaveCurrent.Size = new System.Drawing.Size(54, 23);
             this.btnSaveCurrent.TabIndex = 18;
-            this.btnSaveCurrent.Text = "ωξεψ";
+            this.btnSaveCurrent.Text = "Χ©ΧΧ•Χ¨";
             this.btnSaveCurrent.UseVisualStyleBackColor = true;
             this.btnSaveCurrent.Click += new System.EventHandler(this.btnSaveCurrent_Click);
             // 
@@ -229,9 +229,9 @@ namespace Chashavshavon
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(190, 25);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 12);
+            this.label3.Size = new System.Drawing.Size(45, 12);
             this.label3.TabIndex = 11;
-            this.label3.Text = "ων δχεαυ";
+            this.label3.Text = "Χ©Χ Χ§Χ•Χ‘Χ¥";
             // 
             // txtCurrentFileName
             // 
@@ -258,7 +258,7 @@ namespace Chashavshavon
             this.RightToLeftLayout = true;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "χεαφι ψωϊ";
+            this.Text = "Χ§Χ•Χ‘Χ¦Χ™ Χ¨Χ©Χª";
             this.Load += new System.EventHandler(this.frmRemoteFiles_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

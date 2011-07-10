@@ -1,4 +1,4 @@
-using System;
+ο»Ώusing System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml;
@@ -23,7 +23,7 @@ namespace Chashavshavon
 
             if (!this._mainForm.TestInternet())
             {
-                MessageBox.Show("ΰιο βιωδ μψωϊ λψβς", "ηωαωαεο", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+                MessageBox.Show("ΧΧ™Χ Χ’Χ™Χ©Χ” ΧΧ¨Χ©Χª Χ›Χ¨Χ’ΧΆ", "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
                 this.Close();
                 return;
             }
@@ -53,8 +53,8 @@ namespace Chashavshavon
                 this.SaveUser();
                 if (this.GetRemoteResponse("NewUser") != null)
                 {
-                    MessageBox.Show("ξωϊξω δηγω παψΰδ αδφμηδ", "ηωαωαεο", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.lbFileNames.Items.Add("ΰιο χαφιν...");
+                    MessageBox.Show("ΧΧ©ΧªΧΧ© Χ”Χ—Χ“Χ© Χ Χ‘Χ¨ΧΧ” Χ‘Χ”Χ¦ΧΧ—Χ”", "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.lbFileNames.Items.Add("ΧΧ™Χ Χ§Χ‘Χ¦Χ™Χ...");
                     this.txtCurrentFileName.Text = this._mainForm.CurrentFileName;
                 }
             }
@@ -65,8 +65,8 @@ namespace Chashavshavon
             this.SaveUser();
             if (_mainForm.CurrentFileIsRemote && _mainForm.CurrentFileName == this.txtCurrentFileName.Text)
             {
-                if (MessageBox.Show(string.Format("χεαυ αων" + "{0}\"{1}\"{0}" + ".λαψ χιιν αψωιξϊ χεαφιν ωμλν{0}?δΰν μδημιτε αχεαυ δπεληι", Environment.NewLine, this.txtCurrentFileName.Text),
-                                    "ηωαωαεο",
+                if (MessageBox.Show(string.Format("Χ§Χ•Χ‘Χ¥ Χ‘Χ©Χ" + "{0}\"{1}\"{0}" + ".Χ›Χ‘Χ¨ Χ§Χ™Χ™Χ Χ‘Χ¨Χ©Χ™ΧΧª Χ§Χ•Χ‘Χ¦Χ™Χ Χ©ΧΧ›Χ{0}?Χ”ΧΧ ΧΧ”Χ—ΧΧ™Χ¤Χ• Χ‘Χ§Χ•Χ‘Χ¥ Χ”Χ Χ•Χ›Χ—Χ™", Environment.NewLine, this.txtCurrentFileName.Text),
+                                    "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ",
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Question,
                                     MessageBoxDefaultButton.Button2,
@@ -84,8 +84,8 @@ namespace Chashavshavon
             }
             this._mainForm.CurrentFileIsRemote = true;
             this._mainForm.CurrentFile = this.txtCurrentFileName.Text;
-            MessageBox.Show(":δχεαυ πωξψδ αψωϊ αων" + Environment.NewLine + this.txtCurrentFileName.Text,
-                            "ηωαωαεο",
+            MessageBox.Show(":Χ”Χ§Χ•Χ‘Χ¥ Χ Χ©ΧΧ¨Χ” Χ‘Χ¨Χ©Χª Χ‘Χ©Χ" + Environment.NewLine + this.txtCurrentFileName.Text,
+                            "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information,
                             MessageBoxDefaultButton.Button1,
@@ -105,8 +105,8 @@ namespace Chashavshavon
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            if ((!ValidateUserFields()) || MessageBox.Show("?δΰν ΰϊν αθεηιν ωΰϊν ψεφιν μξηεχ ξωϊξω δζΰϊ ξδξςψλϊ ςν λμ δχαφιν δωξεψιν αψωιξδ",
-                                    "ηωαωαεο",
+            if ((!ValidateUserFields()) || MessageBox.Show("?Χ”ΧΧ ΧΧªΧ Χ‘ΧΧ•Χ—Χ™Χ Χ©ΧΧªΧ Χ¨Χ•Χ¦Χ™Χ ΧΧΧ—Χ•Χ§ ΧΧ©ΧªΧΧ© Χ”Χ–ΧΧª ΧΧ”ΧΧΆΧ¨Χ›Χª ΧΆΧ Χ›Χ Χ”Χ§Χ‘Χ¦Χ™Χ Χ”Χ©ΧΧ•Χ¨Χ™Χ Χ‘Χ¨Χ©Χ™ΧΧ”",
+                                    "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ",
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Question,
                                     MessageBoxDefaultButton.Button2,
@@ -117,7 +117,7 @@ namespace Chashavshavon
 
             if (this.GetRemoteResponse("DeleteUser") != null)
             {
-                MessageBox.Show("δξωϊξω πξηχδ αδφμηδ", "ηωαωαεο", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Χ”ΧΧ©ΧªΧΧ© Χ ΧΧ—Χ§Χ” Χ‘Χ”Χ¦ΧΧ—Χ”", "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.lbFileNames.Items.Clear();
                 this.txtUserName.Text = "";
                 this.txtPassword.Text = "";
@@ -136,8 +136,8 @@ namespace Chashavshavon
             this.SaveUser();
             if (this.lbFileNames.SelectedItem != null)
             {
-                if (MessageBox.Show(" δΰν ΰϊν αθεηιν ωΰϊν ψεφιν μξηεχ ΰϊ δχεαυ αων" + Environment.NewLine + this.lbFileNames.SelectedItem.ToString(),
-                                    "ηωαωαεο",
+                if (MessageBox.Show(" Χ”ΧΧ ΧΧªΧ Χ‘ΧΧ•Χ—Χ™Χ Χ©ΧΧªΧ Χ¨Χ•Χ¦Χ™Χ ΧΧΧ—Χ•Χ§ ΧΧª Χ”Χ§Χ•Χ‘Χ¥ Χ‘Χ©Χ" + Environment.NewLine + this.lbFileNames.SelectedItem.ToString(),
+                                    "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ",
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Question,
                                     MessageBoxDefaultButton.Button2,
@@ -147,8 +147,8 @@ namespace Chashavshavon
                                       Utils.RemoteFunctions.NewParam("fileName",
                                       this.lbFileNames.SelectedItem.ToString())) != null)
                 {
-                    MessageBox.Show("δχεαυ " + this.lbFileNames.SelectedItem + " πξηχδ",
-                                    "ηωαωαεο",
+                    MessageBox.Show("Χ”Χ§Χ•Χ‘Χ¥ " + this.lbFileNames.SelectedItem + " Χ ΧΧ—Χ§Χ”",
+                                    "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ",
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Information,
                                     MessageBoxDefaultButton.Button1,
@@ -163,8 +163,8 @@ namespace Chashavshavon
             }
             else
             {
-                MessageBox.Show("ΰπΰ αηψε χεαυ ξδψωιξδ μτπι μηιφϊ δλτϊεψ",
-                               "ηωαωαεο",
+                MessageBox.Show("ΧΧ Χ Χ‘Χ—Χ¨Χ• Χ§Χ•Χ‘Χ¥ ΧΧ”Χ¨Χ©Χ™ΧΧ” ΧΧ¤Χ Χ™ ΧΧ—Χ™Χ¦Χª Χ”Χ›Χ¤ΧªΧ•Χ¨",
+                               "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ",
                                MessageBoxButtons.OK,
                                MessageBoxIcon.Exclamation,
                                MessageBoxDefaultButton.Button1,
@@ -196,8 +196,8 @@ namespace Chashavshavon
             }
             else
             {
-                MessageBox.Show("ΰπΰ αηψε χεαυ ξδψωιξδ μτπι μηιφϊ δλτϊεψ",
-                                "ηωαωαεο",
+                MessageBox.Show("ΧΧ Χ Χ‘Χ—Χ¨Χ• Χ§Χ•Χ‘Χ¥ ΧΧ”Χ¨Χ©Χ™ΧΧ” ΧΧ¤Χ Χ™ ΧΧ—Χ™Χ¦Χª Χ”Χ›Χ¤ΧªΧ•Χ¨",
+                                "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Exclamation,
                                 MessageBoxDefaultButton.Button1,
@@ -222,7 +222,7 @@ namespace Chashavshavon
                 }
                 else
                 {
-                    this.lbFileNames.Items.Add("ΰιο χαφιν...");
+                    this.lbFileNames.Items.Add("ΧΧ™Χ Χ§Χ‘Χ¦Χ™Χ...");
                 }
             }
         }
@@ -232,16 +232,16 @@ namespace Chashavshavon
             List<string> messages = new List<string>();
             if (this.txtUserName.Text.Length < 3)
             {
-                messages.Add(string.Format("{0}             ων ξωϊξω ωδεχω ΰιππδ ηεχι  * {0}          ΰεψκ δων ξωϊξω ηιια μδιεϊ μτηεϊ ωπι ϊεειν", Environment.NewLine));
+                messages.Add(string.Format("{0}             Χ©Χ ΧΧ©ΧªΧΧ© Χ©Χ”Χ•Χ§Χ© ΧΧ™Χ Χ Χ” Χ—Χ•Χ§Χ™  * {0}          ΧΧ•Χ¨Χ Χ”Χ©Χ ΧΧ©ΧªΧΧ© Χ—Χ™Χ™Χ‘ ΧΧ”Χ™Χ•Χª ΧΧ¤Χ—Χ•Χª Χ©Χ Χ™ ΧªΧ•Χ•Χ™Χ", Environment.NewLine));
             }
             if (txtPassword.Text.Length < 4)
             {
-                messages.Add(string.Format("{0}             ριρξδ ωδεχω ΰιππδ ηεχι  * {0}          ΰεψκ δριρξδ ηιια μδιεϊ μτηεϊ ΰψας ϊεειν", Environment.NewLine));
+                messages.Add(string.Format("{0}             Χ΅Χ™Χ΅ΧΧ” Χ©Χ”Χ•Χ§Χ© ΧΧ™Χ Χ Χ” Χ—Χ•Χ§Χ™  * {0}          ΧΧ•Χ¨Χ Χ”Χ΅Χ™Χ΅ΧΧ” Χ—Χ™Χ™Χ‘ ΧΧ”Χ™Χ•Χª ΧΧ¤Χ—Χ•Χª ΧΧ¨Χ‘ΧΆ ΧªΧ•Χ•Χ™Χ", Environment.NewLine));
             }
             if (messages.Count > 0)
             {
-                MessageBox.Show("ΰπΰ ϊιχπε δαςιεϊ δαΰεϊ" + Environment.NewLine + string.Join(Environment.NewLine, messages.ToArray()),
-                                "ηωαωαεο",
+                MessageBox.Show("ΧΧ Χ ΧªΧ™Χ§Χ Χ• Χ”Χ‘ΧΆΧ™Χ•Χª Χ”Χ‘ΧΧ•Χª" + Environment.NewLine + string.Join(Environment.NewLine, messages.ToArray()),
+                                "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information,
                                 MessageBoxDefaultButton.Button1,
@@ -263,7 +263,7 @@ namespace Chashavshavon
                 XmlNode errorNode = doc.SelectSingleNode("//error");
                 if (errorNode != null)
                 {
-                    MessageBox.Show(errorNode.InnerText, "ηωαωαεο", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+                    MessageBox.Show(errorNode.InnerText, "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
                     return null;
                 }
                 else
@@ -274,7 +274,7 @@ namespace Chashavshavon
             catch (Exception e)
             {
 
-                MessageBox.Show(e.Message, "ηωαωαεο", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+                MessageBox.Show(e.Message, "Χ—Χ©Χ‘Χ©Χ‘Χ•Χ", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
                 return null;
             }
         }
