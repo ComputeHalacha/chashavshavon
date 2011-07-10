@@ -1,0 +1,101 @@
+<html>
+<head>
+    <title>Chashavshavon - Admin Login</title>
+
+    <script type="text/javascript" language="JavaScript">
+        function logIn() {
+            if (hasValidFields()) {
+                document.forms[0].submit();
+            }
+        }
+
+        function hasValidFields() {
+            var txt = '';
+            if (document.forms[0].userName.value.length < 2) {
+                txt += '<br />* User name must contain at least 2 characters.';
+            }
+            if (document.forms[0].password.value.length < 4) {
+                txt += '<br />* Password must contain at least 4 characters.';
+            }
+
+            message(txt);
+            return txt.length == 0;
+        }
+
+        function message(txt) {
+            document.getElementById('divMessage').innerHTML = (txt ? '<strong>NOTE:</strong> ' + txt : '');
+            document.getElementById('divMessage').style.borderWidth = txt ? '1px' : '0';
+        }
+    </script>
+
+    <style type="text/css">
+        body, input
+        {
+            font-family: arial;
+            font-size: 8pt;
+        }
+        .textbox
+        {
+            border: solid 1px silver;
+            width: 220px;
+        }
+        .Heading
+        {
+            color: Maroon;
+            font-weight: bold;
+            font-size: 14pt;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            padding-top: 0;
+            margin-top: 0;
+        }
+        .Message
+        {
+            color: #FF0000;
+            font-size: 7pt;
+            border: solid 0 #FF0000;
+            padding: 5px;
+            margin: 5px;
+        }        
+    </style>
+    <link rel="icon" type="image/png" href="/static/chash.png" />
+    <link rel="shortcut icon" href="/static/chash.ico" />
+</head>
+<body style="margin: 0; padding: 10px;" onload="javascript:if(location.search.indexOf('BLI=1') > -1){message('Please log in to an administrator account.');}">
+    <img src="http://code.google.com/appengine/images/appengine-silver-120x30.gif" style="float:right;margin:3px;" alt="Powered by Google App Engine" />
+    <form method="post" action="/admin">
+        <img src="/static/chash.png" style="float: left;" alt="Chashavshavon" />
+        <div class="Heading">
+            Chashavshavon - Admin Login
+        </div>
+            <div style="padding: 10px;margin:10px;width:500px;">
+            <strong>IMPORTANT SECURITY NOTE:</strong><br /> <em>Please use caution with the  "Stay logged in..." option.
+            <br />
+            Only check this box if you are the only one who has access to this computer.</em>
+            <div style="padding: 10px;margin-top:5px;background-color:#f1f1f1; border: solid 1px silver;">
+                User Name:
+                <br />
+                <input type="text" name="userName" class="textbox" title="Must contain at least 2 characters"
+                    onblur="javascript:if(this.value.length < 2)message('<br />* User name must contain at least 2 characters');"
+                    onkeypress="javascript:message();" />
+                <br /><br />
+                Password:
+                <br />
+                <input type="password" name="password" class="textbox" title="Must contain at least 4 characters"
+                    onblur="javascript:if(this.value.length < 2)message('<br />* Password must contain at least 4 characters');"
+                    onkeypress="javascript:message();" />
+                <br /><br />
+                <input type="checkbox" name="setCookie" />
+                Stay logged in on this computer
+                <br />
+                <br />
+                <button onclick="javascript:logIn();return false;">
+                    Log In
+                </button>
+            <div id="divMessage" class="Message">
+            </div>
+        </div>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<html>
+<head>
+    <title>Chashavshavon - User Console</title>
+
+    <script type="text/javascript" language="JavaScript">
+        function runQuery(functionName) {
+            document.getElementById('divAllFilesLink').style.display = 'none';
+            if (hasValidFields()) {
+                document.forms[0].action = '/' + functionName;
+                document.forms[0].submit();
+            }
+            else {
+                frames['iframeResults'].location = 'about:blank';
+            }
+        }
+
+        function hasValidFields() {
+            var txt = '';
+            if (document.forms[0].userName.value.length < 2) {
+                txt += '<br />* User name must contain at least 2 characters.';
+            }
+            if (document.forms[0].password.value.length < 4) {
+                txt += '<br />* Password must contain at least 4 characters.';
+            }
+
+            message(txt);
+            return txt.length == 0;
+        }
+
+        function message(txt) {
+            document.getElementById('divMessage').innerHTML = (txt ? '<strong>NOTE:</strong>' + txt : '');
+            document.getElementById('divMessage').style.borderWidth = txt ? '1px' : '0';
+        }
+
+        function showAllFilesLink() {
+            var loc = frames['iframeResults'].location.href;
+            if (loc.indexOf('/GetFileAsHTML') > 0 || loc.indexOf('/GetFileText') > 0 || loc.indexOf('/DeleteFile') > 0) {
+                document.getElementById('divAllFilesLink').style.display = '';
+            }
+            else {
+                document.getElementById('divAllFilesLink').style.display = 'none';
+            }
+        }
+    </script>
+
+    <style type="text/css">
+        body, td, input
+        {
+            font-family: arial;
+            font-size: 8pt;
+        }
+        input
+        {
+            border: solid 1px silver;
+            width: 220px;
+        }
+        .Heading
+        {
+            color: Maroon;
+            font-weight: bold;
+            font-size: 14pt;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            padding-top: 0;
+            margin-top: 0;
+        }
+        .Message
+        {
+            color: #FF0000;
+            font-size: 7pt;
+            border: solid 0 #FF0000;
+            padding: 5px;
+            margin: 5px;
+        }
+        .Link
+        {
+            color: Blue;
+            cursor: pointer;
+        }
+        .Link:hover
+        {
+            text-decoration: underline;
+        }
+    </style>
+    <link rel="icon" type="image/png" href="/static/chash.png" />
+    <link rel="shortcut icon" href="/static/chash.ico" />
+</head>
+<body style="margin: 0; padding: 0px;">
+    <img src="http://code.google.com/appengine/images/appengine-silver-120x30.gif" style="float:right;margin:3px;" alt="Powered by Google App Engine" />
+    <form method="post" target="iframeResults">
+    <div style="background-color: #f1f1f1; padding: 5px;">
+        <img src="/static/chash.png" style="float: left;" alt="Chashavshavon" />
+        <div class="Heading">
+            Chashavshavon
+        </div>
+        <div style="width: 700px;">
+            Fill in your User Name and Password, then click on "View Files":
+            <div style="width: 700px; padding: 10px; border: solid 1px silver;">
+                User Name:
+                <input type="text" name="userName" title="Must contain at least 2 characters" onblur="javascript:if(this.value.length < 2)message('<br />* User name must contain at least 2 characters');"
+                    onkeypress="javascript:message();" />
+                Password:
+                <input type="password" name="password" title="Must contain at least 4 characters"
+                    onblur="javascript:if(this.value.length < 2)message('<br />* Password must contain at least 4 characters');"
+                    onkeypress="javascript:message();" />
+                &nbsp;
+                <button onclick="javascript:runQuery('GetFileListLinks');return false;">
+                    View Files</button>
+            </div>
+            <div id="divMessage" class="Message">
+            </div>
+        </div>
+    </div>
+    <div style="margin: 5px;width:700px;">
+        <div id="divAllFilesLink" style="float: right; display: none;" class="Link" onclick="javascript:runQuery('GetFileListLinks');return false;">
+            View All Files...</div>
+        <iframe name="iframeResults" id="iframeResults" width="700" height="1000" scrolling="auto"
+            frameborder="0" onload="javascript:showAllFilesLink();"></iframe>
+    </div>
+    </form>
+</body>
+</html>
