@@ -1136,7 +1136,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "xml";
-            this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "קבצי חשבשבון |*.pm|כל סוגי קובץ|*.*";
             this.openFileDialog1.InitialDirectory = global::Chashavshavon.Properties.Settings.Default.ChashFilesPath;
             // 
