@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Chashavshavon.Utils;
 
 namespace Chashavshavon
 {
@@ -16,7 +17,7 @@ namespace Chashavshavon
         {
             get
             {
-                return (ProblemOnahType == Chashavshavon.ProblemOnahType.Haflagah ? " הפלגה, כל " + this.Number.ToString() + " ימים " : " יום החדש, כל " + Onah.DaysOfMonthHebrew[this.Number] + " בחדש ") +
+                return (ProblemOnahType == Chashavshavon.ProblemOnahType.Haflagah ? " הפלגה, כל " + this.Number.ToString() + " ימים " : " יום החדש, כל " + Zmanim.DaysOfMonthHebrew[this.Number] + " בחדש ") +
                     " - עונת " + (this.DayNight == DayNight.Day ? " יום " : " לילה ") +
                     "  " + this.Notes;
             }

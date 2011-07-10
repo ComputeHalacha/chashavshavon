@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using Chashavshavon.Utils;
 using System.Windows.Forms;
 
 namespace Chashavshavon
@@ -39,7 +40,7 @@ namespace Chashavshavon
         {
             this.cmbNumber.DataSource = null;
             this.cmbNumber.Items.Clear();
-            string[] a = Onah.DaysOfMonthHebrew;
+            string[] a = Zmanim.DaysOfMonthHebrew;
             for (int i = 1; i < a.Length; i++)
             {
                 this.cmbNumber.Items.Add(a[i]);

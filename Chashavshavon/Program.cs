@@ -80,6 +80,29 @@ namespace Chashavshavon
         {
             return Array.IndexOf(list, o) > -1;
         }
+
+        /// <summary>
+        /// Determines if the two given DateTime object refer to the same day.
+        /// NOTE: This function was created for the situation where the time factor 
+        /// of the given DateTime objects is not a factor in determinig if they are the same;
+        /// if they refer to the same date, the function returns true.
+        /// </summary>
+        /// <param name="firstDate"></param>
+        /// <param name="secondDate"></param>
+        /// <returns></returns>
+        public static bool IsSameday(this DateTime firstDate, DateTime secondDate)
+        {
+            bool isSameDate = false;
+            if (firstDate.Year == secondDate.Year
+                &&
+                firstDate.Month == secondDate.Month
+                &&
+                firstDate.Day == secondDate.Day)
+            {
+                isSameDate = true;
+            }
+            return isSameDate;
+        }
         #endregion
     }
 }
