@@ -157,5 +157,17 @@ namespace Chashavshavon.Properties {
                 this["ChashFilesPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool OpenLastFile {
+            get {
+                return ((bool)(this["OpenLastFile"]));
+            }
+            set {
+                this["OpenLastFile"] = value;
+            }
+        }
     }
 }

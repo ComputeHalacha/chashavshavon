@@ -5,6 +5,7 @@ using System.Xml;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Chashavshavon
 {
@@ -23,7 +24,12 @@ namespace Chashavshavon
 
             if (!this._mainForm.TestInternet())
             {
-                MessageBox.Show("אין גישה לרשת כרגע", "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+                MessageBox.Show("אין גישה לרשת כרגע", 
+                    "חשבשבון", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Exclamation, 
+                    MessageBoxDefaultButton.Button1, 
+                    MessageBoxOptions.RightAlign);
                 this.Close();
                 return;
             }
@@ -51,7 +57,7 @@ namespace Chashavshavon
             if (ValidateUserFields())
             {
                 this.SaveUser();
-                if (this.GetRemoteResponse("NewUser") != null)
+                if (Utils.RemoteFunctions.GetRemoteResponse("NewUser") != null)
                 {
                     MessageBox.Show("משתמש החדש נבראה בהצלחה", "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.lbFileNames.Items.Add("אין קבצים...");
@@ -115,7 +121,7 @@ namespace Chashavshavon
                 return;
             }
 
-            if (this.GetRemoteResponse("DeleteUser") != null)
+            if (Utils.RemoteFunctions.GetRemoteResponse("DeleteUser") != null)
             {
                 MessageBox.Show("המשתמש נמחקה בהצלחה", "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.lbFileNames.Items.Clear();
@@ -143,7 +149,7 @@ namespace Chashavshavon
                                     MessageBoxDefaultButton.Button2,
                                     MessageBoxOptions.RightAlign) == DialogResult.Yes
                     &&
-                    this.GetRemoteResponse("DeleteFile",
+                    Utils.RemoteFunctions.GetRemoteResponse("DeleteFile",
                                       Utils.RemoteFunctions.NewParam("fileName",
                                       this.lbFileNames.SelectedItem.ToString())) != null)
                 {
@@ -207,7 +213,7 @@ namespace Chashavshavon
 
         private void LogIn()
         {
-            XmlDocument doc = this.GetRemoteResponse("GetFileList");
+            XmlDocument doc = Utils.RemoteFunctions.GetRemoteResponse("GetFileList");
             if (doc != null)
             {
                 this.SaveUser();
@@ -252,45 +258,25 @@ namespace Chashavshavon
             {
                 return true;
             }
-        }
-
-        private XmlDocument GetRemoteResponse(string function, params KeyValuePair<string, string>[] fields)
-        {
-            XmlDocument doc = new XmlDocument();
-            try
-            {
-                doc = Utils.RemoteFunctions.ExecuteRemoteCall(function, fields);
-                XmlNode errorNode = doc.SelectSingleNode("//error");
-                if (errorNode != null)
-                {
-                    MessageBox.Show(errorNode.InnerText, "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
-                    return null;
-                }
-                else
-                {
-                    return doc;
-                }
-            }
-            catch (Exception e)
-            {
-
-                MessageBox.Show(e.Message, "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
-                return null;
-            }
-        }
+        }        
 
         private bool AddCurrentFile(string fileName, string xml)
         {
-            return this.GetRemoteResponse("AddFile",
+            return Utils.RemoteFunctions.GetRemoteResponse("AddFile",
                                     Utils.RemoteFunctions.NewParam("fileName", fileName),
                                     Utils.RemoteFunctions.NewParam("fileText", xml)) != null;
         }
 
         private bool SaveCurrentFile(string fileName, string xml)
         {
-            return this.GetRemoteResponse("SetFileText",
+            return Utils.RemoteFunctions.GetRemoteResponse("SetFileText",
                                     Utils.RemoteFunctions.NewParam("fileName", fileName),
                                     Utils.RemoteFunctions.NewParam("fileText", xml)) != null;
+        }
+
+        private void llSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(Properties.Settings.Default.UseLocalURL ? Properties.Settings.Default.LocalURL : Properties.Settings.Default.URL);
         }
     }
 }

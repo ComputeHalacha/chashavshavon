@@ -1,20 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Net;
 using System.IO;
+using System.Net;
+using System.Text;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace Chashavshavon.Utils
 {
     static class RemoteFunctions
     {
+        [System.Runtime.InteropServices.DllImport("wininet.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+        private extern static bool InternetGetConnectedState(ref InternetConnectionState_e lpdwFlags, int dwReserved);
+
+        [Flags]
+        enum InternetConnectionState_e : int
+        {
+            INTERNET_CONNECTION_MODEM = 0x1,
+            INTERNET_CONNECTION_LAN = 0x2,
+            INTERNET_CONNECTION_PROXY = 0x4,
+            INTERNET_RAS_INSTALLED = 0x10,
+            INTERNET_CONNECTION_OFFLINE = 0x20,
+            INTERNET_CONNECTION_CONFIGURED = 0x40
+        }
+
+        public static bool IsConnectedToInternet()
+        {
+            InternetConnectionState_e flags = 0;
+            return InternetGetConnectedState(ref flags, 0);
+        }
+
         public static KeyValuePair<string, string> NewParam(string name, string value)
         {
             return new KeyValuePair<string, string>(name, value);
         }
 
-        public static XmlDocument ExecuteRemoteCall(string function, params KeyValuePair<string, string>[] fields)
+        public static bool SaveCurrentFile(string fileName, string xml)
+        {
+            return ExecuteRemoteCall("SetFileText", NewParam("fileName", fileName), NewParam("fileText", xml)) != null;
+        }
+
+        public static string GetCurrentFileText(string fileName)
+        {
+            return ExecuteRemoteCall("GetFileText", NewParam("fileName", fileName)).OuterXml;
+        }
+
+        public static XmlDocument GetRemoteResponse(string function, params KeyValuePair<string, string>[] fields)
+        {
+            XmlDocument doc = new XmlDocument();
+            try
+            {
+                doc = ExecuteRemoteCall(function, fields);
+                XmlNode errorNode = doc.SelectSingleNode("//error");
+                if (errorNode != null)
+                {
+                    MessageBox.Show(errorNode.InnerText,
+                        "חשבשבון",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.RightAlign);
+                    return null;
+                }
+                else
+                {
+                    return doc;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("לא ניתן כעת להתחבר לשרת חשבשבון." + Environment.NewLine + e.Message,
+                    "חשבשבון",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.RightAlign);
+                return null;
+            }
+        }
+
+        private static XmlDocument ExecuteRemoteCall(string function, params KeyValuePair<string, string>[] fields)
         {
             XmlDocument doc = new XmlDocument();
             WebRequest request = WebRequest.Create(
@@ -75,18 +140,7 @@ namespace Chashavshavon.Utils
                         break;
                 }
             }
-
             return doc;
-        }
-
-        public static bool SaveCurrentFile(string fileName, string xml)
-        {
-            return ExecuteRemoteCall("SetFileText", NewParam("fileName", fileName), NewParam("fileText", xml)) != null;
-        }
-
-        public static string GetCurrentFileText(string fileName)
-        {
-            return ExecuteRemoteCall("GetFileText", NewParam("fileName", fileName)).OuterXml;
-        }
+        }        
     }
 }

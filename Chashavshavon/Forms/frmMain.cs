@@ -46,20 +46,20 @@ namespace Chashavshavon
 
             this._ci = new CultureInfo("he-IL", false);
             this._hc = new HebrewCalendar();
-            
+
             //Fill the loaction list from the xml file
             LocationsXmlDoc.Load(Application.StartupPath + "\\Locations.xml");
 
             //The following sets all output displays of date time functions to jewish dates for the current thread
             this._ci.DateTimeFormat.Calendar = this._hc;
             System.Threading.Thread.CurrentThread.CurrentCulture = this._ci;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = this._ci;            
-            
+            System.Threading.Thread.CurrentThread.CurrentUICulture = this._ci;
+
             Zmanim.SetSummerTime();
             this.SetLocation();
             this.SetDateAndDayNight();
             this.FillZmanData();
-            
+
             //The timer is for the clock
             this.timer1.Start();
 
@@ -108,7 +108,7 @@ namespace Chashavshavon
             this._loading = true;
             //Checks to see if the user is connected to the internet, and activates remote functionality if they are.
             this.TestInternet();
-            //Load the last opened file. If it does not exist or this is the first run, a blank list is presented
+            //Load the last opened file. If it does not exist or this is the first run, a blank list is presented            
             this.LoadXmlFile();
             this._loading = false;
         }
@@ -116,6 +116,10 @@ namespace Chashavshavon
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.SaveCurrentFile();
+            if (!Properties.Settings.Default.OpenLastFile)
+            {
+                Properties.Settings.Default.CurrentFile = null;
+            }
             Properties.Settings.Default.Save();
         }
 
@@ -198,31 +202,13 @@ namespace Chashavshavon
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
-            openFileDialog1.CheckFileExists = false;
-            openFileDialog1.DefaultExt = "pm";
-            openFileDialog1.FileName = this._today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pm";
-            if (openFileDialog1.ShowDialog(this) != DialogResult.OK)
-            {
-                return;
-            }
-            CurrentFile = openFileDialog1.FileName;
-            CurrentFileIsRemote = false;
-
-            SaveCurrentFile();
+        {
+            this.SaveAs();
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(this.CurrentFile))
-            {
-                this.SaveCurrentFile();
-            }
-            openFileDialog1.CheckFileExists = false;
-            openFileDialog1.DefaultExt = "pm";
-            openFileDialog1.FileName = this._today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pm";
-            openFileDialog1.FileOk += new CancelEventHandler(openFileDialog1_FileOk);
-            openFileDialog1.ShowDialog();
+            CreateNewFile();
         }
 
         private void AbouToolStripMenuItem_Click(object sender, EventArgs e)
@@ -323,7 +309,7 @@ namespace Chashavshavon
         {
             this.ShowEntryTextList();
         }
-       
+
         private void pbWeb_Click(object sender, EventArgs e)
         {
             frmRemoteFiles f = new frmRemoteFiles();
@@ -491,13 +477,46 @@ namespace Chashavshavon
             return s;
         }
 
+        private void SaveAs()
+        {
+            openFileDialog1.CheckFileExists = false;
+            openFileDialog1.DefaultExt = "pm";
+            openFileDialog1.FileName = this._today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pm";
+            if (openFileDialog1.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+            CurrentFile = openFileDialog1.FileName;
+            CurrentFileIsRemote = false;
+
+            SaveCurrentFile();
+            return;
+        }
+
+        private void CreateNewFile()
+        {
+            if (!string.IsNullOrEmpty(this.CurrentFile))
+            {
+                this.SaveCurrentFile();
+            }
+            openFileDialog1.CheckFileExists = false;
+            openFileDialog1.DefaultExt = "pm";
+            openFileDialog1.FileName = this._today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pm";
+            openFileDialog1.FileOk += new CancelEventHandler(openFileDialog1_FileOk);
+            openFileDialog1.ShowDialog();
+        }
+
         private void CalculateCalendar()
         {
             this.ClearCalendar();
-            
+            if (Entries.Count == 0)
+            {
+                return;
+            }
+
             DateTime yesterday = this._today.AddDays(-1);
             DateTime tomorrow = this._today.AddDays(1);
-            DateTime dayAfterTomorrow = this._today.AddDays(2);           
+            DateTime dayAfterTomorrow = this._today.AddDays(2);
 
             var days = new DateTime[4];
             days[0] = yesterday;
@@ -530,11 +549,11 @@ namespace Chashavshavon
             {
                 //For cheshboning out kavuas we need just the last 3 entries
                 //First, add this entry
-                lastThree.Enqueue(entry); 
-                if (lastThree.Count > 3) 
+                lastThree.Enqueue(entry);
+                if (lastThree.Count > 3)
                 {
                     //pop out the earliest one - leaves us with this entry and the previous 2.
-                    lastThree.Dequeue(); 
+                    lastThree.Dequeue();
                 }
                 //You can't make a kavuah until you have 3 entries in the list to compare
                 if (lastThree.Count == 3)
@@ -573,7 +592,7 @@ namespace Chashavshavon
                     intervalHaflagah = entry.AddDays(entry.Interval - 1);
                     intervalHaflagah.Name = "יום הפלגה";
                     problemOnas.Add(intervalHaflagah);
-                    
+
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         intervalHaflagahOhrZarua = Onah.GetPreviousOnah(intervalHaflagah);
@@ -692,7 +711,7 @@ namespace Chashavshavon
                 {
                     onahsToAdd.Where(o => Onah.IsSameOnah(o, onah)).First().Name += " וגם " + onah.Name;
                 }
-                else 
+                else
                 {
                     onahsToAdd.Add(onah);
                 }
@@ -712,11 +731,11 @@ namespace Chashavshavon
             {
                 sb.AppendFormat("<tr class='{0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
                     (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnah(this._nowOnah, onah) ? " red" : ""),
-                    this.GetDayOfWeekText(onah.DateTime), 
+                    this.GetDayOfWeekText(onah.DateTime),
                     Zmanim.DaysOfMonthHebrew[onah.Day],
                     onah.Month.MonthName,
                     onah.HebrewDayNight,
-                    onah.Name);                
+                    onah.Name);
             }
             sb.AppendFormat("</table><br /><hr /><strong>{0}</strong><hr />", this.lblNextProblem.Text);
             sb.Append("</body></html>");
@@ -728,7 +747,7 @@ namespace Chashavshavon
             if (last3Array[0].DayNight.In(last3Array[1].DayNight, last3Array[2].DayNight))
             {
                 //Cheshbon out Kavuah of same haflagah
-                if ((last3Array[0].Interval == last3Array[1].Interval) && 
+                if ((last3Array[0].Interval == last3Array[1].Interval) &&
                     (last3Array[1].Interval == last3Array[2].Interval))
                 {
                     //If the "NoKavuah" list for the 3rd entry does not include this "find", 
@@ -736,7 +755,7 @@ namespace Chashavshavon
                     //then we give the user the option to add a new kavuah or to ignore it.
                     if (!last3Array[2].NoKavuahList.Exists(k =>
                                 (k.ProblemOnahType == ProblemOnahType.Haflagah) &&
-                                (k.Number == last3Array[0].Interval)) 
+                                (k.Number == last3Array[0].Interval))
                             && !Kavuah.KavuahsList.Exists(k =>
                                 (k.ProblemOnahType == ProblemOnahType.Haflagah) &&
                                 (k.Number == last3Array[0].Interval)))
@@ -757,7 +776,7 @@ namespace Chashavshavon
                             MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
                         {
                             Kavuah.KavuahsList.Add(kv);
-                        }           
+                        }
                         else
                         {
                             last3Array[2].Notes += " לא לרשום קבוע של הפלגת " + kv.Number.ToString() + " יום.";
@@ -775,7 +794,7 @@ namespace Chashavshavon
                     //then we give the user the option to add a new kavuah or to ignore it.                    
                     if (!last3Array[2].NoKavuahList.Exists(k =>
                             (k.ProblemOnahType == ProblemOnahType.DayOfMonth) &&
-                            (k.Number == last3Array[0].Day)) 
+                            (k.Number == last3Array[0].Day))
                         && !Kavuah.KavuahsList.Exists(k =>
                             (k.ProblemOnahType == ProblemOnahType.DayOfMonth) &&
                             (k.Number == last3Array[0].Day)))
@@ -784,7 +803,7 @@ namespace Chashavshavon
                         {
                             DayNight = last3Array[0].DayNight,
                             ProblemOnahType = ProblemOnahType.DayOfMonth,
-                            Number = last3Array[0].Day 
+                            Number = last3Array[0].Day
                         };
                         if (MessageBox.Show("התוכנית זיהה מצב שבו יתכן ויש לקבוע ווסת קבוע של יום  - " +
                             last3Array[0].Day.ToString() +
@@ -799,7 +818,7 @@ namespace Chashavshavon
                         }
                         else
                         {
-                            last3Array[2].Notes += " לא לרשום קבוע של כל " + Zmanim.DaysOfMonthHebrew[kav.Number] + " בחודש.";                            
+                            last3Array[2].Notes += " לא לרשום קבוע של כל " + Zmanim.DaysOfMonthHebrew[kav.Number] + " בחודש.";
                             last3Array[2].NoKavuahList.Add(kav);
                         }
                     }
@@ -874,6 +893,23 @@ namespace Chashavshavon
         /// </summary>
         private void SaveCurrentFile()
         {
+            while (string.IsNullOrEmpty(this.CurrentFile))
+            {
+                if (MessageBox.Show("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש",
+                        "חשבשבון",
+                        MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    this.SaveAs();
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             XmlTextWriter xtw;
             Stream stream = null;
 
@@ -957,10 +993,10 @@ namespace Chashavshavon
         {
             this.ShowCalendarTextList(true);
         }
-        
+
         private void PrintEntryList()
         {
-            this.ShowEntryTextList(true);            
+            this.ShowEntryTextList(true);
         }
 
         private string GetEntryListText()
@@ -968,19 +1004,19 @@ namespace Chashavshavon
             var sb = new StringBuilder("<html><head><meta content='text/html;charset=UTF-8;' />" +
                 "<title>רשימת וסתות</title>" +
                 "<style>body,table,td{text-align:right;direction:rtl;font-family:narkisim;}" +
-                "table{border:solid 1px silver;width:100%;}" + 
+                "table{border:solid 1px silver;width:100%;}" +
                 "td{padding:3px;margin:1px;}tr.alt td{background-color:#f1f1f1;}</style></head>");
             sb.AppendFormat("<body><h3>רשימת וסתות - {0}</h3><table>", this._today.ToLongDateString());
             sb.Append("<tr><th>מספר</th><th>תאריך</th><th>יום/לילה</th><th>הפלגה</th><th>הערות</th></tr>");
             int count = 0;
             foreach (Entry e in Entries)
-            {                
+            {
                 sb.AppendFormat("<tr{0}><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
-                    (count++ % 2 == 0 ? " class='alt'": ""),
+                    (count++ % 2 == 0 ? " class='alt'" : ""),
                     count,
                     e.DateTime.ToLongDateString(),
                     e.HebrewDayNight,
-                    e.Interval,                    
+                    e.Interval,
                     (string.IsNullOrEmpty(e.Notes) ? "&nbsp;" : e.Notes));
             }
             sb.Append("</table></body></html>");
@@ -1019,7 +1055,7 @@ namespace Chashavshavon
                 todayString += " - " + holiday;
             }
             this.lblToday.Text = todayString;
-        }       
+        }
 
         private string GetToolTipForDate(DateTime dateTime)
         {
@@ -1125,7 +1161,7 @@ namespace Chashavshavon
             string password = regKey.GetValue("Straight").ToString() == "1" ? null : regKey.GetValue("Entry").ToString();
             regKey.Close();
             return password;
-        }        
+        }
 
         #endregion
 
@@ -1137,17 +1173,17 @@ namespace Chashavshavon
         /// <returns></returns>
         public bool TestInternet()
         {
-            bool hasInternet = Properties.Settings.Default.UseLocalURL || Program.IsConnectedToInternet();
+            bool hasInternet = Properties.Settings.Default.UseLocalURL || Utils.RemoteFunctions.IsConnectedToInternet();
             toolStripSeparator1.Visible = hasInternet;
             RemoteToolStripMenuItem.Visible = hasInternet;
             if (CurrentFileIsRemote && !hasInternet)
             {
-                MessageBox.Show("הקובץ שאמור ליפתח" + Environment.NewLine + "\"" + 
-                    CurrentFile + "\"" + Environment.NewLine + "הוא קובץ רשת, אבל אין גישה לרשת כרגע" + Environment.NewLine + ".לכן תפתח קובץ ריק", 
-                    "חשבשבון", 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Exclamation, 
-                    MessageBoxDefaultButton.Button1, 
+                MessageBox.Show("הקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
+                    CurrentFile + "\"" + Environment.NewLine + "הוא קובץ רשת, אבל אין גישה לרשת כרגע" + Environment.NewLine + ".לכן תפתח קובץ ריק",
+                    "חשבשבון",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button1,
                     MessageBoxOptions.RightAlign);
                 CurrentFileIsRemote = false;
                 CurrentFile = this._today.ToString("ddMMMyyyy_hhmm").Replace("\"", "").Replace("'", "") + ".pm";
@@ -1166,10 +1202,10 @@ namespace Chashavshavon
                 {
                     xml.LoadXml(this.CurrentFileXML);
                 }
-                catch(XmlException)
+                catch (XmlException)
                 {
-                    MessageBox.Show("הקובץ שאמור ליפתח" + Environment.NewLine + "\"" + 
-                        CurrentFile + "\"" + Environment.NewLine + 
+                    MessageBox.Show("הקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
+                        CurrentFile + "\"" + Environment.NewLine +
                         " איננה קובץ חשבשבון תקינה. תפתח רשימה ריקה.",
                         "חשבשבון",
                         MessageBoxButtons.OK,
@@ -1190,7 +1226,7 @@ namespace Chashavshavon
                     string notes = entryNode.SelectSingleNode("Notes").InnerText; ;
 
                     Entry newEntry = new Entry(day, month, year, dayNight, notes);
-                    
+
                     // If during the addition of a new Entry the program finds 
                     // a set of 3 entries that might have been considered a Kavuah;
                     // such as if there are 3 of the same haflagas in a row,
@@ -1200,7 +1236,7 @@ namespace Chashavshavon
                     foreach (XmlNode k in entryNode.SelectNodes("NoKavuah"))
                     {
                         Kavuah ka = new Kavuah();
-                        ka.ProblemOnahType = (ProblemOnahType)Enum.Parse(typeof(ProblemOnahType),k.Attributes["ProblemType"].InnerText);
+                        ka.ProblemOnahType = (ProblemOnahType)Enum.Parse(typeof(ProblemOnahType), k.Attributes["ProblemType"].InnerText);
                         ka.Number = Convert.ToInt32(k.Attributes["Number"].InnerText);
                         newEntry.NoKavuahList.Add(ka);
                     }
@@ -1214,10 +1250,12 @@ namespace Chashavshavon
                     Kavuah.KavuahsList = (List<Kavuah>)ser.Deserialize(
                         new StringReader(xml.SelectSingleNode("//ArrayOfKavuah").OuterXml));
                 }
-                else
-                {
-                    Kavuah.KavuahsList = new List<Kavuah>();
-                }
+
+            }
+
+            if (Kavuah.KavuahsList == null)
+            {
+                Kavuah.KavuahsList = new List<Kavuah>();
             }
 
             this.SetCaptionText();
@@ -1304,6 +1342,6 @@ namespace Chashavshavon
             }
 
         }
-        #endregion        
+        #endregion
     }
 }
