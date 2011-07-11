@@ -178,6 +178,34 @@ namespace Chashavshavon
             }
         }
 
+        private void llSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(Properties.Settings.Default.UseLocalURL ? Properties.Settings.Default.LocalURL : Properties.Settings.Default.URL);
+        }
+
+        private void btnPreview_Click(object sender, EventArgs e)
+        {
+            this.SaveUser();
+            if (this.lbFileNames.SelectedItem != null)
+            {
+                String html = Utils.RemoteFunctions.GetRemoteResponseText("GetFileAsHTML",
+                                    Utils.RemoteFunctions.NewParam("fileName", lbFileNames.SelectedItem.ToString()));
+                frmBrowser fb = new frmBrowser();
+                fb.Text = "הצגת קובץ רשת - " + lbFileNames.SelectedItem.ToString();
+                fb.Html = html;
+                fb.ShowDialog(this);                
+            }
+            else
+            {
+                MessageBox.Show("אנא בחרו קובץ מהרשימה לפני לחיצת הכפתור",
+                                "חשבשבון",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation,
+                                MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.RightAlign);
+            }
+        }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -272,11 +300,6 @@ namespace Chashavshavon
             return Utils.RemoteFunctions.GetRemoteResponse("SetFileText",
                                     Utils.RemoteFunctions.NewParam("fileName", fileName),
                                     Utils.RemoteFunctions.NewParam("fileText", xml)) != null;
-        }
-
-        private void llSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(Properties.Settings.Default.UseLocalURL ? Properties.Settings.Default.LocalURL : Properties.Settings.Default.URL);
-        }
+        }      
     }
 }

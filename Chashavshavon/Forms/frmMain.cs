@@ -119,6 +119,7 @@ namespace Chashavshavon
             if (!Properties.Settings.Default.OpenLastFile)
             {
                 Properties.Settings.Default.CurrentFile = null;
+                Properties.Settings.Default.IsCurrentFileRemote = false;
             }
             Properties.Settings.Default.Save();
         }
@@ -889,13 +890,19 @@ namespace Chashavshavon
         }
 
         /// <summary>
-        /// Saves all changes back to the source file
+        /// Saves all changes back to the source file. 
         /// </summary>
+        /// <remarks>
+        /// This function is run whenever a change is made to the list and when closing the app.
+        /// </remarks>
         private void SaveCurrentFile()
         {
+            //If no file was originally loaded, CurrentFile will be null. 
+            //In this case, if there are entries in the list
+            //we prompt the user to create a file to save to.
             while (string.IsNullOrEmpty(this.CurrentFile))
-            {
-                if (MessageBox.Show("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש",
+            {                
+                if (Entries.Count > 0 && MessageBox.Show("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש",
                         "חשבשבון",
                         MessageBoxButtons.YesNoCancel,
                         MessageBoxIcon.Exclamation,
@@ -1173,8 +1180,7 @@ namespace Chashavshavon
         /// <returns></returns>
         public bool TestInternet()
         {
-            bool hasInternet = Properties.Settings.Default.UseLocalURL || Utils.RemoteFunctions.IsConnectedToInternet();
-            toolStripSeparator1.Visible = hasInternet;
+            bool hasInternet = Properties.Settings.Default.UseLocalURL || Utils.RemoteFunctions.IsConnectedToInternet();            
             RemoteToolStripMenuItem.Visible = hasInternet;
             if (CurrentFileIsRemote && !hasInternet)
             {

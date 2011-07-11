@@ -45,10 +45,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 28);
+            this.webBrowser1.Location = new System.Drawing.Point(12, 28);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(976, 493);
+            this.webBrowser1.ScriptErrorsSuppressed = true;
+            this.webBrowser1.Size = new System.Drawing.Size(952, 488);
             this.webBrowser1.TabIndex = 0;
             this.webBrowser1.WebBrowserShortcutsEnabled = false;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
@@ -64,6 +65,7 @@
             this.printToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStrip1.Size = new System.Drawing.Size(976, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
@@ -100,6 +102,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(976, 521);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.webBrowser1);
@@ -119,11 +122,11 @@
 
         #endregion
 
-        public System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
         private System.Windows.Forms.ToolStripButton printToolStripButton;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.WebBrowser webBrowser1;
 
     }
 }

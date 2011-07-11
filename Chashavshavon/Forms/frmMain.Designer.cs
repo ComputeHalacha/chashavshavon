@@ -1,33 +1,33 @@
 ﻿namespace Chashavshavon
 {
-	partial class frmMain
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class frmMain
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if(disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -111,8 +111,6 @@
             this.SaveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.RemoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.RefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -124,6 +122,7 @@
             this.toolStripMenuItemEntryList = new System.Windows.Forms.ToolStripMenuItem();
             this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.KavuahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RemoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -986,6 +985,7 @@
             this.FileToolStripMenuItem,
             this.PreferencesToolStripMenuItem,
             this.KavuahToolStripMenuItem,
+            this.RemoteToolStripMenuItem,
             this.AboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -1000,8 +1000,6 @@
             this.SaveAsToolStripMenuItem,
             this.NewToolStripMenuItem,
             this.OpenToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.RemoteToolStripMenuItem,
             this.toolStripSeparator2,
             this.RefreshToolStripMenuItem,
             this.SourceToolStripMenuItem,
@@ -1042,18 +1040,6 @@
             this.OpenToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.OpenToolStripMenuItem.Text = "&פתח";
             this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(185, 6);
-            // 
-            // RemoteToolStripMenuItem
-            // 
-            this.RemoteToolStripMenuItem.Name = "RemoteToolStripMenuItem";
-            this.RemoteToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.RemoteToolStripMenuItem.Text = "&קובצי רשת";
-            this.RemoteToolStripMenuItem.Click += new System.EventHandler(this.toolStripMenuItemRemote_Click);
             // 
             // toolStripSeparator2
             // 
@@ -1125,6 +1111,13 @@
             this.KavuahToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.KavuahToolStripMenuItem.Text = "ק&בוע";
             this.KavuahToolStripMenuItem.Click += new System.EventHandler(this.KavuahToolStripMenuItem_Click);
+            // 
+            // RemoteToolStripMenuItem
+            // 
+            this.RemoteToolStripMenuItem.Name = "RemoteToolStripMenuItem";
+            this.RemoteToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.RemoteToolStripMenuItem.Text = "&מקוון";
+            this.RemoteToolStripMenuItem.Click += new System.EventHandler(this.toolStripMenuItemRemote_Click);
             // 
             // AboutToolStripMenuItem
             // 
@@ -1239,9 +1232,9 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
         private System.Windows.Forms.DataGridView dgEntries;
         private System.Windows.Forms.GroupBox gbCalendar;
@@ -1299,8 +1292,7 @@
         private System.Windows.Forms.Label lblZmanim;
         private System.Windows.Forms.Label lblLocation;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ToolStripMenuItem NewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem NewToolStripMenuItem;        
         private System.Windows.Forms.ToolStripMenuItem SourceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem RefreshToolStripMenuItem;
         private System.Windows.Forms.Label lblWarning;

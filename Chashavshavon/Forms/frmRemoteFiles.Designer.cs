@@ -50,6 +50,7 @@
             this.pbWeb = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.llSite = new System.Windows.Forms.LinkLabel();
+            this.btnPreview = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -130,6 +131,7 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.White;
+            this.groupBox2.Controls.Add(this.btnPreview);
             this.groupBox2.Controls.Add(this.btnDelete);
             this.groupBox2.Controls.Add(this.btnOpen);
             this.groupBox2.Controls.Add(this.lbFileNames);
@@ -143,7 +145,7 @@
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(86, 314);
+            this.btnDelete.Location = new System.Drawing.Point(40, 312);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(86, 23);
             this.btnDelete.TabIndex = 2;
@@ -154,7 +156,7 @@
             // btnOpen
             // 
             this.btnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpen.Location = new System.Drawing.Point(178, 314);
+            this.btnOpen.Location = new System.Drawing.Point(132, 312);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(86, 23);
             this.btnOpen.TabIndex = 1;
@@ -291,6 +293,17 @@
             this.llSite.Text = "פתח אתר חשבשבון";
             this.llSite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llSite_LinkClicked);
             // 
+            // btnPreview
+            // 
+            this.btnPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPreview.Location = new System.Drawing.Point(224, 311);
+            this.btnPreview.Name = "btnPreview";
+            this.btnPreview.Size = new System.Drawing.Size(86, 23);
+            this.btnPreview.TabIndex = 3;
+            this.btnPreview.Text = "הצג";
+            this.btnPreview.UseVisualStyleBackColor = true;
+            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
+            // 
             // frmRemoteFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -346,5 +359,6 @@
         private System.Windows.Forms.PictureBox pbWeb;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel llSite;
+        private System.Windows.Forms.Button btnPreview;
     }
 }

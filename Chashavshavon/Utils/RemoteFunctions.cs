@@ -79,11 +79,11 @@ namespace Chashavshavon.Utils
             }
         }
 
-        private static XmlDocument ExecuteRemoteCall(string function, params KeyValuePair<string, string>[] fields)
+        public static string GetRemoteResponseText(string function, params KeyValuePair<string, string>[] fields)
         {
-            XmlDocument doc = new XmlDocument();
+            string responseText = null;
             WebRequest request = WebRequest.Create(
-                                (Properties.Settings.Default.UseLocalURL ? Properties.Settings.Default.LocalURL : Properties.Settings.Default.URL) + 
+                                (Properties.Settings.Default.UseLocalURL ? Properties.Settings.Default.LocalURL : Properties.Settings.Default.URL) +
                                 "/" + function);
             request.Method = "POST";
 
@@ -107,11 +107,18 @@ namespace Chashavshavon.Utils
             {
                 dataStream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(dataStream);
-                doc.LoadXml(reader.ReadToEnd());
+                responseText=reader.ReadToEnd();
                 reader.Close();
                 dataStream.Close();
             }
-            response.Close();
+            response.Close();            
+            return responseText;
+        }        
+
+        private static XmlDocument ExecuteRemoteCall(string function, params KeyValuePair<string, string>[] fields)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(GetRemoteResponseText(function, fields));
             XmlNode errorNode = doc.SelectSingleNode("//error");
             if (errorNode != null)
             {
@@ -141,6 +148,6 @@ namespace Chashavshavon.Utils
                 }
             }
             return doc;
-        }        
+        }       
     }
 }

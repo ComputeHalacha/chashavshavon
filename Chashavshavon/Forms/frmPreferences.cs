@@ -27,7 +27,11 @@ namespace Chashavshavon
             this.cbLocations.Text = Properties.Settings.Default.UserLocation;
             this._regKey = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Chashavshavon", true);
             this.cbRequirePassword.Checked = (this._regKey.GetValue("Straight").ToString() == "0");
-            this.txtPassword.Text = Utils.GeneralUtils.Decrypt(this._regKey.GetValue("Entry").ToString(), "kedoshimteeheeyoo");
+            string pw = Convert.ToString(this._regKey.GetValue("Entry"));
+            if(!string.IsNullOrEmpty(pw))
+            {
+                this.txtPassword.Text = Utils.GeneralUtils.Decrypt(pw, "kedoshimteeheeyoo");
+            }
         }
 
         private void FillLocations()
