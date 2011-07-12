@@ -562,9 +562,12 @@ namespace Chashavshavon
                     this.CheshbonKavuahs(lastThree.ToArray<Entry>());
                 }
 
-                //The 30th day after any entry is usually assur as an onah beinonus (unless there is a set Kavuah)
+                bool hasCancelByKavuah = Kavuah.KavuahsList.Exists(k => k.Active && k.CancelsOnahBeinanis);
+
+                //The 30th day after any entry is usually assur as an onah beinanus (unless there is a set Kavuah)
                 thirty = entry.AddDays(29);
                 thirty.Name = "יום שלושים";
+                thirty.IsIgnored = hasCancelByKavuah;
                 problemOnas.Add(thirty);
 
                 //If the user wants to see the Ohr Zarua  - the previous onah
@@ -572,18 +575,21 @@ namespace Chashavshavon
                 {
                     thirtyOhrZarua = Onah.GetPreviousOnah(thirty);
                     thirtyOhrZarua.Name = "או\"ז - יום שלושים";
+                    thirtyOhrZarua.IsIgnored = hasCancelByKavuah;
                     problemOnas.Add(thirtyOhrZarua);
                 }
 
                 //31 is also an onah beinonus 
                 thirtyOne = entry.AddDays(30);
                 thirtyOne.Name = "יום ל\"א";
+                thirtyOne.IsIgnored = hasCancelByKavuah;
                 problemOnas.Add(thirtyOne);
 
                 if (Properties.Settings.Default.ShowOhrZeruah)
                 {
                     thirtyOneOhrZarua = Onah.GetPreviousOnah(thirtyOne);
                     thirtyOneOhrZarua.Name = "או\"ז - יום ל\"א";
+                    thirtyOneOhrZarua.IsIgnored = hasCancelByKavuah;
                     problemOnas.Add(thirtyOneOhrZarua);
                 }
 
@@ -592,12 +598,14 @@ namespace Chashavshavon
                 {
                     intervalHaflagah = entry.AddDays(entry.Interval - 1);
                     intervalHaflagah.Name = "יום הפלגה";
+                    intervalHaflagah.IsIgnored = hasCancelByKavuah;
                     problemOnas.Add(intervalHaflagah);
 
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         intervalHaflagahOhrZarua = Onah.GetPreviousOnah(intervalHaflagah);
                         intervalHaflagahOhrZarua.Name = "או\"ז - יום הפלגה";
+                        intervalHaflagahOhrZarua.IsIgnored = hasCancelByKavuah;
                         problemOnas.Add(intervalHaflagahOhrZarua);
                     }
                 }
@@ -637,6 +645,7 @@ namespace Chashavshavon
                     }
                 }
             }
+            //TODO: Cheshbon Dilug haflagas
 
             foreach (Onah onah in onahs)
             {
@@ -675,13 +684,13 @@ namespace Chashavshavon
             if (problemOnas.Count > 0)
             {
                 problemOnas.Sort(Onah.CompareOnahs);
-                if (problemOnas.Exists(o => Onah.IsSameOnah(o, this._nowOnah)))
+                if (problemOnas.Exists(o => (!o.IsIgnored) && Onah.IsSameOnah(o, this._nowOnah)))
                 {
                     nextProblemText += "עכשיו הוא " + problemOnas.First(o => Onah.IsSameOnah(o, this._nowOnah)).Name;
                 }
-                if (problemOnas.Exists(o => Onah.CompareOnahs(o, this._nowOnah) == 1))
+                if (problemOnas.Exists(o => (!o.IsIgnored) && Onah.CompareOnahs(o, this._nowOnah) == 1))
                 {
-                    Onah nextProb = problemOnas.First(o => Onah.CompareOnahs(o, this._nowOnah) == 1);
+                    Onah nextProb = problemOnas.First(o => (!o.IsIgnored) && Onah.CompareOnahs(o, this._nowOnah) == 1);
                     if (nextProblemText.Length > 0)
                     {
                         nextProblemText += " - ";
@@ -705,10 +714,11 @@ namespace Chashavshavon
         {
             // First we combine double onahs - such as if one onah is also day 30 and also a haflagah.
             // We will only display it once, but with both descriptions.
+            // If one of them is to be ignored though, it will get it's own row.
             var onahsToAdd = new List<Onah>();
             foreach (Onah onah in problemOnas.Where(on => on.DateTime >= this._today || this._today.IsSameday(on.DateTime)))
             {
-                if (onahsToAdd.Exists(o => Onah.IsSameOnah(o, onah)))
+                if (onahsToAdd.Exists(o => Onah.IsSameOnah(o, onah) && o.IsIgnored == onah.IsIgnored))
                 {
                     onahsToAdd.Where(o => Onah.IsSameOnah(o, onah)).First().Name += " וגם " + onah.Name;
                 }
@@ -722,16 +732,20 @@ namespace Chashavshavon
                 "<title>לוח חשבשבון ");
             sb.Append(this._today.ToLongDateString());
             sb.Append("</title><style>body,table,td{text-align:right;direction:rtl;font-family:narkisim;}" +
-                "table{border:solid 1px silver;width:100%;}" +
-                "td{padding:3px;margin:1px;}tr.alt td{background-color:#f1f1f1;}tr.red td{color:#ff0000;}</style></head>");
-            sb.AppendFormat("<body><h3>לוח חשבשבון - עונות הבאות - {0}</h3><table>", this._today.ToLongDateString());
-            sb.Append("<tr><th>יום</th><th>תאריך</th><th>יום/לילה</th><th>סיבה</th></tr>");
+                "table{border:solid 1px silver;width:100%;}div.right{float:right;color:#056C05;font-weight:bold;width:200px;text-align:right;}" +
+                "td{padding:3px;margin:1px;}tr.alt td{background-color:#f1f1f1;}tr.red td{color:#ff0000;}tr.ignored td{color:#056C05;}</style></head>");
+            sb.AppendFormat("<body><h3>לוח חשבשבון - עונות הבאות - {0}</h3>", this._today.ToLongDateString());
+            if (onahsToAdd.Exists(o => o.IsIgnored))
+            {
+                sb.Append("<div class='right'>רשומות בכתום לא פעילים עקב וסת קבוע</div>");
+            }
+            sb.Append("<table><tr><th>יום</th><th>תאריך</th><th>יום/לילה</th><th>סיבה</th></tr>");
 
             int count = 0;
             foreach (Onah onah in onahsToAdd)
             {
                 sb.AppendFormat("<tr class='{0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
-                    (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnah(this._nowOnah, onah) ? " red" : ""),
+                    (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnah(this._nowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
                     this.GetDayOfWeekText(onah.DateTime),
                     Zmanim.DaysOfMonthHebrew[onah.Day],
                     onah.Month.MonthName,
@@ -749,7 +763,7 @@ namespace Chashavshavon
             {
                 //Gets a list of Kavuahs from the given 3 entries
                 List<Kavuah> foundKavuahList = Kavuah.GetKavuahListFromEntries(last3Array);
-                
+
                 //Remove all found kavuahs that are already in the active list
                 foundKavuahList.RemoveAll(k => Kavuah.InActiveKavuahList(k));
 
@@ -771,10 +785,10 @@ namespace Chashavshavon
                             }
                             else
                             {
-                                last3Array[2].Notes += " לא לרשום קבוע של  " + k.KavuahDescriptionHebrew;                    
+                                last3Array[2].Notes += " לא לרשום קבוע של  " + k.KavuahDescriptionHebrew;
                                 last3Array[2].NoKavuahList.Add(k);
                             }
-                        }                        
+                        }
                     }
                 }
             }
@@ -803,19 +817,34 @@ namespace Chashavshavon
 
         private void ProccessProblem(Label lbl, Label lblDate, Onah problemOnah)
         {
-            lbl.Text = problemOnah.Name;
-            lblDate.BackColor = Color.SteelBlue;
-            lblDate.ForeColor = Color.Wheat;
-            if (lbl.Name.Contains("Today") && this._nowOnah.DayNight == problemOnah.DayNight)
+            //If this onah is to be ignored and the same onah has a previous non-ignoreable problem            
+            if (problemOnah.IsIgnored && lblDate.BackColor == Color.SteelBlue)
             {
-                lbl.BackColor = Color.Red;
-                lbl.ForeColor = Color.Wheat;
-                lbl.Font = new Font(lbl.Font.FontFamily, 11);
+                return;
             }
-            else
+            //If this onah is to be ignored and the same onah doesn't have another non-ignoreable problem
+            else if (problemOnah.IsIgnored && lblDate.BackColor != Color.SteelBlue)
             {
-                lbl.BackColor = Color.Tan;
+                lblDate.BackColor = Color.Tan;
+                lblDate.ForeColor = Color.Gray;
+                lbl.Text = " - להתעלם" + problemOnah.Name;
             }
+            else 
+            {
+                lbl.Text = (lbl.Text.Length == 0 ? problemOnah.Name : lbl.Text + " ו" + problemOnah.Name);
+                lblDate.BackColor = Color.SteelBlue;
+                lblDate.ForeColor = Color.Wheat;
+                if (lbl.Name.Contains("Today") && this._nowOnah.DayNight == problemOnah.DayNight)
+                {
+                    lbl.BackColor = Color.Red;
+                    lbl.ForeColor = Color.Wheat;
+                    lbl.Font = new Font(lbl.Font.FontFamily, 11);
+                }
+                else
+                {
+                    lbl.BackColor = Color.Tan;
+                }
+            }            
         }
 
         /// <summary>
@@ -854,7 +883,7 @@ namespace Chashavshavon
             //In this case, if there are entries in the list
             //we prompt the user to create a file to save to.
             while (string.IsNullOrEmpty(this.CurrentFile))
-            {                
+            {
                 if (Entries.Count > 0 && MessageBox.Show("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש",
                         "חשבשבון",
                         MessageBoxButtons.YesNoCancel,
@@ -1133,7 +1162,7 @@ namespace Chashavshavon
         /// <returns></returns>
         public bool TestInternet()
         {
-            bool hasInternet = Properties.Settings.Default.UseLocalURL || Utils.RemoteFunctions.IsConnectedToInternet();            
+            bool hasInternet = Properties.Settings.Default.UseLocalURL || Utils.RemoteFunctions.IsConnectedToInternet();
             RemoteToolStripMenuItem.Visible = hasInternet;
             if (CurrentFileIsRemote && !hasInternet)
             {

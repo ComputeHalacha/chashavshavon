@@ -27,6 +27,7 @@ namespace Chashavshavon
         public int Year { get; set; }
         public DayNight DayNight { get; set; }
         public string Name { get; set; }
+        public bool IsIgnored { get; set; }
 
         static Onah()
         {
