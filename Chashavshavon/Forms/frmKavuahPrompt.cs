@@ -32,6 +32,11 @@ namespace Chashavshavon
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+        }
+
         private void dgvKavuahList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
@@ -46,6 +51,6 @@ namespace Chashavshavon
             {
                 return this._listToAdd;
             }
-        }                                
+        }                                        
     }
 }
