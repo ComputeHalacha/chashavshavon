@@ -602,7 +602,7 @@ namespace Chashavshavon
                     }
                 }
 
-                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.ProblemOnahType == ProblemOnahType.Haflagah))
+                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.Haflagah))
                 {
                     kavuahHaflaga = entry.AddDays(kavuah.Number);
                     kavuahHaflaga.DayNight = kavuah.DayNight;
@@ -621,7 +621,7 @@ namespace Chashavshavon
             foreach (Onah o in onahs)
             {
                 foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
-                                        k.ProblemOnahType == ProblemOnahType.DayOfMonth &&
+                                        k.KavuahType == KavuahType.DayOfMonth &&
                                         k.Number == o.Day &&
                                         k.DayNight == o.DayNight))
                 {
@@ -747,81 +747,34 @@ namespace Chashavshavon
         {
             if (last3Array[0].DayNight.In(last3Array[1].DayNight, last3Array[2].DayNight))
             {
-                //Cheshbon out Kavuah of same haflagah
-                if ((last3Array[0].Interval == last3Array[1].Interval) &&
-                    (last3Array[1].Interval == last3Array[2].Interval))
-                {
-                    //If the "NoKavuah" list for the 3rd entry does not include this "find", 
-                    //and the regular kavuah list does not contain a kavuah of this type, 
-                    //then we give the user the option to add a new kavuah or to ignore it.
-                    if (!last3Array[2].NoKavuahList.Exists(k =>
-                                (k.ProblemOnahType == ProblemOnahType.Haflagah) &&
-                                (k.Number == last3Array[0].Interval))
-                            && !Kavuah.KavuahsList.Exists(k =>
-                                (k.ProblemOnahType == ProblemOnahType.Haflagah) &&
-                                (k.Number == last3Array[0].Interval)))
-                    {
-                        Kavuah kv = new Kavuah()
-                        {
-                            DayNight = last3Array[0].DayNight,
-                            ProblemOnahType = ProblemOnahType.Haflagah,
-                            Number = last3Array[0].Interval
-                        };
-                        if (MessageBox.Show("התוכנית זיהה מצב שבו יתכן ויש לקבוע ווסת קבוע של הפלגת " +
-                            last3Array[0].Interval.ToString() +
-                            " יום.\nהאם להוסיף לרשימת ווסתות הקבוע?\nבכל מקרא, מומלץ מאד להתיעץ עם מורה הוראה.",
-                            "חשבשבון - ווסת קבוע",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
-                        {
-                            Kavuah.KavuahsList.Add(kv);
-                        }
-                        else
-                        {
-                            last3Array[2].Notes += " לא לרשום קבוע של הפלגת " + kv.Number.ToString() + " יום.";
-                            last3Array[2].NoKavuahList.Add(kv);
-                        }
-                    }
-                }
+                //Gets a list of Kavuahs from the given 3 entries
+                List<Kavuah> foundKavuahList = Kavuah.GetKavuahListFromEntries(last3Array);
+                
+                //Remove all found kavuahs that are already in the active list
+                foundKavuahList.RemoveAll(k => Kavuah.InActiveKavuahList(k));
 
-                //Cheshbon out Kavuah of same day
-                if ((last3Array[0].Day == last3Array[1].Day) &&
-                    (last3Array[1].Day == last3Array[2].Day))
+                //If there are any left
+                if (foundKavuahList.Count > 0)
                 {
-                    //If the "NoKavuah" list for the 3rd entry does not include this "find", 
-                    //and the regular kavuah list does not contain a kavuah of this type, 
-                    //then we give the user the option to add a new kavuah or to ignore it.                    
-                    if (!last3Array[2].NoKavuahList.Exists(k =>
-                            (k.ProblemOnahType == ProblemOnahType.DayOfMonth) &&
-                            (k.Number == last3Array[0].Day))
-                        && !Kavuah.KavuahsList.Exists(k =>
-                            (k.ProblemOnahType == ProblemOnahType.DayOfMonth) &&
-                            (k.Number == last3Array[0].Day)))
+                    //Prompt user to decide which ones to keep and their details
+                    frmKavuahPrompt fkp = new frmKavuahPrompt(foundKavuahList);
+                    if (fkp.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                     {
-                        Kavuah kav = new Kavuah()
+                        //For each found kavuah, either we add it to the main list 
+                        //or we set it as a "NoKavuah" for the third entry so it shouldn't pop up again
+                        foreach (Kavuah k in foundKavuahList)
                         {
-                            DayNight = last3Array[0].DayNight,
-                            ProblemOnahType = ProblemOnahType.DayOfMonth,
-                            Number = last3Array[0].Day
-                        };
-                        if (MessageBox.Show("התוכנית זיהה מצב שבו יתכן ויש לקבוע ווסת קבוע של יום  - " +
-                            last3Array[0].Day.ToString() +
-                            " בחודש.\nהאם להוסיף לרשימת ווסתות הקבוע?\nבכל מקרא, מומלץ מאד להתיעץ עם מורה הוראה.",
-                            "חשבשבון - ווסת קבוע",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
-                        {
-                            Kavuah.KavuahsList.Add(kav);
-                        }
-                        else
-                        {
-                            last3Array[2].Notes += " לא לרשום קבוע של כל " + Zmanim.DaysOfMonthHebrew[kav.Number] + " בחודש.";
-                            last3Array[2].NoKavuahList.Add(kav);
-                        }
+                            //The ListToAdd property contains the ones the user decided to add
+                            if (fkp.ListToAdd.Contains(k))
+                            {
+                                Kavuah.KavuahsList.Add(k);
+                            }
+                            else
+                            {
+                                last3Array[2].Notes += " לא לרשום קבוע של  " + k.KavuahDescriptionHebrew;                    
+                                last3Array[2].NoKavuahList.Add(k);
+                            }
+                        }                        
                     }
                 }
             }
@@ -943,7 +896,7 @@ namespace Chashavshavon
                 foreach (Kavuah k in entry.NoKavuahList)
                 {
                     xtw.WriteStartElement("NoKavuah");
-                    xtw.WriteAttributeString("ProblemType", k.ProblemOnahType.ToString());
+                    xtw.WriteAttributeString("KavuahType", k.KavuahType.ToString());
                     xtw.WriteAttributeString("Number", k.Number.ToString());
                     xtw.WriteEndElement();
                 }
@@ -1242,7 +1195,7 @@ namespace Chashavshavon
                     foreach (XmlNode k in entryNode.SelectNodes("NoKavuah"))
                     {
                         Kavuah ka = new Kavuah();
-                        ka.ProblemOnahType = (ProblemOnahType)Enum.Parse(typeof(ProblemOnahType), k.Attributes["ProblemType"].InnerText);
+                        ka.KavuahType = (KavuahType)Enum.Parse(typeof(KavuahType), k.Attributes["KavuahType"].InnerText);
                         ka.Number = Convert.ToInt32(k.Attributes["Number"].InnerText);
                         newEntry.NoKavuahList.Add(ka);
                     }

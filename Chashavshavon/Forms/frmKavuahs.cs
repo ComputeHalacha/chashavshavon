@@ -28,11 +28,6 @@ namespace Chashavshavon
             }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            this.kavuahBindingSource.RemoveCurrent();            
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -41,6 +36,14 @@ namespace Chashavshavon
         private void frmKavuahs_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
+        }
+
+        private void dgvKavuahList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                this.kavuahBindingSource.Remove(this.dgvKavuahList.Rows[e.RowIndex].DataBoundItem);                
+            }            
         }
     }
 }

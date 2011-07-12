@@ -59,9 +59,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -132,6 +129,12 @@
     <Compile Include="Forms\frmRemoteFiles.Designer.cs">
       <DependentUpon>frmRemoteFiles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmKavuahPrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmKavuahPrompt.Designer.cs">
+      <DependentUpon>frmKavuahPrompt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Utils\GeneralUtils.cs" />
     <Compile Include="Classes\Onah.cs" />
@@ -163,6 +166,9 @@
     <EmbeddedResource Include="Forms\frmRemoteFiles.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmRemoteFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmKavuahPrompt.resx">
+      <DependentUpon>frmKavuahPrompt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
