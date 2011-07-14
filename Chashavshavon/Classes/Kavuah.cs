@@ -10,10 +10,10 @@ namespace Chashavshavon
     {
         Haflagah,
         DayOfMonth,
+        HaflagaMaayanPasuach,
         DilugHaflaga,
         DilugDayOfMonth
     }
-
 
     [Serializable()]
     public class Kavuah
@@ -69,7 +69,7 @@ namespace Chashavshavon
         /// </summary>
         /// <param name="entries"></param>
         /// <returns></returns>
-        public static List<Kavuah> GetKavuahListFromEntries(Entry[] entries)        
+        public static List<Kavuah> GetProposedKavuahList(Entry[] entries)        
         {
             if (entries.Length != 3)
             {
@@ -93,12 +93,13 @@ namespace Chashavshavon
                         {
                             DayNight = entries[0].DayNight,
                             KavuahType = KavuahType.Haflagah,
+                            CancelsOnahBeinanis = true,
                             Number = entries[0].Interval
                         });
                     }
                 }            
 
-                //Cheshbon out Kavuah of same day
+                //Cheshbon out Kavuah of same day-of-month
                 if ((entries[0].Day == entries[1].Day) && (entries[1].Day == entries[2].Day))
                 {
                     //If the "NoKavuah" list for the 3rd entry does not include this "find", 
@@ -110,6 +111,8 @@ namespace Chashavshavon
                         {
                             DayNight = entries[0].DayNight,
                             KavuahType = KavuahType.DayOfMonth,
+                            //For this type of Kavuah, you need 4 Entries to cancel the regular days.
+                            CancelsOnahBeinanis = false ,
                             Number = entries[0].Day
                         });
                         
@@ -128,13 +131,16 @@ namespace Chashavshavon
                         {
                             DayNight = entries[0].DayNight,
                             KavuahType = KavuahType.DilugHaflaga,
+                            //For this type of Kavuah, the regular days are not cancelled by default
+                            CancelsOnahBeinanis=false,
                             Number = (entries[2].Interval - entries[1].Interval)
                         });
                     }
                 }
 
                 //Cheshbon out Dilug Yom Hachodesh
-                if ((entries[2].Day - entries[1].Day) == (entries[1].Day - entries[0].Day))
+                if ((entries[2].Day - entries[1].Day) == (entries[1].Day - entries[0].Day) && 
+                    (entries[2].Day - entries[1].Day) != 0)
                 {
                     //If the "NoKavuah" list for the 3rd entry does not include this "find", 
                     if (!entries[2].NoKavuahList.Exists(k =>
@@ -145,27 +151,30 @@ namespace Chashavshavon
                         {
                             DayNight = entries[0].DayNight,
                             KavuahType = KavuahType.DilugDayOfMonth,
+                            //For this type of Kavuah, the regular days are not cancelled by default
                             Number = (entries[2].Day - entries[1].Day)
                         });
                     }
                 }
 
-                //Cheshbon out Maayan Pasuachs                    
-                if (!kavuahs.Exists(k => k.KavuahType == KavuahType.Haflagah))
+                //Cheshbon out Ma'ayan Pasuachs
+                if (!kavuahs.Exists(k => k.KavuahType == KavuahType.HaflagaMaayanPasuach))
                 {
                     int maximumHaflagah = entries.Max(e => e.Interval);
                     if (entries.All(e => e.Interval >= (maximumHaflagah - 5)))
                     {
-                        //If the "NoKavuah" list for the 3rd entry does not include this "find", 
+                        //If the "NoKavuah" list for the 3rd entry does not include this "find" 
                         if (!entries[2].NoKavuahList.Exists(k =>
-                                (k.KavuahType == KavuahType.Haflagah) &&
-                                (k.Number == (entries[2].Day - entries[1].Day))))
+                                (k.KavuahType == KavuahType.HaflagaMaayanPasuach) &&
+                                (k.Number == maximumHaflagah)))
                         {
                             kavuahs.Add(new Kavuah()
                             {
                                 DayNight = entries[0].DayNight,
-                                KavuahType = KavuahType.Haflagah,
+                                KavuahType = KavuahType.HaflagaMaayanPasuach,
                                 IsMaayanPauach = true,
+                                //For ma'ayan Pasuach, the regular days are usually not cancelled
+                                CancelsOnahBeinanis = false, 
                                 Number = maximumHaflagah 
                             });
                         }

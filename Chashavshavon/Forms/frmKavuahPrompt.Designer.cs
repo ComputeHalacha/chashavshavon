@@ -54,7 +54,6 @@
             this.dgvKavuahList.AllowUserToAddRows = false;
             this.dgvKavuahList.AutoGenerateColumns = false;
             this.dgvKavuahList.BackgroundColor = System.Drawing.Color.White;
-            this.dgvKavuahList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvKavuahList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvKavuahList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.deleteColumn,
@@ -67,10 +66,10 @@
             this.kavuahTypeDataGridViewTextBoxColumn,
             this.numberDataGridViewTextBoxColumn});
             this.dgvKavuahList.DataSource = this.bindingSource1;
-            this.dgvKavuahList.Location = new System.Drawing.Point(8, 76);
+            this.dgvKavuahList.Location = new System.Drawing.Point(0, 53);
             this.dgvKavuahList.Name = "dgvKavuahList";
             this.dgvKavuahList.RowHeadersVisible = false;
-            this.dgvKavuahList.Size = new System.Drawing.Size(768, 171);
+            this.dgvKavuahList.Size = new System.Drawing.Size(785, 148);
             this.dgvKavuahList.TabIndex = 0;
             this.dgvKavuahList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKavuahList_CellContentClick);
             // 
@@ -147,12 +146,12 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.BackColor = System.Drawing.Color.Tan;
-            this.btnAdd.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnAdd.BackColor = System.Drawing.Color.YellowGreen;
+            this.btnAdd.Font = new System.Drawing.Font("Narkisim", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnAdd.ForeColor = System.Drawing.Color.Black;
-            this.btnAdd.Location = new System.Drawing.Point(88, 266);
+            this.btnAdd.Location = new System.Drawing.Point(34, 222);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(199, 30);
+            this.btnAdd.Size = new System.Drawing.Size(199, 67);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "הוסף לרשימת וסתות הקבוע וסגור";
             this.btnAdd.UseVisualStyleBackColor = false;
@@ -160,12 +159,12 @@
             // 
             // btnClose
             // 
-            this.btnClose.BackColor = System.Drawing.Color.Tan;
-            this.btnClose.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnClose.BackColor = System.Drawing.Color.Tomato;
+            this.btnClose.Font = new System.Drawing.Font("Narkisim", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnClose.ForeColor = System.Drawing.Color.Black;
-            this.btnClose.Location = new System.Drawing.Point(293, 266);
+            this.btnClose.Location = new System.Drawing.Point(552, 222);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(199, 30);
+            this.btnClose.Size = new System.Drawing.Size(199, 67);
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "סגור ולא להוסיף וסת קבוע";
             this.btnClose.UseVisualStyleBackColor = false;
@@ -174,22 +173,22 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Narkisim", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label4.ForeColor = System.Drawing.Color.Maroon;
-            this.label4.Location = new System.Drawing.Point(12, 9);
+            this.label4.Font = new System.Drawing.Font("Narkisim", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label4.Location = new System.Drawing.Point(12, 8);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(118, 16);
+            this.label4.Size = new System.Drawing.Size(178, 27);
             this.label4.TabIndex = 5;
-            this.label4.Text = "נמצאו וסת קבוע";
+            this.label4.Text = "נמצא וסת קבוע";
             // 
             // btnCancel
             // 
-            this.btnCancel.BackColor = System.Drawing.Color.Tan;
-            this.btnCancel.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnCancel.BackColor = System.Drawing.Color.Gold;
+            this.btnCancel.Font = new System.Drawing.Font("Narkisim", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnCancel.ForeColor = System.Drawing.Color.Black;
-            this.btnCancel.Location = new System.Drawing.Point(498, 266);
+            this.btnCancel.Location = new System.Drawing.Point(293, 222);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(199, 30);
+            this.btnCancel.Size = new System.Drawing.Size(199, 67);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "סגור עכשיו ותזכיר לי אחר כך";
             this.btnCancel.UseVisualStyleBackColor = false;
@@ -197,11 +196,10 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label1.Location = new System.Drawing.Point(12, 42);
+            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label1.Location = new System.Drawing.Point(208, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(552, 26);
+            this.label1.Size = new System.Drawing.Size(463, 38);
             this.label1.TabIndex = 7;
             this.label1.Text = "על פי הנתונים ברשימה, נראה שיש סיבה לרשום וסת קבוע. להלן רשימת הפרטים. ניתן למחוק" +
     " או לשנות הפרטים.\r\n מומלץ לפנות למורה הוראה.";
@@ -210,8 +208,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Wheat;
-            this.ClientSize = new System.Drawing.Size(784, 308);
+            this.BackColor = System.Drawing.Color.Tan;
+            this.ClientSize = new System.Drawing.Size(784, 318);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
@@ -226,7 +224,7 @@
             this.RightToLeftLayout = true;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "נמצאו וסת קבוע";
+            this.Text = "הוסף וסת קבוע";
             ((System.ComponentModel.ISupportInitialize)(this.dgvKavuahList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);

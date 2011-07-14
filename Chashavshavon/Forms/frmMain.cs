@@ -50,7 +50,7 @@ namespace Chashavshavon
             //Fill the loaction list from the xml file
             LocationsXmlDoc.Load(Application.StartupPath + "\\Locations.xml");
 
-            //The following sets all output displays of date time functions to jewish dates for the current thread
+            //The following sets all output displays of date time functions to Jewish dates for the current thread
             this._ci.DateTimeFormat.Calendar = this._hc;
             System.Threading.Thread.CurrentThread.CurrentCulture = this._ci;
             System.Threading.Thread.CurrentThread.CurrentUICulture = this._ci;
@@ -515,138 +515,104 @@ namespace Chashavshavon
                 return;
             }
 
-            DateTime yesterday = this._today.AddDays(-1);
-            DateTime tomorrow = this._today.AddDays(1);
-            DateTime dayAfterTomorrow = this._today.AddDays(2);
+            //A list of 8 Onahs starting from yesterday until 2 days from now. Will be used to display 
+            //in the calendar (right side of form) and text for printing.
+            var onahs = GetCalendarOnahs();
 
-            var days = new DateTime[4];
-            days[0] = yesterday;
-            days[1] = this._today;
-            days[2] = tomorrow;
-            days[3] = dayAfterTomorrow;
+            //A list of Onahs that need to be kept. The list is worked out from the list of Entries.
+            //The list only includes Onahs that need to be kept starting from yesterday.
+            var problemOnas = this.GetProblemOnahs();
 
-            var onahs = new List<Onah>();
-            var problemOnas = new List<Onah>();
-            var lastThree = new Queue<Entry>();
+            //Yom Hachodesh Kavuahs are their own breed; they are not dependant on the Entry list.
+            problemOnas.AddRange(this.GetYomHachodeshKavuahOnahs(onahs));
 
-            Onah thirty,
-                thirtyOhrZarua,
-                thirtyOne,
-                thirtyOneOhrZarua,
-                intervalHaflagah,
-                intervalHaflagahOhrZarua,
-                kavuahHaflaga,
-                kavuahHaflagaOhrZarua,
-                kavuahYomHachodesh,
-                kavuahYomHachodeshOhrZarua;
+            //Goes through the list of problem Onahs and matches it up to the 8 Onahs in the calendar.
+            //If any match - meaning that calendar Onah needs to be kept, the appropriate calendar box is filled and colored.
+            this.ProcessProblemOnahList(onahs, problemOnas);
 
-            foreach (DateTime day in days)
+            //The lblNextProblem displays the next upcoming Onah that needs to be kept
+            this.lblNextProblem.Text = GetNextOnahText(problemOnas);
+            SetWeekListHtml(problemOnas);
+        }
+
+        private List<Onah> GetYomHachodeshKavuahOnahs(List<Onah> onahs)
+        {
+            var list = new List<Onah>();                           
+            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
+                                        k.Active &&
+                                        k.KavuahType == KavuahType.DayOfMonth))
             {
-                onahs.Add(new Onah(day, DayNight.Night));
-                onahs.Add(new Onah(day, DayNight.Day));
-            }
+                DateTime startDate = (kavuah.Number >= this._nowOnah.Day ? 
+                    this._nowOnah.DateTime : this._nowOnah.DateTime.AddMonths(1));
 
-            foreach (Entry entry in Entries)
-            {
-                //For cheshboning out kavuas we need just the last 3 entries
-                //First, add this entry
-                lastThree.Enqueue(entry);
-                if (lastThree.Count > 3)
-                {
-                    //pop out the earliest one - leaves us with this entry and the previous 2.
-                    lastThree.Dequeue();
-                }
-                //You can't make a kavuah until you have 3 entries in the list to compare
-                if (lastThree.Count == 3)
-                {
-                    this.CheshbonKavuahs(lastThree.ToArray<Entry>());
-                }
-
-                bool hasCancelByKavuah = Kavuah.KavuahsList.Exists(k => k.Active && k.CancelsOnahBeinanis);
-
-                //The 30th day after any entry is usually assur as an onah beinanus (unless there is a set Kavuah)
-                thirty = entry.AddDays(29);
-                thirty.Name = "יום שלושים";
-                thirty.IsIgnored = hasCancelByKavuah;
-                problemOnas.Add(thirty);
-
-                //If the user wants to see the Ohr Zarua  - the previous onah
+                Onah o = new Onah(startDate, kavuah.DayNight);
+                o.Day = kavuah.Number;
+                o.Name = " קבוע - יום החדש (" + Zmanim.DaysOfMonthHebrew[kavuah.Number] + ")";
+                list.Add(o);
                 if (Properties.Settings.Default.ShowOhrZeruah)
                 {
-                    thirtyOhrZarua = Onah.GetPreviousOnah(thirty);
-                    thirtyOhrZarua.Name = "או\"ז - יום שלושים";
-                    thirtyOhrZarua.IsIgnored = hasCancelByKavuah;
-                    problemOnas.Add(thirtyOhrZarua);
+                    var ooz = Onah.GetPreviousOnah(o);
+                    ooz.Name = " או\"ז - " + o.Name;
+                    list.Add(ooz);
                 }
 
-                //31 is also an onah beinonus 
-                thirtyOne = entry.AddDays(30);
-                thirtyOne.Name = "יום ל\"א";
-                thirtyOne.IsIgnored = hasCancelByKavuah;
-                problemOnas.Add(thirtyOne);
-
-                if (Properties.Settings.Default.ShowOhrZeruah)
+                //If today is the day we add the next one to the list as well
+                if (this._nowOnah.Day == kavuah.Number && this._nowOnah.DayNight == kavuah.DayNight)
                 {
-                    thirtyOneOhrZarua = Onah.GetPreviousOnah(thirtyOne);
-                    thirtyOneOhrZarua.Name = "או\"ז - יום ל\"א";
-                    thirtyOneOhrZarua.IsIgnored = hasCancelByKavuah;
-                    problemOnas.Add(thirtyOneOhrZarua);
-                }
-
-                //Each Entry has an interval - the number of days from the previous entry
-                if (entry.Interval > 0)
-                {
-                    intervalHaflagah = entry.AddDays(entry.Interval - 1);
-                    intervalHaflagah.Name = "יום הפלגה";
-                    intervalHaflagah.IsIgnored = hasCancelByKavuah;
-                    problemOnas.Add(intervalHaflagah);
-
+                    Onah o2 = new Onah(this._nowOnah.DateTime.AddMonths(1), kavuah.DayNight);
+                    o2.Day = kavuah.Number;
+                    o2.Name = " קבוע - יום החדש (" + Zmanim.DaysOfMonthHebrew[kavuah.Number] + ")";
+                    list.Add(o2);
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
-                        intervalHaflagahOhrZarua = Onah.GetPreviousOnah(intervalHaflagah);
-                        intervalHaflagahOhrZarua.Name = "או\"ז - יום הפלגה";
-                        intervalHaflagahOhrZarua.IsIgnored = hasCancelByKavuah;
-                        problemOnas.Add(intervalHaflagahOhrZarua);
+                        var ooz2 = Onah.GetPreviousOnah(o2);
+                        ooz2.Name = " או\"ז - " + o2.Name;
+                        list.Add(ooz2);
                     }
                 }
+            }           
 
-                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.Haflagah))
-                {
-                    kavuahHaflaga = entry.AddDays(kavuah.Number);
-                    kavuahHaflaga.DayNight = kavuah.DayNight;
-                    kavuahHaflaga.Name = " קבוע - הפלגה (" + kavuah.Number.ToString() + ")";
-                    problemOnas.Add(kavuahHaflaga);
+            return list;
+        }
 
-                    if (Properties.Settings.Default.ShowOhrZeruah)
-                    {
-                        kavuahHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahHaflaga);
-                        kavuahHaflagaOhrZarua.Name = " או\"ז - " + kavuahHaflaga.Name;
-                        problemOnas.Add(kavuahHaflagaOhrZarua);
-                    }
-                }
-            }
-
-            foreach (Onah o in onahs)
+        private string GetNextOnahText(List<Onah> problemOnas)
+        {
+            string nextProblemText = "";
+            if (problemOnas.Count > 0)
             {
-                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
-                                        k.KavuahType == KavuahType.DayOfMonth &&
-                                        k.Number == o.Day &&
-                                        k.DayNight == o.DayNight))
-                {
+                //We need to determine the earliest problem Onah, so we need to do a 
+                //special sort on the list where the night Onah is before the day one for the same date.
+                problemOnas.Sort(Onah.CompareOnahs);
 
-                    kavuahYomHachodesh = o;
-                    kavuahYomHachodesh.Name = " קבוע - יום החדש (" + Zmanim.DaysOfMonthHebrew[kavuah.Number] + ")";
-                    problemOnas.Add(kavuahYomHachodesh);
-                    if (Properties.Settings.Default.ShowOhrZeruah)
+                Onah nowProblem = problemOnas.FirstOrDefault(o => (!o.IsIgnored) && Onah.IsSameOnah(o, this._nowOnah));
+                Onah nextProblem = problemOnas.FirstOrDefault(o => (!o.IsIgnored) && (Onah.CompareOnahs(o, this._nowOnah) == 1));
+
+                if (nowProblem != null)
+                {
+                    nextProblemText += "עכשיו הוא " + nowProblem.Name;
+                }
+
+                if (nextProblem != null)
+                {
+                    if (nextProblemText.Length > 0)
                     {
-                        kavuahYomHachodeshOhrZarua = Onah.GetPreviousOnah(kavuahYomHachodesh);
-                        kavuahYomHachodeshOhrZarua.Name = " או\"ז - " + kavuahYomHachodesh.Name;
-                        problemOnas.Add(kavuahYomHachodeshOhrZarua);
+                        nextProblemText += " - ";
                     }
+                    nextProblemText += "העונה הבאה בעוד " +
+                        ((nextProblem.DateTime - this._today).Days + 1).ToString() +
+                        " ימים - בתאריך: " +
+                        nextProblem.DateTime.ToString("dd MMMM yyyy") +
+                        " (" +
+                        nextProblem.HebrewDayNight +
+                        ") שהוא " +
+                        nextProblem.Name;
                 }
             }
-            //TODO: Cheshbon Dilug haflagas
+            return nextProblemText;
+        }
 
+        private void ProcessProblemOnahList(List<Onah> onahs, List<Onah> problemOnas)
+        {
             foreach (Onah onah in onahs)
             {
                 foreach (Onah problemOnah in problemOnas.Where(o => Onah.IsSameOnah(onah, o)))
@@ -680,34 +646,138 @@ namespace Chashavshavon
                     }
                 }
             }
-            string nextProblemText = "";
-            if (problemOnas.Count > 0)
-            {
-                problemOnas.Sort(Onah.CompareOnahs);
-                if (problemOnas.Exists(o => (!o.IsIgnored) && Onah.IsSameOnah(o, this._nowOnah)))
-                {
-                    nextProblemText += "עכשיו הוא " + problemOnas.First(o => Onah.IsSameOnah(o, this._nowOnah)).Name;
-                }
-                if (problemOnas.Exists(o => (!o.IsIgnored) && Onah.CompareOnahs(o, this._nowOnah) == 1))
-                {
-                    Onah nextProb = problemOnas.First(o => (!o.IsIgnored) && Onah.CompareOnahs(o, this._nowOnah) == 1);
-                    if (nextProblemText.Length > 0)
-                    {
-                        nextProblemText += " - ";
-                    }
-                    nextProblemText += "העונה הבאה בעוד " +
-                                               ((nextProb.DateTime - this._today).Days + 1).ToString() +
-                                               " ימים - בתאריך: " +
-                                               nextProb.DateTime.ToString("dd MMMM yyyy") +
-                                               " (" +
-                                               nextProb.HebrewDayNight +
-                                               ") שהוא " +
-                                               nextProb.Name;
+        }
 
+        private List<Onah> GetCalendarOnahs()
+        {
+            var onahs = new List<Onah>();
+            var days = new DateTime[4];
+            DateTime yesterday = this._today.AddDays(-1),
+                     tomorrow = this._today.AddDays(1),
+                     dayAfterTomorrow = this._today.AddDays(2);
+
+            days[0] = yesterday;
+            days[1] = this._today;
+            days[2] = tomorrow;
+            days[3] = dayAfterTomorrow;
+
+            foreach (DateTime date in days)
+            {
+                onahs.Add(new Onah(date, DayNight.Night));
+                onahs.Add(new Onah(date, DayNight.Day));
+            }
+
+            return onahs;
+        }
+
+        private List<Onah> GetProblemOnahs()
+        {
+            var problemOnas = new List<Onah>();
+            var lastThree = new Queue<Entry>();
+
+            DateTime yesterday = this._today.AddDays(-1);
+            Onah thirty,
+               thirtyOhrZarua,
+               thirtyOne,
+               thirtyOneOhrZarua,
+               intervalHaflagah,
+               intervalHaflagahOhrZarua,
+               kavuahHaflaga,
+               kavuahHaflagaOhrZarua;
+
+            foreach (Entry entry in Entries)
+            {
+                //For cheshboning out kavuas we need just the last 3 entries
+                //First, add this entry
+                lastThree.Enqueue(entry);
+                if (lastThree.Count > 3)
+                {
+                    //pop out the earliest one - leaves us with this entry and the previous 2.
+                    lastThree.Dequeue();
+                }
+                //You can't make a kavuah until you have 3 entries in the list to compare
+                if (lastThree.Count == 3)
+                {
+                    this.CheshbonKavuahs(lastThree.ToArray<Entry>());
+                }
+
+                bool hasCancelByKavuah = Kavuah.KavuahsList.Exists(k => k.Active && k.CancelsOnahBeinanis);
+
+                //The 30th day after any entry is usually assur as an onah beinanus (unless there is a set Kavuah)
+                thirty = entry.AddDays(29);
+                if (thirty.DateTime.AddDays(-1) >= yesterday)
+                {
+                    thirty.Name = "יום שלושים";
+                    thirty.IsIgnored = hasCancelByKavuah;
+                    problemOnas.Add(thirty);
+
+                    //If the user wants to see the Ohr Zarua  - the previous onah
+                    if (Properties.Settings.Default.ShowOhrZeruah)
+                    {
+                        thirtyOhrZarua = Onah.GetPreviousOnah(thirty);
+                        thirtyOhrZarua.Name = "או\"ז - יום שלושים";
+                        thirtyOhrZarua.IsIgnored = hasCancelByKavuah;
+                        problemOnas.Add(thirtyOhrZarua);
+                    }
+                }
+
+                //31 is also an onah beinonus 
+                thirtyOne = entry.AddDays(30);
+                if (thirtyOne.DateTime.AddDays(-1) >= yesterday)
+                {
+                    thirtyOne.Name = "יום ל\"א";
+                    thirtyOne.IsIgnored = hasCancelByKavuah;
+                    problemOnas.Add(thirtyOne);
+
+                    if (Properties.Settings.Default.ShowOhrZeruah)
+                    {
+                        thirtyOneOhrZarua = Onah.GetPreviousOnah(thirtyOne);
+                        thirtyOneOhrZarua.Name = "או\"ז - יום ל\"א";
+                        thirtyOneOhrZarua.IsIgnored = hasCancelByKavuah;
+                        problemOnas.Add(thirtyOneOhrZarua);
+                    }
+                }
+
+                //Each Entry has an interval - the number of days from the previous entry
+                if (entry.Interval > 0)
+                {
+                    intervalHaflagah = entry.AddDays(entry.Interval - 1);
+                    if (intervalHaflagah.DateTime.AddDays(-1) >= yesterday)
+                    {
+                        intervalHaflagah.Name = "יום הפלגה";
+                        intervalHaflagah.IsIgnored = hasCancelByKavuah;
+                        problemOnas.Add(intervalHaflagah);
+
+                        if (Properties.Settings.Default.ShowOhrZeruah)
+                        {
+                            intervalHaflagahOhrZarua = Onah.GetPreviousOnah(intervalHaflagah);
+                            intervalHaflagahOhrZarua.Name = "או\"ז - יום הפלגה";
+                            intervalHaflagahOhrZarua.IsIgnored = hasCancelByKavuah;
+                            problemOnas.Add(intervalHaflagahOhrZarua);
+                        }
+                    }
+                }
+
+                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.Haflagah && k.Active))
+                {
+                    kavuahHaflaga = entry.AddDays(kavuah.Number);
+                    if (kavuahHaflaga.DateTime.AddDays(-1) >= yesterday)
+                    {
+                        kavuahHaflaga.DayNight = kavuah.DayNight;
+                        kavuahHaflaga.Name = " קבוע - הפלגה (" + kavuah.Number.ToString() + ")";
+                        problemOnas.Add(kavuahHaflaga);
+
+                        if (Properties.Settings.Default.ShowOhrZeruah)
+                        {
+                            kavuahHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahHaflaga);
+                            kavuahHaflagaOhrZarua.Name = " או\"ז - " + kavuahHaflaga.Name;
+                            problemOnas.Add(kavuahHaflagaOhrZarua);
+                        }
+                    }
                 }
             }
-            this.lblNextProblem.Text = nextProblemText;
-            SetWeekListHtml(problemOnas);
+            //TODO: Cheshbon Dilug haflagas
+            return problemOnas;
         }
 
         private void SetWeekListHtml(List<Onah> problemOnas)
@@ -762,7 +832,7 @@ namespace Chashavshavon
             if (last3Array[0].DayNight.In(last3Array[1].DayNight, last3Array[2].DayNight))
             {
                 //Gets a list of Kavuahs from the given 3 entries
-                List<Kavuah> foundKavuahList = Kavuah.GetKavuahListFromEntries(last3Array);
+                List<Kavuah> foundKavuahList = Kavuah.GetProposedKavuahList(last3Array);
 
                 //Remove all found kavuahs that are already in the active list
                 foundKavuahList.RemoveAll(k => Kavuah.InActiveKavuahList(k));
@@ -829,7 +899,7 @@ namespace Chashavshavon
                 lblDate.ForeColor = Color.Gray;
                 lbl.Text = " - להתעלם" + problemOnah.Name;
             }
-            else 
+            else
             {
                 lbl.Text = (lbl.Text.Length == 0 ? problemOnah.Name : lbl.Text + " ו" + problemOnah.Name);
                 lblDate.BackColor = Color.SteelBlue;
@@ -844,7 +914,7 @@ namespace Chashavshavon
                 {
                     lbl.BackColor = Color.Tan;
                 }
-            }            
+            }
         }
 
         /// <summary>

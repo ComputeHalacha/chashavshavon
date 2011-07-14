@@ -28,13 +28,14 @@ namespace Chashavshavon
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void frmKavuahs_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-        }
+            this.kavuahBindingSource.EndEdit();
+        }                
 
         private void frmKavuahs_FormClosed(object sender, FormClosedEventArgs e)
         {
+            //The owner form does a refresh when this closes, so this is how we tell it that we are closed
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
@@ -42,8 +43,14 @@ namespace Chashavshavon
         {
             if (e.ColumnIndex == 0)
             {
-                this.kavuahBindingSource.Remove(this.dgvKavuahList.Rows[e.RowIndex].DataBoundItem);                
-            }            
+                this.kavuahBindingSource.Remove(this.dgvKavuahList.Rows[e.RowIndex].DataBoundItem);
+                this.kavuahBindingSource.EndEdit();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
