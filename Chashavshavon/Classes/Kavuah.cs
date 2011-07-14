@@ -24,12 +24,15 @@ namespace Chashavshavon
             this.Active = true;
         }
 
+        public static List<Kavuah> KavuahsList { get; set; }
+
         public DayNight DayNight { get; set; }
         public KavuahType KavuahType { get; set; }
         public int Number { get; set; }
         public bool Active { get; set; }
-        public bool IsMaayanPauach { get; set; }
+        public bool IsMaayanPasuach { get; set; }
         public bool CancelsOnahBeinanis { get; set; }
+        public DateTime? DilugStartDate { get; set; }
         public string Notes { get; set; }
         public string KavuahDescriptionHebrew
         {
@@ -39,23 +42,23 @@ namespace Chashavshavon
                 switch (KavuahType)
                 {
                     case KavuahType.Haflagah:
-                        sb.AppendFormat(" הפלגה, כל {0} ימים ", this.Number);
+                        sb.AppendFormat("הפלגה, כל {0} ימים ", this.Number);
                         break;
                     case KavuahType.DayOfMonth:
-                        sb.AppendFormat(" יום החדש, כל {0} בחדש ", Zmanim.DaysOfMonthHebrew[this.Number]);
+                        sb.AppendFormat("יום החדש, כל {0} בחדש ", Zmanim.DaysOfMonthHebrew[this.Number]);
                         break;
                     case KavuahType.DilugHaflaga:
-                        sb.AppendFormat(" הפלגה של דילוג {1}{0} ימים ", 
+                        sb.AppendFormat("הפלגה בדילוג {1}{0} ימים ", 
                             (this.Number < 0 ? "-" : "+"), 
                             this.Number);
                         break;
                     case KavuahType.DilugDayOfMonth:
-                        sb.AppendFormat(" יום החודש של דילוג {1}{0} ימים ", 
+                        sb.AppendFormat("יום החודש בדילוג {1}{0} ימים ", 
                             (this.Number < 0 ? "-" : "+"), 
                             this.Number);
                         break;
                 }
-                if (this.IsMaayanPauach)
+                if (this.IsMaayanPasuach)
                 {
                     sb.Append(" - ע\"פ מעיין פתוח - ");
                 }
@@ -114,8 +117,7 @@ namespace Chashavshavon
                             //For this type of Kavuah, you need 4 Entries to cancel the regular days.
                             CancelsOnahBeinanis = false ,
                             Number = entries[0].Day
-                        });
-                        
+                        });                        
                     }
                 }
 
@@ -132,8 +134,9 @@ namespace Chashavshavon
                             DayNight = entries[0].DayNight,
                             KavuahType = KavuahType.DilugHaflaga,
                             //For this type of Kavuah, the regular days are not cancelled by default
-                            CancelsOnahBeinanis=false,
-                            Number = (entries[2].Interval - entries[1].Interval)
+                            CancelsOnahBeinanis = false,
+                            Number = (entries[2].Interval - entries[1].Interval),
+                            DilugStartDate = entries[2].DateTime
                         });
                     }
                 }
@@ -152,7 +155,8 @@ namespace Chashavshavon
                             DayNight = entries[0].DayNight,
                             KavuahType = KavuahType.DilugDayOfMonth,
                             //For this type of Kavuah, the regular days are not cancelled by default
-                            Number = (entries[2].Day - entries[1].Day)
+                            Number = (entries[2].Day - entries[1].Day),
+                            DilugStartDate = entries[2].DateTime
                         });
                     }
                 }
@@ -172,7 +176,7 @@ namespace Chashavshavon
                             {
                                 DayNight = entries[0].DayNight,
                                 KavuahType = KavuahType.HaflagaMaayanPasuach,
-                                IsMaayanPauach = true,
+                                IsMaayanPasuach = true,
                                 //For ma'ayan Pasuach, the regular days are usually not cancelled
                                 CancelsOnahBeinanis = false, 
                                 Number = maximumHaflagah 
@@ -196,8 +200,5 @@ namespace Chashavshavon
         {
             return KavuahsList.Exists(k => k.IsSameKavuah(kavuah) && k.Active);
         }
-
-        public static List<Kavuah> KavuahsList { get; set; }
-        
     }
 }

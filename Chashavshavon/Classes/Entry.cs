@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Chashavshavon
 {
     /// <summary>
     /// Represents a single וסת
-    /// </summary>
+    /// </summary>        
     public class Entry : Onah
     {
         private List<Kavuah> _noKavuahList = new List<Kavuah>();
@@ -25,7 +26,9 @@ namespace Chashavshavon
         }
 
         public string Notes { get; set; }
+
         public int Interval { get; set; }
+        
         /// <summary>
         /// If during the addition of a new Entry the program finds 
         /// a set of 3 entries that might have been considered a Kavuah;
@@ -34,7 +37,7 @@ namespace Chashavshavon
         /// a NoKavuah element is added to the 3rd entry so the user 
         /// won't be prompted again each time the list is reloaded.
         /// The reason this is a list, is because there can be different types of Kavuahs on a single day. 
-        /// </summary>
+        /// </summary>        
         public List<Kavuah> NoKavuahList { 
             get 
             { 

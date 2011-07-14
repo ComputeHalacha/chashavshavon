@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -42,10 +42,12 @@ namespace Chashavshavon
                 "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"" +
                 (e.Exception.InnerException != null ? e.Exception.InnerException.Message : e.Exception.Message) +
                 "\"" + Environment.NewLine);
-            MessageBox.Show("àøòä ùâéàä" + "\n\n" + (e.Exception.InnerException != null ? e.Exception.InnerException.Message : e.Exception.Message),
-                            "ùâéàä",
+            MessageBox.Show("××¨×¢×” ×©×’×™××”" + "\n\n" + (e.Exception.InnerException != null ? e.Exception.InnerException.Message : e.Exception.Message),
+                            "×—×©×‘×©×‘×•×Ÿ",
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                            MessageBoxIcon.Error,
+                            MessageBoxDefaultButton.Button1,
+                            MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
      
         #region Extention Methods

@@ -56,17 +56,21 @@ def GetEntriesHTML(fileName, filexml):
     if kavuahs.length:
         count = 0
         html += '''<br /><span class="header">List of Kavuahs in File: %s</span>
-            <table cellspacing="0" cellpadding="5"><tr><td>&nbsp;</td><td>Type</td>
-            <td>Number</td><td>Day/Night</td><td>Notes</td></tr>''' % (fileName)
+            <table cellspacing="0" cellpadding="5"><tr><td>&nbsp;</td><td>Active?</td><td>Type</td>
+            <td>Number</td><td>Day/Night</td><td>Cancels?</td><td>Notes</td></tr>''' % (fileName)
         for kavuah in kavuahs:
             count += 1
-            type = kavuah.getElementsByTagName('ProblemOnahType')[0].childNodes[0].data
+            active = kavuah.getElementsByTagName('Active')[0].childNodes[0].data
+            type = kavuah.getElementsByTagName('KavuahType')[0].childNodes[0].data
             dn = kavuah.getElementsByTagName('DayNight')[0].childNodes[0].data
             number = kavuah.getElementsByTagName('Number')[0].childNodes[0].data
+            cancels = kavuah.getElementsByTagName('CancelsOnahBeinanis')[0].childNodes[0].data
             hasNotesNode = kavuah.getElementsByTagName('Notes').length and kavuah.getElementsByTagName('Notes')[0].hasChildNodes()
             notes = ((hasNotesNode and kavuah.getElementsByTagName('Notes')[0].childNodes[0].data) or '&nbsp;')
             html += '<tr style="background-color:' + ('#ffffff;' if count % 2 else '#f1f1f1;') + '">'
-            html += '<td width="20">%s</td><td>%s</td><td>%s</td><td>%s</td><td width="460">%s</td></tr>' % (count, type, number, dn, notes)
+            html += '''<td width="20">%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>
+                <td>%s</td><td width="460">%s</td>
+                </tr>''' % (count, 'Yes' if active == 'true' else 'No', type, number, dn, 'Yes' if cancels == 'true' else 'No', notes)
         html += '</table>'
     html += '</body></html>'
     return html;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Chashavshavon.Utils;
+using System.Xml.Serialization;
 
 namespace Chashavshavon
 {
@@ -16,17 +17,17 @@ namespace Chashavshavon
         Haflagah,
         DayOfMonth
     }
-
+    
     public class Onah
     {
         private static string[] _monthNames;
         private static System.Globalization.HebrewCalendar _hebrewCalendar;       
 
-        public int Day { get; set; }
+        public int Day { get; set; }        
         public MonthObject Month { get; set; }
         public int Year { get; set; }
-        public DayNight DayNight { get; set; }
-        public string Name { get; set; }
+        public DayNight DayNight { get; set; }        
+        public string Name { get; set; }        
         public bool IsIgnored { get; set; }
 
         static Onah()
@@ -135,6 +136,7 @@ namespace Chashavshavon
             return 0;
         }
 
+        
         public DateTime DateTime
         {
             get
@@ -143,14 +145,14 @@ namespace Chashavshavon
                 return hDate;
             }
         }
-
+        
         public string HebrewDayNight
         {
             get
             {
                 return this.DayNight == DayNight.Day ? "יום" : "לילה";
             }
-        }
+        }      
 
         public string MonthName
         {
@@ -159,7 +161,7 @@ namespace Chashavshavon
                 return this.Month.MonthName;
             }
         }
-
+        
         public DayOfWeek DayOfWeek
         {
             get
@@ -167,7 +169,7 @@ namespace Chashavshavon
                 return _hebrewCalendar.GetDayOfWeek(this.DateTime);
             }
         }
-
+        
         public string HebrewDayOfWeek
         {
             get
@@ -175,6 +177,7 @@ namespace Chashavshavon
                 return Zmanim.DaysOfWeekHebrew[(int)this.DayOfWeek];
             }
         }
+
 
         public static string[] MonthNames
         {

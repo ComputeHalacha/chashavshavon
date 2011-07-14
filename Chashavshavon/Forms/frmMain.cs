@@ -48,6 +48,8 @@ namespace Chashavshavon
             this._ci = new CultureInfo("he-IL", false);
             this._hc = new HebrewCalendar();
 
+            this.bindingSourceEntries.DataSource = Entries;
+
             //Fill the loaction list from the xml file
             LocationsXmlDoc.Load(Application.StartupPath + "\\Locations.xml");
 
@@ -169,7 +171,7 @@ namespace Chashavshavon
             newEntry.DayNight = rbNight.Checked ? DayNight.Night : DayNight.Day;
             newEntry.Notes = this.txtNotes.Text;
 
-            ((BindingSource)this.dgEntries.DataSource).Add(newEntry);
+            this.bindingSourceEntries.Add(newEntry);
             this.SortEntriesAndSetInterval();
             this.FillCalendar();
             this.SaveCurrentFile();
@@ -187,7 +189,7 @@ namespace Chashavshavon
                                                   MessageBoxIcon.Question);
                 if (dr == DialogResult.Yes)
                 {
-                    ((BindingSource)dgEntries.DataSource).Remove(selectedEntry);
+                    this.bindingSourceEntries.Remove(selectedEntry);
                     this.SortEntriesAndSetInterval();
                     this.FillCalendar();
                     this.SaveCurrentFile();
@@ -535,6 +537,9 @@ namespace Chashavshavon
             //The lblNextProblem displays the next upcoming Onah that needs to be kept
             this.lblNextProblem.Text = GetNextOnahText(problemOnas);
             SetWeekListHtml(problemOnas);
+
+            //In case there were changes to the notes on some entries such as if there was a NoKavuah added
+            this.bindingSourceEntries.ResetBindings(false);
         }
 
         private List<Onah> GetYomHachodeshKavuahOnahs(List<Onah> onahs)
@@ -1321,9 +1326,7 @@ namespace Chashavshavon
             this.SetCaptionText();
             this.SortEntriesAndSetInterval();
             this.FillCalendar();
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = Entries;
-            this.dgEntries.DataSource = bindingSource;
+            this.bindingSourceEntries.ResetBindings(false);
         }
 
         public void SetCaptionText()

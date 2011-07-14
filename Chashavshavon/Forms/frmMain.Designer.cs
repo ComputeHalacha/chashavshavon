@@ -132,6 +132,7 @@
             this.pbWeb = new System.Windows.Forms.PictureBox();
             this.btnPrintEntryList = new System.Windows.Forms.Button();
             this.btnViewTextEntryList = new System.Windows.Forms.Button();
+            this.bindingSourceEntries = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
             this.pnlDayAfter.SuspendLayout();
@@ -142,6 +143,7 @@
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -189,6 +191,7 @@
             this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgEntries.AutoGenerateColumns = false;
             this.dgEntries.BackgroundColor = System.Drawing.Color.White;
             this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -207,6 +210,7 @@
             this.DayOfWeekColumn,
             this.NotesColumn,
             this.btnDeleteColumn});
+            this.dgEntries.DataSource = this.bindingSourceEntries;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
@@ -1229,6 +1233,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1332,6 +1337,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPrintEntryList;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEntryList;
+        private System.Windows.Forms.BindingSource bindingSourceEntries;
 
 
 
