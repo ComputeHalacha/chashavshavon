@@ -33,7 +33,7 @@ namespace Chashavshavon
         /// the user is prompted to create a new kavuah. If they choose not to,
         /// a NoKavuah element is added to the 3rd entry so the user 
         /// won't be prompted again each time the list is reloaded.
-        /// The reason this is a list, is because there can be diffenet types of Kavuahs. 
+        /// The reason this is a list, is because there can be different types of Kavuahs on a single day. 
         /// </summary>
         public List<Kavuah> NoKavuahList { 
             get 

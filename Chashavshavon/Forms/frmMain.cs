@@ -33,6 +33,7 @@ namespace Chashavshavon
         private Location _location;
         #endregion
 
+        #region Constructors
         public frmMain()
         {
             //In case we will display the password entry form, we hide this until form load
@@ -93,6 +94,7 @@ namespace Chashavshavon
             this.CurrentFileIsRemote = false;
             this.CurrentFile = filePath;
         }
+        #endregion
 
         #region Event Handlers
         private void frmMain_Load(object sender, EventArgs e)
