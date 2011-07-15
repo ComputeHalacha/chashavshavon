@@ -966,7 +966,8 @@ namespace Chashavshavon
             //we prompt the user to create a file to save to.
             while (string.IsNullOrEmpty(this.CurrentFile))
             {
-                if (Entries.Count > 0 && MessageBox.Show("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש",
+                if (((Entries.Count + Kavuah.KavuahsList.Count) > 0) && 
+                    MessageBox.Show("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש",
                         "חשבשבון",
                         MessageBoxButtons.YesNoCancel,
                         MessageBoxIcon.Exclamation,
