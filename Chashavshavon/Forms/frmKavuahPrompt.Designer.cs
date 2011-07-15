@@ -244,8 +244,7 @@
         #endregion
 
         private System.Windows.Forms.BindingSource bindingSource1;
-        private System.Windows.Forms.DataGridView dgvKavuahList;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn isMaayanPauachDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridView dgvKavuahList;        
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label4;

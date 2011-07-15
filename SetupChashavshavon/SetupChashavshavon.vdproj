@@ -27,20 +27,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_93285080BEEAB3946E3B077C70DEB25A"
-        "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_93285080BEEAB3946E3B077C70DEB25A"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -168,37 +156,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_93285080BEEAB3946E3B077C70DEB25A"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_93285080BEEAB3946E3B077C70DEB25A"
-                    {
-                    "Name" = "8:Microsoft.VisualBasic.PowerPacks.Vs.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Microsoft.VisualBasic.PowerPacks.Vs.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -267,7 +224,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
         "ProductCode" = "8:{F94E54F1-100E-4FD9-8EA5-1C481C029243}"
-        "PackageCode" = "8:{5CC21CE8-2813-4B5D-B839-D26445606A6E}"
+        "PackageCode" = "8:{143857EF-2032-49A8-8F14-1BEBCB7E1C89}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
