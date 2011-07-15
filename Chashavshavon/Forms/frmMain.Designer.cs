@@ -30,24 +30,19 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.dgEntries = new System.Windows.Forms.DataGridView();
-            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.bindingSourceEntries = new System.Windows.Forms.BindingSource(this.components);
             this.gbCalendar = new System.Windows.Forms.GroupBox();
             this.btnPrintCalendar = new System.Windows.Forms.Button();
             this.btnViewTextCalendar = new System.Windows.Forms.Button();
@@ -132,8 +127,14 @@
             this.pbWeb = new System.Windows.Forms.PictureBox();
             this.btnPrintEntryList = new System.Windows.Forms.Button();
             this.btnViewTextEntryList = new System.Windows.Forms.Button();
-            this.bindingSourceEntries = new System.Windows.Forms.BindingSource(this.components);
+            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
             this.pnlDayAfter.SuspendLayout();
             this.pnlTomorrow.SuspendLayout();
@@ -143,7 +144,6 @@
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -188,20 +188,25 @@
             this.dgEntries.AllowUserToAddRows = false;
             this.dgEntries.AllowUserToDeleteRows = false;
             this.dgEntries.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgEntries.AutoGenerateColumns = false;
             this.dgEntries.BackgroundColor = System.Drawing.Color.White;
-            this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Wheat;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Wheat;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgEntries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgEntries.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DateColumn,
@@ -211,14 +216,7 @@
             this.NotesColumn,
             this.btnDeleteColumn});
             this.dgEntries.DataSource = this.bindingSourceEntries;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgEntries.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dgEntries.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dgEntries.Location = new System.Drawing.Point(16, 272);
             this.dgEntries.Name = "dgEntries";
             this.dgEntries.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -233,68 +231,17 @@
             this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgEntries.RowHeadersVisible = false;
             dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgEntries.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
-            this.dgEntries.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Empty;
+            this.dgEntries.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgEntries.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgEntries.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Empty;
             this.dgEntries.Size = new System.Drawing.Size(906, 378);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
-            // 
-            // DateColumn
-            // 
-            this.DateColumn.DataPropertyName = "DateTime";
-            dataGridViewCellStyle2.Format = "dd MMM yyyy";
-            dataGridViewCellStyle2.NullValue = null;
-            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.DateColumn.HeaderText = "תאריך";
-            this.DateColumn.Name = "DateColumn";
-            this.DateColumn.ReadOnly = true;
-            this.DateColumn.Width = 120;
-            // 
-            // DayNightColumn
-            // 
-            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
-            this.DayNightColumn.HeaderText = "יום/לילה";
-            this.DayNightColumn.Name = "DayNightColumn";
-            this.DayNightColumn.ReadOnly = true;
-            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DayNightColumn.Width = 70;
-            // 
-            // IntervalColumn
-            // 
-            this.IntervalColumn.DataPropertyName = "Interval";
-            this.IntervalColumn.HeaderText = "הפלגה";
-            this.IntervalColumn.Name = "IntervalColumn";
-            this.IntervalColumn.ReadOnly = true;
-            this.IntervalColumn.Width = 50;
-            // 
-            // DayOfWeekColumn
-            // 
-            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
-            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
-            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
-            this.DayOfWeekColumn.ReadOnly = true;
-            this.DayOfWeekColumn.Width = 50;
-            // 
-            // NotesColumn
-            // 
-            this.NotesColumn.DataPropertyName = "Notes";
-            this.NotesColumn.HeaderText = "הערות";
-            this.NotesColumn.Name = "NotesColumn";
-            this.NotesColumn.ReadOnly = true;
-            this.NotesColumn.Width = 422;
-            // 
-            // btnDeleteColumn
-            // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
-            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.btnDeleteColumn.HeaderText = "מחק";
-            this.btnDeleteColumn.Name = "btnDeleteColumn";
-            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.btnDeleteColumn.Text = "מחק שורה";
-            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
-            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
             // 
             // gbCalendar
             // 
@@ -917,7 +864,7 @@
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbDay.Location = new System.Drawing.Point(274, 79);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(48, 18);
+            this.rbDay.Size = new System.Drawing.Size(43, 17);
             this.rbDay.TabIndex = 4;
             this.rbDay.Text = "יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -939,7 +886,7 @@
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbNight.Location = new System.Drawing.Point(269, 63);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(57, 18);
+            this.rbNight.Size = new System.Drawing.Size(48, 17);
             this.rbNight.TabIndex = 3;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "לילה";
@@ -1172,7 +1119,7 @@
             // 
             this.btnPrintEntryList.AutoSize = true;
             this.btnPrintEntryList.Image = global::Chashavshavon.Properties.Resources.printer;
-            this.btnPrintEntryList.Location = new System.Drawing.Point(852, 359);
+            this.btnPrintEntryList.Location = new System.Drawing.Point(843, 365);
             this.btnPrintEntryList.Name = "btnPrintEntryList";
             this.btnPrintEntryList.Size = new System.Drawing.Size(63, 71);
             this.btnPrintEntryList.TabIndex = 22;
@@ -1185,7 +1132,7 @@
             // 
             this.btnViewTextEntryList.AutoSize = true;
             this.btnViewTextEntryList.Image = global::Chashavshavon.Properties.Resources.page_previous;
-            this.btnViewTextEntryList.Location = new System.Drawing.Point(852, 283);
+            this.btnViewTextEntryList.Location = new System.Drawing.Point(843, 289);
             this.btnViewTextEntryList.Name = "btnViewTextEntryList";
             this.btnViewTextEntryList.Size = new System.Drawing.Size(61, 71);
             this.btnViewTextEntryList.TabIndex = 21;
@@ -1193,6 +1140,63 @@
             this.btnViewTextEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnViewTextEntryList.UseVisualStyleBackColor = true;
             this.btnViewTextEntryList.Click += new System.EventHandler(this.btnViewTextEntryList_Click);
+            // 
+            // DateColumn
+            // 
+            this.DateColumn.DataPropertyName = "DateTime";
+            dataGridViewCellStyle3.Format = "dd MMM yyyy";
+            dataGridViewCellStyle3.NullValue = null;
+            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.DateColumn.HeaderText = "תאריך";
+            this.DateColumn.Name = "DateColumn";
+            this.DateColumn.ReadOnly = true;
+            this.DateColumn.Width = 120;
+            // 
+            // DayNightColumn
+            // 
+            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
+            this.DayNightColumn.HeaderText = "יום/לילה";
+            this.DayNightColumn.Name = "DayNightColumn";
+            this.DayNightColumn.ReadOnly = true;
+            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DayNightColumn.Width = 70;
+            // 
+            // IntervalColumn
+            // 
+            this.IntervalColumn.DataPropertyName = "Interval";
+            this.IntervalColumn.HeaderText = "הפלגה";
+            this.IntervalColumn.Name = "IntervalColumn";
+            this.IntervalColumn.ReadOnly = true;
+            this.IntervalColumn.Width = 50;
+            // 
+            // DayOfWeekColumn
+            // 
+            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
+            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
+            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
+            this.DayOfWeekColumn.ReadOnly = true;
+            this.DayOfWeekColumn.Width = 75;
+            // 
+            // NotesColumn
+            // 
+            this.NotesColumn.DataPropertyName = "Notes";
+            this.NotesColumn.HeaderText = "הערות";
+            this.NotesColumn.Name = "NotesColumn";
+            this.NotesColumn.ReadOnly = true;
+            this.NotesColumn.Width = 405;
+            // 
+            // btnDeleteColumn
+            // 
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Blue;
+            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.btnDeleteColumn.HeaderText = "";
+            this.btnDeleteColumn.Name = "btnDeleteColumn";
+            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.btnDeleteColumn.Text = "מחק";
+            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
+            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
+            this.btnDeleteColumn.Width = 50;
             // 
             // frmMain
             // 
@@ -1220,6 +1224,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).EndInit();
             this.gbCalendar.ResumeLayout(false);
             this.gbCalendar.PerformLayout();
             this.pnlDayAfter.ResumeLayout(false);
@@ -1233,7 +1238,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1320,12 +1324,6 @@
         private System.Windows.Forms.Label lblTomorrowDay;
         private System.Windows.Forms.Label lblTomorrowNight;
         private System.Windows.Forms.ToolStripMenuItem KavuahToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DayNightColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IntervalColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DayOfWeekColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NotesColumn;
-        private System.Windows.Forms.DataGridViewLinkColumn btnDeleteColumn;
         private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem PrintToolStripMenuItem;
@@ -1338,6 +1336,12 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPrintEntryList;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEntryList;
         private System.Windows.Forms.BindingSource bindingSourceEntries;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DayNightColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IntervalColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DayOfWeekColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NotesColumn;
+        private System.Windows.Forms.DataGridViewLinkColumn btnDeleteColumn;
 
 
 

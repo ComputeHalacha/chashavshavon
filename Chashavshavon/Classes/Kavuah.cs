@@ -39,13 +39,16 @@ namespace Chashavshavon
             get
             {
                 StringBuilder sb = new StringBuilder();
-                switch (KavuahType)
+                switch (this.KavuahType)
                 {
                     case KavuahType.Haflagah:
-                        sb.AppendFormat("הפלגה, כל {0} ימים ", this.Number);
+                        sb.AppendFormat("הפלגה - {0} ימים ", this.Number);
                         break;
                     case KavuahType.DayOfMonth:
-                        sb.AppendFormat("יום החדש, כל {0} בחדש ", Zmanim.DaysOfMonthHebrew[this.Number]);
+                        sb.AppendFormat("יום החדש - {0} בחדש ", Zmanim.DaysOfMonthHebrew[this.Number]);
+                        break;
+                    case Chashavshavon.KavuahType.HaflagaMaayanPasuach:
+                        sb.AppendFormat("הפלגה - {0} ימים - ע\"פ מעיין פתוח ", this.Number);
                         break;
                     case KavuahType.DilugHaflaga:
                         sb.AppendFormat("הפלגה בדילוג {1}{0} ימים ", 
@@ -58,9 +61,10 @@ namespace Chashavshavon
                             this.Number);
                         break;
                 }
-                if (this.IsMaayanPasuach)
+                //The user can set IsMaayanPasuach for any kavuah in frmKavuahs
+                if (this.IsMaayanPasuach && this.KavuahType != KavuahType.HaflagaMaayanPasuach)
                 {
-                    sb.Append(" - ע\"פ מעיין פתוח - ");
+                    sb.Append(" - ע\"פ מעיין פתוח ");
                 }
                 sb.AppendFormat(" - עונת {0}  {1}", (this.DayNight == DayNight.Day ? " יום " : " לילה "), this.Notes);
                 return sb.ToString();

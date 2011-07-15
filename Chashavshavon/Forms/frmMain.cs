@@ -1032,7 +1032,7 @@ namespace Chashavshavon
             xtw.Close();
             stream.Dispose();
             Properties.Settings.Default.IsCurrentFileRemote = CurrentFileIsRemote;
-            Properties.Settings.Default.CurrentFile = this.CurrentFileName;
+            Properties.Settings.Default.CurrentFile = this.CurrentFile;
             Properties.Settings.Default.Save();
             this.SetCaptionText();
         }
@@ -1258,7 +1258,15 @@ namespace Chashavshavon
 
         public void LoadXmlFile()
         {
+            //Clear previous list data
             Entries.Clear();
+            //Clear previous Kavuahs
+            if (Kavuah.KavuahsList != null)
+            {
+                Kavuah.KavuahsList.Clear();
+            }
+            this.lblNextProblem.Text = "";
+
             XmlDocument xml = new XmlDocument();
 
             if (CurrentFileIsRemote || File.Exists(CurrentFile))
@@ -1312,10 +1320,23 @@ namespace Chashavshavon
                 if (xml.SelectNodes("//Kavuah").Count > 0)
                 {
                     var ser = new XmlSerializer(typeof(List<Kavuah>));
-                    Kavuah.KavuahsList = (List<Kavuah>)ser.Deserialize(
-                        new StringReader(xml.SelectSingleNode("//ArrayOfKavuah").OuterXml));
+                    try
+                    {
+                        Kavuah.KavuahsList = (List<Kavuah>)ser.Deserialize(
+                            new StringReader(xml.SelectSingleNode("//ArrayOfKavuah").OuterXml));
+                    }
+                    catch
+                    {
+                        MessageBox.Show("רשימת וסת קבוע בקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
+                        CurrentFile + "\"" + Environment.NewLine +
+                        " איננה תקינה. תפתח רשימת קבוע ריקה.",
+                        "חשבשבון",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.RightAlign);
+                    }
                 }
-
             }
 
             if (Kavuah.KavuahsList == null)
@@ -1331,7 +1352,8 @@ namespace Chashavshavon
 
         public void SetCaptionText()
         {
-            this.Text = "חשבשבון - " + this._location.Name + " - " + (this.CurrentFileIsRemote ? "קובצי רשת - " : "") + this.CurrentFileName;
+            this.Text = "חשבשבון - " + this._location.Name + " - " + 
+                (this.CurrentFileIsRemote ? "קובץ רשת - " : "") + this.CurrentFileName;
             this.pbWeb.Visible = this.CurrentFileIsRemote;
         }
 
@@ -1351,7 +1373,10 @@ namespace Chashavshavon
         public string WeekListHtml { get; set; }
         public string CurrentFile
         {
-            get { return Properties.Settings.Default.CurrentFile; }
+            get 
+            { 
+                return Properties.Settings.Default.CurrentFile; 
+            }
             set
             {
                 Properties.Settings.Default.CurrentFile = value;
@@ -1362,7 +1387,10 @@ namespace Chashavshavon
 
         public bool CurrentFileIsRemote
         {
-            get { return Properties.Settings.Default.IsCurrentFileRemote; }
+            get 
+            { 
+                return Properties.Settings.Default.IsCurrentFileRemote; 
+            }
             set
             {
                 Properties.Settings.Default.IsCurrentFileRemote = value;
@@ -1403,7 +1431,6 @@ namespace Chashavshavon
                 string[] cf = CurrentFile.Split(new char[] { '\\', '/' });
                 return cf[cf.Length - 1];
             }
-
         }
         #endregion
     }
