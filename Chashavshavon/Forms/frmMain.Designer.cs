@@ -99,7 +99,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtNotes = new System.Windows.Forms.TextBox();
             this.btnEnter = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -127,6 +126,8 @@
             this.pbWeb = new System.Windows.Forms.PictureBox();
             this.btnPrintEntryList = new System.Windows.Forms.Button();
             this.btnViewTextEntryList = new System.Windows.Forms.Button();
+            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.label14 = new System.Windows.Forms.Label();
             this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -144,6 +145,9 @@
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).BeginInit();
+            this.splitContainerMain.Panel1.SuspendLayout();
+            this.splitContainerMain.Panel2.SuspendLayout();
+            this.splitContainerMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -193,11 +197,11 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgEntries.AutoGenerateColumns = false;
-            this.dgEntries.BackgroundColor = System.Drawing.Color.White;
+            this.dgEntries.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dgEntries.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Wheat;
@@ -217,7 +221,7 @@
             this.btnDeleteColumn});
             this.dgEntries.DataSource = this.bindingSourceEntries;
             this.dgEntries.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgEntries.Location = new System.Drawing.Point(16, 272);
+            this.dgEntries.Location = new System.Drawing.Point(322, 33);
             this.dgEntries.Name = "dgEntries";
             this.dgEntries.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dgEntries.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -235,17 +239,13 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgEntries.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Empty;
-            this.dgEntries.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Empty;
-            this.dgEntries.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.dgEntries.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.dgEntries.Size = new System.Drawing.Size(906, 378);
+            this.dgEntries.Size = new System.Drawing.Size(808, 302);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             // 
             // gbCalendar
             // 
-            this.gbCalendar.BackColor = System.Drawing.Color.White;
+            this.gbCalendar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.gbCalendar.Controls.Add(this.btnPrintCalendar);
             this.gbCalendar.Controls.Add(this.btnViewTextCalendar);
             this.gbCalendar.Controls.Add(this.label13);
@@ -261,9 +261,9 @@
             this.gbCalendar.Controls.Add(this.pnlTomorrow);
             this.gbCalendar.Controls.Add(this.pnlToday);
             this.gbCalendar.Controls.Add(this.pnlYesterday);
-            this.gbCalendar.Location = new System.Drawing.Point(16, 42);
+            this.gbCalendar.Location = new System.Drawing.Point(508, 12);
             this.gbCalendar.Name = "gbCalendar";
-            this.gbCalendar.Size = new System.Drawing.Size(555, 205);
+            this.gbCalendar.Size = new System.Drawing.Size(625, 209);
             this.gbCalendar.TabIndex = 13;
             this.gbCalendar.TabStop = false;
             this.gbCalendar.Text = "לוח";
@@ -299,7 +299,7 @@
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label13.ForeColor = System.Drawing.Color.Maroon;
-            this.label13.Location = new System.Drawing.Point(309, 14);
+            this.label13.Location = new System.Drawing.Point(371, 18);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(46, 12);
             this.label13.TabIndex = 11;
@@ -310,7 +310,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label12.ForeColor = System.Drawing.Color.Maroon;
-            this.label12.Location = new System.Drawing.Point(437, 14);
+            this.label12.Location = new System.Drawing.Point(502, 18);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(37, 12);
             this.label12.TabIndex = 10;
@@ -321,7 +321,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label11.ForeColor = System.Drawing.Color.Maroon;
-            this.label11.Location = new System.Drawing.Point(381, 14);
+            this.label11.Location = new System.Drawing.Point(443, 18);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(22, 12);
             this.label11.TabIndex = 9;
@@ -332,7 +332,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label10.ForeColor = System.Drawing.Color.Maroon;
-            this.label10.Location = new System.Drawing.Point(498, 167);
+            this.label10.Location = new System.Drawing.Point(563, 171);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(51, 12);
             this.label10.TabIndex = 8;
@@ -343,7 +343,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label9.ForeColor = System.Drawing.Color.Maroon;
-            this.label9.Location = new System.Drawing.Point(518, 127);
+            this.label9.Location = new System.Drawing.Point(583, 131);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(27, 12);
             this.label9.TabIndex = 7;
@@ -354,7 +354,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Narkisim", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label8.ForeColor = System.Drawing.Color.Blue;
-            this.label8.Location = new System.Drawing.Point(500, 82);
+            this.label8.Location = new System.Drawing.Point(565, 86);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(48, 20);
             this.label8.TabIndex = 6;
@@ -365,7 +365,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label7.ForeColor = System.Drawing.Color.Maroon;
-            this.label7.Location = new System.Drawing.Point(507, 49);
+            this.label7.Location = new System.Drawing.Point(572, 53);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(40, 12);
             this.label7.TabIndex = 5;
@@ -376,7 +376,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label6.ForeColor = System.Drawing.Color.Maroon;
-            this.label6.Location = new System.Drawing.Point(228, 15);
+            this.label6.Location = new System.Drawing.Point(280, 19);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(28, 12);
             this.label6.TabIndex = 4;
@@ -387,7 +387,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label5.ForeColor = System.Drawing.Color.Maroon;
-            this.label5.Location = new System.Drawing.Point(126, 15);
+            this.label5.Location = new System.Drawing.Point(157, 19);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(22, 12);
             this.label5.TabIndex = 3;
@@ -401,9 +401,9 @@
             this.pnlDayAfter.Controls.Add(this.lblNextDayEntryStuff);
             this.pnlDayAfter.Controls.Add(this.lblNextDayWeekDay);
             this.pnlDayAfter.Controls.Add(this.lblNextdayDate);
-            this.pnlDayAfter.Location = new System.Drawing.Point(81, 150);
+            this.pnlDayAfter.Location = new System.Drawing.Point(102, 154);
             this.pnlDayAfter.Name = "pnlDayAfter";
-            this.pnlDayAfter.Size = new System.Drawing.Size(415, 41);
+            this.pnlDayAfter.Size = new System.Drawing.Size(459, 41);
             this.pnlDayAfter.TabIndex = 2;
             // 
             // lblNextDayDay
@@ -411,9 +411,9 @@
             this.lblNextDayDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblNextDayDay.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextDayDay.ForeColor = System.Drawing.Color.Black;
-            this.lblNextDayDay.Location = new System.Drawing.Point(2, -1);
+            this.lblNextDayDay.Location = new System.Drawing.Point(1, -1);
             this.lblNextDayDay.Name = "lblNextDayDay";
-            this.lblNextDayDay.Size = new System.Drawing.Size(107, 41);
+            this.lblNextDayDay.Size = new System.Drawing.Size(126, 41);
             this.lblNextDayDay.TabIndex = 11;
             this.lblNextDayDay.Tag = "Day";
             this.lblNextDayDay.Text = " ";
@@ -424,9 +424,9 @@
             this.lblNextDayNight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblNextDayNight.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextDayNight.ForeColor = System.Drawing.Color.Black;
-            this.lblNextDayNight.Location = new System.Drawing.Point(107, -1);
+            this.lblNextDayNight.Location = new System.Drawing.Point(126, -1);
             this.lblNextDayNight.Name = "lblNextDayNight";
-            this.lblNextDayNight.Size = new System.Drawing.Size(106, 41);
+            this.lblNextDayNight.Size = new System.Drawing.Size(126, 41);
             this.lblNextDayNight.TabIndex = 10;
             this.lblNextDayNight.Tag = "Night";
             this.lblNextDayNight.Text = " ";
@@ -437,7 +437,7 @@
             this.lblNextDayEntryStuff.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblNextDayEntryStuff.Font = new System.Drawing.Font("Narkisim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextDayEntryStuff.ForeColor = System.Drawing.Color.Crimson;
-            this.lblNextDayEntryStuff.Location = new System.Drawing.Point(210, -1);
+            this.lblNextDayEntryStuff.Location = new System.Drawing.Point(251, -1);
             this.lblNextDayEntryStuff.Name = "lblNextDayEntryStuff";
             this.lblNextDayEntryStuff.Size = new System.Drawing.Size(79, 41);
             this.lblNextDayEntryStuff.TabIndex = 8;
@@ -448,7 +448,7 @@
             // lblNextDayWeekDay
             // 
             this.lblNextDayWeekDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblNextDayWeekDay.Location = new System.Drawing.Point(286, -1);
+            this.lblNextDayWeekDay.Location = new System.Drawing.Point(329, -1);
             this.lblNextDayWeekDay.Name = "lblNextDayWeekDay";
             this.lblNextDayWeekDay.Size = new System.Drawing.Size(45, 41);
             this.lblNextDayWeekDay.TabIndex = 7;
@@ -462,9 +462,9 @@
             this.lblNextdayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblNextdayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextdayDate.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.lblNextdayDate.Location = new System.Drawing.Point(331, -1);
+            this.lblNextdayDate.Location = new System.Drawing.Point(374, -1);
             this.lblNextdayDate.Name = "lblNextdayDate";
-            this.lblNextdayDate.Size = new System.Drawing.Size(83, 41);
+            this.lblNextdayDate.Size = new System.Drawing.Size(84, 41);
             this.lblNextdayDate.TabIndex = 1;
             this.lblNextdayDate.Tag = "Date";
             this.lblNextdayDate.Text = "ל\"א אייר";
@@ -478,9 +478,9 @@
             this.pnlTomorrow.Controls.Add(this.lblTomorrowEntryStuff);
             this.pnlTomorrow.Controls.Add(this.lblTomorrowWeekDay);
             this.pnlTomorrow.Controls.Add(this.lblTomorrowDate);
-            this.pnlTomorrow.Location = new System.Drawing.Point(81, 110);
+            this.pnlTomorrow.Location = new System.Drawing.Point(102, 114);
             this.pnlTomorrow.Name = "pnlTomorrow";
-            this.pnlTomorrow.Size = new System.Drawing.Size(415, 41);
+            this.pnlTomorrow.Size = new System.Drawing.Size(459, 41);
             this.pnlTomorrow.TabIndex = 1;
             // 
             // lblTomorrowDay
@@ -488,9 +488,9 @@
             this.lblTomorrowDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTomorrowDay.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTomorrowDay.ForeColor = System.Drawing.Color.Black;
-            this.lblTomorrowDay.Location = new System.Drawing.Point(2, -1);
+            this.lblTomorrowDay.Location = new System.Drawing.Point(1, -1);
             this.lblTomorrowDay.Name = "lblTomorrowDay";
-            this.lblTomorrowDay.Size = new System.Drawing.Size(107, 41);
+            this.lblTomorrowDay.Size = new System.Drawing.Size(126, 41);
             this.lblTomorrowDay.TabIndex = 11;
             this.lblTomorrowDay.Tag = "Day";
             this.lblTomorrowDay.Text = " ";
@@ -501,9 +501,9 @@
             this.lblTomorrowNight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTomorrowNight.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTomorrowNight.ForeColor = System.Drawing.Color.Black;
-            this.lblTomorrowNight.Location = new System.Drawing.Point(107, -1);
+            this.lblTomorrowNight.Location = new System.Drawing.Point(126, -1);
             this.lblTomorrowNight.Name = "lblTomorrowNight";
-            this.lblTomorrowNight.Size = new System.Drawing.Size(106, 41);
+            this.lblTomorrowNight.Size = new System.Drawing.Size(126, 41);
             this.lblTomorrowNight.TabIndex = 10;
             this.lblTomorrowNight.Tag = "Night";
             this.lblTomorrowNight.Text = " ";
@@ -514,7 +514,7 @@
             this.lblTomorrowEntryStuff.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTomorrowEntryStuff.Font = new System.Drawing.Font("Narkisim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTomorrowEntryStuff.ForeColor = System.Drawing.Color.Crimson;
-            this.lblTomorrowEntryStuff.Location = new System.Drawing.Point(210, -1);
+            this.lblTomorrowEntryStuff.Location = new System.Drawing.Point(251, -1);
             this.lblTomorrowEntryStuff.Name = "lblTomorrowEntryStuff";
             this.lblTomorrowEntryStuff.Size = new System.Drawing.Size(79, 41);
             this.lblTomorrowEntryStuff.TabIndex = 8;
@@ -525,7 +525,7 @@
             // lblTomorrowWeekDay
             // 
             this.lblTomorrowWeekDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTomorrowWeekDay.Location = new System.Drawing.Point(286, -1);
+            this.lblTomorrowWeekDay.Location = new System.Drawing.Point(329, -1);
             this.lblTomorrowWeekDay.Name = "lblTomorrowWeekDay";
             this.lblTomorrowWeekDay.Size = new System.Drawing.Size(45, 41);
             this.lblTomorrowWeekDay.TabIndex = 7;
@@ -539,9 +539,9 @@
             this.lblTomorrowDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTomorrowDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTomorrowDate.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.lblTomorrowDate.Location = new System.Drawing.Point(331, -1);
+            this.lblTomorrowDate.Location = new System.Drawing.Point(374, -1);
             this.lblTomorrowDate.Name = "lblTomorrowDate";
-            this.lblTomorrowDate.Size = new System.Drawing.Size(83, 41);
+            this.lblTomorrowDate.Size = new System.Drawing.Size(84, 41);
             this.lblTomorrowDate.TabIndex = 1;
             this.lblTomorrowDate.Tag = "Date";
             this.lblTomorrowDate.Text = "ל\"א אייר";
@@ -555,9 +555,9 @@
             this.pnlToday.Controls.Add(this.lblTodayEntryStuff);
             this.pnlToday.Controls.Add(this.lblTodayWeekDay);
             this.pnlToday.Controls.Add(this.lblTodayDate);
-            this.pnlToday.Location = new System.Drawing.Point(81, 70);
+            this.pnlToday.Location = new System.Drawing.Point(102, 74);
             this.pnlToday.Name = "pnlToday";
-            this.pnlToday.Size = new System.Drawing.Size(415, 41);
+            this.pnlToday.Size = new System.Drawing.Size(459, 41);
             this.pnlToday.TabIndex = 1;
             // 
             // lblTodayDay
@@ -565,9 +565,9 @@
             this.lblTodayDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTodayDay.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTodayDay.ForeColor = System.Drawing.Color.Black;
-            this.lblTodayDay.Location = new System.Drawing.Point(2, -1);
+            this.lblTodayDay.Location = new System.Drawing.Point(1, -1);
             this.lblTodayDay.Name = "lblTodayDay";
-            this.lblTodayDay.Size = new System.Drawing.Size(107, 41);
+            this.lblTodayDay.Size = new System.Drawing.Size(126, 41);
             this.lblTodayDay.TabIndex = 11;
             this.lblTodayDay.Tag = "Day";
             this.lblTodayDay.Text = " ";
@@ -578,9 +578,9 @@
             this.lblTodayNight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTodayNight.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTodayNight.ForeColor = System.Drawing.Color.Black;
-            this.lblTodayNight.Location = new System.Drawing.Point(107, -1);
+            this.lblTodayNight.Location = new System.Drawing.Point(126, -1);
             this.lblTodayNight.Name = "lblTodayNight";
-            this.lblTodayNight.Size = new System.Drawing.Size(106, 41);
+            this.lblTodayNight.Size = new System.Drawing.Size(126, 41);
             this.lblTodayNight.TabIndex = 10;
             this.lblTodayNight.Tag = "Night";
             this.lblTodayNight.Text = " ";
@@ -591,7 +591,7 @@
             this.lblTodayEntryStuff.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTodayEntryStuff.Font = new System.Drawing.Font("Narkisim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTodayEntryStuff.ForeColor = System.Drawing.Color.Crimson;
-            this.lblTodayEntryStuff.Location = new System.Drawing.Point(210, -1);
+            this.lblTodayEntryStuff.Location = new System.Drawing.Point(251, -1);
             this.lblTodayEntryStuff.Name = "lblTodayEntryStuff";
             this.lblTodayEntryStuff.Size = new System.Drawing.Size(79, 41);
             this.lblTodayEntryStuff.TabIndex = 8;
@@ -602,7 +602,7 @@
             // lblTodayWeekDay
             // 
             this.lblTodayWeekDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTodayWeekDay.Location = new System.Drawing.Point(286, -1);
+            this.lblTodayWeekDay.Location = new System.Drawing.Point(329, -1);
             this.lblTodayWeekDay.Name = "lblTodayWeekDay";
             this.lblTodayWeekDay.Size = new System.Drawing.Size(45, 41);
             this.lblTodayWeekDay.TabIndex = 7;
@@ -616,9 +616,9 @@
             this.lblTodayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTodayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTodayDate.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.lblTodayDate.Location = new System.Drawing.Point(331, -1);
+            this.lblTodayDate.Location = new System.Drawing.Point(374, -1);
             this.lblTodayDate.Name = "lblTodayDate";
-            this.lblTodayDate.Size = new System.Drawing.Size(83, 41);
+            this.lblTodayDate.Size = new System.Drawing.Size(84, 41);
             this.lblTodayDate.TabIndex = 1;
             this.lblTodayDate.Tag = "Date";
             this.lblTodayDate.Text = "ל\"א אייר";
@@ -632,9 +632,9 @@
             this.pnlYesterday.Controls.Add(this.lblYesterdayEntryStuff);
             this.pnlYesterday.Controls.Add(this.lblYesterdayWeekDay);
             this.pnlYesterday.Controls.Add(this.lblYesterdayDate);
-            this.pnlYesterday.Location = new System.Drawing.Point(81, 29);
+            this.pnlYesterday.Location = new System.Drawing.Point(102, 33);
             this.pnlYesterday.Name = "pnlYesterday";
-            this.pnlYesterday.Size = new System.Drawing.Size(415, 41);
+            this.pnlYesterday.Size = new System.Drawing.Size(459, 41);
             this.pnlYesterday.TabIndex = 0;
             // 
             // lblYesterdayDay
@@ -642,9 +642,9 @@
             this.lblYesterdayDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblYesterdayDay.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblYesterdayDay.ForeColor = System.Drawing.Color.Black;
-            this.lblYesterdayDay.Location = new System.Drawing.Point(2, 0);
+            this.lblYesterdayDay.Location = new System.Drawing.Point(1, 0);
             this.lblYesterdayDay.Name = "lblYesterdayDay";
-            this.lblYesterdayDay.Size = new System.Drawing.Size(107, 41);
+            this.lblYesterdayDay.Size = new System.Drawing.Size(126, 41);
             this.lblYesterdayDay.TabIndex = 9;
             this.lblYesterdayDay.Tag = "Day";
             this.lblYesterdayDay.Text = " ";
@@ -655,9 +655,9 @@
             this.lblYesterdayNight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblYesterdayNight.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblYesterdayNight.ForeColor = System.Drawing.Color.Black;
-            this.lblYesterdayNight.Location = new System.Drawing.Point(107, 0);
+            this.lblYesterdayNight.Location = new System.Drawing.Point(126, 0);
             this.lblYesterdayNight.Name = "lblYesterdayNight";
-            this.lblYesterdayNight.Size = new System.Drawing.Size(106, 41);
+            this.lblYesterdayNight.Size = new System.Drawing.Size(126, 41);
             this.lblYesterdayNight.TabIndex = 8;
             this.lblYesterdayNight.Tag = "Night";
             this.lblYesterdayNight.Text = " ";
@@ -668,7 +668,7 @@
             this.lblYesterdayEntryStuff.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblYesterdayEntryStuff.Font = new System.Drawing.Font("Narkisim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblYesterdayEntryStuff.ForeColor = System.Drawing.Color.Crimson;
-            this.lblYesterdayEntryStuff.Location = new System.Drawing.Point(210, 0);
+            this.lblYesterdayEntryStuff.Location = new System.Drawing.Point(251, 0);
             this.lblYesterdayEntryStuff.Name = "lblYesterdayEntryStuff";
             this.lblYesterdayEntryStuff.Size = new System.Drawing.Size(79, 41);
             this.lblYesterdayEntryStuff.TabIndex = 7;
@@ -679,7 +679,7 @@
             // lblYesterdayWeekDay
             // 
             this.lblYesterdayWeekDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblYesterdayWeekDay.Location = new System.Drawing.Point(286, 0);
+            this.lblYesterdayWeekDay.Location = new System.Drawing.Point(329, 0);
             this.lblYesterdayWeekDay.Name = "lblYesterdayWeekDay";
             this.lblYesterdayWeekDay.Size = new System.Drawing.Size(45, 41);
             this.lblYesterdayWeekDay.TabIndex = 6;
@@ -693,9 +693,9 @@
             this.lblYesterdayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblYesterdayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblYesterdayDate.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.lblYesterdayDate.Location = new System.Drawing.Point(331, 0);
+            this.lblYesterdayDate.Location = new System.Drawing.Point(374, 0);
             this.lblYesterdayDate.Name = "lblYesterdayDate";
-            this.lblYesterdayDate.Size = new System.Drawing.Size(83, 41);
+            this.lblYesterdayDate.Size = new System.Drawing.Size(84, 41);
             this.lblYesterdayDate.TabIndex = 0;
             this.lblYesterdayDate.Tag = "Date";
             this.lblYesterdayDate.Text = "ל\"א אייר";
@@ -703,7 +703,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label4);
@@ -716,16 +717,16 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtNotes);
             this.groupBox1.Controls.Add(this.btnEnter);
-            this.groupBox1.Location = new System.Drawing.Point(586, 42);
+            this.groupBox1.Location = new System.Drawing.Point(11, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(336, 205);
+            this.groupBox1.Size = new System.Drawing.Size(463, 214);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "רשומה חדשה";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Tan;
+            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label16);
             this.panel1.Controls.Add(this.lblToday);
@@ -734,15 +735,16 @@
             this.panel1.Controls.Add(this.lblWarning);
             this.panel1.Controls.Add(this.lblZmanim);
             this.panel1.Controls.Add(this.lblLocation);
-            this.panel1.Location = new System.Drawing.Point(17, 60);
+            this.panel1.Location = new System.Drawing.Point(19, 64);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(251, 78);
+            this.panel1.Size = new System.Drawing.Size(331, 78);
             this.panel1.TabIndex = 13;
             // 
             // label16
             // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(220, 57);
+            this.label16.Location = new System.Drawing.Point(291, 62);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(28, 12);
             this.label16.TabIndex = 17;
@@ -750,7 +752,8 @@
             // 
             // lblToday
             // 
-            this.lblToday.Location = new System.Drawing.Point(110, 57);
+            this.lblToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblToday.Location = new System.Drawing.Point(181, 62);
             this.lblToday.Name = "lblToday";
             this.lblToday.Size = new System.Drawing.Size(112, 12);
             this.lblToday.TabIndex = 16;
@@ -758,8 +761,9 @@
             // 
             // label15
             // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(47, 57);
+            this.label15.Location = new System.Drawing.Point(118, 62);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(63, 12);
             this.label15.TabIndex = 15;
@@ -767,7 +771,8 @@
             // 
             // lblTime
             // 
-            this.lblTime.Location = new System.Drawing.Point(4, 57);
+            this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTime.Location = new System.Drawing.Point(72, 62);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(44, 12);
             this.lblTime.TabIndex = 14;
@@ -787,9 +792,10 @@
             // 
             // lblZmanim
             // 
+            this.lblZmanim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZmanim.AutoSize = true;
             this.lblZmanim.ForeColor = System.Drawing.Color.Black;
-            this.lblZmanim.Location = new System.Drawing.Point(184, 25);
+            this.lblZmanim.Location = new System.Drawing.Point(255, 30);
             this.lblZmanim.Name = "lblZmanim";
             this.lblZmanim.Size = new System.Drawing.Size(63, 24);
             this.lblZmanim.TabIndex = 12;
@@ -797,19 +803,22 @@
             // 
             // lblLocation
             // 
+            this.lblLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLocation.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblLocation.ForeColor = System.Drawing.Color.Black;
-            this.lblLocation.Location = new System.Drawing.Point(0, 0);
+            this.lblLocation.Location = new System.Drawing.Point(172, 5);
             this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(250, 17);
+            this.lblLocation.Size = new System.Drawing.Size(149, 17);
             this.lblLocation.TabIndex = 11;
             this.lblLocation.Text = "זמנים לקרית ספר";
             this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(299, 16);
+            this.label3.Location = new System.Drawing.Point(426, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(19, 12);
             this.label3.TabIndex = 5;
@@ -817,8 +826,9 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(289, 130);
+            this.label4.Location = new System.Drawing.Point(412, 140);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 12);
             this.label4.TabIndex = 10;
@@ -826,10 +836,11 @@
             // 
             // cmbMonth
             // 
+            this.cmbMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbMonth.DisplayMember = "MonthName";
             this.cmbMonth.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbMonth.FormattingEnabled = true;
-            this.cmbMonth.Location = new System.Drawing.Point(131, 31);
+            this.cmbMonth.Location = new System.Drawing.Point(258, 38);
             this.cmbMonth.Name = "cmbMonth";
             this.cmbMonth.Size = new System.Drawing.Size(105, 20);
             this.cmbMonth.TabIndex = 1;
@@ -838,10 +849,11 @@
             // 
             // cmbDay
             // 
+            this.cmbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbDay.DisplayMember = "Value";
             this.cmbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbDay.FormattingEnabled = true;
-            this.cmbDay.Location = new System.Drawing.Point(248, 31);
+            this.cmbDay.Location = new System.Drawing.Point(373, 38);
             this.cmbDay.Name = "cmbDay";
             this.cmbDay.Size = new System.Drawing.Size(72, 20);
             this.cmbDay.TabIndex = 0;
@@ -850,9 +862,10 @@
             // 
             // cmbYear
             // 
+            this.cmbYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbYear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbYear.FormattingEnabled = true;
-            this.cmbYear.Location = new System.Drawing.Point(17, 31);
+            this.cmbYear.Location = new System.Drawing.Point(144, 38);
             this.cmbYear.Name = "cmbYear";
             this.cmbYear.Size = new System.Drawing.Size(102, 20);
             this.cmbYear.TabIndex = 2;
@@ -860,9 +873,10 @@
             // 
             // rbDay
             // 
+            this.rbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbDay.Location = new System.Drawing.Point(274, 79);
+            this.rbDay.Location = new System.Drawing.Point(402, 93);
             this.rbDay.Name = "rbDay";
             this.rbDay.Size = new System.Drawing.Size(43, 17);
             this.rbDay.TabIndex = 4;
@@ -872,8 +886,9 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(98, 14);
+            this.label1.Location = new System.Drawing.Point(225, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 12);
             this.label1.TabIndex = 3;
@@ -881,10 +896,11 @@
             // 
             // rbNight
             // 
+            this.rbNight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbNight.AutoSize = true;
             this.rbNight.Checked = true;
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbNight.Location = new System.Drawing.Point(269, 63);
+            this.rbNight.Location = new System.Drawing.Point(397, 73);
             this.rbNight.Name = "rbNight";
             this.rbNight.Size = new System.Drawing.Size(48, 17);
             this.rbNight.TabIndex = 3;
@@ -895,8 +911,9 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(208, 14);
+            this.label2.Location = new System.Drawing.Point(335, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 4;
@@ -904,31 +921,25 @@
             // 
             // txtNotes
             // 
+            this.txtNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNotes.Location = new System.Drawing.Point(17, 144);
+            this.txtNotes.Location = new System.Drawing.Point(19, 154);
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(308, 19);
+            this.txtNotes.Size = new System.Drawing.Size(426, 19);
             this.txtNotes.TabIndex = 5;
             // 
             // btnEnter
             // 
+            this.btnEnter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEnter.BackColor = System.Drawing.Color.BurlyWood;
-            this.btnEnter.Location = new System.Drawing.Point(17, 174);
+            this.btnEnter.Location = new System.Drawing.Point(370, 182);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(75, 21);
             this.btnEnter.TabIndex = 6;
             this.btnEnter.Text = "הוסף";
             this.btnEnter.UseVisualStyleBackColor = false;
             this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(14, 257);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(40, 12);
-            this.label14.TabIndex = 12;
-            this.label14.Text = "רשומות";
             // 
             // menuStrip1
             // 
@@ -940,7 +951,7 @@
             this.AboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(934, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1174, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1094,20 +1105,22 @@
             // 
             // lblNextProblem
             // 
-            this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblNextProblem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextProblem.ForeColor = System.Drawing.Color.Brown;
-            this.lblNextProblem.Location = new System.Drawing.Point(16, 247);
+            this.lblNextProblem.Location = new System.Drawing.Point(11, 231);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lblNextProblem.Size = new System.Drawing.Size(835, 16);
+            this.lblNextProblem.Size = new System.Drawing.Size(1124, 25);
             this.lblNextProblem.TabIndex = 16;
-            this.lblNextProblem.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNextProblem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pbWeb
             // 
             this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
-            this.pbWeb.Location = new System.Drawing.Point(1, 28);
+            this.pbWeb.Location = new System.Drawing.Point(-509, -3);
             this.pbWeb.Name = "pbWeb";
             this.pbWeb.Size = new System.Drawing.Size(53, 51);
             this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1119,7 +1132,7 @@
             // 
             this.btnPrintEntryList.AutoSize = true;
             this.btnPrintEntryList.Image = global::Chashavshavon.Properties.Resources.printer;
-            this.btnPrintEntryList.Location = new System.Drawing.Point(843, 365);
+            this.btnPrintEntryList.Location = new System.Drawing.Point(17, 85);
             this.btnPrintEntryList.Name = "btnPrintEntryList";
             this.btnPrintEntryList.Size = new System.Drawing.Size(63, 71);
             this.btnPrintEntryList.TabIndex = 22;
@@ -1132,7 +1145,7 @@
             // 
             this.btnViewTextEntryList.AutoSize = true;
             this.btnViewTextEntryList.Image = global::Chashavshavon.Properties.Resources.page_previous;
-            this.btnViewTextEntryList.Location = new System.Drawing.Point(843, 289);
+            this.btnViewTextEntryList.Location = new System.Drawing.Point(17, 9);
             this.btnViewTextEntryList.Name = "btnViewTextEntryList";
             this.btnViewTextEntryList.Size = new System.Drawing.Size(61, 71);
             this.btnViewTextEntryList.TabIndex = 21;
@@ -1140,6 +1153,51 @@
             this.btnViewTextEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnViewTextEntryList.UseVisualStyleBackColor = true;
             this.btnViewTextEntryList.Click += new System.EventHandler(this.btnViewTextEntryList_Click);
+            // 
+            // splitContainerMain
+            // 
+            this.splitContainerMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainerMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainerMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainerMain.Location = new System.Drawing.Point(7, 33);
+            this.splitContainerMain.Name = "splitContainerMain";
+            this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerMain.Panel1
+            // 
+            this.splitContainerMain.Panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.splitContainerMain.Panel1.Controls.Add(this.groupBox1);
+            this.splitContainerMain.Panel1.Controls.Add(this.gbCalendar);
+            this.splitContainerMain.Panel1.Controls.Add(this.pbWeb);
+            this.splitContainerMain.Panel1.Controls.Add(this.lblNextProblem);
+            this.splitContainerMain.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            // 
+            // splitContainerMain.Panel2
+            // 
+            this.splitContainerMain.Panel2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.splitContainerMain.Panel2.Controls.Add(this.label14);
+            this.splitContainerMain.Panel2.Controls.Add(this.btnPrintEntryList);
+            this.splitContainerMain.Panel2.Controls.Add(this.btnViewTextEntryList);
+            this.splitContainerMain.Panel2.Controls.Add(this.dgEntries);
+            this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.splitContainerMain.Size = new System.Drawing.Size(1160, 623);
+            this.splitContainerMain.SplitterDistance = 265;
+            this.splitContainerMain.SplitterWidth = 6;
+            this.splitContainerMain.TabIndex = 23;
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Narkisim", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label14.ForeColor = System.Drawing.Color.Green;
+            this.label14.Location = new System.Drawing.Point(1079, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(69, 19);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "רשומות";
             // 
             // DateColumn
             // 
@@ -1183,7 +1241,7 @@
             this.NotesColumn.HeaderText = "הערות";
             this.NotesColumn.Name = "NotesColumn";
             this.NotesColumn.ReadOnly = true;
-            this.NotesColumn.Width = 405;
+            this.NotesColumn.Width = 422;
             // 
             // btnDeleteColumn
             // 
@@ -1202,17 +1260,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(934, 662);
-            this.Controls.Add(this.btnPrintEntryList);
-            this.Controls.Add(this.btnViewTextEntryList);
-            this.Controls.Add(this.pbWeb);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.gbCalendar);
-            this.Controls.Add(this.dgEntries);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1174, 662);
+            this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.lblNextProblem);
             this.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -1238,6 +1289,10 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).EndInit();
+            this.splitContainerMain.Panel1.ResumeLayout(false);
+            this.splitContainerMain.Panel2.ResumeLayout(false);
+            this.splitContainerMain.Panel2.PerformLayout();
+            this.splitContainerMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1284,7 +1339,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtNotes;
         private System.Windows.Forms.Button btnEnter;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ToolStripPanel BottomToolStripPanel;
         private System.Windows.Forms.ToolStripPanel TopToolStripPanel;
         private System.Windows.Forms.ToolStripPanel RightToolStripPanel;
@@ -1336,6 +1390,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPrintEntryList;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEntryList;
         private System.Windows.Forms.BindingSource bindingSourceEntries;
+        private System.Windows.Forms.SplitContainer splitContainerMain;
+        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DayNightColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn IntervalColumn;
