@@ -200,7 +200,7 @@
             this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgEntries.AutoGenerateColumns = false;
-            this.dgEntries.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dgEntries.BackgroundColor = System.Drawing.Color.White;
             this.dgEntries.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -461,7 +461,7 @@
             this.lblNextdayDate.BackColor = System.Drawing.Color.Wheat;
             this.lblNextdayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblNextdayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.lblNextdayDate.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.lblNextdayDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblNextdayDate.Location = new System.Drawing.Point(374, -1);
             this.lblNextdayDate.Name = "lblNextdayDate";
             this.lblNextdayDate.Size = new System.Drawing.Size(84, 41);
@@ -538,7 +538,7 @@
             this.lblTomorrowDate.BackColor = System.Drawing.Color.Wheat;
             this.lblTomorrowDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTomorrowDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.lblTomorrowDate.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.lblTomorrowDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblTomorrowDate.Location = new System.Drawing.Point(374, -1);
             this.lblTomorrowDate.Name = "lblTomorrowDate";
             this.lblTomorrowDate.Size = new System.Drawing.Size(84, 41);
@@ -615,7 +615,7 @@
             this.lblTodayDate.BackColor = System.Drawing.Color.Wheat;
             this.lblTodayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTodayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.lblTodayDate.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.lblTodayDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblTodayDate.Location = new System.Drawing.Point(374, -1);
             this.lblTodayDate.Name = "lblTodayDate";
             this.lblTodayDate.Size = new System.Drawing.Size(84, 41);
@@ -692,7 +692,7 @@
             this.lblYesterdayDate.BackColor = System.Drawing.Color.Wheat;
             this.lblYesterdayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblYesterdayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.lblYesterdayDate.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.lblYesterdayDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblYesterdayDate.Location = new System.Drawing.Point(374, 0);
             this.lblYesterdayDate.Name = "lblYesterdayDate";
             this.lblYesterdayDate.Size = new System.Drawing.Size(84, 41);
@@ -726,7 +726,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel1.BackColor = System.Drawing.Color.Tan;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label16);
             this.panel1.Controls.Add(this.lblToday);
@@ -735,7 +735,7 @@
             this.panel1.Controls.Add(this.lblWarning);
             this.panel1.Controls.Add(this.lblZmanim);
             this.panel1.Controls.Add(this.lblLocation);
-            this.panel1.Location = new System.Drawing.Point(19, 64);
+            this.panel1.Location = new System.Drawing.Point(19, 68);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(331, 78);
             this.panel1.TabIndex = 13;
@@ -786,7 +786,8 @@
             this.lblWarning.ForeColor = System.Drawing.Color.DarkRed;
             this.lblWarning.Location = new System.Drawing.Point(5, 20);
             this.lblWarning.Name = "lblWarning";
-            this.lblWarning.Size = new System.Drawing.Size(161, 28);
+            this.lblWarning.Padding = new System.Windows.Forms.Padding(3);
+            this.lblWarning.Size = new System.Drawing.Size(167, 34);
             this.lblWarning.TabIndex = 13;
             this.lblWarning.Text = "אזהרה: הזמנים האלו הם לא מספיק\r\n מדוייקים כדי לסמוך עליהם להלכה!";
             // 
@@ -794,7 +795,6 @@
             // 
             this.lblZmanim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZmanim.AutoSize = true;
-            this.lblZmanim.ForeColor = System.Drawing.Color.Black;
             this.lblZmanim.Location = new System.Drawing.Point(255, 30);
             this.lblZmanim.Name = "lblZmanim";
             this.lblZmanim.Size = new System.Drawing.Size(63, 24);
@@ -839,6 +839,7 @@
             this.cmbMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbMonth.DisplayMember = "MonthName";
             this.cmbMonth.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cmbMonth.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbMonth.FormattingEnabled = true;
             this.cmbMonth.Location = new System.Drawing.Point(258, 38);
             this.cmbMonth.Name = "cmbMonth";
@@ -852,6 +853,7 @@
             this.cmbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbDay.DisplayMember = "Value";
             this.cmbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cmbDay.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbDay.FormattingEnabled = true;
             this.cmbDay.Location = new System.Drawing.Point(373, 38);
             this.cmbDay.Name = "cmbDay";
@@ -864,6 +866,7 @@
             // 
             this.cmbYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbYear.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cmbYear.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbYear.FormattingEnabled = true;
             this.cmbYear.Location = new System.Drawing.Point(144, 38);
             this.cmbYear.Name = "cmbYear";
@@ -924,6 +927,7 @@
             this.txtNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNotes.ForeColor = System.Drawing.Color.SaddleBrown;
             this.txtNotes.Location = new System.Drawing.Point(19, 154);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.Size = new System.Drawing.Size(426, 19);
@@ -1167,16 +1171,17 @@
             // 
             // splitContainerMain.Panel1
             // 
-            this.splitContainerMain.Panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.splitContainerMain.Panel1.BackColor = System.Drawing.Color.White;
             this.splitContainerMain.Panel1.Controls.Add(this.groupBox1);
             this.splitContainerMain.Panel1.Controls.Add(this.gbCalendar);
             this.splitContainerMain.Panel1.Controls.Add(this.pbWeb);
             this.splitContainerMain.Panel1.Controls.Add(this.lblNextProblem);
+            this.splitContainerMain.Panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.splitContainerMain.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             // 
             // splitContainerMain.Panel2
             // 
-            this.splitContainerMain.Panel2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.splitContainerMain.Panel2.BackColor = System.Drawing.Color.White;
             this.splitContainerMain.Panel2.Controls.Add(this.label14);
             this.splitContainerMain.Panel2.Controls.Add(this.btnPrintEntryList);
             this.splitContainerMain.Panel2.Controls.Add(this.btnViewTextEntryList);
@@ -1192,7 +1197,7 @@
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Narkisim", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label14.ForeColor = System.Drawing.Color.Green;
+            this.label14.ForeColor = System.Drawing.Color.DarkOliveGreen;
             this.label14.Location = new System.Drawing.Point(1079, 9);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(69, 19);
@@ -1249,6 +1254,7 @@
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Blue;
             this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.btnDeleteColumn.HeaderText = "";
+            this.btnDeleteColumn.LinkColor = System.Drawing.Color.Maroon;
             this.btnDeleteColumn.Name = "btnDeleteColumn";
             this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.btnDeleteColumn.Text = "מחק";
@@ -1260,11 +1266,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1174, 662);
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";

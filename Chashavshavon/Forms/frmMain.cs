@@ -712,7 +712,7 @@ namespace Chashavshavon
 
                 //The 30th day after any entry is usually assur as an onah beinanus (unless there is a set Kavuah)
                 thirty = entry.AddDays(29);
-                if (thirty.DateTime.AddDays(-1) >= yesterday)
+                if (thirty.DateTime >= yesterday)
                 {
                     thirty.Name = "יום שלושים";
                     thirty.IsIgnored = hasCancelByKavuah;
@@ -730,7 +730,7 @@ namespace Chashavshavon
 
                 //31 is also an onah beinonus 
                 thirtyOne = entry.AddDays(30);
-                if (thirtyOne.DateTime.AddDays(-1) >= yesterday)
+                if (thirtyOne.DateTime >= yesterday)
                 {
                     thirtyOne.Name = "יום ל\"א";
                     thirtyOne.IsIgnored = hasCancelByKavuah;
@@ -749,7 +749,7 @@ namespace Chashavshavon
                 if (entry.Interval > 0)
                 {
                     intervalHaflagah = entry.AddDays(entry.Interval - 1);
-                    if (intervalHaflagah.DateTime.AddDays(-1) >= yesterday)
+                    if (intervalHaflagah.DateTime >= yesterday)
                     {
                         intervalHaflagah.Name = "יום הפלגה";
                         intervalHaflagah.IsIgnored = hasCancelByKavuah;
@@ -768,7 +768,7 @@ namespace Chashavshavon
                 foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.Haflagah && k.Active))
                 {
                     kavuahHaflaga = entry.AddDays(kavuah.Number);
-                    if (kavuahHaflaga.DateTime.AddDays(-1) >= yesterday)
+                    if (kavuahHaflaga.DateTime >= yesterday)
                     {
                         kavuahHaflaga.DayNight = kavuah.DayNight;
                         kavuahHaflaga.Name = " קבוע - הפלגה (" + kavuah.Number.ToString() + ")";
@@ -808,13 +808,18 @@ namespace Chashavshavon
             var sb = new StringBuilder("<html><head><meta content='(text/html;charset=UTF-8;' />" +
                 "<title>לוח חשבשבון ");
             sb.Append(this._today.ToLongDateString());
-            sb.Append("</title><style>body,table,td{text-align:right;direction:rtl;font-family:narkisim;}" +
-                "table{border:solid 1px silver;width:100%;}div.right{float:right;color:#056C05;font-weight:bold;width:200px;text-align:right;}" +
-                "td{padding:3px;margin:1px;}tr.alt td{background-color:#f1f1f1;}tr.red td{color:#ff0000;}tr.ignored td{color:#056C05;}</style></head>");
+            sb.Append("</title><style>" + 
+                "body,table,td{text-align:right;direction:rtl;font-family:narkisim;}" +
+                "table{border:solid 1px silver;width:100%;}" +
+                "div.ignored{float:right;color:#999999;width:400px;text-align:right;}" +
+                "td{padding:3px;margin:1px;}" + 
+                "tr.alt td{background-color:#f1f1f1;}" +
+                "tr.red td{color:#ff0000;}" +
+                "tr.ignored td{color:#999999;}</style></head>");
             sb.AppendFormat("<body><h3>לוח חשבשבון - עונות הבאות - {0}</h3>", this._today.ToLongDateString());
             if (onahsToAdd.Exists(o => o.IsIgnored))
             {
-                sb.Append("<div class='right'>רשומות בכתום לא פעילים עקב וסת קבוע</div>");
+                sb.Append("<div class='ignored'>רשומות באפור לא פעילים עקב וסת קבוע</div>");
             }
             sb.Append("<table><tr><th>יום</th><th>תאריך</th><th>יום/לילה</th><th>סיבה</th></tr>");
 
@@ -904,11 +909,11 @@ namespace Chashavshavon
             {
                 lblDate.BackColor = Color.Tan;
                 lblDate.ForeColor = Color.Gray;
-                lbl.Text = " - להתעלם" + problemOnah.Name;
+                lbl.Text = problemOnah.Name + "[מבוטל] ";
             }
             else
             {
-                lbl.Text = (lbl.Text.Length == 0 ? problemOnah.Name : lbl.Text + " ו" + problemOnah.Name);
+                lbl.Text = (lbl.Text.Length == 0 ? problemOnah.Name : lbl.Text + " וגם" + problemOnah.Name);
                 lblDate.BackColor = Color.SteelBlue;
                 lblDate.ForeColor = Color.Wheat;
                 if (lbl.Name.Contains("Today") && this._nowOnah.DayNight == problemOnah.DayNight)
@@ -925,7 +930,7 @@ namespace Chashavshavon
         }
 
         /// <summary>
-        /// Sorts the list of entries in order of occurence, then sets the Interval for each Entry - 
+        /// Sorts the list of entries in order of occurrence, then sets the Interval for each Entry - 
         /// which is the days elapsed since the previous Entry.
         /// This is in order to Cheshbon out the Haflagah        
         /// </summary>
