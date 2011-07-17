@@ -1,11 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace Chashavshavon
 {
     static class Program
-    {        
+    {
+
+        public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
+        public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
+        //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
+        public static DateTime Today;
+        public static Onah NowOnah;
+        //Keeps track of where user is; for calculating zmanim
+        public static Chashavshavon.Utils.Location CurrentLocation;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
