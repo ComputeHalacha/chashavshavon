@@ -679,7 +679,13 @@ namespace Chashavshavon
                intervalHaflagah,
                intervalHaflagahOhrZarua,
                kavuahHaflaga,
-               kavuahHaflagaOhrZarua;
+               kavuahHaflagaOhrZarua,
+               kavuahDayOfWeek,
+               kavuahDayOfWeekOhrZarua,
+               kavuahDilugHaflaga,
+               kavuahDilugHaflagaOhrZarua,
+               kavuahDilugDayofMonth,
+               kavuahDilugDayofMonthOhrZarua;
 
             foreach (Entry entry in Entries)
             {
@@ -754,13 +760,14 @@ namespace Chashavshavon
                     }
                 }
 
+                //Kavuah Haflagah
                 foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.Haflagah && k.Active))
                 {
                     kavuahHaflaga = entry.AddDays(kavuah.Number);
                     if (kavuahHaflaga.DateTime >= yesterday)
                     {
                         kavuahHaflaga.DayNight = kavuah.DayNight;
-                        kavuahHaflaga.Name = " קבוע - הפלגה (" + kavuah.Number.ToString() + ")";
+                        kavuahHaflaga.Name = kavuah.KavuahDescriptionHebrew;
                         problemOnas.Add(kavuahHaflaga);
 
                         if (Properties.Settings.Default.ShowOhrZeruah)
@@ -771,8 +778,70 @@ namespace Chashavshavon
                         }
                     }
                 }
+
+                //Kavuah Day of week
+                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DayOfWeek && k.Active))
+                {
+                    //DayOfWeek kavuas are the same as a haflagah just needs only 3 entries
+                    kavuahDayOfWeek = entry.AddDays(kavuah.Number);
+                    if (kavuahDayOfWeek.DateTime >= yesterday)
+                    {
+                        kavuahDayOfWeek.DayNight = kavuah.DayNight;
+                        kavuahDayOfWeek.Name = kavuah.KavuahDescriptionHebrew;
+                        problemOnas.Add(kavuahDayOfWeek);
+
+                        if (Properties.Settings.Default.ShowOhrZeruah)
+                        {
+                            kavuahDayOfWeekOhrZarua = Onah.GetPreviousOnah(kavuahDayOfWeek);
+                            kavuahDayOfWeekOhrZarua.Name = " או\"ז - " + kavuahDayOfWeek.Name;
+                            problemOnas.Add(kavuahDayOfWeekOhrZarua);
+                        }
+                    }
+                }
+
+
+                //Kavvuah Dilug Haflagos - even if one was off, only works out from entry not from what was supposed to be
+                //This is a machlokes.
+                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DilugHaflaga && k.Active))
+                {
+                    kavuahDilugHaflaga = entry.AddDays(entry.Interval + kavuah.Number);
+                    if (kavuahDilugHaflaga.DateTime >= yesterday)
+                    {
+                        kavuahDilugHaflaga.DayNight = kavuah.DayNight;
+                        kavuahDilugHaflaga.Name = kavuah.KavuahDescriptionHebrew;
+                        problemOnas.Add(kavuahDilugHaflaga);
+
+                        if (Properties.Settings.Default.ShowOhrZeruah)
+                        {
+                            kavuahDilugHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahDilugHaflaga);
+                            kavuahDilugHaflagaOhrZarua.Name = " או\"ז - " + kavuahDilugHaflaga.Name;
+                            problemOnas.Add(kavuahDilugHaflagaOhrZarua);
+                        }
+                    }
+                }
+
+                //Kavvuah Dilug Yom Hachodesh - even if one was off, only works out from entry not from what was supposed to be
+                //This is a machlokes.
+                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DilugDayOfMonth && k.Active))
+                {
+                    DateTime next = entry.DateTime.AddMonths(1);
+                    next = next.AddDays(kavuah.Number);
+                    if (next >= yesterday)
+                    {
+                        kavuahDilugDayofMonth = new Onah(next, kavuah.DayNight);
+                        kavuahDilugDayofMonth.Name = kavuah.KavuahDescriptionHebrew;
+                        problemOnas.Add(kavuahDilugDayofMonth);
+
+                        if (Properties.Settings.Default.ShowOhrZeruah)
+                        {
+                            kavuahDilugDayofMonthOhrZarua = Onah.GetPreviousOnah(kavuahDilugDayofMonth);
+                            kavuahDilugDayofMonthOhrZarua.Name = " או\"ז - " + kavuahDilugDayofMonth.Name;
+                            problemOnas.Add(kavuahDilugDayofMonthOhrZarua);
+                        }
+                    }
+                }
             }
-            //TODO: Cheshbon Dilug haflagas
+
             return problemOnas;
         }
 
