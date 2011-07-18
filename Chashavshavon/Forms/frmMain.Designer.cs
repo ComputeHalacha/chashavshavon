@@ -29,19 +29,25 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.dgEntries = new System.Windows.Forms.DataGridView();
+            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
             this.bindingSourceEntries = new System.Windows.Forms.BindingSource(this.components);
             this.gbCalendar = new System.Windows.Forms.GroupBox();
             this.btnPrintCalendar = new System.Windows.Forms.Button();
@@ -128,12 +134,9 @@
             this.btnViewTextEntryList = new System.Windows.Forms.Button();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.label14 = new System.Windows.Forms.Label();
-            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.openKavuaListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddKavuahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SearchForKavuahsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
@@ -192,25 +195,25 @@
             this.dgEntries.AllowUserToAddRows = false;
             this.dgEntries.AllowUserToDeleteRows = false;
             this.dgEntries.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgEntries.AutoGenerateColumns = false;
             this.dgEntries.BackgroundColor = System.Drawing.Color.White;
             this.dgEntries.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Wheat;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.Wheat;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dgEntries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgEntries.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DateColumn,
@@ -225,23 +228,81 @@
             this.dgEntries.Name = "dgEntries";
             this.dgEntries.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dgEntries.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.dgEntries.RowHeadersVisible = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle18;
             this.dgEntries.Size = new System.Drawing.Size(808, 302);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
+            // 
+            // DateColumn
+            // 
+            this.DateColumn.DataPropertyName = "DateTime";
+            dataGridViewCellStyle15.Format = "dd MMM yyyy";
+            dataGridViewCellStyle15.NullValue = null;
+            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle15;
+            this.DateColumn.HeaderText = "תאריך";
+            this.DateColumn.Name = "DateColumn";
+            this.DateColumn.ReadOnly = true;
+            this.DateColumn.Width = 120;
+            // 
+            // DayNightColumn
+            // 
+            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
+            this.DayNightColumn.HeaderText = "יום/לילה";
+            this.DayNightColumn.Name = "DayNightColumn";
+            this.DayNightColumn.ReadOnly = true;
+            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DayNightColumn.Width = 70;
+            // 
+            // IntervalColumn
+            // 
+            this.IntervalColumn.DataPropertyName = "Interval";
+            this.IntervalColumn.HeaderText = "הפלגה";
+            this.IntervalColumn.Name = "IntervalColumn";
+            this.IntervalColumn.ReadOnly = true;
+            this.IntervalColumn.Width = 50;
+            // 
+            // DayOfWeekColumn
+            // 
+            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
+            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
+            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
+            this.DayOfWeekColumn.ReadOnly = true;
+            this.DayOfWeekColumn.Width = 75;
+            // 
+            // NotesColumn
+            // 
+            this.NotesColumn.DataPropertyName = "Notes";
+            this.NotesColumn.HeaderText = "הערות";
+            this.NotesColumn.Name = "NotesColumn";
+            this.NotesColumn.ReadOnly = true;
+            this.NotesColumn.Width = 422;
+            // 
+            // btnDeleteColumn
+            // 
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.Blue;
+            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle16;
+            this.btnDeleteColumn.HeaderText = "";
+            this.btnDeleteColumn.LinkColor = System.Drawing.Color.Maroon;
+            this.btnDeleteColumn.Name = "btnDeleteColumn";
+            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.btnDeleteColumn.Text = "מחק";
+            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
+            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
+            this.btnDeleteColumn.Width = 50;
             // 
             // gbCalendar
             // 
@@ -1073,10 +1134,13 @@
             // 
             // KavuahToolStripMenuItem
             // 
+            this.KavuahToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openKavuaListToolStripMenuItem,
+            this.AddKavuahToolStripMenuItem,
+            this.SearchForKavuahsToolStripMenuItem});
             this.KavuahToolStripMenuItem.Name = "KavuahToolStripMenuItem";
             this.KavuahToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.KavuahToolStripMenuItem.Text = "ק&בוע";
-            this.KavuahToolStripMenuItem.Click += new System.EventHandler(this.KavuahToolStripMenuItem_Click);
+            this.KavuahToolStripMenuItem.Text = "ק&בוע";            
             // 
             // RemoteToolStripMenuItem
             // 
@@ -1204,63 +1268,26 @@
             this.label14.TabIndex = 23;
             this.label14.Text = "רשומות";
             // 
-            // DateColumn
+            // openKavuaListToolStripMenuItem
             // 
-            this.DateColumn.DataPropertyName = "DateTime";
-            dataGridViewCellStyle3.Format = "dd MMM yyyy";
-            dataGridViewCellStyle3.NullValue = null;
-            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.DateColumn.HeaderText = "תאריך";
-            this.DateColumn.Name = "DateColumn";
-            this.DateColumn.ReadOnly = true;
-            this.DateColumn.Width = 120;
+            this.openKavuaListToolStripMenuItem.Name = "openKavuaListToolStripMenuItem";
+            this.openKavuaListToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.openKavuaListToolStripMenuItem.Text = "&פתח רשימת וסת קבוע";
+            this.openKavuaListToolStripMenuItem.Click += new System.EventHandler(this.openKavuaListToolStripMenuItem_Click);
             // 
-            // DayNightColumn
+            // AddKavuahToolStripMenuItem
             // 
-            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
-            this.DayNightColumn.HeaderText = "יום/לילה";
-            this.DayNightColumn.Name = "DayNightColumn";
-            this.DayNightColumn.ReadOnly = true;
-            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DayNightColumn.Width = 70;
+            this.AddKavuahToolStripMenuItem.Name = "AddKavuahToolStripMenuItem";
+            this.AddKavuahToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.AddKavuahToolStripMenuItem.Text = "&הוסף חדש";
+            this.AddKavuahToolStripMenuItem.Click += new System.EventHandler(this.AddKavuahToolStripMenuItem_Click);
             // 
-            // IntervalColumn
+            // SearchForKavuahsToolStripMenuItem
             // 
-            this.IntervalColumn.DataPropertyName = "Interval";
-            this.IntervalColumn.HeaderText = "הפלגה";
-            this.IntervalColumn.Name = "IntervalColumn";
-            this.IntervalColumn.ReadOnly = true;
-            this.IntervalColumn.Width = 50;
-            // 
-            // DayOfWeekColumn
-            // 
-            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
-            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
-            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
-            this.DayOfWeekColumn.ReadOnly = true;
-            this.DayOfWeekColumn.Width = 75;
-            // 
-            // NotesColumn
-            // 
-            this.NotesColumn.DataPropertyName = "Notes";
-            this.NotesColumn.HeaderText = "הערות";
-            this.NotesColumn.Name = "NotesColumn";
-            this.NotesColumn.ReadOnly = true;
-            this.NotesColumn.Width = 422;
-            // 
-            // btnDeleteColumn
-            // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Blue;
-            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.btnDeleteColumn.HeaderText = "";
-            this.btnDeleteColumn.LinkColor = System.Drawing.Color.Maroon;
-            this.btnDeleteColumn.Name = "btnDeleteColumn";
-            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.btnDeleteColumn.Text = "מחק";
-            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
-            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
-            this.btnDeleteColumn.Width = 50;
+            this.SearchForKavuahsToolStripMenuItem.Name = "SearchForKavuahsToolStripMenuItem";
+            this.SearchForKavuahsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.SearchForKavuahsToolStripMenuItem.Text = "&חפש וסת קבוע מתןך הרשימה";
+            this.SearchForKavuahsToolStripMenuItem.Click += new System.EventHandler(this.SearchForKavuahsToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -1405,6 +1432,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DayOfWeekColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn NotesColumn;
         private System.Windows.Forms.DataGridViewLinkColumn btnDeleteColumn;
+        private System.Windows.Forms.ToolStripMenuItem openKavuaListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AddKavuahToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SearchForKavuahsToolStripMenuItem;
 
 
 

@@ -194,6 +194,7 @@
     </Compile>
     <Compile Include="Utils\RemoteFunctions.cs" />
     <Compile Include="Utils\Zmanim.cs" />
+    <None Include="שאלות.docx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\chash.png" />

@@ -35,9 +35,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvKavuahList = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
             this.entryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.kavuahBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.DataGridViewImageColumn();
             this.kavuahDescriptionHebrewDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -123,6 +123,14 @@
             this.dgvKavuahList.TabIndex = 6;
             this.dgvKavuahList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKavuahList_CellContentClick);
             // 
+            // entryBindingSource
+            // 
+            this.entryBindingSource.DataSource = typeof(Chashavshavon.Entry);
+            // 
+            // kavuahBindingSource
+            // 
+            this.kavuahBindingSource.DataSource = typeof(Chashavshavon.Kavuah);
+            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.BurlyWood;
@@ -134,14 +142,6 @@
             this.button1.Text = "סגור";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // entryBindingSource
-            // 
-            this.entryBindingSource.DataSource = typeof(Chashavshavon.Entry);
-            // 
-            // kavuahBindingSource
-            // 
-            this.kavuahBindingSource.DataSource = typeof(Chashavshavon.Kavuah);
             // 
             // btnDelete
             // 
@@ -178,7 +178,7 @@
             // 
             // StartingEntryDate
             // 
-            this.StartingEntryDate.DataPropertyName = "StartingEntryDate";
+            this.StartingEntryDate.DataPropertyName = "SettingEntryDate";
             this.StartingEntryDate.DataSource = this.entryBindingSource;
             dataGridViewCellStyle2.Format = "dddd dd MMM yyyy";
             this.StartingEntryDate.DefaultCellStyle = dataGridViewCellStyle2;

@@ -21,7 +21,7 @@ namespace Chashavshavon
 
         #region Private Variables
         //The combos are changed dynamically and we don't want to fire the change event during initial loading.
-        private bool _loading;        
+        private bool _loading;
         #endregion
 
         #region Constructors
@@ -31,7 +31,7 @@ namespace Chashavshavon
             this.Hide();
             string password = this.GetPassword();
 
-            InitializeComponent();            
+            InitializeComponent();
             LocationsXmlDoc = new XmlDocument();
 
 
@@ -247,6 +247,38 @@ namespace Chashavshavon
             prefs.Show(this);
         }
 
+        private void openKavuaListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmKavuahs f = new frmKavuahs();
+            f.ShowDialog(this);
+            if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
+            {
+                this.SaveCurrentFile();
+                this.TestInternet();
+                this.LoadXmlFile();
+            }
+        }
+
+        private void AddKavuahToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAddKavuah f = new frmAddKavuah();
+            f.ShowDialog(this);
+            if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
+            {
+                this.SaveCurrentFile();
+                this.TestInternet();
+                this.LoadXmlFile();
+            }
+        }
+
+        private void SearchForKavuahsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!this.FindAndPromptKavuahs())
+            {
+                MessageBox.Show("לא נמצאו וסת קבוע אפשריים");
+            }
+        }
+
         private void RefreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.TestInternet();
@@ -259,18 +291,6 @@ namespace Chashavshavon
             f.Show(this);
         }
 
-
-        private void KavuahToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmKavuahs f = new frmKavuahs();
-            f.ShowDialog(this);
-            if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
-            {
-                this.SaveCurrentFile();
-                this.TestInternet();
-                this.LoadXmlFile();
-            }
-        }
 
         private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -446,6 +466,7 @@ namespace Chashavshavon
                     lblNextDayEntryStuff.Text = "עונה: " + entry.HebrewDayNight + "\nהפלגה: " + entry.Interval.ToString();
                 }
             }
+            this.FindAndPromptKavuahs();
             this.CalculateCalendar();
         }
 
@@ -481,7 +502,7 @@ namespace Chashavshavon
             {
                 this.SaveCurrentFile();
             }
-            saveFileDialog1.Title = "נא לבחור שם ומיקום לקובץ החדש";            
+            saveFileDialog1.Title = "נא לבחור שם ומיקום לקובץ החדש";
             saveFileDialog1.CreatePrompt = true;
             saveFileDialog1.CheckFileExists = false;
             saveFileDialog1.OverwritePrompt = true;
@@ -670,8 +691,7 @@ namespace Chashavshavon
         private List<Onah> GetProblemOnahs()
         {
             var problemOnas = new List<Onah>();
-            var lastThree = new Queue<Entry>();
-
+            
             DateTime yesterday = Program.Today.AddDays(-1);
             Onah thirty,
                thirtyOhrZarua,
@@ -690,20 +710,6 @@ namespace Chashavshavon
 
             foreach (Entry entry in Entry.EntryList)
             {
-                //For cheshboning out kavuas we need just the last 3 entries
-                //First, add this entry
-                lastThree.Enqueue(entry);
-                if (lastThree.Count > 3)
-                {
-                    //pop out the earliest one - leaves us with this entry and the previous 2.
-                    lastThree.Dequeue();
-                }
-                //You can't make a kavuah until you have 3 entries in the list to compare
-                if (lastThree.Count == 3)
-                {
-                    this.CheshbonKavuahs(lastThree.ToArray<Entry>());
-                }
-
                 bool hasCancelByKavuah = Kavuah.KavuahsList.Exists(k => k.Active && k.CancelsOnahBeinanis);
 
                 //The 30th day after any entry is usually assur as an onah beinanus (unless there is a set Kavuah)
@@ -762,7 +768,7 @@ namespace Chashavshavon
                 }
 
                 //Kavuah Haflagah - with or without Maayan Pasuach
-                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => 
+                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
                     k.KavuahType.In(KavuahType.Haflagah, KavuahType.HaflagaMaayanPasuach) && k.Active))
                 {
                     kavuahHaflaga = entry.AddDays(kavuah.Number);
@@ -898,42 +904,69 @@ namespace Chashavshavon
             this.WeekListHtml = sb.ToString();
         }
 
-        private void CheshbonKavuahs(Entry[] last3Array)
+        private bool FindAndPromptKavuahs()
         {
-            if (last3Array[0].DayNight.In(last3Array[1].DayNight, last3Array[2].DayNight))
+            var lastThree = new Queue<Entry>();
+            Entry[] last3Array;
+            List<Kavuah> foundKavuahList = new List<Kavuah>();
+
+            foreach (Entry entry in Entry.EntryList)
             {
-                //Gets a list of Kavuahs from the given 3 entries
-                List<Kavuah> foundKavuahList = Kavuah.GetProposedKavuahList(last3Array);
-
-                //Remove all found kavuahs that are already in the active list
-                foundKavuahList.RemoveAll(k => Kavuah.InActiveKavuahList(k));
-
-                //If there are any left
-                if (foundKavuahList.Count > 0)
+                //For cheshboning out kavuas we need just the last 3 entries
+                //First, add this entry
+                lastThree.Enqueue(entry);
+                if (lastThree.Count > 3)
                 {
-                    //Prompt user to decide which ones to keep and their details
-                    frmKavuahPrompt fkp = new frmKavuahPrompt(foundKavuahList);
-                    if (fkp.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                    //pop out the earliest one - leaves us with this entry and the previous 2.
+                    lastThree.Dequeue();
+                }
+                last3Array = lastThree.ToArray<Entry>();
+                
+                //You can't make a kavuah until you have 3 entries in the list to compare 
+                //and they are all of the same DayNight
+                if (lastThree.Count == 3 && 
+                    last3Array[0].DayNight.In(last3Array[1].DayNight, last3Array[2].DayNight))
+                {
+                    //Gets a list of Kavuahs from the given 3 entries
+                    foundKavuahList.AddRange(Kavuah.GetProposedKavuahList(last3Array));
+                }
+            }
+
+            //Remove all found kavuahs that are already in the active list
+            foundKavuahList.RemoveAll(k => Kavuah.InActiveKavuahList(k));
+            
+            //If there are any left
+            if (foundKavuahList.Count > 0)
+            {
+                //Prompt user to decide which ones to keep and their details
+                frmKavuahPrompt fkp = new frmKavuahPrompt(foundKavuahList);
+                if (fkp.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    //For each found kavuah, either we add it to the main list 
+                    //or we set it as a "NoKavuah" for the third entry so it shouldn't pop up again
+                    foreach (Kavuah k in foundKavuahList)
                     {
-                        //For each found kavuah, either we add it to the main list 
-                        //or we set it as a "NoKavuah" for the third entry so it shouldn't pop up again
-                        foreach (Kavuah k in foundKavuahList)
+                        //The ListToAdd property contains the ones the user decided to add
+                        if (fkp.ListToAdd.Contains(k))
                         {
-                            //The ListToAdd property contains the ones the user decided to add
-                            if (fkp.ListToAdd.Contains(k))
-                            {
-                                Kavuah.KavuahsList.Add(k);
-                            }
-                            else
-                            {
-                                last3Array[2].Notes += " לא לרשום קבוע של  " + k.KavuahDescriptionHebrew;
-                                last3Array[2].NoKavuahList.Add(k);
-                            }
+                            Kavuah.KavuahsList.Add(k);
+                        }
+                        else
+                        {
+                            Entry third = Entry.EntryList.Find(en =>
+                                en.DateTime == k.SettingEntryDate && en.DayNight == k.DayNight);
+                            third.Notes += " לא לרשום קבוע של  " + k.KavuahDescriptionHebrew;
+                            third.NoKavuahList.Add(k);
                         }
                     }
                 }
+                return true;
             }
-        }
+            else
+            {
+                return false;
+            }
+        }        
 
         private void ClearCalendar()
         {
@@ -1427,7 +1460,7 @@ namespace Chashavshavon
             this.SetLocation();
             this.SetDateAndDayNight();
             this.FillCalendar();
-            this.FillZmanim();
+            this.FillZmanim();            
             this.CalculateCalendar();
             this.SetCaptionText();
         }
@@ -1497,6 +1530,6 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion
+        #endregion                
     }
 }

@@ -19,13 +19,17 @@ namespace Chashavshavon
 
         private void frmAddKavuah_Load(object sender, EventArgs e)
         {
+            this.LoadIntervalNumbers();
+
             this.cmbSettingEntry.DataSource = Entry.EntryList;
             if (Entry.EntryList.Count > 0)
             {
-                //Select the last entry in the last as it is probably the setting entry
-                this.cmbSettingEntry.SelectedIndex = Entry.EntryList.Count - 1;                
-            }
-            LoadIntervalNumbers();
+                Entry last = Entry.EntryList.Last();
+                //Select the last entry as it is probably the setting entry
+                this.cmbSettingEntry.SelectedItem = last;                
+                if(last.Interval > 0)
+                    this.cmbNumber.SelectedItem = last.Interval;
+            }            
         }
 
         private void HaflagahTypeChanged(object sender, EventArgs e)
@@ -133,7 +137,7 @@ namespace Chashavshavon
                         return;
                     }
                 }
-                this.AddedKavuah.StartingEntryDate = (DateTime)this.cmbSettingEntry.SelectedValue;
+                this.AddedKavuah.SettingEntryDate = (DateTime)this.cmbSettingEntry.SelectedValue;
             }
             this.AddedKavuah.Notes = this.tbNotes.Text;
 
