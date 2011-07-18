@@ -1230,7 +1230,7 @@ namespace Chashavshavon
             this.rbNight.Checked = isNightTime;
             Program.NowOnah = new Onah(Program.Today, isNightTime ? DayNight.Night : DayNight.Day);
 
-            string todayString = Program.Today.ToString("dd MMMM yyyy");
+            string todayString = Program.Today.ToString("dd MMMM");
             foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Properties.Settings.Default.UserInIsrael))
             {
                 todayString += " - " + holiday;
