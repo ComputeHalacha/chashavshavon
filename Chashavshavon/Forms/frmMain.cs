@@ -16,8 +16,6 @@ namespace Chashavshavon
 {
     public partial class frmMain : Form
     {
-        //Holds the list of Entries in the currently loaded file 
-        public static List<Entry> Entries;
         //List of locations
         public static XmlDocument LocationsXmlDoc;
 
@@ -33,13 +31,11 @@ namespace Chashavshavon
             this.Hide();
             string password = this.GetPassword();
 
-            InitializeComponent();
-
-            Entries = new List<Entry>();
+            InitializeComponent();            
             LocationsXmlDoc = new XmlDocument();
 
 
-            this.bindingSourceEntries.DataSource = Entries;
+            this.bindingSourceEntries.DataSource = Entry.EntryList;
 
             //Fill the location list from the xml file
             LocationsXmlDoc.Load(Application.StartupPath + "\\Locations.xml");
@@ -431,7 +427,7 @@ namespace Chashavshavon
             lblTomorrowEntryStuff.Text = "";
             lblNextDayEntryStuff.Text = "";
 
-            foreach (Entry entry in Entries)
+            foreach (Entry entry in Entry.EntryList)
             {
                 if (entry.DateTime.IsSameday(yesterday))
                 {
@@ -503,7 +499,7 @@ namespace Chashavshavon
         private void CalculateCalendar()
         {
             this.ClearCalendar();
-            if (Entries.Count == 0)
+            if (Entry.EntryList.Count == 0)
             {
                 return;
             }
@@ -531,19 +527,24 @@ namespace Chashavshavon
             this.bindingSourceEntries.ResetBindings(false);
         }
 
+        /// <summary>
+        /// Work out the Kavuahs of yom hachodesh  - with or without Maayan Pasuach
+        /// </summary>
+        /// <param name="onahs"></param>
+        /// <returns></returns>
         private List<Onah> GetYomHachodeshKavuahOnahs(List<Onah> onahs)
         {
             var list = new List<Onah>();
             foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
                                         k.Active &&
-                                        k.KavuahType == KavuahType.DayOfMonth))
+                                        k.KavuahType.In(KavuahType.DayOfMonth, KavuahType.DayOfMonthMaayanPasuach)))
             {
                 DateTime startDate = (kavuah.Number >= Program.NowOnah.Day ?
                     Program.NowOnah.DateTime : Program.NowOnah.DateTime.AddMonths(1));
 
                 Onah o = new Onah(startDate, kavuah.DayNight);
                 o.Day = kavuah.Number;
-                o.Name = " קבוע - יום החדש (" + Zmanim.DaysOfMonthHebrew[kavuah.Number] + ")";
+                o.Name = kavuah.KavuahDescriptionHebrew;
                 list.Add(o);
                 if (Properties.Settings.Default.ShowOhrZeruah)
                 {
@@ -557,7 +558,7 @@ namespace Chashavshavon
                 {
                     Onah o2 = new Onah(Program.NowOnah.DateTime.AddMonths(1), kavuah.DayNight);
                     o2.Day = kavuah.Number;
-                    o2.Name = " קבוע - יום החדש (" + Zmanim.DaysOfMonthHebrew[kavuah.Number] + ")";
+                    o2.Name = kavuah.KavuahDescriptionHebrew;
                     list.Add(o2);
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
@@ -687,7 +688,7 @@ namespace Chashavshavon
                kavuahDilugDayofMonth,
                kavuahDilugDayofMonthOhrZarua;
 
-            foreach (Entry entry in Entries)
+            foreach (Entry entry in Entry.EntryList)
             {
                 //For cheshboning out kavuas we need just the last 3 entries
                 //First, add this entry
@@ -760,8 +761,9 @@ namespace Chashavshavon
                     }
                 }
 
-                //Kavuah Haflagah
-                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.Haflagah && k.Active))
+                //Kavuah Haflagah - with or without Maayan Pasuach
+                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => 
+                    k.KavuahType.In(KavuahType.Haflagah, KavuahType.HaflagaMaayanPasuach) && k.Active))
                 {
                     kavuahHaflaga = entry.AddDays(kavuah.Number);
                     if (kavuahHaflaga.DateTime >= yesterday)
@@ -798,7 +800,6 @@ namespace Chashavshavon
                         }
                     }
                 }
-
 
                 //Kavvuah Dilug Haflagos - even if one was off, only works out from entry not from what was supposed to be
                 //This is a machlokes.
@@ -994,10 +995,10 @@ namespace Chashavshavon
         /// </summary>
         private void SortEntriesAndSetInterval()
         {
-            Entries.Sort(Onah.CompareOnahs);
+            Entry.EntryList.Sort(Onah.CompareOnahs);
 
             Entry previousEntry = null;
-            foreach (Entry entry in Entries)
+            foreach (Entry entry in Entry.EntryList)
             {
                 if (previousEntry != null)
                 {
@@ -1024,7 +1025,7 @@ namespace Chashavshavon
             //we prompt the user to create a file to save to.
             while (string.IsNullOrEmpty(this.CurrentFile))
             {
-                if (((Entries.Count + Kavuah.KavuahsList.Count) > 0) &&
+                if (((Entry.EntryList.Count + Kavuah.KavuahsList.Count) > 0) &&
                     MessageBox.Show("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש",
                         "חשבשבון",
                         MessageBoxButtons.YesNoCancel,
@@ -1054,7 +1055,7 @@ namespace Chashavshavon
             xtw = new XmlTextWriter(stream, Encoding.UTF8);
             xtw.WriteStartDocument();
             xtw.WriteStartElement("Entries");
-            foreach (Entry entry in Entries)
+            foreach (Entry entry in Entry.EntryList)
             {
                 xtw.WriteStartElement("Entry");
                 xtw.WriteElementString("Date", entry.DateTime.ToString("dd MMMM yyyy") + " " + entry.HebrewDayNight);
@@ -1139,7 +1140,7 @@ namespace Chashavshavon
             sb.AppendFormat("<body><h3>רשימת וסתות - {0}</h3><table>", Program.Today.ToLongDateString());
             sb.Append("<tr><th>מספר</th><th>תאריך</th><th>יום/לילה</th><th>הפלגה</th><th>הערות</th></tr>");
             int count = 0;
-            foreach (Entry e in Entries)
+            foreach (Entry e in Entry.EntryList)
             {
                 sb.AppendFormat("<tr{0}><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
                     (count++ % 2 == 0 ? " class='alt'" : ""),
@@ -1323,7 +1324,7 @@ namespace Chashavshavon
         public void LoadXmlFile()
         {
             //Clear previous list data
-            Entries.Clear();
+            Entry.EntryList.Clear();
             //Clear previous Kavuahs
             if (Kavuah.KavuahsList != null)
             {
@@ -1377,7 +1378,7 @@ namespace Chashavshavon
                         ka.Number = Convert.ToInt32(k.Attributes["Number"].InnerText);
                         newEntry.NoKavuahList.Add(ka);
                     }
-                    Entries.Add(newEntry);
+                    Entry.EntryList.Add(newEntry);
                 }
 
                 //After the list of Entries, there is a lst of Kavuahs

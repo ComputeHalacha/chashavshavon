@@ -19,6 +19,12 @@ namespace Chashavshavon
 
         private void frmAddKavuah_Load(object sender, EventArgs e)
         {
+            this.cmbSettingEntry.DataSource = Entry.EntryList;
+            if (Entry.EntryList.Count > 0)
+            {
+                //Select the last entry in the last as it is probably the setting entry
+                this.cmbSettingEntry.SelectedIndex = Entry.EntryList.Count - 1;                
+            }
             LoadIntervalNumbers();
         }
 
@@ -29,10 +35,10 @@ namespace Chashavshavon
                 LoadHebrewNumbers();
                 this.lblNumber.Text = "תבחר יום בחדש";
             }
-            else if (this.rbInterval.Checked)
+            else if (this.rbInterval.Checked || this.rbdayOfWeek.Checked)
             {
                 LoadIntervalNumbers();
-                this.lblNumber.Text = "תבחר מספר ימים של ההפלגה";
+                this.lblNumber.Text = "תבחר מספר הימים בין הראיות";
             }
             else if (rbDilugHaflagah.Checked)
             {
@@ -67,8 +73,8 @@ namespace Chashavshavon
             {
                 a[i] = i + 1;
             }
-            this.cmbNumber.DataSource = a;
-            this.cmbNumber.SelectedIndex = 28;
+            this.cmbNumber.DataSource = a.Where(i => i != 0).ToList();
+            this.cmbNumber.SelectedIndex = 25;
         }
 
         private void LoadDilugNumbers()
@@ -77,24 +83,30 @@ namespace Chashavshavon
             this.cmbNumber.Items.Clear();
             int[] a = new int[60];
             for (int i = -29, j = 0; i < 29; i++, j++)
-            {
+            {                
                 a[j] = i;
             }
-            this.cmbNumber.DataSource = a;
-            this.cmbNumber.SelectedIndex = 32;
+            this.cmbNumber.DataSource = a.Where(i => i != 0).ToList();
+            this.cmbNumber.SelectedIndex = 29;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            this.AddedKavuah = new Kavuah();
+            this.AddedKavuah = new Kavuah();            
             this.AddedKavuah.DayNight = this.rbDay.Checked ? DayNight.Day : DayNight.Night;
             if (this.rbInterval.Checked)
-            {
-                this.AddedKavuah.KavuahType = KavuahType.Haflagah;
+            {                
+                this.AddedKavuah.KavuahType = this.cbMaayanPasuach.Checked ? 
+                    KavuahType.HaflagaMaayanPasuach : KavuahType.Haflagah;
             }
             else if (this.rbDayOfMonth.Checked)
             {
-                this.AddedKavuah.KavuahType = KavuahType.DayOfMonth;
+                this.AddedKavuah.KavuahType = this.cbMaayanPasuach.Checked ? 
+                    KavuahType.DayOfMonthMaayanPasuach : KavuahType.DayOfMonth;
+            }
+            else if(rbdayOfWeek.Checked)
+            {
+                this.AddedKavuah.KavuahType = KavuahType.DayOfWeek;
             }
             else if (rbDilugHaflagah.Checked)
             {
@@ -106,10 +118,33 @@ namespace Chashavshavon
             }
             this.AddedKavuah.Number = this.cmbNumber.SelectedIndex + 1;
             this.AddedKavuah.Active = this.cbActive.Checked;
+            this.AddedKavuah.IsMaayanPasuach = this.cbMaayanPasuach.Checked;
+            if (this.cmbSettingEntry.Items.Count > 0)
+            {
+                if (AddedKavuah.DayNight != ((Entry)this.cmbSettingEntry.SelectedItem).DayNight)
+                {
+                    if (MessageBox.Show("",
+                        "", 
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question, 
+                        MessageBoxDefaultButton.Button1, 
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
+                this.AddedKavuah.StartingEntryDate = (DateTime)this.cmbSettingEntry.SelectedValue;
+            }
             this.AddedKavuah.Notes = this.tbNotes.Text;
 
             Kavuah.KavuahsList.Add(this.AddedKavuah);
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
+        }
+
+        private void cmbSettingEntry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Set the default day/night to the selected entries Day/Night
+            this.rbDay.Checked = ((Entry)this.cmbSettingEntry.SelectedItem).DayNight == DayNight.Day;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -117,6 +152,6 @@ namespace Chashavshavon
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         }
 
-        public Kavuah AddedKavuah { get; set; }
+        public Kavuah AddedKavuah { get; set; }        
     }
 }

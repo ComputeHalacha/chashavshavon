@@ -12,6 +12,7 @@ namespace Chashavshavon
         DayOfMonth,
         DayOfWeek,
         HaflagaMaayanPasuach,
+        DayOfMonthMaayanPasuach,
         DilugHaflaga,
         DilugDayOfMonth
     }
@@ -56,6 +57,9 @@ namespace Chashavshavon
                     case Chashavshavon.KavuahType.HaflagaMaayanPasuach:
                         sb.AppendFormat("הפלגה - {0} ימים - ע\"פ מעיין פתוח ", this.Number);
                         break;
+                    case Chashavshavon.KavuahType.DayOfMonthMaayanPasuach:
+                        sb.AppendFormat("יום החדש - {0} בחדש - ע\"פ מעיין פתוח ", this.Number);
+                        break;                    
                     case KavuahType.DilugHaflaga:
                         sb.AppendFormat("הפלגה בדילוג {1}{0} ימים ", 
                             (this.Number < 0 ? "-" : "+"), 
@@ -155,7 +159,8 @@ namespace Chashavshavon
                 }
 
                 //Cheshbon out Dilug Haflagas
-                if ((entries[2].Interval - entries[1].Interval) == (entries[1].Interval - entries[0].Interval))
+                if ((entries[2].Interval - entries[1].Interval) == (entries[1].Interval - entries[0].Interval) &&
+                    ((entries[2].Interval - entries[1].Interval) != 0))
                 {
                     //If the "NoKavuah" list for the 3rd entry does not include this "find", 
                     if (!entries[2].NoKavuahList.Exists(k =>
@@ -194,13 +199,45 @@ namespace Chashavshavon
                     }
                 }
 
-                //Cheshbon out Ma'ayan Pasuachs
-                if (!kavuahs.Exists(k => k.KavuahType == KavuahType.HaflagaMaayanPasuach))
+
+                //Cheshbon out Ma'ayan Pasuachs of Yom Hachodesh
+                if (!kavuahs.Exists(k => k.KavuahType == KavuahType.DayOfMonth) &&
+                    !kavuahs.Exists(k => k.KavuahType == KavuahType.DayOfMonthMaayanPasuach))
                 {
+                    //We count here all maayan pasuachs even if the first 2 weren't the same.
+                    //This is not clear at all
+                    int maximumDay = entries.Max(e => e.Day);
+                    if (entries.All(e => e.Day >= (maximumDay - 5)))
+                    {
+                        //"NoKavuah" list for the 3rd entry does not include this "find" 
+                        if (!entries[2].NoKavuahList.Exists(k =>
+                                (k.KavuahType == KavuahType.DayOfMonthMaayanPasuach) &&
+                                (k.Number == maximumDay)))
+                        {
+                            kavuahs.Add(new Kavuah()
+                            {
+                                DayNight = entries[0].DayNight,
+                                KavuahType = KavuahType.DayOfMonthMaayanPasuach,
+                                IsMaayanPasuach = true,
+                                //For ma'ayan Pasuach, the regular days are usually not cancelled
+                                CancelsOnahBeinanis = false,
+                                StartingEntryDate = entries[2].DateTime,
+                                Number = maximumDay
+                            });
+                        }
+                    }
+                }
+
+                //Cheshbon out Ma'ayan Pasuachs of haflaga
+                if (!kavuahs.Exists(k => k.KavuahType== KavuahType.Haflagah) &&
+                    !kavuahs.Exists(k => k.KavuahType == KavuahType.HaflagaMaayanPasuach))
+                {
+                    //We count here all maayan pasuachs even if the first 2 weren't the same.
+                    //This is not clear at all
                     int maximumHaflagah = entries.Max(e => e.Interval);
                     if (entries.All(e => e.Interval >= (maximumHaflagah - 5)))
                     {
-                        //If the "NoKavuah" list for the 3rd entry does not include this "find" 
+                        //"NoKavuah" list for the 3rd entry does not include this "find" 
                         if (!entries[2].NoKavuahList.Exists(k =>
                                 (k.KavuahType == KavuahType.HaflagaMaayanPasuach) &&
                                 (k.Number == maximumHaflagah)))

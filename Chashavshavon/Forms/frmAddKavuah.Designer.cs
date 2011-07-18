@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblNumber = new System.Windows.Forms.Label();
             this.cmbNumber = new System.Windows.Forms.ComboBox();
             this.rbDayOfMonth = new System.Windows.Forms.RadioButton();
@@ -35,6 +36,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.rbInterval = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbMaayanPasuach = new System.Windows.Forms.CheckBox();
+            this.rbdayOfWeek = new System.Windows.Forms.RadioButton();
             this.rbDilugDayOfMonth = new System.Windows.Forms.RadioButton();
             this.rbDilugHaflagah = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -45,18 +48,22 @@
             this.cbActive = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbSettingEntry = new System.Windows.Forms.ComboBox();
+            this.entryBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.entryBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNumber
             // 
-            this.lblNumber.AutoSize = true;
-            this.lblNumber.Location = new System.Drawing.Point(418, 138);
+            this.lblNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNumber.Location = new System.Drawing.Point(231, 148);
             this.lblNumber.Name = "lblNumber";
-            this.lblNumber.Size = new System.Drawing.Size(71, 16);
+            this.lblNumber.Size = new System.Drawing.Size(227, 16);
             this.lblNumber.TabIndex = 0;
             this.lblNumber.Text = "מספר ימים";
             // 
@@ -65,7 +72,7 @@
             this.cmbNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNumber.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbNumber.FormattingEnabled = true;
-            this.cmbNumber.Location = new System.Drawing.Point(362, 158);
+            this.cmbNumber.Location = new System.Drawing.Point(331, 168);
             this.cmbNumber.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbNumber.Name = "cmbNumber";
             this.cmbNumber.Size = new System.Drawing.Size(127, 24);
@@ -74,12 +81,12 @@
             // rbDayOfMonth
             // 
             this.rbDayOfMonth.AutoSize = true;
-            this.rbDayOfMonth.Location = new System.Drawing.Point(310, 70);
+            this.rbDayOfMonth.Location = new System.Drawing.Point(317, 61);
             this.rbDayOfMonth.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rbDayOfMonth.Name = "rbDayOfMonth";
             this.rbDayOfMonth.Size = new System.Drawing.Size(75, 17);
             this.rbDayOfMonth.TabIndex = 2;
-            this.rbDayOfMonth.Text = "יום בחדש";
+            this.rbDayOfMonth.Text = "יום החדש";
             this.rbDayOfMonth.UseVisualStyleBackColor = true;
             this.rbDayOfMonth.CheckedChanged += new System.EventHandler(this.HaflagahTypeChanged);
             // 
@@ -87,7 +94,7 @@
             // 
             this.tbNotes.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.tbNotes.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.tbNotes.Location = new System.Drawing.Point(62, 295);
+            this.tbNotes.Location = new System.Drawing.Point(31, 305);
             this.tbNotes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbNotes.Multiline = true;
             this.tbNotes.Name = "tbNotes";
@@ -97,7 +104,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(444, 276);
+            this.label2.Location = new System.Drawing.Point(413, 286);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 16);
             this.label2.TabIndex = 7;
@@ -107,7 +114,7 @@
             // 
             this.rbInterval.AutoSize = true;
             this.rbInterval.Checked = true;
-            this.rbInterval.Location = new System.Drawing.Point(329, 33);
+            this.rbInterval.Location = new System.Drawing.Point(336, 24);
             this.rbInterval.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rbInterval.Name = "rbInterval";
             this.rbInterval.Size = new System.Drawing.Size(59, 17);
@@ -118,23 +125,46 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbMaayanPasuach);
+            this.groupBox1.Controls.Add(this.rbdayOfWeek);
             this.groupBox1.Controls.Add(this.rbDilugDayOfMonth);
             this.groupBox1.Controls.Add(this.rbDilugHaflagah);
             this.groupBox1.Controls.Add(this.rbDayOfMonth);
             this.groupBox1.Controls.Add(this.rbInterval);
-            this.groupBox1.Location = new System.Drawing.Point(54, 15);
+            this.groupBox1.Location = new System.Drawing.Point(29, 11);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(435, 108);
+            this.groupBox1.Size = new System.Drawing.Size(429, 133);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "סוג";
             // 
+            // cbMaayanPasuach
+            // 
+            this.cbMaayanPasuach.AutoSize = true;
+            this.cbMaayanPasuach.Location = new System.Drawing.Point(276, 106);
+            this.cbMaayanPasuach.Name = "cbMaayanPasuach";
+            this.cbMaayanPasuach.Size = new System.Drawing.Size(112, 17);
+            this.cbMaayanPasuach.TabIndex = 7;
+            this.cbMaayanPasuach.Text = "ע\"פ מעיין פתוח?";
+            this.cbMaayanPasuach.UseVisualStyleBackColor = true;
+            // 
+            // rbdayOfWeek
+            // 
+            this.rbdayOfWeek.AutoSize = true;
+            this.rbdayOfWeek.Location = new System.Drawing.Point(210, 24);
+            this.rbdayOfWeek.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.rbdayOfWeek.Name = "rbdayOfWeek";
+            this.rbdayOfWeek.Size = new System.Drawing.Size(80, 17);
+            this.rbdayOfWeek.TabIndex = 6;
+            this.rbdayOfWeek.Text = "יום השבוע";
+            this.rbdayOfWeek.UseVisualStyleBackColor = true;
+            // 
             // rbDilugDayOfMonth
             // 
             this.rbDilugDayOfMonth.AutoSize = true;
-            this.rbDilugDayOfMonth.Location = new System.Drawing.Point(129, 70);
+            this.rbDilugDayOfMonth.Location = new System.Drawing.Point(29, 24);
             this.rbDilugDayOfMonth.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rbDilugDayOfMonth.Name = "rbDilugDayOfMonth";
             this.rbDilugDayOfMonth.Size = new System.Drawing.Size(127, 17);
@@ -146,7 +176,7 @@
             // rbDilugHaflagah
             // 
             this.rbDilugHaflagah.AutoSize = true;
-            this.rbDilugHaflagah.Location = new System.Drawing.Point(150, 33);
+            this.rbDilugHaflagah.Location = new System.Drawing.Point(182, 61);
             this.rbDilugHaflagah.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rbDilugHaflagah.Name = "rbDilugHaflagah";
             this.rbDilugHaflagah.Size = new System.Drawing.Size(111, 17);
@@ -159,7 +189,7 @@
             // 
             this.groupBox2.Controls.Add(this.rbDay);
             this.groupBox2.Controls.Add(this.rbNight);
-            this.groupBox2.Location = new System.Drawing.Point(60, 199);
+            this.groupBox2.Location = new System.Drawing.Point(29, 209);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -222,7 +252,7 @@
             this.cbActive.AutoSize = true;
             this.cbActive.Checked = true;
             this.cbActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbActive.Location = new System.Drawing.Point(428, 384);
+            this.cbActive.Location = new System.Drawing.Point(397, 384);
             this.cbActive.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbActive.Name = "cbActive";
             this.cbActive.Size = new System.Drawing.Size(61, 20);
@@ -233,7 +263,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(249, 412);
+            this.checkBox1.Location = new System.Drawing.Point(218, 412);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(240, 20);
@@ -245,6 +275,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cmbSettingEntry);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.tbNotes);
@@ -253,11 +285,39 @@
             this.panel1.Controls.Add(this.lblNumber);
             this.panel1.Controls.Add(this.cmbNumber);
             this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Location = new System.Drawing.Point(-32, 56);
+            this.panel1.Location = new System.Drawing.Point(-4, 54);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(544, 451);
+            this.panel1.Size = new System.Drawing.Size(488, 451);
             this.panel1.TabIndex = 14;
+            // 
+            // cmbSettingEntry
+            // 
+            this.cmbSettingEntry.DataSource = this.entryBindingSource;
+            this.cmbSettingEntry.DisplayMember = "DateTime";
+            this.cmbSettingEntry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSettingEntry.FormatString = "dddd dd MMM yyyy";
+            this.cmbSettingEntry.FormattingEnabled = true;
+            this.cmbSettingEntry.Location = new System.Drawing.Point(29, 167);
+            this.cmbSettingEntry.Name = "cmbSettingEntry";
+            this.cmbSettingEntry.Size = new System.Drawing.Size(193, 24);
+            this.cmbSettingEntry.TabIndex = 15;
+            this.cmbSettingEntry.ValueMember = "DateTime";
+            this.cmbSettingEntry.SelectedIndexChanged += new System.EventHandler(this.cmbSettingEntry_SelectedIndexChanged);
+            // 
+            // entryBindingSource
+            // 
+            this.entryBindingSource.DataSource = typeof(Chashavshavon.Entry);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(148, 148);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 16);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "ראיה הקובע";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label4
             // 
@@ -298,6 +358,7 @@
             this.groupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.entryBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,5 +384,10 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cmbSettingEntry;
+        private System.Windows.Forms.BindingSource entryBindingSource;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox cbMaayanPasuach;
+        private System.Windows.Forms.RadioButton rbdayOfWeek;
     }
 }

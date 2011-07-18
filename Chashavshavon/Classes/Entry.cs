@@ -10,6 +10,9 @@ namespace Chashavshavon
     /// </summary>        
     public class Entry : Onah
     {
+        //Holds the list of Entries in the currently loaded file 
+        public static List<Entry> EntryList = new List<Entry>();
+        
         private List<Kavuah> _noKavuahList = new List<Kavuah>();
 
         public Entry() : base() { }

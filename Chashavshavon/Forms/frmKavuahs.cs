@@ -15,6 +15,7 @@ namespace Chashavshavon
         {
             InitializeComponent();
             this.kavuahBindingSource.DataSource = Kavuah.KavuahsList;
+            this.entryBindingSource.DataSource = Entry.EntryList;
         }
 
         private void button2_Click(object sender, EventArgs e)
