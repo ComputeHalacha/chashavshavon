@@ -201,6 +201,9 @@
     <None Include="Resources\delete.png" />
     <None Include="Resources\printer.png" />
     <None Include="Resources\page_previous.png" />
+    <None Include="Resources\database.png" />
+    <None Include="Resources\database_add.png" />
+    <None Include="Resources\save.png" />
     <Content Include="Utility_VBScript.ico" />
     <Content Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html" />
     <Content Include="Locations.xml">

@@ -48,10 +48,7 @@
             this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.bindingSourceEntries = new System.Windows.Forms.BindingSource(this.components);
             this.gbCalendar = new System.Windows.Forms.GroupBox();
-            this.btnPrintCalendar = new System.Windows.Forms.Button();
-            this.btnViewTextCalendar = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -122,6 +119,9 @@
             this.toolStripMenuItemEntryList = new System.Windows.Forms.ToolStripMenuItem();
             this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.KavuahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openKavuaListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddKavuahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SearchForKavuahsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RemoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -129,16 +129,17 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblNextProblem = new System.Windows.Forms.Label();
-            this.pbWeb = new System.Windows.Forms.PictureBox();
-            this.btnPrintEntryList = new System.Windows.Forms.Button();
-            this.btnViewTextEntryList = new System.Windows.Forms.Button();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.label14 = new System.Windows.Forms.Label();
-            this.openKavuaListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AddKavuahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SearchForKavuahsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPrintCalendar = new System.Windows.Forms.Button();
+            this.btnViewTextCalendar = new System.Windows.Forms.Button();
+            this.pbWeb = new System.Windows.Forms.PictureBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnOpenKavuahs = new System.Windows.Forms.Button();
+            this.btnPrintEntryList = new System.Windows.Forms.Button();
+            this.btnViewTextEntryList = new System.Windows.Forms.Button();
+            this.bindingSourceEntries = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
             this.pnlDayAfter.SuspendLayout();
             this.pnlTomorrow.SuspendLayout();
@@ -147,10 +148,11 @@
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -200,11 +202,13 @@
             dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
-            this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgEntries.AutoGenerateColumns = false;
-            this.dgEntries.BackgroundColor = System.Drawing.Color.White;
-            this.dgEntries.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgEntries.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgEntries.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dgEntries.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle14.BackColor = System.Drawing.Color.Wheat;
@@ -224,7 +228,7 @@
             this.btnDeleteColumn});
             this.dgEntries.DataSource = this.bindingSourceEntries;
             this.dgEntries.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgEntries.Location = new System.Drawing.Point(322, 33);
+            this.dgEntries.Location = new System.Drawing.Point(107, 33);
             this.dgEntries.Name = "dgEntries";
             this.dgEntries.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dgEntries.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -242,7 +246,7 @@
             dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle18;
-            this.dgEntries.Size = new System.Drawing.Size(808, 302);
+            this.dgEntries.Size = new System.Drawing.Size(998, 311);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             // 
@@ -255,7 +259,7 @@
             this.DateColumn.HeaderText = "תאריך";
             this.DateColumn.Name = "DateColumn";
             this.DateColumn.ReadOnly = true;
-            this.DateColumn.Width = 120;
+            this.DateColumn.Width = 57;
             // 
             // DayNightColumn
             // 
@@ -264,7 +268,7 @@
             this.DayNightColumn.Name = "DayNightColumn";
             this.DayNightColumn.ReadOnly = true;
             this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DayNightColumn.Width = 70;
+            this.DayNightColumn.Width = 67;
             // 
             // IntervalColumn
             // 
@@ -272,7 +276,7 @@
             this.IntervalColumn.HeaderText = "הפלגה";
             this.IntervalColumn.Name = "IntervalColumn";
             this.IntervalColumn.ReadOnly = true;
-            this.IntervalColumn.Width = 50;
+            this.IntervalColumn.Width = 57;
             // 
             // DayOfWeekColumn
             // 
@@ -280,7 +284,7 @@
             this.DayOfWeekColumn.HeaderText = "יום בשבוע";
             this.DayOfWeekColumn.Name = "DayOfWeekColumn";
             this.DayOfWeekColumn.ReadOnly = true;
-            this.DayOfWeekColumn.Width = 75;
+            this.DayOfWeekColumn.Width = 77;
             // 
             // NotesColumn
             // 
@@ -288,7 +292,7 @@
             this.NotesColumn.HeaderText = "הערות";
             this.NotesColumn.Name = "NotesColumn";
             this.NotesColumn.ReadOnly = true;
-            this.NotesColumn.Width = 422;
+            this.NotesColumn.Width = 58;
             // 
             // btnDeleteColumn
             // 
@@ -302,7 +306,7 @@
             this.btnDeleteColumn.Text = "מחק";
             this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
             this.btnDeleteColumn.UseColumnTextForLinkValue = true;
-            this.btnDeleteColumn.Width = 50;
+            this.btnDeleteColumn.Width = 5;
             // 
             // gbCalendar
             // 
@@ -322,38 +326,12 @@
             this.gbCalendar.Controls.Add(this.pnlTomorrow);
             this.gbCalendar.Controls.Add(this.pnlToday);
             this.gbCalendar.Controls.Add(this.pnlYesterday);
-            this.gbCalendar.Location = new System.Drawing.Point(508, 12);
+            this.gbCalendar.Location = new System.Drawing.Point(475, 7);
             this.gbCalendar.Name = "gbCalendar";
-            this.gbCalendar.Size = new System.Drawing.Size(625, 209);
+            this.gbCalendar.Size = new System.Drawing.Size(625, 214);
             this.gbCalendar.TabIndex = 13;
             this.gbCalendar.TabStop = false;
             this.gbCalendar.Text = "לוח";
-            // 
-            // btnPrintCalendar
-            // 
-            this.btnPrintCalendar.AutoSize = true;
-            this.btnPrintCalendar.Image = global::Chashavshavon.Properties.Resources.printer;
-            this.btnPrintCalendar.Location = new System.Drawing.Point(10, 105);
-            this.btnPrintCalendar.Name = "btnPrintCalendar";
-            this.btnPrintCalendar.Size = new System.Drawing.Size(63, 71);
-            this.btnPrintCalendar.TabIndex = 20;
-            this.btnPrintCalendar.Text = "הדפס";
-            this.btnPrintCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnPrintCalendar.UseVisualStyleBackColor = true;
-            this.btnPrintCalendar.Click += new System.EventHandler(this.btnPrintCalendar_Click);
-            // 
-            // btnViewTextCalendar
-            // 
-            this.btnViewTextCalendar.AutoSize = true;
-            this.btnViewTextCalendar.Image = global::Chashavshavon.Properties.Resources.page_previous;
-            this.btnViewTextCalendar.Location = new System.Drawing.Point(10, 29);
-            this.btnViewTextCalendar.Name = "btnViewTextCalendar";
-            this.btnViewTextCalendar.Size = new System.Drawing.Size(61, 71);
-            this.btnViewTextCalendar.TabIndex = 19;
-            this.btnViewTextCalendar.Text = "רשימה";
-            this.btnViewTextCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnViewTextCalendar.UseVisualStyleBackColor = true;
-            this.btnViewTextCalendar.Click += new System.EventHandler(this.btnViewTextCalendar_Click);
             // 
             // label13
             // 
@@ -778,9 +756,9 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtNotes);
             this.groupBox1.Controls.Add(this.btnEnter);
-            this.groupBox1.Location = new System.Drawing.Point(11, 7);
+            this.groupBox1.Location = new System.Drawing.Point(17, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(463, 214);
+            this.groupBox1.Size = new System.Drawing.Size(452, 214);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "רשומה חדשה";
@@ -798,14 +776,14 @@
             this.panel1.Controls.Add(this.lblLocation);
             this.panel1.Location = new System.Drawing.Point(19, 68);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(331, 78);
+            this.panel1.Size = new System.Drawing.Size(249, 78);
             this.panel1.TabIndex = 13;
             // 
             // label16
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(291, 62);
+            this.label16.Location = new System.Drawing.Point(215, 59);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(28, 12);
             this.label16.TabIndex = 17;
@@ -814,7 +792,7 @@
             // lblToday
             // 
             this.lblToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblToday.Location = new System.Drawing.Point(181, 62);
+            this.lblToday.Location = new System.Drawing.Point(99, 62);
             this.lblToday.Name = "lblToday";
             this.lblToday.Size = new System.Drawing.Size(112, 12);
             this.lblToday.TabIndex = 16;
@@ -824,7 +802,7 @@
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(118, 62);
+            this.label15.Location = new System.Drawing.Point(39, 62);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(63, 12);
             this.label15.TabIndex = 15;
@@ -833,9 +811,9 @@
             // lblTime
             // 
             this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTime.Location = new System.Drawing.Point(72, 62);
+            this.lblTime.Location = new System.Drawing.Point(-1, 62);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(44, 12);
+            this.lblTime.Size = new System.Drawing.Size(40, 12);
             this.lblTime.TabIndex = 14;
             this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -856,7 +834,7 @@
             // 
             this.lblZmanim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZmanim.AutoSize = true;
-            this.lblZmanim.Location = new System.Drawing.Point(255, 30);
+            this.lblZmanim.Location = new System.Drawing.Point(180, 30);
             this.lblZmanim.Name = "lblZmanim";
             this.lblZmanim.Size = new System.Drawing.Size(63, 24);
             this.lblZmanim.TabIndex = 12;
@@ -868,9 +846,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLocation.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblLocation.ForeColor = System.Drawing.Color.Black;
-            this.lblLocation.Location = new System.Drawing.Point(172, 5);
+            this.lblLocation.Location = new System.Drawing.Point(7, 1);
             this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(149, 17);
+            this.lblLocation.Size = new System.Drawing.Size(236, 17);
             this.lblLocation.TabIndex = 11;
             this.lblLocation.Text = "זמנים לקרית ספר";
             this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -879,7 +857,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(426, 23);
+            this.label3.Location = new System.Drawing.Point(415, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(19, 12);
             this.label3.TabIndex = 5;
@@ -889,7 +867,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(412, 140);
+            this.label4.Location = new System.Drawing.Point(401, 140);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 12);
             this.label4.TabIndex = 10;
@@ -902,7 +880,7 @@
             this.cmbMonth.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbMonth.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbMonth.FormattingEnabled = true;
-            this.cmbMonth.Location = new System.Drawing.Point(258, 38);
+            this.cmbMonth.Location = new System.Drawing.Point(247, 38);
             this.cmbMonth.Name = "cmbMonth";
             this.cmbMonth.Size = new System.Drawing.Size(105, 20);
             this.cmbMonth.TabIndex = 1;
@@ -916,7 +894,7 @@
             this.cmbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbDay.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbDay.FormattingEnabled = true;
-            this.cmbDay.Location = new System.Drawing.Point(373, 38);
+            this.cmbDay.Location = new System.Drawing.Point(362, 38);
             this.cmbDay.Name = "cmbDay";
             this.cmbDay.Size = new System.Drawing.Size(72, 20);
             this.cmbDay.TabIndex = 0;
@@ -929,9 +907,9 @@
             this.cmbYear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbYear.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbYear.FormattingEnabled = true;
-            this.cmbYear.Location = new System.Drawing.Point(144, 38);
+            this.cmbYear.Location = new System.Drawing.Point(157, 38);
             this.cmbYear.Name = "cmbYear";
-            this.cmbYear.Size = new System.Drawing.Size(102, 20);
+            this.cmbYear.Size = new System.Drawing.Size(78, 20);
             this.cmbYear.TabIndex = 2;
             this.cmbYear.SelectedIndexChanged += new System.EventHandler(this.cmbYear_SelectedIndexChanged);
             // 
@@ -940,7 +918,7 @@
             this.rbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbDay.Location = new System.Drawing.Point(402, 93);
+            this.rbDay.Location = new System.Drawing.Point(391, 93);
             this.rbDay.Name = "rbDay";
             this.rbDay.Size = new System.Drawing.Size(43, 17);
             this.rbDay.TabIndex = 4;
@@ -952,7 +930,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(225, 21);
+            this.label1.Location = new System.Drawing.Point(214, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 12);
             this.label1.TabIndex = 3;
@@ -964,7 +942,7 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Checked = true;
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbNight.Location = new System.Drawing.Point(397, 73);
+            this.rbNight.Location = new System.Drawing.Point(386, 73);
             this.rbNight.Name = "rbNight";
             this.rbNight.Size = new System.Drawing.Size(48, 17);
             this.rbNight.TabIndex = 3;
@@ -977,7 +955,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(335, 21);
+            this.label2.Location = new System.Drawing.Point(324, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 4;
@@ -991,14 +969,14 @@
             this.txtNotes.ForeColor = System.Drawing.Color.SaddleBrown;
             this.txtNotes.Location = new System.Drawing.Point(19, 154);
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(426, 19);
+            this.txtNotes.Size = new System.Drawing.Size(415, 19);
             this.txtNotes.TabIndex = 5;
             // 
             // btnEnter
             // 
             this.btnEnter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEnter.BackColor = System.Drawing.Color.BurlyWood;
-            this.btnEnter.Location = new System.Drawing.Point(370, 182);
+            this.btnEnter.Location = new System.Drawing.Point(359, 182);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(75, 21);
             this.btnEnter.TabIndex = 6;
@@ -1016,7 +994,7 @@
             this.AboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1174, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1135, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1140,7 +1118,28 @@
             this.SearchForKavuahsToolStripMenuItem});
             this.KavuahToolStripMenuItem.Name = "KavuahToolStripMenuItem";
             this.KavuahToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.KavuahToolStripMenuItem.Text = "ק&בוע";            
+            this.KavuahToolStripMenuItem.Text = "ק&בוע";
+            // 
+            // openKavuaListToolStripMenuItem
+            // 
+            this.openKavuaListToolStripMenuItem.Name = "openKavuaListToolStripMenuItem";
+            this.openKavuaListToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.openKavuaListToolStripMenuItem.Text = "&פתח רשימת וסת קבוע";
+            this.openKavuaListToolStripMenuItem.Click += new System.EventHandler(this.openKavuaListToolStripMenuItem_Click);
+            // 
+            // AddKavuahToolStripMenuItem
+            // 
+            this.AddKavuahToolStripMenuItem.Name = "AddKavuahToolStripMenuItem";
+            this.AddKavuahToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.AddKavuahToolStripMenuItem.Text = "&הוסף חדש";
+            this.AddKavuahToolStripMenuItem.Click += new System.EventHandler(this.AddKavuahToolStripMenuItem_Click);
+            // 
+            // SearchForKavuahsToolStripMenuItem
+            // 
+            this.SearchForKavuahsToolStripMenuItem.Name = "SearchForKavuahsToolStripMenuItem";
+            this.SearchForKavuahsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.SearchForKavuahsToolStripMenuItem.Text = "&חפש וסת קבוע מתןך הרשימה";
+            this.SearchForKavuahsToolStripMenuItem.Click += new System.EventHandler(this.SearchForKavuahsToolStripMenuItem_Click);
             // 
             // RemoteToolStripMenuItem
             // 
@@ -1180,47 +1179,9 @@
             this.lblNextProblem.Location = new System.Drawing.Point(11, 231);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lblNextProblem.Size = new System.Drawing.Size(1124, 25);
+            this.lblNextProblem.Size = new System.Drawing.Size(1085, 25);
             this.lblNextProblem.TabIndex = 16;
             this.lblNextProblem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pbWeb
-            // 
-            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
-            this.pbWeb.Location = new System.Drawing.Point(-509, -3);
-            this.pbWeb.Name = "pbWeb";
-            this.pbWeb.Size = new System.Drawing.Size(53, 51);
-            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbWeb.TabIndex = 15;
-            this.pbWeb.TabStop = false;
-            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
-            // 
-            // btnPrintEntryList
-            // 
-            this.btnPrintEntryList.AutoSize = true;
-            this.btnPrintEntryList.Image = global::Chashavshavon.Properties.Resources.printer;
-            this.btnPrintEntryList.Location = new System.Drawing.Point(17, 85);
-            this.btnPrintEntryList.Name = "btnPrintEntryList";
-            this.btnPrintEntryList.Size = new System.Drawing.Size(63, 71);
-            this.btnPrintEntryList.TabIndex = 22;
-            this.btnPrintEntryList.Text = "הדפס";
-            this.btnPrintEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnPrintEntryList.UseVisualStyleBackColor = true;
-            this.btnPrintEntryList.Click += new System.EventHandler(this.btnPrintEntryList_Click);
-            // 
-            // btnViewTextEntryList
-            // 
-            this.btnViewTextEntryList.AutoSize = true;
-            this.btnViewTextEntryList.Image = global::Chashavshavon.Properties.Resources.page_previous;
-            this.btnViewTextEntryList.Location = new System.Drawing.Point(17, 9);
-            this.btnViewTextEntryList.Name = "btnViewTextEntryList";
-            this.btnViewTextEntryList.Size = new System.Drawing.Size(61, 71);
-            this.btnViewTextEntryList.TabIndex = 21;
-            this.btnViewTextEntryList.Text = "רשימה";
-            this.btnViewTextEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnViewTextEntryList.UseVisualStyleBackColor = true;
-            this.btnViewTextEntryList.Click += new System.EventHandler(this.btnViewTextEntryList_Click);
             // 
             // splitContainerMain
             // 
@@ -1246,12 +1207,14 @@
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.BackColor = System.Drawing.Color.White;
+            this.splitContainerMain.Panel2.Controls.Add(this.btnSave);
+            this.splitContainerMain.Panel2.Controls.Add(this.btnOpenKavuahs);
             this.splitContainerMain.Panel2.Controls.Add(this.label14);
             this.splitContainerMain.Panel2.Controls.Add(this.btnPrintEntryList);
             this.splitContainerMain.Panel2.Controls.Add(this.btnViewTextEntryList);
             this.splitContainerMain.Panel2.Controls.Add(this.dgEntries);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.splitContainerMain.Size = new System.Drawing.Size(1160, 623);
+            this.splitContainerMain.Size = new System.Drawing.Size(1121, 623);
             this.splitContainerMain.SplitterDistance = 265;
             this.splitContainerMain.SplitterWidth = 6;
             this.splitContainerMain.TabIndex = 23;
@@ -1262,39 +1225,108 @@
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Narkisim", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label14.ForeColor = System.Drawing.Color.DarkOliveGreen;
-            this.label14.Location = new System.Drawing.Point(1079, 9);
+            this.label14.Location = new System.Drawing.Point(1040, 9);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(69, 19);
             this.label14.TabIndex = 23;
             this.label14.Text = "רשומות";
             // 
-            // openKavuaListToolStripMenuItem
+            // btnPrintCalendar
             // 
-            this.openKavuaListToolStripMenuItem.Name = "openKavuaListToolStripMenuItem";
-            this.openKavuaListToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.openKavuaListToolStripMenuItem.Text = "&פתח רשימת וסת קבוע";
-            this.openKavuaListToolStripMenuItem.Click += new System.EventHandler(this.openKavuaListToolStripMenuItem_Click);
+            this.btnPrintCalendar.AutoSize = true;
+            this.btnPrintCalendar.Image = global::Chashavshavon.Properties.Resources.printer;
+            this.btnPrintCalendar.Location = new System.Drawing.Point(10, 105);
+            this.btnPrintCalendar.Name = "btnPrintCalendar";
+            this.btnPrintCalendar.Size = new System.Drawing.Size(63, 71);
+            this.btnPrintCalendar.TabIndex = 20;
+            this.btnPrintCalendar.Text = "הדפס";
+            this.btnPrintCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPrintCalendar.UseVisualStyleBackColor = true;
+            this.btnPrintCalendar.Click += new System.EventHandler(this.btnPrintCalendar_Click);
             // 
-            // AddKavuahToolStripMenuItem
+            // btnViewTextCalendar
             // 
-            this.AddKavuahToolStripMenuItem.Name = "AddKavuahToolStripMenuItem";
-            this.AddKavuahToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.AddKavuahToolStripMenuItem.Text = "&הוסף חדש";
-            this.AddKavuahToolStripMenuItem.Click += new System.EventHandler(this.AddKavuahToolStripMenuItem_Click);
+            this.btnViewTextCalendar.AutoSize = true;
+            this.btnViewTextCalendar.Image = global::Chashavshavon.Properties.Resources.page_previous;
+            this.btnViewTextCalendar.Location = new System.Drawing.Point(10, 29);
+            this.btnViewTextCalendar.Name = "btnViewTextCalendar";
+            this.btnViewTextCalendar.Size = new System.Drawing.Size(61, 71);
+            this.btnViewTextCalendar.TabIndex = 19;
+            this.btnViewTextCalendar.Text = "רשימה";
+            this.btnViewTextCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnViewTextCalendar.UseVisualStyleBackColor = true;
+            this.btnViewTextCalendar.Click += new System.EventHandler(this.btnViewTextCalendar_Click);
             // 
-            // SearchForKavuahsToolStripMenuItem
+            // pbWeb
             // 
-            this.SearchForKavuahsToolStripMenuItem.Name = "SearchForKavuahsToolStripMenuItem";
-            this.SearchForKavuahsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.SearchForKavuahsToolStripMenuItem.Text = "&חפש וסת קבוע מתןך הרשימה";
-            this.SearchForKavuahsToolStripMenuItem.Click += new System.EventHandler(this.SearchForKavuahsToolStripMenuItem_Click);
+            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
+            this.pbWeb.Location = new System.Drawing.Point(-509, -3);
+            this.pbWeb.Name = "pbWeb";
+            this.pbWeb.Size = new System.Drawing.Size(53, 51);
+            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbWeb.TabIndex = 15;
+            this.pbWeb.TabStop = false;
+            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.AutoSize = true;
+            this.btnSave.Image = global::Chashavshavon.Properties.Resources.save;
+            this.btnSave.Location = new System.Drawing.Point(17, 33);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(67, 71);
+            this.btnSave.TabIndex = 25;
+            this.btnSave.Text = "שמור";
+            this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnOpenKavuahs
+            // 
+            this.btnOpenKavuahs.AutoSize = true;
+            this.btnOpenKavuahs.Image = global::Chashavshavon.Properties.Resources.database_add;
+            this.btnOpenKavuahs.Location = new System.Drawing.Point(17, 263);
+            this.btnOpenKavuahs.Name = "btnOpenKavuahs";
+            this.btnOpenKavuahs.Size = new System.Drawing.Size(67, 71);
+            this.btnOpenKavuahs.TabIndex = 24;
+            this.btnOpenKavuahs.Text = " וסתי קבוע";
+            this.btnOpenKavuahs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnOpenKavuahs.UseVisualStyleBackColor = true;
+            this.btnOpenKavuahs.Click += new System.EventHandler(this.btnOpenKavuahs_Click);
+            // 
+            // btnPrintEntryList
+            // 
+            this.btnPrintEntryList.AutoSize = true;
+            this.btnPrintEntryList.Image = global::Chashavshavon.Properties.Resources.printer;
+            this.btnPrintEntryList.Location = new System.Drawing.Point(17, 186);
+            this.btnPrintEntryList.Name = "btnPrintEntryList";
+            this.btnPrintEntryList.Size = new System.Drawing.Size(67, 71);
+            this.btnPrintEntryList.TabIndex = 22;
+            this.btnPrintEntryList.Text = "הדפס";
+            this.btnPrintEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPrintEntryList.UseVisualStyleBackColor = true;
+            this.btnPrintEntryList.Click += new System.EventHandler(this.btnPrintEntryList_Click);
+            // 
+            // btnViewTextEntryList
+            // 
+            this.btnViewTextEntryList.AutoSize = true;
+            this.btnViewTextEntryList.Image = global::Chashavshavon.Properties.Resources.page_previous;
+            this.btnViewTextEntryList.Location = new System.Drawing.Point(17, 110);
+            this.btnViewTextEntryList.Name = "btnViewTextEntryList";
+            this.btnViewTextEntryList.Size = new System.Drawing.Size(67, 71);
+            this.btnViewTextEntryList.TabIndex = 21;
+            this.btnViewTextEntryList.Text = "רשימה";
+            this.btnViewTextEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnViewTextEntryList.UseVisualStyleBackColor = true;
+            this.btnViewTextEntryList.Click += new System.EventHandler(this.btnViewTextEntryList_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1174, 662);
+            this.ClientSize = new System.Drawing.Size(1135, 662);
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
@@ -1306,10 +1338,10 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "חשבשבון";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).EndInit();
             this.gbCalendar.ResumeLayout(false);
             this.gbCalendar.PerformLayout();
             this.pnlDayAfter.ResumeLayout(false);
@@ -1322,11 +1354,12 @@
             this.panel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).EndInit();
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);
             this.splitContainerMain.Panel2.PerformLayout();
             this.splitContainerMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1435,6 +1468,8 @@
         private System.Windows.Forms.ToolStripMenuItem openKavuaListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AddKavuahToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SearchForKavuahsToolStripMenuItem;
+        private System.Windows.Forms.Button btnOpenKavuahs;
+        private System.Windows.Forms.Button btnSave;
 
 
 

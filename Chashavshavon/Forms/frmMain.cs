@@ -229,6 +229,16 @@ namespace Chashavshavon
             this.PrintCalendarList();
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            this.SaveCurrentFile();
+        }
+
+        private void btnOpenKavuahs_Click(object sender, EventArgs e)
+        {
+            this.ShowKavuahList();
+        }
+
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.SaveCurrentFile();
@@ -249,15 +259,8 @@ namespace Chashavshavon
 
         private void openKavuaListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmKavuahs f = new frmKavuahs();
-            f.ShowDialog(this);
-            if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
-            {
-                this.SaveCurrentFile();
-                this.TestInternet();
-                this.LoadXmlFile();
-            }
-        }
+            this.ShowKavuahList();
+        }        
 
         private void AddKavuahToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -478,6 +481,18 @@ namespace Chashavshavon
                 s += "'";
             }
             return s;
+        }
+
+        private void ShowKavuahList()
+        {
+            frmKavuahs f = new frmKavuahs();
+            f.ShowDialog(this);
+            if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
+            {
+                this.SaveCurrentFile();
+                this.TestInternet();
+                this.LoadXmlFile();
+            }
         }
 
         private void SaveAs()
@@ -960,6 +975,8 @@ namespace Chashavshavon
                         }
                     }
                 }
+                //Save the new Kavuahs to the file
+                this.SaveCurrentFile();
                 return true;
             }
             else
@@ -1530,6 +1547,6 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion                
+        #endregion        
     }
 }
