@@ -1289,7 +1289,7 @@ namespace Chashavshavon
                 sHoliday = " - " + sHoliday;
             }
 
-            lblLocation.Text = Program.CurrentLocation.Name + " - " + selDate.ToString("dd MMM yyyy") + sHoliday;
+            lblLocation.Text = Program.CurrentLocation.Name + " - " + selDate.ToString("dddd dd MMM yyyy") + sHoliday;
 
             StringBuilder sb = new StringBuilder("נץ - ");
             sb.Append(netz.Hour.ToString());
@@ -1538,6 +1538,6 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion        
+        #endregion               
     }
 }

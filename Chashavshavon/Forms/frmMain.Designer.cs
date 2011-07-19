@@ -245,7 +245,7 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgEntries.Size = new System.Drawing.Size(780, 247);
+            this.dgEntries.Size = new System.Drawing.Size(780, 243);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             // 
@@ -325,7 +325,7 @@
             this.gbCalendar.Controls.Add(this.pnlTomorrow);
             this.gbCalendar.Controls.Add(this.pnlToday);
             this.gbCalendar.Controls.Add(this.pnlYesterday);
-            this.gbCalendar.Location = new System.Drawing.Point(358, 11);
+            this.gbCalendar.Location = new System.Drawing.Point(341, 11);
             this.gbCalendar.Name = "gbCalendar";
             this.gbCalendar.Size = new System.Drawing.Size(517, 220);
             this.gbCalendar.TabIndex = 13;
@@ -336,9 +336,9 @@
             // 
             this.btnPrintCalendar.AutoSize = true;
             this.btnPrintCalendar.Image = global::Chashavshavon.Properties.Resources.printer;
-            this.btnPrintCalendar.Location = new System.Drawing.Point(6, 91);
+            this.btnPrintCalendar.Location = new System.Drawing.Point(3, 91);
             this.btnPrintCalendar.Name = "btnPrintCalendar";
-            this.btnPrintCalendar.Size = new System.Drawing.Size(47, 47);
+            this.btnPrintCalendar.Size = new System.Drawing.Size(51, 47);
             this.btnPrintCalendar.TabIndex = 20;
             this.btnPrintCalendar.Text = "הדפס";
             this.btnPrintCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -349,7 +349,7 @@
             // 
             this.btnViewTextCalendar.AutoSize = true;
             this.btnViewTextCalendar.Image = global::Chashavshavon.Properties.Resources.page_previous;
-            this.btnViewTextCalendar.Location = new System.Drawing.Point(6, 38);
+            this.btnViewTextCalendar.Location = new System.Drawing.Point(3, 38);
             this.btnViewTextCalendar.Name = "btnViewTextCalendar";
             this.btnViewTextCalendar.Size = new System.Drawing.Size(51, 47);
             this.btnViewTextCalendar.TabIndex = 19;
@@ -783,7 +783,7 @@
             this.groupBox1.Controls.Add(this.btnEnter);
             this.groupBox1.Location = new System.Drawing.Point(7, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(333, 220);
+            this.groupBox1.Size = new System.Drawing.Size(316, 220);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "רשומה חדשה";
@@ -802,14 +802,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(3, 131);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(327, 86);
+            this.panel1.Size = new System.Drawing.Size(310, 86);
             this.panel1.TabIndex = 13;
             // 
             // label16
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(293, 66);
+            this.label16.Location = new System.Drawing.Point(276, 69);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(28, 12);
             this.label16.TabIndex = 17;
@@ -818,7 +818,7 @@
             // lblToday
             // 
             this.lblToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblToday.Location = new System.Drawing.Point(164, 66);
+            this.lblToday.Location = new System.Drawing.Point(147, 69);
             this.lblToday.Name = "lblToday";
             this.lblToday.Size = new System.Drawing.Size(125, 12);
             this.lblToday.TabIndex = 16;
@@ -828,7 +828,7 @@
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(104, 66);
+            this.label15.Location = new System.Drawing.Point(87, 69);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(63, 12);
             this.label15.TabIndex = 15;
@@ -837,7 +837,7 @@
             // lblTime
             // 
             this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTime.Location = new System.Drawing.Point(48, 66);
+            this.lblTime.Location = new System.Drawing.Point(31, 69);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(56, 12);
             this.lblTime.TabIndex = 14;
@@ -860,7 +860,7 @@
             // 
             this.lblZmanim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZmanim.AutoSize = true;
-            this.lblZmanim.Location = new System.Drawing.Point(258, 33);
+            this.lblZmanim.Location = new System.Drawing.Point(241, 33);
             this.lblZmanim.Name = "lblZmanim";
             this.lblZmanim.Size = new System.Drawing.Size(63, 24);
             this.lblZmanim.TabIndex = 12;
@@ -875,7 +875,7 @@
             this.lblLocation.ForeColor = System.Drawing.Color.Wheat;
             this.lblLocation.Location = new System.Drawing.Point(0, 0);
             this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(325, 26);
+            this.lblLocation.Size = new System.Drawing.Size(308, 26);
             this.lblLocation.TabIndex = 11;
             this.lblLocation.Text = "זמנים לקרית ספר";
             this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -954,9 +954,9 @@
             this.rbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbDay.Location = new System.Drawing.Point(8, 41);
+            this.rbDay.Location = new System.Drawing.Point(13, 41);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(48, 18);
+            this.rbDay.Size = new System.Drawing.Size(43, 17);
             this.rbDay.TabIndex = 4;
             this.rbDay.Text = "יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -978,9 +978,9 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Checked = true;
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbNight.Location = new System.Drawing.Point(-1, 21);
+            this.rbNight.Location = new System.Drawing.Point(8, 21);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(57, 18);
+            this.rbNight.Size = new System.Drawing.Size(48, 17);
             this.rbNight.TabIndex = 3;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "לילה";
@@ -1211,7 +1211,7 @@
             this.lblNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextProblem.ForeColor = System.Drawing.Color.Brown;
-            this.lblNextProblem.Location = new System.Drawing.Point(0, 233);
+            this.lblNextProblem.Location = new System.Drawing.Point(0, 237);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblNextProblem.Size = new System.Drawing.Size(882, 20);
@@ -1250,7 +1250,7 @@
             this.splitContainerMain.Panel2.Controls.Add(this.lblNextProblem);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainerMain.Size = new System.Drawing.Size(884, 538);
-            this.splitContainerMain.SplitterDistance = 280;
+            this.splitContainerMain.SplitterDistance = 276;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 23;
             // 
@@ -1272,7 +1272,7 @@
             this.btnSave.Image = global::Chashavshavon.Properties.Resources.save;
             this.btnSave.Location = new System.Drawing.Point(7, 28);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(64, 47);
+            this.btnSave.Size = new System.Drawing.Size(73, 48);
             this.btnSave.TabIndex = 25;
             this.btnSave.Text = "שמור";
             this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1310,7 +1310,7 @@
             this.btnPrintEntryList.Image = global::Chashavshavon.Properties.Resources.printer;
             this.btnPrintEntryList.Location = new System.Drawing.Point(7, 136);
             this.btnPrintEntryList.Name = "btnPrintEntryList";
-            this.btnPrintEntryList.Size = new System.Drawing.Size(64, 47);
+            this.btnPrintEntryList.Size = new System.Drawing.Size(73, 48);
             this.btnPrintEntryList.TabIndex = 22;
             this.btnPrintEntryList.Text = "הדפס";
             this.btnPrintEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1323,7 +1323,7 @@
             this.btnViewTextEntryList.Image = global::Chashavshavon.Properties.Resources.page_previous;
             this.btnViewTextEntryList.Location = new System.Drawing.Point(7, 82);
             this.btnViewTextEntryList.Name = "btnViewTextEntryList";
-            this.btnViewTextEntryList.Size = new System.Drawing.Size(64, 47);
+            this.btnViewTextEntryList.Size = new System.Drawing.Size(73, 48);
             this.btnViewTextEntryList.TabIndex = 21;
             this.btnViewTextEntryList.Text = "רשימה";
             this.btnViewTextEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
