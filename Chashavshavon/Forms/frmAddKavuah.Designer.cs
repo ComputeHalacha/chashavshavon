@@ -63,7 +63,7 @@
             // lblNumber
             // 
             this.lblNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblNumber.Location = new System.Drawing.Point(202, 120);
+            this.lblNumber.Location = new System.Drawing.Point(201, 120);
             this.lblNumber.Name = "lblNumber";
             this.lblNumber.Size = new System.Drawing.Size(199, 13);
             this.lblNumber.TabIndex = 0;
@@ -74,7 +74,7 @@
             this.cmbNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNumber.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbNumber.FormattingEnabled = true;
-            this.cmbNumber.Location = new System.Drawing.Point(290, 137);
+            this.cmbNumber.Location = new System.Drawing.Point(288, 137);
             this.cmbNumber.Name = "cmbNumber";
             this.cmbNumber.Size = new System.Drawing.Size(112, 21);
             this.cmbNumber.TabIndex = 1;
@@ -94,7 +94,7 @@
             // 
             this.tbNotes.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.tbNotes.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.tbNotes.Location = new System.Drawing.Point(27, 248);
+            this.tbNotes.Location = new System.Drawing.Point(26, 248);
             this.tbNotes.Multiline = true;
             this.tbNotes.Name = "tbNotes";
             this.tbNotes.Size = new System.Drawing.Size(374, 57);
@@ -103,7 +103,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(361, 232);
+            this.label2.Location = new System.Drawing.Point(362, 232);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 7;
@@ -239,7 +239,7 @@
             this.cbActive.AutoSize = true;
             this.cbActive.Checked = true;
             this.cbActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbActive.Location = new System.Drawing.Point(347, 312);
+            this.cbActive.Location = new System.Drawing.Point(346, 312);
             this.cbActive.Name = "cbActive";
             this.cbActive.Size = new System.Drawing.Size(54, 17);
             this.cbActive.TabIndex = 12;
@@ -249,7 +249,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(191, 335);
+            this.checkBox1.Location = new System.Drawing.Point(195, 335);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(205, 17);
             this.checkBox1.TabIndex = 13;

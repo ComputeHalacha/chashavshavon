@@ -204,6 +204,8 @@
     <None Include="Resources\database.png" />
     <None Include="Resources\database_add.png" />
     <None Include="Resources\save.png" />
+    <None Include="Resources\database_add_small.png" />
+    <None Include="Resources\database_small.png" />
     <Content Include="Utility_VBScript.ico" />
     <Content Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html" />
     <Content Include="Locations.xml">

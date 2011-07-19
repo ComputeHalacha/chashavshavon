@@ -72,7 +72,8 @@ namespace Chashavshavon
                         break;
                 }
                 //The user can set IsMaayanPasuach for any kavuah in frmKavuahs
-                if (this.IsMaayanPasuach && this.KavuahType != KavuahType.HaflagaMaayanPasuach)
+                if (this.IsMaayanPasuach && 
+                    !this.KavuahType.In(KavuahType.HaflagaMaayanPasuach, KavuahType.DayOfMonthMaayanPasuach))
                 {
                     sb.Append(" - ע\"פ מעיין פתוח ");
                 }
