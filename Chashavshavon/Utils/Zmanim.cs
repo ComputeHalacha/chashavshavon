@@ -17,6 +17,16 @@ namespace Chashavshavon.Utils
                 Properties.Settings.Default.IsSummerTime = TimesCalculation.IsIsraeliSummerTime(DateTime.Now);
             }
         }
+
+        public static string GetDayOfWeekText(DateTime d)
+        {
+            string s = DaysOfWeekHebrew[(int)Program.HebrewCalendar.GetDayOfWeek(d)];
+            if (((int)Program.HebrewCalendar.GetDayOfWeek(d)) < 6)
+            {
+                s += "'";
+            }
+            return s;
+        }
     }
 
     public class MonthObject

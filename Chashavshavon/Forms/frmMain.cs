@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -294,7 +292,6 @@ namespace Chashavshavon
             f.Show(this);
         }
 
-
         private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PrintCalendarList();
@@ -425,25 +422,33 @@ namespace Chashavshavon
             DateTime dayAfterTomorrow = Program.Today.AddDays(2);
             DateTime yesterday = Program.Today.AddDays(-1);
 
-            MonthObject ms = new MonthObject(Program.HebrewCalendar.GetYear(yesterday), Program.HebrewCalendar.GetMonth(yesterday));
-            this.lblYesterdayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(yesterday)] + " " + ms.MonthName;
+            MonthObject ms = new MonthObject(Program.HebrewCalendar.GetYear(yesterday), 
+                Program.HebrewCalendar.GetMonth(yesterday));
+            this.lblYesterdayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(yesterday)] + 
+                " " + ms.MonthName;
             this.toolTip1.SetToolTip(this.lblYesterdayDate, this.GetToolTipForDate(yesterday));
-            lblYesterdayWeekDay.Text = GetDayOfWeekText(yesterday);
+            lblYesterdayWeekDay.Text = Zmanim.GetDayOfWeekText(yesterday);
 
-            ms = new MonthObject(Program.HebrewCalendar.GetYear(Program.Today), Program.HebrewCalendar.GetMonth(Program.Today));
-            this.lblTodayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(Program.Today)] + " " + ms.MonthName;
+            ms = new MonthObject(Program.HebrewCalendar.GetYear(Program.Today), 
+                Program.HebrewCalendar.GetMonth(Program.Today));
+            this.lblTodayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(Program.Today)] +
+                " " + ms.MonthName;
             this.toolTip1.SetToolTip(this.lblTodayDate, this.GetToolTipForDate(Program.Today));
-            lblTodayWeekDay.Text = GetDayOfWeekText(Program.Today);
+            lblTodayWeekDay.Text = Zmanim.GetDayOfWeekText(Program.Today);
 
-            ms = new MonthObject(Program.HebrewCalendar.GetYear(tomorrow), Program.HebrewCalendar.GetMonth(tomorrow));
-            this.lblTomorrowDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(tomorrow)] + " " + ms.MonthName;
+            ms = new MonthObject(Program.HebrewCalendar.GetYear(tomorrow), 
+                Program.HebrewCalendar.GetMonth(tomorrow));
+            this.lblTomorrowDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(tomorrow)] + 
+                " " + ms.MonthName;
             this.toolTip1.SetToolTip(this.lblTomorrowDate, this.GetToolTipForDate(tomorrow));
-            lblTomorrowWeekDay.Text = GetDayOfWeekText(tomorrow);
+            lblTomorrowWeekDay.Text = Zmanim.GetDayOfWeekText(tomorrow);
 
-            ms = new MonthObject(Program.HebrewCalendar.GetYear(dayAfterTomorrow), Program.HebrewCalendar.GetMonth(dayAfterTomorrow));
-            this.lblNextdayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(dayAfterTomorrow)] + " " + ms.MonthName;
+            ms = new MonthObject(Program.HebrewCalendar.GetYear(dayAfterTomorrow), 
+                Program.HebrewCalendar.GetMonth(dayAfterTomorrow));
+            this.lblNextdayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(dayAfterTomorrow)] + 
+                " " + ms.MonthName;
             this.toolTip1.SetToolTip(this.lblNextdayDate, this.GetToolTipForDate(dayAfterTomorrow));
-            lblNextDayWeekDay.Text = GetDayOfWeekText(dayAfterTomorrow);
+            lblNextDayWeekDay.Text = Zmanim.GetDayOfWeekText(dayAfterTomorrow);
 
             lblYesterdayEntryStuff.Text = "";
             lblTodayEntryStuff.Text = "";
@@ -471,17 +476,7 @@ namespace Chashavshavon
             }
             this.FindAndPromptKavuahs();
             this.CalculateCalendar();
-        }
-
-        private string GetDayOfWeekText(DateTime d)
-        {
-            string s = Zmanim.DaysOfWeekHebrew[(int)Program.HebrewCalendar.GetDayOfWeek(d)];
-            if (((int)Program.HebrewCalendar.GetDayOfWeek(d)) < 6)
-            {
-                s += "'";
-            }
-            return s;
-        }
+        }       
 
         private void ShowKavuahList()
         {
@@ -908,7 +903,7 @@ namespace Chashavshavon
             {
                 sb.AppendFormat("<tr class='{0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
                     (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnah(Program.NowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
-                    this.GetDayOfWeekText(onah.DateTime),
+                    Zmanim.GetDayOfWeekText(onah.DateTime),
                     Zmanim.DaysOfMonthHebrew[onah.Day],
                     onah.Month.MonthName,
                     onah.HebrewDayNight,
@@ -1498,7 +1493,6 @@ namespace Chashavshavon
                 this.SetCaptionText();
             }
         }
-
         public bool CurrentFileIsRemote
         {
             get
@@ -1512,7 +1506,6 @@ namespace Chashavshavon
                 this.SetCaptionText();
             }
         }
-
         public string CurrentFileXML
         {
             get
@@ -1537,7 +1530,6 @@ namespace Chashavshavon
                 return (string.IsNullOrEmpty(xml) ? "<Entries />" : xml);
             }
         }
-
         public string CurrentFileName
         {
             get
