@@ -34,6 +34,8 @@ namespace Chashavshavon
         public bool Active { get; set; }
         public bool IsMaayanPasuach { get; set; }
         public bool CancelsOnahBeinanis { get; set; }
+        [System.Xml.Serialization.XmlIgnore]
+        public Entry SettingEntry { get; set; }        
         public DateTime SettingEntryDate { get; set; }
         public string Notes { get; set; }
         public string KavuahDescriptionHebrew
@@ -111,6 +113,7 @@ namespace Chashavshavon
                         {
                             DayNight = entries[0].DayNight,
                             KavuahType = KavuahType.Haflagah,
+                            SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime,
                             CancelsOnahBeinanis = true,
                             Number = entries[0].Interval
@@ -132,6 +135,7 @@ namespace Chashavshavon
                         {
                             DayNight = entries[0].DayNight,
                             KavuahType = KavuahType.DayOfWeek,
+                            SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime,
                             CancelsOnahBeinanis = true,
                             Number = entries[2].Interval //The interval is enough for the day of week
@@ -153,6 +157,7 @@ namespace Chashavshavon
                             KavuahType = KavuahType.DayOfMonth,
                             //For this type of Kavuah, you need 4 Entries to cancel the regular days.
                             CancelsOnahBeinanis = false ,
+                            SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime,
                             Number = entries[0].Day
                         });                        
@@ -175,6 +180,7 @@ namespace Chashavshavon
                             //For this type of Kavuah, the regular days are not cancelled by default
                             CancelsOnahBeinanis = false,
                             Number = (entries[2].Interval - entries[1].Interval),
+                            SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime
                         });
                     }
@@ -195,6 +201,7 @@ namespace Chashavshavon
                             KavuahType = KavuahType.DilugDayOfMonth,
                             //For this type of Kavuah, the regular days are not cancelled by default
                             Number = (entries[2].Day - entries[1].Day),
+                            SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime
                         });
                     }
@@ -222,6 +229,7 @@ namespace Chashavshavon
                                 IsMaayanPasuach = true,
                                 //For ma'ayan Pasuach, the regular days are usually not cancelled
                                 CancelsOnahBeinanis = false,
+                                SettingEntry = entries[2],
                                 SettingEntryDate = entries[2].DateTime,
                                 Number = maximumDay
                             });
@@ -250,6 +258,7 @@ namespace Chashavshavon
                                 IsMaayanPasuach = true,
                                 //For ma'ayan Pasuach, the regular days are usually not cancelled
                                 CancelsOnahBeinanis = false,
+                                SettingEntry = entries[2],
                                 SettingEntryDate = entries[2].DateTime,
                                 Number = maximumHaflagah 
                             });

@@ -968,10 +968,9 @@ namespace Chashavshavon
                         }
                         else
                         {
-                            Entry third = Entry.EntryList.Find(en =>
-                                en.DateTime == k.SettingEntryDate && en.DayNight == k.DayNight);
-                            third.Notes += " לא לרשום קבוע של  " + k.KavuahDescriptionHebrew;
-                            third.NoKavuahList.Add(k);
+                            //The SettingEtry is set when the list kavuah was added to the list
+                            k.SettingEntry.Notes += " לא לרשום קבוע של  " + k.KavuahDescriptionHebrew;
+                            k.SettingEntry.NoKavuahList.Add(k);
                         }
                     }
                 }
