@@ -321,7 +321,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
         "ProductCode" = "8:{F94E54F1-100E-4FD9-8EA5-1C481C029243}"
-        "PackageCode" = "8:{143857EF-2032-49A8-8F14-1BEBCB7E1C89}"
+        "PackageCode" = "8:{14D30C34-04BB-433D-8080-3B505433B835}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
