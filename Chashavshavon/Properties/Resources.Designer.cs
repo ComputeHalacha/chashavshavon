@@ -67,6 +67,13 @@ namespace Chashavshavon.Properties {
             }
         }
         
+        internal static System.Drawing.Icon ChashFile {
+            get {
+                object obj = ResourceManager.GetObject("ChashFile", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap database {
             get {
                 object obj = ResourceManager.GetObject("database", resourceCulture);
@@ -84,13 +91,6 @@ namespace Chashavshavon.Properties {
         internal static System.Drawing.Bitmap database_add_small {
             get {
                 object obj = ResourceManager.GetObject("database_add_small", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap database_small {
-            get {
-                object obj = ResourceManager.GetObject("database_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

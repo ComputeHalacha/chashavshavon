@@ -48,7 +48,10 @@
             this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSourceEntries = new System.Windows.Forms.BindingSource(this.components);
             this.gbCalendar = new System.Windows.Forms.GroupBox();
+            this.btnPrintCalendar = new System.Windows.Forms.Button();
+            this.btnViewTextCalendar = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -136,10 +139,8 @@
             this.pbWeb = new System.Windows.Forms.PictureBox();
             this.btnPrintEntryList = new System.Windows.Forms.Button();
             this.btnViewTextEntryList = new System.Windows.Forms.Button();
-            this.bindingSourceEntries = new System.Windows.Forms.BindingSource(this.components);
-            this.btnPrintCalendar = new System.Windows.Forms.Button();
-            this.btnViewTextCalendar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
             this.pnlDayAfter.SuspendLayout();
             this.pnlTomorrow.SuspendLayout();
@@ -152,7 +153,6 @@
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -246,7 +246,7 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgEntries.Size = new System.Drawing.Size(780, 243);
+            this.dgEntries.Size = new System.Drawing.Size(780, 245);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             // 
@@ -332,6 +332,32 @@
             this.gbCalendar.TabIndex = 13;
             this.gbCalendar.TabStop = false;
             this.gbCalendar.Text = "לוח";
+            // 
+            // btnPrintCalendar
+            // 
+            this.btnPrintCalendar.AutoSize = true;
+            this.btnPrintCalendar.Image = global::Chashavshavon.Properties.Resources.printer;
+            this.btnPrintCalendar.Location = new System.Drawing.Point(6, 91);
+            this.btnPrintCalendar.Name = "btnPrintCalendar";
+            this.btnPrintCalendar.Size = new System.Drawing.Size(47, 47);
+            this.btnPrintCalendar.TabIndex = 20;
+            this.btnPrintCalendar.Text = "הדפס";
+            this.btnPrintCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPrintCalendar.UseVisualStyleBackColor = true;
+            this.btnPrintCalendar.Click += new System.EventHandler(this.btnPrintCalendar_Click);
+            // 
+            // btnViewTextCalendar
+            // 
+            this.btnViewTextCalendar.AutoSize = true;
+            this.btnViewTextCalendar.Image = global::Chashavshavon.Properties.Resources.page_previous;
+            this.btnViewTextCalendar.Location = new System.Drawing.Point(6, 38);
+            this.btnViewTextCalendar.Name = "btnViewTextCalendar";
+            this.btnViewTextCalendar.Size = new System.Drawing.Size(51, 47);
+            this.btnViewTextCalendar.TabIndex = 19;
+            this.btnViewTextCalendar.Text = "רשימה";
+            this.btnViewTextCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnViewTextCalendar.UseVisualStyleBackColor = true;
+            this.btnViewTextCalendar.Click += new System.EventHandler(this.btnViewTextCalendar_Click);
             // 
             // label13
             // 
@@ -929,9 +955,9 @@
             this.rbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbDay.Location = new System.Drawing.Point(13, 41);
+            this.rbDay.Location = new System.Drawing.Point(8, 41);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(43, 17);
+            this.rbDay.Size = new System.Drawing.Size(48, 18);
             this.rbDay.TabIndex = 4;
             this.rbDay.Text = "יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -953,9 +979,9 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Checked = true;
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbNight.Location = new System.Drawing.Point(8, 21);
+            this.rbNight.Location = new System.Drawing.Point(-1, 21);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(48, 17);
+            this.rbNight.Size = new System.Drawing.Size(57, 18);
             this.rbNight.TabIndex = 3;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "לילה";
@@ -1186,7 +1212,7 @@
             this.lblNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextProblem.ForeColor = System.Drawing.Color.Brown;
-            this.lblNextProblem.Location = new System.Drawing.Point(0, 237);
+            this.lblNextProblem.Location = new System.Drawing.Point(0, 235);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblNextProblem.Size = new System.Drawing.Size(882, 20);
@@ -1225,7 +1251,7 @@
             this.splitContainerMain.Panel2.Controls.Add(this.lblNextProblem);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainerMain.Size = new System.Drawing.Size(884, 538);
-            this.splitContainerMain.SplitterDistance = 276;
+            this.splitContainerMain.SplitterDistance = 278;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 23;
             // 
@@ -1260,7 +1286,7 @@
             this.btnOpenKavuahs.Image = global::Chashavshavon.Properties.Resources.database_add_small;
             this.btnOpenKavuahs.Location = new System.Drawing.Point(7, 192);
             this.btnOpenKavuahs.Name = "btnOpenKavuahs";
-            this.btnOpenKavuahs.Size = new System.Drawing.Size(64, 47);
+            this.btnOpenKavuahs.Size = new System.Drawing.Size(73, 48);
             this.btnOpenKavuahs.TabIndex = 24;
             this.btnOpenKavuahs.Text = " וסתי קבוע";
             this.btnOpenKavuahs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1305,32 +1331,6 @@
             this.btnViewTextEntryList.UseVisualStyleBackColor = true;
             this.btnViewTextEntryList.Click += new System.EventHandler(this.btnViewTextEntryList_Click);
             // 
-            // btnPrintCalendar
-            // 
-            this.btnPrintCalendar.AutoSize = true;
-            this.btnPrintCalendar.Image = global::Chashavshavon.Properties.Resources.printer;
-            this.btnPrintCalendar.Location = new System.Drawing.Point(6, 91);
-            this.btnPrintCalendar.Name = "btnPrintCalendar";
-            this.btnPrintCalendar.Size = new System.Drawing.Size(47, 47);
-            this.btnPrintCalendar.TabIndex = 20;
-            this.btnPrintCalendar.Text = "הדפס";
-            this.btnPrintCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnPrintCalendar.UseVisualStyleBackColor = true;
-            this.btnPrintCalendar.Click += new System.EventHandler(this.btnPrintCalendar_Click);
-            // 
-            // btnViewTextCalendar
-            // 
-            this.btnViewTextCalendar.AutoSize = true;
-            this.btnViewTextCalendar.Image = global::Chashavshavon.Properties.Resources.page_previous;
-            this.btnViewTextCalendar.Location = new System.Drawing.Point(6, 38);
-            this.btnViewTextCalendar.Name = "btnViewTextCalendar";
-            this.btnViewTextCalendar.Size = new System.Drawing.Size(47, 47);
-            this.btnViewTextCalendar.TabIndex = 19;
-            this.btnViewTextCalendar.Text = "רשימה";
-            this.btnViewTextCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnViewTextCalendar.UseVisualStyleBackColor = true;
-            this.btnViewTextCalendar.Click += new System.EventHandler(this.btnViewTextCalendar_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1351,6 +1351,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).EndInit();
             this.gbCalendar.ResumeLayout(false);
             this.gbCalendar.PerformLayout();
             this.pnlDayAfter.ResumeLayout(false);
@@ -1368,7 +1369,6 @@
             this.splitContainerMain.Panel2.ResumeLayout(false);
             this.splitContainerMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

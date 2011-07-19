@@ -27,6 +27,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_57EB124FBC184854A0C4FA578A7B2298"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AD782E5A1EDD496D8E982E9BE885A507"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
         "MsmSig" = "8:_UNDEFINED"
@@ -156,12 +168,97 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_57EB124FBC184854A0C4FA578A7B2298"
+            {
+            "SourcePath" = "8:..\\Chashavshavon\\Resources\\chash.ico"
+            "TargetName" = "8:chash.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AD782E5A1EDD496D8E982E9BE885A507"
+            {
+            "SourcePath" = "8:..\\Chashavshavon\\Resources\\ChashFile.ico"
+            "TargetName" = "8:ChashFile.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
+            "{5EB83D71-FA18-4901-BE56-DE22E13CC478}:_8284AB61DD3F4C2EB54132BA0C50EC0A"
+            {
+            "Name" = "8:ChashavshavonFile"
+            "Description" = "8:Chashavshavon File"
+            "Extensions" = "8:pm"
+            "MIME" = "8:"
+            "Icon" = "8:_AD782E5A1EDD496D8E982E9BE885A507"
+            "IconIndex" = "3:0"
+                "Command"
+                {
+                "Command" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
+                }
+                "Verbs"
+                {
+                    "{95C0C507-CBF0-42B8-B119-07219E384A4A}:_1E0AB0590D624BDD97E7FD954189982F"
+                    {
+                    "Command" = "8:&Open"
+                    "Verb" = "8:open"
+                    "Arguments" = "8:\"%1\""
+                    "Order" = "3:0"
+                    }
+                }
+            }
         }
         "Folder"
         {
+            "{1525181F-901A-416C-8A58-119130FE478E}:_6C2337A84C4740BDAE5F8A5F4C6E4C08"
+            {
+            "Name" = "8:#1918"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:PersonalFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_3A9E430175364D8A8ACD394D54292D99"
+                    {
+                    "Name" = "8:Chashavshavon Files"
+                    "AlwaysCreate" = "11:TRUE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_628E1F104A4440808B9640DC92B3FC65"
+                        "Folders"
+                        {
+                        }
+                    }
+                }
+            }
             "{1525181F-901A-416C-8A58-119130FE478E}:_A379305A3EA743FDB2351C1E433D8267"
             {
             "Name" = "8:#1919"
@@ -385,7 +482,7 @@
             "Target" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
             "Folder" = "8:_7E172A37D631474E8EC1488097B379EF"
             "WorkingFolder" = "8:_F240F467926B4F928A35E13F2588BEAA"
-            "Icon" = "8:"
+            "Icon" = "8:_57EB124FBC184854A0C4FA578A7B2298"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8528430C173244FB8C67D39942AE7FD2"
@@ -399,7 +496,7 @@
             "Target" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
             "Folder" = "8:_FD38B552AA484180A3677D34C71C7151"
             "WorkingFolder" = "8:_F240F467926B4F928A35E13F2588BEAA"
-            "Icon" = "8:"
+            "Icon" = "8:_57EB124FBC184854A0C4FA578A7B2298"
             "Feature" = "8:"
             }
         }

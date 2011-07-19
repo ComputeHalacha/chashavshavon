@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Chashavshavon</RootNamespace>
     <AssemblyName>Chashavshavon</AssemblyName>
-    <ApplicationIcon>Utility_VBScript.ico</ApplicationIcon>
+    <ApplicationIcon>chash.ico</ApplicationIcon>
     <StartupObject>Chashavshavon.Program</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -205,8 +205,9 @@
     <None Include="Resources\database_add.png" />
     <None Include="Resources\save.png" />
     <None Include="Resources\database_add_small.png" />
-    <None Include="Resources\database_small.png" />
-    <Content Include="Utility_VBScript.ico" />
+    <None Include="Resources\chash.ico" />
+    <None Include="Resources\ChashFile.ico" />
+    <Content Include="chash.ico" />
     <Content Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html" />
     <Content Include="Locations.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
