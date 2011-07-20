@@ -964,7 +964,6 @@ namespace Chashavshavon
                         else
                         {
                             //The SettingEtry is set when the list kavuah was added to the list
-                            k.SettingEntry.Notes += " לא לרשום קבוע של  " + k.KavuahDescriptionHebrew;
                             k.SettingEntry.NoKavuahList.Add(k);
                         }
                     }
