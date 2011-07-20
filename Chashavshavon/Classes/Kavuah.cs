@@ -144,7 +144,10 @@ namespace Chashavshavon
                 }        
 
                 //Cheshbon out Kavuah of same day-of-month
-                if ((entries[0].Day == entries[1].Day) && (entries[1].Day == entries[2].Day))
+                if ((entries[0].Day == entries[1].Day &&
+                    entries[1].Day == entries[2].Day) &&
+                    ((entries[2].DateTime - entries[1].DateTime).Days < 31) &&
+                    ((entries[1].DateTime - entries[0].DateTime).Days < 31))
                 {
                     //If the "NoKavuah" list for the 3rd entry does not include this "find", 
                     if (!entries[2].NoKavuahList.Exists(k =>
@@ -187,8 +190,10 @@ namespace Chashavshavon
                 }
 
                 //Cheshbon out Dilug Yom Hachodesh
-                if ((entries[2].Day - entries[1].Day) == (entries[1].Day - entries[0].Day) && 
-                    (entries[2].Day - entries[1].Day) != 0)
+                if (((entries[2].Day - entries[1].Day) == (entries[1].Day - entries[0].Day) && 
+                    (entries[2].Day - entries[1].Day) != 0) &&
+                    ((entries[2].DateTime - entries[1].DateTime).Days < 31) &&
+                    ((entries[1].DateTime - entries[0].DateTime).Days < 31)) 
                 {
                     //If the "NoKavuah" list for the 3rd entry does not include this "find", 
                     if (!entries[2].NoKavuahList.Exists(k =>

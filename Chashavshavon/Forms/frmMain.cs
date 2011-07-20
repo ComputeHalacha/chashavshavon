@@ -258,7 +258,7 @@ namespace Chashavshavon
         private void openKavuaListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.ShowKavuahList();
-        }        
+        }
 
         private void AddKavuahToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -422,30 +422,30 @@ namespace Chashavshavon
             DateTime dayAfterTomorrow = Program.Today.AddDays(2);
             DateTime yesterday = Program.Today.AddDays(-1);
 
-            MonthObject ms = new MonthObject(Program.HebrewCalendar.GetYear(yesterday), 
+            MonthObject ms = new MonthObject(Program.HebrewCalendar.GetYear(yesterday),
                 Program.HebrewCalendar.GetMonth(yesterday));
-            this.lblYesterdayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(yesterday)] + 
+            this.lblYesterdayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(yesterday)] +
                 " " + ms.MonthName;
             this.toolTip1.SetToolTip(this.lblYesterdayDate, this.GetToolTipForDate(yesterday));
             lblYesterdayWeekDay.Text = Zmanim.GetDayOfWeekText(yesterday);
 
-            ms = new MonthObject(Program.HebrewCalendar.GetYear(Program.Today), 
+            ms = new MonthObject(Program.HebrewCalendar.GetYear(Program.Today),
                 Program.HebrewCalendar.GetMonth(Program.Today));
             this.lblTodayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(Program.Today)] +
                 " " + ms.MonthName;
             this.toolTip1.SetToolTip(this.lblTodayDate, this.GetToolTipForDate(Program.Today));
             lblTodayWeekDay.Text = Zmanim.GetDayOfWeekText(Program.Today);
 
-            ms = new MonthObject(Program.HebrewCalendar.GetYear(tomorrow), 
+            ms = new MonthObject(Program.HebrewCalendar.GetYear(tomorrow),
                 Program.HebrewCalendar.GetMonth(tomorrow));
-            this.lblTomorrowDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(tomorrow)] + 
+            this.lblTomorrowDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(tomorrow)] +
                 " " + ms.MonthName;
             this.toolTip1.SetToolTip(this.lblTomorrowDate, this.GetToolTipForDate(tomorrow));
             lblTomorrowWeekDay.Text = Zmanim.GetDayOfWeekText(tomorrow);
 
-            ms = new MonthObject(Program.HebrewCalendar.GetYear(dayAfterTomorrow), 
+            ms = new MonthObject(Program.HebrewCalendar.GetYear(dayAfterTomorrow),
                 Program.HebrewCalendar.GetMonth(dayAfterTomorrow));
-            this.lblNextdayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(dayAfterTomorrow)] + 
+            this.lblNextdayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(dayAfterTomorrow)] +
                 " " + ms.MonthName;
             this.toolTip1.SetToolTip(this.lblNextdayDate, this.GetToolTipForDate(dayAfterTomorrow));
             lblNextDayWeekDay.Text = Zmanim.GetDayOfWeekText(dayAfterTomorrow);
@@ -476,7 +476,7 @@ namespace Chashavshavon
             }
             this.FindAndPromptKavuahs();
             this.CalculateCalendar();
-        }       
+        }
 
         private void ShowKavuahList()
         {
@@ -701,7 +701,7 @@ namespace Chashavshavon
         private List<Onah> GetProblemOnahs()
         {
             var problemOnas = new List<Onah>();
-            
+
             DateTime yesterday = Program.Today.AddDays(-1);
             Onah thirty,
                thirtyOhrZarua,
@@ -931,10 +931,10 @@ namespace Chashavshavon
                     lastThree.Dequeue();
                 }
                 last3Array = lastThree.ToArray<Entry>();
-                
+
                 //You can't make a kavuah until you have 3 entries in the list to compare 
                 //and they are all of the same DayNight
-                if (lastThree.Count == 3 && 
+                if (lastThree.Count == 3 &&
                     last3Array[0].DayNight.In(last3Array[1].DayNight, last3Array[2].DayNight))
                 {
                     //Gets a list of Kavuahs from the given 3 entries
@@ -944,7 +944,7 @@ namespace Chashavshavon
 
             //Remove all found kavuahs that are already in the active list
             foundKavuahList.RemoveAll(k => Kavuah.InActiveKavuahList(k));
-            
+
             //If there are any left
             if (foundKavuahList.Count > 0)
             {
@@ -977,7 +977,7 @@ namespace Chashavshavon
             {
                 return false;
             }
-        }        
+        }
 
         private void ClearCalendar()
         {
@@ -1002,33 +1002,32 @@ namespace Chashavshavon
 
         private void ProccessProblem(Label lbl, Label lblDate, Onah problemOnah)
         {
-            //If this onah is to be ignored and the same onah has a previous non-ignoreable problem            
-            if (problemOnah.IsIgnored && lblDate.BackColor == Color.SteelBlue)
+            lbl.Text = lbl.Text.Trim();
+            if (problemOnah.IsIgnored)
             {
-                return;
-            }
-            //If this onah is to be ignored and the same onah doesn't have another non-ignoreable problem
-            else if (problemOnah.IsIgnored && lblDate.BackColor != Color.SteelBlue)
-            {
-                lblDate.BackColor = Color.Tan;
-                lblDate.ForeColor = Color.Gray;
-                lbl.Text = problemOnah.Name + "[מבוטל] ";
+                lbl.Text += string.Format("{0}[{1}]",
+                    (lbl.Text.Length > 0 ? Environment.NewLine : ""),
+                    problemOnah.Name);
             }
             else
             {
-                lbl.Text = (lbl.Text.Length == 0 ? problemOnah.Name : lbl.Text + " וגם" + problemOnah.Name);
-                lblDate.BackColor = Color.SteelBlue;
-                lblDate.ForeColor = Color.Wheat;
-                if (lbl.Name.Contains("Today") && Program.NowOnah.DayNight == problemOnah.DayNight)
-                {
-                    lbl.BackColor = Color.Red;
-                    lbl.ForeColor = Color.Wheat;
-                    lbl.Font = new Font(lbl.Font.FontFamily, 11);
-                }
-                else
-                {
-                    lbl.BackColor = Color.Tan;
-                }
+                lbl.Text += (lbl.Text.Length > 0 ? Environment.NewLine : "") + problemOnah.Name;
+            }
+
+            this.toolTip1.SetToolTip(lbl, lbl.Text);
+           
+            //If this onah is to be ignored and the same onah doesn't have another non-ignoreable problem
+
+            lblDate.BackColor = Color.SteelBlue;
+            lblDate.ForeColor = Color.Wheat;
+            if (lbl.Name.Contains("Today") && Program.NowOnah.DayNight == problemOnah.DayNight)
+            {
+                lbl.BackColor = Color.Red;
+                lbl.ForeColor = Color.Wheat;
+            }
+            else
+            {
+                lbl.BackColor = Color.Tan;
             }
         }
 
@@ -1471,7 +1470,7 @@ namespace Chashavshavon
             this.SetLocation();
             this.SetDateAndDayNight();
             this.FillCalendar();
-            this.FillZmanim();            
+            this.FillZmanim();
             this.CalculateCalendar();
             this.SetCaptionText();
         }
@@ -1538,6 +1537,6 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion               
+        #endregion
     }
 }
