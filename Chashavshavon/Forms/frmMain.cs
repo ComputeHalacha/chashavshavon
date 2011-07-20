@@ -162,6 +162,24 @@ namespace Chashavshavon
             this.SaveCurrentFile();
         }
 
+        private void dgEntries_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == this.dgEntries.Columns["NotesColumn"].Index)
+            {
+                DataGridViewRow r = this.dgEntries.Rows[e.RowIndex];
+                Entry entry = (Entry)r.DataBoundItem;
+                string nkText = "";
+                foreach (Kavuah nk in entry.NoKavuahList)
+                {
+                    nkText += " לא לרשום קבוע " + nk.KavuahDescriptionHebrew;
+                }
+                if (nkText.Length > 0)
+                {
+                    e.Value += " [" + nkText.Trim() + "]";
+                }
+            }
+        }
+
         private void dgEntries_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgEntries.Columns[e.ColumnIndex] == btnDeleteColumn)
@@ -1014,7 +1032,7 @@ namespace Chashavshavon
             }
 
             this.toolTip1.SetToolTip(lbl, lbl.Text);
-           
+
             //If this onah is to be ignored and the same onah doesn't have another non-ignoreable problem
 
             lblDate.BackColor = Color.SteelBlue;
