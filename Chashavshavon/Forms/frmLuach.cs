@@ -1,0 +1,144 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using Chashavshavon.Utils;
+
+namespace Chashavshavon
+{
+    public partial class frmLuach : Form
+    {
+        private DateTime _monthToDisplay;
+        private List<Onah> _problemOnahs;
+
+        public frmLuach(DateTime initialMonthToDisplay, List<Onah> problemOnahs)
+        {
+            InitializeComponent();
+            this._monthToDisplay = initialMonthToDisplay;
+            this._problemOnahs = problemOnahs;
+        }
+
+        private void frmLuach_Load(object sender, EventArgs e)
+        {
+            this.DisplayMonth();
+        }
+
+        private void DisplayMonth()
+        {
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel1.Visible = false;
+            this.tableLayoutPanel1.Controls.Clear();
+            int year = Program.HebrewCalendar.GetYear(this._monthToDisplay);
+            MonthObject month = new MonthObject(year, Program.HebrewCalendar.GetMonth(this._monthToDisplay));
+            int firstDayOfWeek = 1 + (int)this._monthToDisplay.AddDays(1 - Program.HebrewCalendar.GetDayOfMonth(this._monthToDisplay)).DayOfWeek;
+            int currentRow = 1, currentColumn = firstDayOfWeek - 1;
+
+            this.lblMonthName.Text = this._monthToDisplay.ToString("MMM yyyy");
+            this.btnLastMonth.Text = "<--  " + this._monthToDisplay.AddMonths(-1).ToString("MMM");
+            this.btnNextMonth.Text = this._monthToDisplay.AddMonths(1).ToString("MMM") + "  -->";
+
+            for (int i = 0; i < 7; i++)
+            {
+                this.tableLayoutPanel1.Controls.Add(new Label()
+                {
+                    Text = Zmanim.DaysOfWeekHebrewFull[i],
+                    Dock = DockStyle.Fill,
+                    TextAlign = ContentAlignment.MiddleCenter
+                }, i, 0);
+            }
+
+            for (int i = 1; i < month.DaysInMonth + 1; i++)
+            {
+                Panel pnl = new Panel()
+                {
+                    Dock = DockStyle.Fill,
+                    BackColor = Color.White
+                };
+
+                pnl.Controls.Add(new Label()
+                {
+                    Dock = DockStyle.Top,
+                    Font = new Font(Font.FontFamily, 16f, FontStyle.Bold),
+                    ForeColor = Color.SaddleBrown,
+                    Text = Zmanim.DaysOfMonthHebrew[i],
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                });
+
+                string onahText = "";
+
+                if (this._problemOnahs != null)
+                {
+                    var pOnahs = this._problemOnahs.Where(o => o.DateTime.Month == this._monthToDisplay.Month &&
+                       o.DateTime.Year == this._monthToDisplay.Year &&
+                       o.Day == i);
+                    if (pOnahs.Count() > 0)
+                    {
+                        foreach (var o in pOnahs)
+                        {
+                            onahText += o.HebrewDayNight + " - " + o.Name + Environment.NewLine;
+                        }
+                        this.toolTip1.SetToolTip(pnl, onahText);
+                    }
+                }
+
+                Entry entry = Entry.EntryList.FirstOrDefault(en => en.DateTime.Month == this._monthToDisplay.Month &&
+                    en.DateTime.Year == this._monthToDisplay.Year &&
+                    en.Day == i);
+                if (entry != null)
+                {
+                    pnl.BackColor = Color.Pink;
+                    pnl.Controls.Add(new Label()
+                    {
+                        Dock = DockStyle.Bottom,
+                        Text = "ראיה - עונת " + entry.HebrewDayNight + Environment.NewLine + " הפלגה: " + entry.Interval.ToString(),
+                        ForeColor = Color.Red,
+                        TextAlign = ContentAlignment.BottomCenter,
+                        RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                    });
+                }
+                else if (!string.IsNullOrEmpty(onahText))
+                {
+                    pnl.BackColor = Color.Tan;
+                    pnl.Controls.Add(new Label()
+                    {
+                        Dock = DockStyle.Bottom,
+                        Text = onahText.Split('\r').Length > 2 ? onahText.Substring(0, onahText.IndexOf('\r')) + "..." : onahText,
+                        ForeColor = Color.Black,
+                        RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                    });
+                }
+
+                this.tableLayoutPanel1.Controls.Add(pnl, currentColumn, currentRow);
+
+                if (currentColumn == tableLayoutPanel1.ColumnCount - 1)
+                {
+                    currentColumn = 0;
+                    currentRow++;
+                }
+                else
+                {
+                    currentColumn++;
+                }
+            }
+            this.tableLayoutPanel1.Visible = true;
+            this.tableLayoutPanel1.ResumeLayout();
+        }
+
+        private void btnNextMonth_Click(object sender, EventArgs e)
+        {
+            this._monthToDisplay = this._monthToDisplay.AddMonths(1);
+            this.DisplayMonth();
+        }
+
+        private void btnLastMonth_Click(object sender, EventArgs e)
+        {
+            this._monthToDisplay = this._monthToDisplay.AddMonths(-1);
+            this.DisplayMonth();
+        }
+    }
+}
