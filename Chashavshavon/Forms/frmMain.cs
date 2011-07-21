@@ -158,8 +158,11 @@ namespace Chashavshavon
 
             this.bindingSourceEntries.Add(newEntry);
             this.SortEntriesAndSetInterval();
+            Kavuah.FindAndPromptKavuahs();
             this.FillCalendar();
             this.SaveCurrentFile();
+            //In case there were changes to the notes on some entries such as if there was a NoKavuah added
+            this.bindingSourceEntries.ResetBindings(false);
         }
 
         private void dgEntries_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -185,17 +188,43 @@ namespace Chashavshavon
             if (dgEntries.Columns[e.ColumnIndex] == btnDeleteColumn)
             {
                 Entry selectedEntry = (Entry)dgEntries.Rows[e.RowIndex].DataBoundItem;
-                DialogResult dr = MessageBox.Show("האם אתם בטוחים שברצונכם למחוק השורה של " +
+
+                if (MessageBox.Show("האם אתם בטוחים שברצונכם למחוק השורה של " +
                                                     selectedEntry.DateTime.ToString("dd MMMM yyyy"),
                                                   "מחיקת שורה " + selectedEntry.DateTime.ToString("dd MMMM yyyy"),
                                                   MessageBoxButtons.YesNo,
-                                                  MessageBoxIcon.Question);
-                if (dr == DialogResult.Yes)
+                                                  MessageBoxIcon.Question,
+                                                  MessageBoxDefaultButton.Button1,
+                                                  MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
+                    if (Kavuah.KavuahsList.Exists(k => k.SettingEntry == selectedEntry ||
+                        (k.SettingEntryDate == selectedEntry.DateTime && k.DayNight == selectedEntry.DayNight)))
+                    {
+                        if (MessageBox.Show(" נמצאו וסתי קבוע שהוגדרו על פי רשומה הזאת. האם אתם עדיין בטוחים שברצונכם למחוק השורה של " +
+                                                    selectedEntry.DateTime.ToString("dd MMMM yyyy") +
+                                                    " וגם כל וסת הקבוע שנרשמו בגללה?",
+                                                  "מחיקת שורה " + selectedEntry.DateTime.ToString("dd MMMM yyyy"),
+                                                  MessageBoxButtons.YesNo,
+                                                  MessageBoxIcon.Exclamation,
+                                                  MessageBoxDefaultButton.Button2,
+                                                  MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                        {
+                            Kavuah.KavuahsList.RemoveAll(k => k.SettingEntry == selectedEntry ||
+                                (k.SettingEntryDate == selectedEntry.DateTime && k.DayNight == selectedEntry.DayNight));
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
                     this.bindingSourceEntries.Remove(selectedEntry);
                     this.SortEntriesAndSetInterval();
+                    Kavuah.FindAndPromptKavuahs();
                     this.FillCalendar();
                     this.SaveCurrentFile();
+                    //In case there were changes to the notes on some entries such as if there was a NoKavuah added
+                    this.bindingSourceEntries.ResetBindings(false);
+                
                 }
             }
         }
@@ -255,6 +284,21 @@ namespace Chashavshavon
             this.ShowKavuahList();
         }
 
+        private void btnCheshbonKavuahs_Click(object sender, EventArgs e)
+        {
+            if (Kavuah.FindAndPromptKavuahs())
+            {
+                //Save the new Kavuahs to the file
+                this.SaveCurrentFile();
+                //In case there were changes to the notes on some entries such as if there was a NoKavuah added
+                this.bindingSourceEntries.ResetBindings(false);
+            }
+            else
+            {
+                MessageBox.Show("לא נמצאו וסת קבוע אפשריים");
+            }
+        }
+
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.SaveCurrentFile();
@@ -292,7 +336,14 @@ namespace Chashavshavon
 
         private void SearchForKavuahsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!this.FindAndPromptKavuahs())
+            if (Kavuah.FindAndPromptKavuahs())
+            {
+                //Save the new Kavuahs to the file
+                this.SaveCurrentFile();
+                //In case there were changes to the notes on some entries such as if there was a NoKavuah added
+                this.bindingSourceEntries.ResetBindings(false);
+            }
+            else
             {
                 MessageBox.Show("לא נמצאו וסת קבוע אפשריים");
             }
@@ -492,7 +543,6 @@ namespace Chashavshavon
                     lblNextDayEntryStuff.Text = "עונה: " + entry.HebrewDayNight + "\nהפלגה: " + entry.Interval.ToString();
                 }
             }
-            this.FindAndPromptKavuahs();
             this.CalculateCalendar();
         }
 
@@ -571,9 +621,6 @@ namespace Chashavshavon
             //The lblNextProblem displays the next upcoming Onah that needs to be kept
             this.lblNextProblem.Text = GetNextOnahText(problemOnas);
             SetWeekListHtml(problemOnas);
-
-            //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-            this.bindingSourceEntries.ResetBindings(false);
         }
 
         /// <summary>
@@ -617,6 +664,8 @@ namespace Chashavshavon
                     }
                 }
             }
+
+            //TODO: Add Sirug Kavuah problem dates
 
             return list;
         }
@@ -932,70 +981,6 @@ namespace Chashavshavon
             this.WeekListHtml = sb.ToString();
         }
 
-        private bool FindAndPromptKavuahs()
-        {
-            var lastThree = new Queue<Entry>();
-            Entry[] last3Array;
-            List<Kavuah> foundKavuahList = new List<Kavuah>();
-
-            foreach (Entry entry in Entry.EntryList)
-            {
-                //For cheshboning out kavuas we need just the last 3 entries
-                //First, add this entry
-                lastThree.Enqueue(entry);
-                if (lastThree.Count > 3)
-                {
-                    //pop out the earliest one - leaves us with this entry and the previous 2.
-                    lastThree.Dequeue();
-                }
-                last3Array = lastThree.ToArray<Entry>();
-
-                //You can't make a kavuah until you have 3 entries in the list to compare 
-                //and they are all of the same DayNight
-                if (lastThree.Count == 3 &&
-                    last3Array[0].DayNight.In(last3Array[1].DayNight, last3Array[2].DayNight))
-                {
-                    //Gets a list of Kavuahs from the given 3 entries
-                    foundKavuahList.AddRange(Kavuah.GetProposedKavuahList(last3Array));
-                }
-            }
-
-            //Remove all found kavuahs that are already in the active list
-            foundKavuahList.RemoveAll(k => Kavuah.InActiveKavuahList(k));
-
-            //If there are any left
-            if (foundKavuahList.Count > 0)
-            {
-                //Prompt user to decide which ones to keep and their details
-                frmKavuahPrompt fkp = new frmKavuahPrompt(foundKavuahList);
-                if (fkp.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                {
-                    //For each found kavuah, either we add it to the main list 
-                    //or we set it as a "NoKavuah" for the third entry so it shouldn't pop up again
-                    foreach (Kavuah k in foundKavuahList)
-                    {
-                        //The ListToAdd property contains the ones the user decided to add
-                        if (fkp.ListToAdd.Contains(k))
-                        {
-                            Kavuah.KavuahsList.Add(k);
-                        }
-                        else
-                        {
-                            //The SettingEtry is set when the list kavuah was added to the list
-                            k.SettingEntry.NoKavuahList.Add(k);
-                        }
-                    }
-                }
-                //Save the new Kavuahs to the file
-                this.SaveCurrentFile();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         private void ClearCalendar()
         {
             foreach (Label l in gbCalendar.Controls.OfType<Panel>().SelectMany(pnl => pnl.Controls.OfType<Label>()))
@@ -1045,30 +1030,6 @@ namespace Chashavshavon
             else
             {
                 lbl.BackColor = Color.Tan;
-            }
-        }
-
-        /// <summary>
-        /// Sorts the list of entries in order of occurrence, then sets the Interval for each Entry - 
-        /// which is the days elapsed since the previous Entry.
-        /// This is in order to Cheshbon out the Haflagah        
-        /// </summary>
-        private void SortEntriesAndSetInterval()
-        {
-            Entry.EntryList.Sort(Onah.CompareOnahs);
-
-            Entry previousEntry = null;
-            foreach (Entry entry in Entry.EntryList)
-            {
-                if (previousEntry != null)
-                {
-                    entry.SetInterval(previousEntry);
-                }
-                else
-                {
-                    entry.Interval = 0;
-                }
-                previousEntry = entry;
             }
         }
 
@@ -1160,6 +1121,31 @@ namespace Chashavshavon
             Properties.Settings.Default.CurrentFile = this.CurrentFile;
             Properties.Settings.Default.Save();
             this.SetCaptionText();
+        }
+
+
+        /// <summary>
+        /// Sorts the list of entries in order of occurrence, then sets the Interval for each Entry - 
+        /// which is the days elapsed since the previous Entry.
+        /// This is in order to Cheshbon out the Haflagah        
+        /// </summary>
+        private void SortEntriesAndSetInterval()
+        {
+            Entry.EntryList.Sort(Onah.CompareOnahs);
+
+            Entry previousEntry = null;
+            foreach (Entry entry in Entry.EntryList)
+            {
+                if (previousEntry != null)
+                {
+                    entry.SetInterval(previousEntry);
+                }
+                else
+                {
+                    entry.Interval = 0;
+                }
+                previousEntry = entry;
+            }
         }
 
         private frmBrowser ShowCalendarTextList(bool print = false)

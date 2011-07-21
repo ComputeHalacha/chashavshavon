@@ -194,7 +194,7 @@
     </Compile>
     <Compile Include="Utils\RemoteFunctions.cs" />
     <Compile Include="Utils\Zmanim.cs" />
-    <None Include="שאלות.docx" />
+    <None Include="Shailos.docx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\chash.png" />
@@ -208,6 +208,7 @@
     <None Include="Resources\chash.ico" />
     <None Include="Resources\ChashFile.ico" />
     <Content Include="chash.ico" />
+    <None Include="Resources\database_process.png" />
     <Content Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html" />
     <Content Include="Locations.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

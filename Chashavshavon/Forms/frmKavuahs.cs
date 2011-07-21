@@ -28,6 +28,11 @@ namespace Chashavshavon
                 this.kavuahBindingSource.ResetBindings(false);
             }
         }
+        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
         private void frmKavuahs_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -49,9 +54,6 @@ namespace Chashavshavon
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+       
     }
 }

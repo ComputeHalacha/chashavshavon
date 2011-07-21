@@ -95,6 +95,13 @@ namespace Chashavshavon.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap database_process {
+            get {
+                object obj = ResourceManager.GetObject("database_process", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap delete {
             get {
                 object obj = ResourceManager.GetObject("delete", resourceCulture);
