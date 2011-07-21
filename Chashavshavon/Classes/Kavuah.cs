@@ -152,7 +152,8 @@ namespace Chashavshavon
                 
                 //Cheshbon out Kavuah of Siurug
                 int monthDiff = Convert.ToInt32(DateAndTime.DateDiff(DateInterval.Month, entries[0].DateTime, entries[1].DateTime));
-                if (!kavuahs.Exists(k => k.KavuahType == KavuahType.DayOfMonth) &&
+                if (monthDiff > 1 &&
+                    (!kavuahs.Exists(k => k.KavuahType == KavuahType.DayOfMonth)) &&
                     (entries[0].Day == entries[1].Day) &&
                     (entries[1].Day == entries[2].Day) &&
                     (DateAndTime.DateDiff(DateInterval.Month, entries[1].DateTime, entries[2].DateTime) == monthDiff))
@@ -257,7 +258,7 @@ namespace Chashavshavon
                 {
                     //"NoKavuah" list for the 3rd entry does not include this "find" 
                     if (!entries[2].NoKavuahList.Exists(k =>
-                            (k.KavuahType == KavuahType.DayOfMonthMaayanPasuach) &&
+                            (k.KavuahType.In(KavuahType.DayOfMonth, KavuahType.DayOfMonthMaayanPasuach)) &&
                             (k.DayNight == entries[0].DayNight) &&
                             (k.Number == entries[0].Day)))
                     {

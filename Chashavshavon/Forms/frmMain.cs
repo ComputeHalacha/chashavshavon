@@ -633,7 +633,8 @@ namespace Chashavshavon
             var list = new List<Onah>();
             foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
                                         k.Active &&
-                                        k.KavuahType.In(KavuahType.DayOfMonth, KavuahType.DayOfMonthMaayanPasuach)))
+                                        k.KavuahType.In(KavuahType.DayOfMonth, 
+                                                        KavuahType.DayOfMonthMaayanPasuach)))
             {
                 DateTime startDate = (kavuah.Number >= Program.NowOnah.Day ?
                     Program.NowOnah.DateTime : Program.NowOnah.DateTime.AddMonths(1));
@@ -666,6 +667,28 @@ namespace Chashavshavon
             }
 
             //TODO: Add Sirug Kavuah problem dates
+            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
+                                        k.Active &&
+                                        k.KavuahType == KavuahType.Sirug))
+            {
+                DateTime dt = kavuah.SettingEntryDate.AddMonths(kavuah.Number);
+                while(dt < Program.Today.AddMonths(kavuah.Number))
+                {
+                    if (dt > Program.Today.AddDays(-2))
+                    {
+                        Onah o = new Onah(dt, kavuah.DayNight);
+                        o.Name = kavuah.KavuahDescriptionHebrew;
+                        list.Add(o);
+                        if (Properties.Settings.Default.ShowOhrZeruah)
+                        {
+                            var ooz = Onah.GetPreviousOnah(o);
+                            ooz.Name = " או\"ז - " + o.Name;
+                            list.Add(ooz);
+                        }
+                    }
+                    dt = dt.AddMonths(kavuah.Number);
+                }
+            }
 
             return list;
         }
@@ -1422,6 +1445,8 @@ namespace Chashavshavon
                         Kavuah ka = new Kavuah();
                         ka.KavuahType = (KavuahType)Enum.Parse(typeof(KavuahType), k.Attributes["KavuahType"].InnerText);
                         ka.Number = Convert.ToInt32(k.Attributes["Number"].InnerText);
+                        ka.SettingEntryDate = newEntry.DateTime;
+                        ka.DayNight = newEntry.DayNight;                        
                         newEntry.NoKavuahList.Add(ka);
                     }
                     Entry.EntryList.Add(newEntry);
