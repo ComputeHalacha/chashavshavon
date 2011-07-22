@@ -784,6 +784,14 @@ namespace Chashavshavon
                 thirty.IsIgnored = hasCancelByKavuah;
                 this._problemOnas.Add(thirty);
 
+                //If the user wants to keep 24 for the Onah Beinenis
+                if (Properties.Settings.Default.OnahBenIs24Hours)
+                {
+                    Onah o = thirty.Clone();
+                    o.DayNight = o.DayNight == DayNight.Day ? DayNight.Night : DayNight.Day;
+                    this._problemOnas.Add(o);
+                }
+
                 //If the user wants to see the Ohr Zarua  - the previous onah
                 if (Properties.Settings.Default.ShowOhrZeruah)
                 {
@@ -798,6 +806,13 @@ namespace Chashavshavon
                 thirtyOne.Name = "יום ל\"א";
                 thirtyOne.IsIgnored = hasCancelByKavuah;
                 this._problemOnas.Add(thirtyOne);
+
+                if (Properties.Settings.Default.OnahBenIs24Hours)
+                {
+                    Onah o = thirtyOne.Clone();
+                    o.DayNight = o.DayNight == DayNight.Day ? DayNight.Night : DayNight.Day;
+                    this._problemOnas.Add(o);
+                }
 
                 if (Properties.Settings.Default.ShowOhrZeruah)
                 {

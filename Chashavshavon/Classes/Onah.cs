@@ -77,6 +77,20 @@ namespace Chashavshavon
             this.DayNight = dayNight;
         }
 
+        public Onah Clone()
+        {
+            return new Onah() 
+            {
+                Day = this.Day,
+                Month = this.Month,
+                Year = this.Year,
+                DayNight = this.DayNight,
+                Name = this.Name,
+                IsIgnored=this.IsIgnored,
+                IsChumrah = this.IsChumrah
+            };
+        }
+
         public Onah AddDays(int numberOfDays)
         {
             return new Onah(this.DateTime.AddDays((int)numberOfDays), this.DayNight);
@@ -194,6 +208,6 @@ namespace Chashavshavon
             {
                 return _hebrewCalendar;
             }
-        }
+        }        
     }
 }

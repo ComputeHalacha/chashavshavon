@@ -169,5 +169,17 @@ namespace Chashavshavon.Properties {
                 this["OpenLastFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool OnahBenIs24Hours {
+            get {
+                return ((bool)(this["OnahBenIs24Hours"]));
+            }
+            set {
+                this["OnahBenIs24Hours"] = value;
+            }
+        }
     }
 }
