@@ -13,13 +13,12 @@ namespace Chashavshavon
     public partial class frmLuach : Form
     {
         private DateTime _monthToDisplay;
-        private List<Onah> _problemOnahs;
+
 
         public frmLuach(DateTime initialMonthToDisplay, List<Onah> problemOnahs)
         {
             InitializeComponent();
             this._monthToDisplay = initialMonthToDisplay;
-            this._problemOnahs = problemOnahs;
         }
 
         private void frmLuach_Load(object sender, EventArgs e)
@@ -29,8 +28,13 @@ namespace Chashavshavon
 
         private void DisplayMonth()
         {
-            this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel1.Visible = false;
+            this.tableLayoutPanel1.SuspendLayout();
+
+            foreach (Control c in this.tableLayoutPanel1.Controls)
+            {
+                c.Dispose();
+            }
             this.tableLayoutPanel1.Controls.Clear();
             int year = Program.HebrewCalendar.GetYear(this._monthToDisplay);
             MonthObject month = new MonthObject(year, Program.HebrewCalendar.GetMonth(this._monthToDisplay));
@@ -60,7 +64,7 @@ namespace Chashavshavon
                     Tag = i
                 };
 
-                pnl.Click +=new EventHandler(AddNewEntry);                
+                pnl.Click += new EventHandler(AddNewEntry);
                 pnl.Controls.Add(new Label()
                 {
                     Dock = DockStyle.Top,
@@ -73,9 +77,9 @@ namespace Chashavshavon
 
                 string onahText = "";
 
-                if (this._problemOnahs != null)
+                if (Program.MainForm.ProblemOnas != null)
                 {
-                    var pOnahs = this._problemOnahs.Where(o => o.DateTime.Month == this._monthToDisplay.Month &&
+                    var pOnahs = Program.MainForm.ProblemOnas.Where(o => o.DateTime.Month == this._monthToDisplay.Month &&
                        o.DateTime.Year == this._monthToDisplay.Year &&
                        o.Day == i);
                     if (pOnahs.Count() > 0)
@@ -117,7 +121,7 @@ namespace Chashavshavon
 
                 foreach (Label lbl in pnl.Controls.OfType<Label>())
                 {
-                    lbl.Tag=i;
+                    lbl.Tag = i;
                     lbl.Click += new EventHandler(AddNewEntry);
                     if (!string.IsNullOrEmpty(onahText))
                     {
@@ -137,14 +141,14 @@ namespace Chashavshavon
                     currentColumn++;
                 }
             }
-            this.tableLayoutPanel1.Visible = true;
             this.tableLayoutPanel1.ResumeLayout();
+            this.tableLayoutPanel1.Visible = true;
         }
 
         void AddNewEntry(object sender, EventArgs e)
         {
             frmAddNewEntry f = new frmAddNewEntry((int)((Control)sender).Tag,
-                Program.HebrewCalendar.GetMonth(this._monthToDisplay), 
+                Program.HebrewCalendar.GetMonth(this._monthToDisplay),
                 Program.HebrewCalendar.GetYear(this._monthToDisplay));
             if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {

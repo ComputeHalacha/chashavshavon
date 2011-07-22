@@ -19,8 +19,7 @@ namespace Chashavshavon
 
         #region Private Variables
         //The combos are changed dynamically and we don't want to fire the change event during initial loading.
-        private bool _loading;
-        private List<Onah> _problemOnas;
+        private bool _loading;        
         #endregion
 
         #region Constructors
@@ -112,6 +111,25 @@ namespace Chashavshavon
                 Properties.Settings.Default.IsCurrentFileRemote = false;
             }
             Properties.Settings.Default.Save();
+        }
+
+        private void ShowDayDetails(object sender, EventArgs e)
+        {
+            switch (((Control)((Control)sender).Parent).Name)
+            {
+                case "pnlYesterday":
+                    this.ShowDayDetails(Program.Today.AddDays(-1));
+                    break;
+                case "pnlToday":
+                    this.ShowDayDetails(Program.Today);
+                    break;
+                case "pnlTomorrow":
+                    this.ShowDayDetails(Program.Today.AddDays(1));
+                    break;
+                case "pnlDayAfter":
+                    this.ShowDayDetails(Program.Today.AddDays(2));
+                    break;
+            }
         }
 
         private void cmbMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -232,20 +250,20 @@ namespace Chashavshavon
 
         private void calToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmLuach f = new frmLuach(Program.Today, this._problemOnas);
-            f.Show();
+            frmLuach f = new frmLuach(Program.Today, this.ProblemOnas);
+            f.ShowDialog();
         }
 
         private void btnOpenLuach2_Click(object sender, EventArgs e)
         {
-            frmLuach f = new frmLuach(Program.Today, this._problemOnas);
-            f.Show();
+            frmLuach f = new frmLuach(Program.Today, this.ProblemOnas);
+            f.ShowDialog();
         }
 
         private void btnOpenLuach_Click(object sender, EventArgs e)
         {
-            frmLuach f = new frmLuach(Program.Today, this._problemOnas);
-            f.Show();
+            frmLuach f = new frmLuach(Program.Today, this.ProblemOnas);
+            f.ShowDialog();
         }
 
         private void btnOpenKavuahs_Click(object sender, EventArgs e)
@@ -572,7 +590,7 @@ namespace Chashavshavon
                 return;
             }
             //Clears the list and gets it ready to accept new problems
-            this._problemOnas = new List<Onah>();
+            this.ProblemOnas = new List<Onah>();
 
             //A list of 8 Onahs starting from yesterday until 2 days from now. Will be used to display 
             //in the calendar (right side of form) and text for printing.
@@ -582,7 +600,7 @@ namespace Chashavshavon
             this.SetProblemOnahs();
 
             //Yom Hachodesh Kavuahs are their own breed; they are not dependant on the Entry list.
-            this._problemOnas.AddRange(this.GetYomHachodeshKavuahOnahs(onahs));
+            this.ProblemOnas.AddRange(this.GetYomHachodeshKavuahOnahs(onahs));
 
             //Goes through the list of problem Onahs and matches it up to the 8 Onahs in the calendar.
             //If any match - meaning that calendar Onah needs to be kept, the appropriate calendar box is filled and colored.
@@ -665,14 +683,14 @@ namespace Chashavshavon
         private string GetNextOnahText()
         {
             string nextProblemText = "";
-            if (this._problemOnas.Count > 0)
+            if (this.ProblemOnas.Count > 0)
             {
                 //We need to determine the earliest problem Onah, so we need to do a 
                 //special sort on the list where the night Onah is before the day one for the same date.
-                this._problemOnas.Sort(Onah.CompareOnahs);
+                this.ProblemOnas.Sort(Onah.CompareOnahs);
 
-                Onah nowProblem = this._problemOnas.FirstOrDefault(o => (!o.IsIgnored) && Onah.IsSameOnah(o, Program.NowOnah));
-                Onah nextProblem = this._problemOnas.FirstOrDefault(o => (!o.IsIgnored) && (Onah.CompareOnahs(o, Program.NowOnah) == 1));
+                Onah nowProblem = this.ProblemOnas.FirstOrDefault(o => (!o.IsIgnored) && Onah.IsSameOnah(o, Program.NowOnah));
+                Onah nextProblem = this.ProblemOnas.FirstOrDefault(o => (!o.IsIgnored) && (Onah.CompareOnahs(o, Program.NowOnah) == 1));
 
                 if (nowProblem != null)
                 {
@@ -702,7 +720,7 @@ namespace Chashavshavon
         {
             foreach (Onah onah in onahs)
             {
-                foreach (Onah problemOnah in this._problemOnas.Where(o => Onah.IsSameOnah(onah, o)))
+                foreach (Onah problemOnah in this.ProblemOnas.Where(o => Onah.IsSameOnah(onah, o)))
                 {
                     switch (onahs.IndexOf(onah))
                     {
@@ -782,14 +800,14 @@ namespace Chashavshavon
                 thirty = entry.AddDays(29);
                 thirty.Name = "יום שלושים";
                 thirty.IsIgnored = hasCancelByKavuah;
-                this._problemOnas.Add(thirty);
+                this.ProblemOnas.Add(thirty);
 
                 //If the user wants to keep 24 for the Onah Beinenis
                 if (Properties.Settings.Default.OnahBenIs24Hours)
                 {
                     Onah o = thirty.Clone();
                     o.DayNight = o.DayNight == DayNight.Day ? DayNight.Night : DayNight.Day;
-                    this._problemOnas.Add(o);
+                    this.ProblemOnas.Add(o);
                 }
 
                 //If the user wants to see the Ohr Zarua  - the previous onah
@@ -798,20 +816,20 @@ namespace Chashavshavon
                     thirtyOhrZarua = Onah.GetPreviousOnah(thirty);
                     thirtyOhrZarua.Name = "או\"ז - יום שלושים";
                     thirtyOhrZarua.IsIgnored = hasCancelByKavuah;
-                    this._problemOnas.Add(thirtyOhrZarua);
+                    this.ProblemOnas.Add(thirtyOhrZarua);
                 }
 
                 //31 is also an onah beinonus 
                 thirtyOne = entry.AddDays(30);
                 thirtyOne.Name = "יום ל\"א";
                 thirtyOne.IsIgnored = hasCancelByKavuah;
-                this._problemOnas.Add(thirtyOne);
+                this.ProblemOnas.Add(thirtyOne);
 
                 if (Properties.Settings.Default.OnahBenIs24Hours)
                 {
                     Onah o = thirtyOne.Clone();
                     o.DayNight = o.DayNight == DayNight.Day ? DayNight.Night : DayNight.Day;
-                    this._problemOnas.Add(o);
+                    this.ProblemOnas.Add(o);
                 }
 
                 if (Properties.Settings.Default.ShowOhrZeruah)
@@ -819,7 +837,7 @@ namespace Chashavshavon
                     thirtyOneOhrZarua = Onah.GetPreviousOnah(thirtyOne);
                     thirtyOneOhrZarua.Name = "או\"ז - יום ל\"א";
                     thirtyOneOhrZarua.IsIgnored = hasCancelByKavuah;
-                    this._problemOnas.Add(thirtyOneOhrZarua);
+                    this.ProblemOnas.Add(thirtyOneOhrZarua);
                 }
 
                 //Each Entry has an interval - the number of days from the previous entry
@@ -828,14 +846,14 @@ namespace Chashavshavon
                     intervalHaflagah = entry.AddDays(entry.Interval - 1);
                     intervalHaflagah.Name = "יום הפלגה";
                     intervalHaflagah.IsIgnored = hasCancelByKavuah;
-                    this._problemOnas.Add(intervalHaflagah);
+                    this.ProblemOnas.Add(intervalHaflagah);
 
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         intervalHaflagahOhrZarua = Onah.GetPreviousOnah(intervalHaflagah);
                         intervalHaflagahOhrZarua.Name = "או\"ז - יום הפלגה";
                         intervalHaflagahOhrZarua.IsIgnored = hasCancelByKavuah;
-                        this._problemOnas.Add(intervalHaflagahOhrZarua);
+                        this.ProblemOnas.Add(intervalHaflagahOhrZarua);
                     }
                 }
 
@@ -846,13 +864,13 @@ namespace Chashavshavon
                     kavuahHaflaga = entry.AddDays(kavuah.Number);
                     kavuahHaflaga.DayNight = kavuah.DayNight;
                     kavuahHaflaga.Name = kavuah.KavuahDescriptionHebrew;
-                    this._problemOnas.Add(kavuahHaflaga);
+                    this.ProblemOnas.Add(kavuahHaflaga);
 
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         kavuahHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahHaflaga);
                         kavuahHaflagaOhrZarua.Name = " או\"ז - " + kavuahHaflaga.Name;
-                        this._problemOnas.Add(kavuahHaflagaOhrZarua);
+                        this.ProblemOnas.Add(kavuahHaflagaOhrZarua);
                     }
                 }
 
@@ -863,13 +881,13 @@ namespace Chashavshavon
                     kavuahDayOfWeek = entry.AddDays(kavuah.Number);
                     kavuahDayOfWeek.DayNight = kavuah.DayNight;
                     kavuahDayOfWeek.Name = kavuah.KavuahDescriptionHebrew;
-                    this._problemOnas.Add(kavuahDayOfWeek);
+                    this.ProblemOnas.Add(kavuahDayOfWeek);
 
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         kavuahDayOfWeekOhrZarua = Onah.GetPreviousOnah(kavuahDayOfWeek);
                         kavuahDayOfWeekOhrZarua.Name = " או\"ז - " + kavuahDayOfWeek.Name;
-                        this._problemOnas.Add(kavuahDayOfWeekOhrZarua);
+                        this.ProblemOnas.Add(kavuahDayOfWeekOhrZarua);
                     }
                 }
 
@@ -880,13 +898,13 @@ namespace Chashavshavon
                     kavuahDilugHaflaga = entry.AddDays(entry.Interval + kavuah.Number);
                     kavuahDilugHaflaga.DayNight = kavuah.DayNight;
                     kavuahDilugHaflaga.Name = kavuah.KavuahDescriptionHebrew;
-                    this._problemOnas.Add(kavuahDilugHaflaga);
+                    this.ProblemOnas.Add(kavuahDilugHaflaga);
 
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         kavuahDilugHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahDilugHaflaga);
                         kavuahDilugHaflagaOhrZarua.Name = " או\"ז - " + kavuahDilugHaflaga.Name;
-                        this._problemOnas.Add(kavuahDilugHaflagaOhrZarua);
+                        this.ProblemOnas.Add(kavuahDilugHaflagaOhrZarua);
                     }
                 }
 
@@ -898,13 +916,13 @@ namespace Chashavshavon
                     next = next.AddDays(kavuah.Number);
                     kavuahDilugDayofMonth = new Onah(next, kavuah.DayNight);
                     kavuahDilugDayofMonth.Name = kavuah.KavuahDescriptionHebrew;
-                    this._problemOnas.Add(kavuahDilugDayofMonth);
+                    this.ProblemOnas.Add(kavuahDilugDayofMonth);
 
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         kavuahDilugDayofMonthOhrZarua = Onah.GetPreviousOnah(kavuahDilugDayofMonth);
                         kavuahDilugDayofMonthOhrZarua.Name = " או\"ז - " + kavuahDilugDayofMonth.Name;
-                        this._problemOnas.Add(kavuahDilugDayofMonthOhrZarua);
+                        this.ProblemOnas.Add(kavuahDilugDayofMonthOhrZarua);
                     }
                 }
             }
@@ -917,7 +935,7 @@ namespace Chashavshavon
             // We will only display it once, but with both descriptions.
             // If one of them is to be ignored though, it will get it's own row.
             var onahsToAdd = new List<Onah>();
-            foreach (Onah onah in this._problemOnas.Where(on => on.DateTime >= Program.Today || Program.Today.IsSameday(on.DateTime)))
+            foreach (Onah onah in this.ProblemOnas.Where(on => on.DateTime >= Program.Today || Program.Today.IsSameday(on.DateTime)))
             {
                 if (onahsToAdd.Exists(o => Onah.IsSameOnah(o, onah) && o.IsIgnored == onah.IsIgnored))
                 {
@@ -1287,6 +1305,14 @@ namespace Chashavshavon
             lblZmanim.Text = sb.ToString();
         }
 
+        private void ShowDayDetails(DateTime dateTime)
+        {
+            frmAddNewEntry f = new frmAddNewEntry(Program.HebrewCalendar.GetDayOfMonth(dateTime),
+                Program.HebrewCalendar.GetMonth(dateTime),
+                Program.HebrewCalendar.GetYear(dateTime));
+            f.ShowDialog();
+        }
+
         private void SetLocation()
         {
             string locName = Properties.Settings.Default.UserLocation;
@@ -1515,6 +1541,7 @@ namespace Chashavshavon
         #endregion
 
         #region Properties
+        public List<Onah> ProblemOnas { get; private set; }
         public bool CloseMeFirst { get; set; }
         public string WeekListHtml { get; set; }
         public string CurrentFile
@@ -1575,6 +1602,6 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion        
+        #endregion                        
     }
 }

@@ -13,8 +13,8 @@ namespace Chashavshavon
     public partial class frmAddNewEntry : Form
     {
         //The combos are changed dynamically and we don't want to fire the change event during initial loading.
-        private bool _loading;
-        
+        private bool _loading = true;
+
         public frmAddNewEntry()
         {
             InitializeComponent();
@@ -26,15 +26,22 @@ namespace Chashavshavon
             this.timer1.Start();
         }
 
-        public frmAddNewEntry(int day, int month, int year) : this()
+        public frmAddNewEntry(int day, int month, int year)
+            : this()
         {
             this.cmbYear.SelectedItem = year;
             this.cmbMonth.SelectedIndex = month - 1;
             this.cmbDay.SelectedIndex = day - 1;
+            this._loading = false;
+            this.FillZmanim();
         }
 
         private void cmbDay_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (this._loading)
+            {
+                return;
+            }
             this.FillZmanim();
         }
 
@@ -44,7 +51,9 @@ namespace Chashavshavon
             {
                 return;
             }
+            this._loading = true;
             this.FillDays();
+            this._loading = false;
             this.FillZmanim();
         }
 
@@ -55,9 +64,9 @@ namespace Chashavshavon
                 return;
             }
             this._loading = true;
-            this.FillMonths();
-            this._loading = false;
+            this.FillMonths();            
             this.FillDays();
+            this._loading = false;
             this.FillZmanim();
         }
 
@@ -73,6 +82,11 @@ namespace Chashavshavon
 
         private void FillZmanim()
         {
+            if (this._loading)
+            {
+                return;
+            }
+
             int day = this.cmbDay.SelectedIndex + 1;
             int month = ((MonthObject)cmbMonth.SelectedItem).MonthInYear;
             int year = (int)cmbYear.SelectedItem;
@@ -112,6 +126,38 @@ namespace Chashavshavon
             sb.Append(shkiah.Minute.ToString("0#"));
 
             lblZmanim.Text = sb.ToString();
+
+            foreach (Control c in this.tableLayoutPanel1.Controls)
+            {
+                c.Dispose();
+            }
+            this.tableLayoutPanel1.Controls.Clear();            
+            if (Program.MainForm.ProblemOnas != null)
+            {
+                DateTime d = new DateTime(year, month, day, Program.HebrewCalendar);
+                var pOnahs = Program.MainForm.ProblemOnas.Where(o => o.DateTime == d);
+                if (pOnahs.Count() > 0)
+                {
+                    foreach (var o in pOnahs)
+                    {
+                        this.tableLayoutPanel1.Controls.Add(new Label()
+                        {
+                            Text = "● עונת " + o.HebrewDayNight + " - " + o.Name,
+                            RightToLeft = RightToLeft.Yes,
+                            AutoSize = true
+                        });
+                    }
+                }                
+            }
+            if (this.tableLayoutPanel1.Controls.Count == 0)
+            {
+                this.tableLayoutPanel1.Controls.Add(new Label()
+                {
+                    Text = "אין התראות ביום זה.",
+                    RightToLeft = RightToLeft.Yes,
+                    AutoSize = true
+                });
+            }
         }
 
         private void SetDateAndDayNight()
@@ -158,8 +204,7 @@ namespace Chashavshavon
             cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(Program.Today);
 
             this.FillMonths();
-            this.FillDays();
-            this.FillZmanim();
+            this.FillDays();            
         }
 
         private void FillMonths()
@@ -193,7 +238,8 @@ namespace Chashavshavon
 
             if (cmbDay.Items.Count == 0)
             {
-                curDay = new KeyValuePair<int, string>(Program.HebrewCalendar.GetDayOfMonth(Program.Today), Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(Program.Today)]);
+                curDay = new KeyValuePair<int, string>(Program.HebrewCalendar.GetDayOfMonth(Program.Today), 
+                    Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(Program.Today)]);
             }
             else
             {
@@ -228,7 +274,7 @@ namespace Chashavshavon
                 DayNight = rbNight.Checked ? DayNight.Night : DayNight.Day,
                 Notes = this.txtNotes.Text
             });
-            this.DialogResult = DialogResult.OK;            
+            this.DialogResult = DialogResult.OK;
         }
     }
 }

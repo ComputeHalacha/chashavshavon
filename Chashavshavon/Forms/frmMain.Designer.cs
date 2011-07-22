@@ -248,7 +248,7 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgEntries.Size = new System.Drawing.Size(780, 244);
+            this.dgEntries.Size = new System.Drawing.Size(780, 246);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             this.dgEntries.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgEntries_CellFormatting);
@@ -495,6 +495,7 @@
             // 
             this.lblNextDayDay.AutoEllipsis = true;
             this.lblNextDayDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNextDayDay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblNextDayDay.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextDayDay.ForeColor = System.Drawing.Color.Black;
             this.lblNextDayDay.Location = new System.Drawing.Point(1, -1);
@@ -504,11 +505,13 @@
             this.lblNextDayDay.Tag = "Day";
             this.lblNextDayDay.Text = " ";
             this.lblNextDayDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNextDayDay.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblNextDayNight
             // 
             this.lblNextDayNight.AutoEllipsis = true;
             this.lblNextDayNight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNextDayNight.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblNextDayNight.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextDayNight.ForeColor = System.Drawing.Color.Black;
             this.lblNextDayNight.Location = new System.Drawing.Point(100, -1);
@@ -518,10 +521,12 @@
             this.lblNextDayNight.Tag = "Night";
             this.lblNextDayNight.Text = " ";
             this.lblNextDayNight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNextDayNight.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblNextDayEntryStuff
             // 
             this.lblNextDayEntryStuff.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNextDayEntryStuff.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblNextDayEntryStuff.Font = new System.Drawing.Font("Narkisim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextDayEntryStuff.ForeColor = System.Drawing.Color.Crimson;
             this.lblNextDayEntryStuff.Location = new System.Drawing.Point(199, -1);
@@ -531,10 +536,12 @@
             this.lblNextDayEntryStuff.Tag = "EntryStuff";
             this.lblNextDayEntryStuff.Text = " ";
             this.lblNextDayEntryStuff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNextDayEntryStuff.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblNextDayWeekDay
             // 
             this.lblNextDayWeekDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNextDayWeekDay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblNextDayWeekDay.Location = new System.Drawing.Point(277, -1);
             this.lblNextDayWeekDay.Name = "lblNextDayWeekDay";
             this.lblNextDayWeekDay.Size = new System.Drawing.Size(45, 41);
@@ -542,11 +549,13 @@
             this.lblNextDayWeekDay.Tag = "WeekDay";
             this.lblNextDayWeekDay.Text = " ";
             this.lblNextDayWeekDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNextDayWeekDay.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblNextdayDate
             // 
             this.lblNextdayDate.BackColor = System.Drawing.Color.Wheat;
             this.lblNextdayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblNextdayDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblNextdayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextdayDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblNextdayDate.Location = new System.Drawing.Point(322, -1);
@@ -556,6 +565,7 @@
             this.lblNextdayDate.Tag = "Date";
             this.lblNextdayDate.Text = "ל\"א אייר";
             this.lblNextdayDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNextdayDate.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // pnlTomorrow
             // 
@@ -574,6 +584,7 @@
             // 
             this.lblTomorrowDay.AutoEllipsis = true;
             this.lblTomorrowDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTomorrowDay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTomorrowDay.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTomorrowDay.ForeColor = System.Drawing.Color.Black;
             this.lblTomorrowDay.Location = new System.Drawing.Point(1, -1);
@@ -583,11 +594,13 @@
             this.lblTomorrowDay.Tag = "Day";
             this.lblTomorrowDay.Text = " ";
             this.lblTomorrowDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTomorrowDay.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblTomorrowNight
             // 
             this.lblTomorrowNight.AutoEllipsis = true;
             this.lblTomorrowNight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTomorrowNight.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTomorrowNight.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTomorrowNight.ForeColor = System.Drawing.Color.Black;
             this.lblTomorrowNight.Location = new System.Drawing.Point(100, -1);
@@ -597,10 +610,12 @@
             this.lblTomorrowNight.Tag = "Night";
             this.lblTomorrowNight.Text = " ";
             this.lblTomorrowNight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTomorrowNight.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblTomorrowEntryStuff
             // 
             this.lblTomorrowEntryStuff.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTomorrowEntryStuff.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTomorrowEntryStuff.Font = new System.Drawing.Font("Narkisim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTomorrowEntryStuff.ForeColor = System.Drawing.Color.Crimson;
             this.lblTomorrowEntryStuff.Location = new System.Drawing.Point(199, -1);
@@ -610,10 +625,12 @@
             this.lblTomorrowEntryStuff.Tag = "EntryStuff";
             this.lblTomorrowEntryStuff.Text = " ";
             this.lblTomorrowEntryStuff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTomorrowEntryStuff.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblTomorrowWeekDay
             // 
             this.lblTomorrowWeekDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTomorrowWeekDay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTomorrowWeekDay.Location = new System.Drawing.Point(277, -1);
             this.lblTomorrowWeekDay.Name = "lblTomorrowWeekDay";
             this.lblTomorrowWeekDay.Size = new System.Drawing.Size(45, 41);
@@ -621,11 +638,13 @@
             this.lblTomorrowWeekDay.Tag = "WeekDay";
             this.lblTomorrowWeekDay.Text = " ";
             this.lblTomorrowWeekDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTomorrowWeekDay.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblTomorrowDate
             // 
             this.lblTomorrowDate.BackColor = System.Drawing.Color.Wheat;
             this.lblTomorrowDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTomorrowDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTomorrowDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTomorrowDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblTomorrowDate.Location = new System.Drawing.Point(322, -1);
@@ -635,6 +654,7 @@
             this.lblTomorrowDate.Tag = "Date";
             this.lblTomorrowDate.Text = "ל\"א אייר";
             this.lblTomorrowDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTomorrowDate.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // pnlToday
             // 
@@ -653,6 +673,7 @@
             // 
             this.lblTodayDay.AutoEllipsis = true;
             this.lblTodayDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTodayDay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTodayDay.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTodayDay.ForeColor = System.Drawing.Color.Black;
             this.lblTodayDay.Location = new System.Drawing.Point(1, -1);
@@ -662,11 +683,13 @@
             this.lblTodayDay.Tag = "Day";
             this.lblTodayDay.Text = " ";
             this.lblTodayDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTodayDay.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblTodayNight
             // 
             this.lblTodayNight.AutoEllipsis = true;
             this.lblTodayNight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTodayNight.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTodayNight.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTodayNight.ForeColor = System.Drawing.Color.Black;
             this.lblTodayNight.Location = new System.Drawing.Point(100, -1);
@@ -676,10 +699,12 @@
             this.lblTodayNight.Tag = "Night";
             this.lblTodayNight.Text = " ";
             this.lblTodayNight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTodayNight.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblTodayEntryStuff
             // 
             this.lblTodayEntryStuff.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTodayEntryStuff.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTodayEntryStuff.Font = new System.Drawing.Font("Narkisim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTodayEntryStuff.ForeColor = System.Drawing.Color.Crimson;
             this.lblTodayEntryStuff.Location = new System.Drawing.Point(199, -1);
@@ -689,10 +714,12 @@
             this.lblTodayEntryStuff.Tag = "EntryStuff";
             this.lblTodayEntryStuff.Text = " ";
             this.lblTodayEntryStuff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTodayEntryStuff.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblTodayWeekDay
             // 
             this.lblTodayWeekDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTodayWeekDay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTodayWeekDay.Location = new System.Drawing.Point(277, -1);
             this.lblTodayWeekDay.Name = "lblTodayWeekDay";
             this.lblTodayWeekDay.Size = new System.Drawing.Size(45, 41);
@@ -700,11 +727,13 @@
             this.lblTodayWeekDay.Tag = "WeekDay";
             this.lblTodayWeekDay.Text = " ";
             this.lblTodayWeekDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTodayWeekDay.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblTodayDate
             // 
             this.lblTodayDate.BackColor = System.Drawing.Color.Wheat;
             this.lblTodayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTodayDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTodayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblTodayDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblTodayDate.Location = new System.Drawing.Point(322, -1);
@@ -714,6 +743,7 @@
             this.lblTodayDate.Tag = "Date";
             this.lblTodayDate.Text = "ל\"א אייר";
             this.lblTodayDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTodayDate.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // pnlYesterday
             // 
@@ -732,6 +762,7 @@
             // 
             this.lblYesterdayDay.AutoEllipsis = true;
             this.lblYesterdayDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblYesterdayDay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblYesterdayDay.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblYesterdayDay.ForeColor = System.Drawing.Color.Black;
             this.lblYesterdayDay.Location = new System.Drawing.Point(1, 0);
@@ -741,11 +772,13 @@
             this.lblYesterdayDay.Tag = "Day";
             this.lblYesterdayDay.Text = " ";
             this.lblYesterdayDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblYesterdayDay.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblYesterdayNight
             // 
             this.lblYesterdayNight.AutoEllipsis = true;
             this.lblYesterdayNight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblYesterdayNight.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblYesterdayNight.Font = new System.Drawing.Font("Narkisim", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblYesterdayNight.ForeColor = System.Drawing.Color.Black;
             this.lblYesterdayNight.Location = new System.Drawing.Point(100, 0);
@@ -755,10 +788,12 @@
             this.lblYesterdayNight.Tag = "Night";
             this.lblYesterdayNight.Text = " ";
             this.lblYesterdayNight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblYesterdayNight.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblYesterdayEntryStuff
             // 
             this.lblYesterdayEntryStuff.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblYesterdayEntryStuff.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblYesterdayEntryStuff.Font = new System.Drawing.Font("Narkisim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblYesterdayEntryStuff.ForeColor = System.Drawing.Color.Crimson;
             this.lblYesterdayEntryStuff.Location = new System.Drawing.Point(199, 0);
@@ -768,10 +803,12 @@
             this.lblYesterdayEntryStuff.Tag = "EntryStuff";
             this.lblYesterdayEntryStuff.Text = " ";
             this.lblYesterdayEntryStuff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblYesterdayEntryStuff.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblYesterdayWeekDay
             // 
             this.lblYesterdayWeekDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblYesterdayWeekDay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblYesterdayWeekDay.Location = new System.Drawing.Point(277, 0);
             this.lblYesterdayWeekDay.Name = "lblYesterdayWeekDay";
             this.lblYesterdayWeekDay.Size = new System.Drawing.Size(45, 41);
@@ -779,11 +816,13 @@
             this.lblYesterdayWeekDay.Tag = "WeekDay";
             this.lblYesterdayWeekDay.Text = " ";
             this.lblYesterdayWeekDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblYesterdayWeekDay.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // lblYesterdayDate
             // 
             this.lblYesterdayDate.BackColor = System.Drawing.Color.Wheat;
             this.lblYesterdayDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblYesterdayDate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblYesterdayDate.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblYesterdayDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblYesterdayDate.Location = new System.Drawing.Point(322, 0);
@@ -793,6 +832,7 @@
             this.lblYesterdayDate.Tag = "Date";
             this.lblYesterdayDate.Text = "ל\"א אייר";
             this.lblYesterdayDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblYesterdayDate.Click += new System.EventHandler(this.ShowDayDetails);
             // 
             // groupBox1
             // 
@@ -1336,7 +1376,7 @@
             this.lblNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextProblem.ForeColor = System.Drawing.Color.Brown;
-            this.lblNextProblem.Location = new System.Drawing.Point(0, 236);
+            this.lblNextProblem.Location = new System.Drawing.Point(0, 234);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblNextProblem.Size = new System.Drawing.Size(882, 20);
@@ -1376,7 +1416,7 @@
             this.splitContainerMain.Panel2.Controls.Add(this.lblNextProblem);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainerMain.Size = new System.Drawing.Size(884, 538);
-            this.splitContainerMain.SplitterDistance = 277;
+            this.splitContainerMain.SplitterDistance = 279;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 23;
             // 
