@@ -24,6 +24,9 @@ namespace Chashavshavon
 
             //The timer is for the clock
             this.timer1.Start();
+
+            this._loading = false;
+            this.FillZmanim();
         }
 
         public frmAddNewEntry(int day, int month, int year)
@@ -31,9 +34,7 @@ namespace Chashavshavon
         {
             this.cmbYear.SelectedItem = year;
             this.cmbMonth.SelectedIndex = month - 1;
-            this.cmbDay.SelectedIndex = day - 1;
-            this._loading = false;
-            this.FillZmanim();
+            this.cmbDay.SelectedIndex = day - 1;            
         }
 
         private void cmbDay_SelectedIndexChanged(object sender, EventArgs e)
