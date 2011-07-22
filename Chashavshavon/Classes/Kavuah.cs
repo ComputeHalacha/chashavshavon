@@ -39,6 +39,7 @@ namespace Chashavshavon
         [System.Xml.Serialization.XmlIgnore]
         public Entry SettingEntry { get; set; }
         public DateTime SettingEntryDate { get; set; }
+        public int SettingEntryInterval { get; set; }
         public string Notes { get; set; }
         public string KavuahDescriptionHebrew
         {
@@ -122,6 +123,7 @@ namespace Chashavshavon
                             KavuahType = KavuahType.Haflagah,
                             SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime,
+                            SettingEntryInterval = entries[2].Interval,
                             CancelsOnahBeinanis = true,
                             Number = entries[0].Interval
                         });
@@ -144,6 +146,7 @@ namespace Chashavshavon
                             KavuahType = KavuahType.DayOfWeek,
                             SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime,
+                            SettingEntryInterval = entries[2].Interval,
                             CancelsOnahBeinanis = true,
                             Number = entries[2].Interval //The interval is enough for the day of week
                         });
@@ -170,6 +173,7 @@ namespace Chashavshavon
                             KavuahType = KavuahType.Sirug,
                             SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime,
+                            SettingEntryInterval = entries[2].Interval,
                             CancelsOnahBeinanis = true,
                             Number = monthDiff
                         });
@@ -195,6 +199,7 @@ namespace Chashavshavon
                             CancelsOnahBeinanis = false,
                             SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime,
+                            SettingEntryInterval = entries[2].Interval,
                             Number = entries[0].Day
                         });
                     }
@@ -217,7 +222,8 @@ namespace Chashavshavon
                             CancelsOnahBeinanis = false,
                             Number = (entries[2].Interval - entries[1].Interval),
                             SettingEntry = entries[2],
-                            SettingEntryDate = entries[2].DateTime
+                            SettingEntryDate = entries[2].DateTime,
+                            SettingEntryInterval = entries[2].Interval,
                         });
                     }
                 }
@@ -240,7 +246,8 @@ namespace Chashavshavon
                             //For this type of Kavuah, the regular days are not cancelled by default
                             Number = (entries[2].Day - entries[1].Day),
                             SettingEntry = entries[2],
-                            SettingEntryDate = entries[2].DateTime
+                            SettingEntryDate = entries[2].DateTime,
+                            SettingEntryInterval = entries[2].Interval,
                         });
                     }
                 }               
@@ -271,6 +278,7 @@ namespace Chashavshavon
                             CancelsOnahBeinanis = false,
                             SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime,
+                            SettingEntryInterval = entries[2].Interval,
                             Number = entries[0].Day
                         });
                     }
@@ -300,6 +308,7 @@ namespace Chashavshavon
                             CancelsOnahBeinanis = false,
                             SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime,
+                            SettingEntryInterval = entries[2].Interval,
                             Number = entries[0].Interval
                         });
                     }

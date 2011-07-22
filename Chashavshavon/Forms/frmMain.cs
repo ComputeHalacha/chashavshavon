@@ -599,8 +599,10 @@ namespace Chashavshavon
             //A list of Onahs that need to be kept. The list is worked out from the list of Entries.
             this.SetProblemOnahs();
 
-            //Yom Hachodesh Kavuahs are their own breed; they are not dependant on the Entry list.
-            this.ProblemOnas.AddRange(this.GetYomHachodeshKavuahOnahs(onahs));
+            //Get the onahs that need to be kept for Kavuahs of yom hachodesh, sirug, 
+            //dilug haflagos (from projected day - not actual entry)
+            //and other Kavuahs that are not dependent on the actual entry list
+            this.ProblemOnas.AddRange(this.GetIndependentKavuahOnahs(onahs));
 
             //Goes through the list of problem Onahs and matches it up to the 8 Onahs in the calendar.
             //If any match - meaning that calendar Onah needs to be kept, the appropriate calendar box is filled and colored.
@@ -612,71 +614,76 @@ namespace Chashavshavon
         }
 
         /// <summary>
-        /// Work out the Kavuahs of yom hachodesh  - with or without Maayan Pasuach
+        /// Work out the Kavuahs of yom hachodesh, sirug, dilug haflagos (from projected day - not actual entry)
+        /// and other Kavuahs that are not dependant on the entry list
         /// </summary>
         /// <param name="onahs"></param>
         /// <returns></returns>
-        private List<Onah> GetYomHachodeshKavuahOnahs(List<Onah> onahs)
+        private List<Onah> GetIndependentKavuahOnahs(List<Onah> onahs)
         {
             var list = new List<Onah>();
+
+            //Kavuahs of Yom Hachodesh and Sirug
             foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
                                         k.Active &&
                                         k.KavuahType.In(KavuahType.DayOfMonth,
-                                                        KavuahType.DayOfMonthMaayanPasuach)))
+                                                        KavuahType.DayOfMonthMaayanPasuach,
+                                                        KavuahType.Sirug)))
             {
-                DateTime startDate = (kavuah.Number >= Program.NowOnah.Day ?
-                    Program.NowOnah.DateTime : Program.NowOnah.DateTime.AddMonths(1));
-
-                Onah o = new Onah(startDate, kavuah.DayNight);
-                o.Day = kavuah.Number;
-                o.Name = kavuah.KavuahDescriptionHebrew;
-                list.Add(o);
-                if (Properties.Settings.Default.ShowOhrZeruah)
+                for (DateTime dt = kavuah.SettingEntryDate.AddMonths(
+                        kavuah.KavuahType == KavuahType.Sirug ? kavuah.Number : 1);
+                    dt <= Program.Today.AddMonths(Properties.Settings.Default.numberMonthsAheadToWarn); 
+                    dt = dt.AddMonths(kavuah.KavuahType == KavuahType.Sirug ? kavuah.Number : 1))
                 {
-                    var ooz = Onah.GetPreviousOnah(o);
-                    ooz.Name = " או\"ז - " + o.Name;
-                    list.Add(ooz);
-                }
-
-                //If today is the day we add the next one to the list as well
-                if (Program.NowOnah.Day == kavuah.Number && Program.NowOnah.DayNight == kavuah.DayNight)
-                {
-                    Onah o2 = new Onah(Program.NowOnah.DateTime.AddMonths(1), kavuah.DayNight);
-                    o2.Day = kavuah.Number;
-                    o2.Name = kavuah.KavuahDescriptionHebrew;
-                    list.Add(o2);
+                    Onah o = new Onah(dt, kavuah.DayNight) { 
+                        Name = kavuah.KavuahDescriptionHebrew,
+                        Day = kavuah.Number
+                    };
+                    list.Add(o);
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
-                        var ooz2 = Onah.GetPreviousOnah(o2);
-                        ooz2.Name = " או\"ז - " + o2.Name;
-                        list.Add(ooz2);
+                        var ooz = Onah.GetPreviousOnah(o);
+                        ooz.Name = " או\"ז - " + o.Name;
+                        list.Add(ooz);
                     }
                 }
             }
 
+            //Kavuahs of Yom Haflaga of Dilug - cheshboned from the theoretical Entries
             foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
                                         k.Active &&
-                                        k.KavuahType == KavuahType.Sirug))
+                                        k.KavuahType == KavuahType.DilugHaflaga))
             {
-                DateTime dt = kavuah.SettingEntryDate.AddMonths(kavuah.Number);
-                while (dt < Program.Today.AddMonths(kavuah.Number))
+                DateTime dt = kavuah.SettingEntryDate;
+                for (int i = 0; i >= 0; i++)
                 {
-                    if (dt > Program.Today.AddDays(-2))
+                    //For negative dilugim, we stop when we get to 0
+                    if ((kavuah.SettingEntryInterval + (kavuah.Number * i)) < 1)
                     {
-                        Onah o = new Onah(dt, kavuah.DayNight);
-                        o.Name = kavuah.KavuahDescriptionHebrew;
-                        list.Add(o);
-                        if (Properties.Settings.Default.ShowOhrZeruah)
-                        {
-                            var ooz = Onah.GetPreviousOnah(o);
-                            ooz.Name = " או\"ז - " + o.Name;
-                            list.Add(ooz);
-                        }
+                        break;
                     }
-                    dt = dt.AddMonths(kavuah.Number);
-                }
-            }
+                    dt = dt.AddDays(kavuah.SettingEntryInterval + (kavuah.Number * i));                    
+                    if(dt > Program.Today.AddMonths(Properties.Settings.Default.numberMonthsAheadToWarn))
+                    {
+                        break;
+                    }
 
+                    Onah o = new Onah(dt, kavuah.DayNight) 
+                    { 
+                        Name = kavuah.KavuahDescriptionHebrew,
+                        //Negative kavuahs of haflagah are just a chumra
+                        IsChumrah = kavuah.Number < 1 
+                    };
+                    list.Add(o);
+                    if (Properties.Settings.Default.ShowOhrZeruah)
+                    {
+                        var ooz = Onah.GetPreviousOnah(o);
+                        ooz.Name = " או\"ז - " + o.Name;
+                        list.Add(ooz);
+                    }
+                }   
+            }
+            
             return list;
         }
 

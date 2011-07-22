@@ -181,5 +181,17 @@ namespace Chashavshavon.Properties {
                 this["OnahBenIs24Hours"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        public int numberMonthsAheadToWarn {
+            get {
+                return ((int)(this["numberMonthsAheadToWarn"]));
+            }
+            set {
+                this["numberMonthsAheadToWarn"] = value;
+            }
+        }
     }
 }

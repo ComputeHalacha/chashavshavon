@@ -57,6 +57,10 @@ namespace Chashavshavon
 
             for (int i = 1; i < month.DaysInMonth + 1; i++)
             {
+                DateTime date = new DateTime(Program.HebrewCalendar.GetYear(this._monthToDisplay), 
+                    Program.HebrewCalendar.GetMonth(this._monthToDisplay), 
+                    i, 
+                    Program.HebrewCalendar);
                 Panel pnl = new Panel()
                 {
                     Dock = DockStyle.Fill,
@@ -79,9 +83,7 @@ namespace Chashavshavon
 
                 if (Program.MainForm.ProblemOnas != null)
                 {
-                    var pOnahs = Program.MainForm.ProblemOnas.Where(o => o.DateTime.Month == this._monthToDisplay.Month &&
-                       o.DateTime.Year == this._monthToDisplay.Year &&
-                       o.Day == i);
+                    var pOnahs = Program.MainForm.ProblemOnas.Where(o => o.DateTime == date);
                     if (pOnahs.Count() > 0)
                     {
                         foreach (var o in pOnahs)
@@ -91,10 +93,8 @@ namespace Chashavshavon
                         this.toolTip1.SetToolTip(pnl, onahText);
                     }
                 }
-
-                Entry entry = Entry.EntryList.FirstOrDefault(en => en.DateTime.Month == this._monthToDisplay.Month &&
-                    en.DateTime.Year == this._monthToDisplay.Year &&
-                    en.Day == i);
+                
+                Entry entry = Entry.EntryList.FirstOrDefault(en => en.DateTime == date);
                 if (entry != null)
                 {
                     pnl.BackColor = Color.Pink;
