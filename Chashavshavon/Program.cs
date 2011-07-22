@@ -15,6 +15,7 @@ namespace Chashavshavon
         public static Onah NowOnah;
         //Keeps track of where user is; for calculating zmanim
         public static Chashavshavon.Utils.Location CurrentLocation;
+        public static frmMain MainForm;
 
         /// <summary>
         /// The main entry point for the application.
@@ -38,12 +39,13 @@ namespace Chashavshavon
             }
             if (args.Length > 0)
             {
-                Application.Run(new frmMain(args[0]));
+                MainForm = new frmMain(args[0]);                
             }
             else
             {
-                Application.Run(new frmMain());
+                MainForm = new frmMain();                
             }
+            Application.Run(MainForm);
         }
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)

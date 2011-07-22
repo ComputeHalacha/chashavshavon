@@ -56,9 +56,11 @@ namespace Chashavshavon
                 Panel pnl = new Panel()
                 {
                     Dock = DockStyle.Fill,
-                    BackColor = Color.White
+                    BackColor = Color.White,
+                    Tag = i
                 };
 
+                pnl.Click +=new EventHandler(AddNewEntry);                
                 pnl.Controls.Add(new Label()
                 {
                     Dock = DockStyle.Top,
@@ -113,6 +115,16 @@ namespace Chashavshavon
                     });
                 }
 
+                foreach (Label lbl in pnl.Controls.OfType<Label>())
+                {
+                    lbl.Tag=i;
+                    lbl.Click += new EventHandler(AddNewEntry);
+                    if (!string.IsNullOrEmpty(onahText))
+                    {
+                        this.toolTip1.SetToolTip(lbl, onahText);
+                    }
+                }
+
                 this.tableLayoutPanel1.Controls.Add(pnl, currentColumn, currentRow);
 
                 if (currentColumn == tableLayoutPanel1.ColumnCount - 1)
@@ -127,6 +139,18 @@ namespace Chashavshavon
             }
             this.tableLayoutPanel1.Visible = true;
             this.tableLayoutPanel1.ResumeLayout();
+        }
+
+        void AddNewEntry(object sender, EventArgs e)
+        {
+            frmAddNewEntry f = new frmAddNewEntry((int)((Control)sender).Tag,
+                Program.HebrewCalendar.GetMonth(this._monthToDisplay), 
+                Program.HebrewCalendar.GetYear(this._monthToDisplay));
+            if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                //Refresh in case of change to current month
+                this.DisplayMonth();
+            }
         }
 
         private void btnNextMonth_Click(object sender, EventArgs e)

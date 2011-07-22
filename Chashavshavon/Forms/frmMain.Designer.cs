@@ -50,6 +50,7 @@
             this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingSourceEntries = new System.Windows.Forms.BindingSource(this.components);
             this.gbCalendar = new System.Windows.Forms.GroupBox();
+            this.btnOpenLuach2 = new System.Windows.Forms.Button();
             this.btnPrintCalendar = new System.Windows.Forms.Button();
             this.btnViewTextCalendar = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
@@ -120,6 +121,7 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemPrintEntryList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemEntryList = new System.Windows.Forms.ToolStripMenuItem();
+            this.calToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.KavuahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openKavuaListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -127,12 +129,11 @@
             this.SearchForKavuahsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RemoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.calToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnCheshbonKavuahs = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnOpenLuach = new System.Windows.Forms.Button();
             this.btnOpenKavuahs = new System.Windows.Forms.Button();
             this.btnPrintEntryList = new System.Windows.Forms.Button();
             this.btnViewTextEntryList = new System.Windows.Forms.Button();
@@ -247,7 +248,7 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgEntries.Size = new System.Drawing.Size(780, 248);
+            this.dgEntries.Size = new System.Drawing.Size(780, 244);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             this.dgEntries.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgEntries_CellFormatting);
@@ -313,6 +314,7 @@
             // gbCalendar
             // 
             this.gbCalendar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbCalendar.Controls.Add(this.btnOpenLuach2);
             this.gbCalendar.Controls.Add(this.btnPrintCalendar);
             this.gbCalendar.Controls.Add(this.btnViewTextCalendar);
             this.gbCalendar.Controls.Add(this.label13);
@@ -328,18 +330,32 @@
             this.gbCalendar.Controls.Add(this.pnlTomorrow);
             this.gbCalendar.Controls.Add(this.pnlToday);
             this.gbCalendar.Controls.Add(this.pnlYesterday);
-            this.gbCalendar.Location = new System.Drawing.Point(358, 11);
+            this.gbCalendar.Location = new System.Drawing.Point(359, 11);
             this.gbCalendar.Name = "gbCalendar";
             this.gbCalendar.Size = new System.Drawing.Size(517, 220);
             this.gbCalendar.TabIndex = 13;
             this.gbCalendar.TabStop = false;
             this.gbCalendar.Text = "לוח";
             // 
+            // btnOpenLuach2
+            // 
+            this.btnOpenLuach2.AutoSize = true;
+            this.btnOpenLuach2.Image = global::Chashavshavon.Properties.Resources.calendar_date;
+            this.btnOpenLuach2.Location = new System.Drawing.Point(3, 152);
+            this.btnOpenLuach2.Name = "btnOpenLuach2";
+            this.btnOpenLuach2.Size = new System.Drawing.Size(51, 48);
+            this.btnOpenLuach2.TabIndex = 21;
+            this.btnOpenLuach2.Text = "לוח";
+            this.btnOpenLuach2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolTip1.SetToolTip(this.btnOpenLuach2, "הדפס הלוח");
+            this.btnOpenLuach2.UseVisualStyleBackColor = true;
+            this.btnOpenLuach2.Click += new System.EventHandler(this.btnOpenLuach2_Click);
+            // 
             // btnPrintCalendar
             // 
             this.btnPrintCalendar.AutoSize = true;
             this.btnPrintCalendar.Image = global::Chashavshavon.Properties.Resources.printer;
-            this.btnPrintCalendar.Location = new System.Drawing.Point(3, 91);
+            this.btnPrintCalendar.Location = new System.Drawing.Point(3, 95);
             this.btnPrintCalendar.Name = "btnPrintCalendar";
             this.btnPrintCalendar.Size = new System.Drawing.Size(51, 47);
             this.btnPrintCalendar.TabIndex = 20;
@@ -794,9 +810,9 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtNotes);
             this.groupBox1.Controls.Add(this.btnEnter);
-            this.groupBox1.Location = new System.Drawing.Point(7, 11);
+            this.groupBox1.Location = new System.Drawing.Point(6, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(334, 220);
+            this.groupBox1.Size = new System.Drawing.Size(344, 220);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "רשומה חדשה";
@@ -815,14 +831,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(3, 131);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(328, 86);
+            this.panel1.Size = new System.Drawing.Size(338, 86);
             this.panel1.TabIndex = 13;
             // 
             // label16
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(294, 69);
+            this.label16.Location = new System.Drawing.Point(303, 69);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(28, 12);
             this.label16.TabIndex = 17;
@@ -831,7 +847,7 @@
             // lblToday
             // 
             this.lblToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblToday.Location = new System.Drawing.Point(165, 69);
+            this.lblToday.Location = new System.Drawing.Point(174, 69);
             this.lblToday.Name = "lblToday";
             this.lblToday.Size = new System.Drawing.Size(125, 12);
             this.lblToday.TabIndex = 16;
@@ -841,7 +857,7 @@
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(105, 69);
+            this.label15.Location = new System.Drawing.Point(114, 69);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(63, 12);
             this.label15.TabIndex = 15;
@@ -850,7 +866,7 @@
             // lblTime
             // 
             this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTime.Location = new System.Drawing.Point(49, 69);
+            this.lblTime.Location = new System.Drawing.Point(58, 69);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(56, 12);
             this.lblTime.TabIndex = 14;
@@ -873,7 +889,7 @@
             // 
             this.lblZmanim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZmanim.AutoSize = true;
-            this.lblZmanim.Location = new System.Drawing.Point(259, 33);
+            this.lblZmanim.Location = new System.Drawing.Point(268, 33);
             this.lblZmanim.Name = "lblZmanim";
             this.lblZmanim.Size = new System.Drawing.Size(63, 24);
             this.lblZmanim.TabIndex = 12;
@@ -888,7 +904,7 @@
             this.lblLocation.ForeColor = System.Drawing.Color.Wheat;
             this.lblLocation.Location = new System.Drawing.Point(0, 0);
             this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(326, 26);
+            this.lblLocation.Size = new System.Drawing.Size(336, 26);
             this.lblLocation.TabIndex = 11;
             this.lblLocation.Text = "זמנים לקרית ספר";
             this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -897,7 +913,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(302, 22);
+            this.label3.Location = new System.Drawing.Point(316, 22);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(19, 12);
             this.label3.TabIndex = 5;
@@ -907,7 +923,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(289, 63);
+            this.label4.Location = new System.Drawing.Point(303, 63);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 12);
             this.label4.TabIndex = 10;
@@ -923,7 +939,7 @@
             this.cmbMonth.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbMonth.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbMonth.FormattingEnabled = true;
-            this.cmbMonth.Location = new System.Drawing.Point(179, 37);
+            this.cmbMonth.Location = new System.Drawing.Point(193, 37);
             this.cmbMonth.Name = "cmbMonth";
             this.cmbMonth.Size = new System.Drawing.Size(80, 20);
             this.cmbMonth.TabIndex = 1;
@@ -940,7 +956,7 @@
             this.cmbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbDay.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbDay.FormattingEnabled = true;
-            this.cmbDay.Location = new System.Drawing.Point(268, 37);
+            this.cmbDay.Location = new System.Drawing.Point(282, 37);
             this.cmbDay.Name = "cmbDay";
             this.cmbDay.Size = new System.Drawing.Size(53, 20);
             this.cmbDay.TabIndex = 0;
@@ -956,7 +972,7 @@
             this.cmbYear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbYear.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbYear.FormattingEnabled = true;
-            this.cmbYear.Location = new System.Drawing.Point(90, 37);
+            this.cmbYear.Location = new System.Drawing.Point(104, 37);
             this.cmbYear.Name = "cmbYear";
             this.cmbYear.Size = new System.Drawing.Size(71, 20);
             this.cmbYear.TabIndex = 2;
@@ -967,7 +983,7 @@
             this.rbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbDay.Location = new System.Drawing.Point(9, 41);
+            this.rbDay.Location = new System.Drawing.Point(23, 41);
             this.rbDay.Name = "rbDay";
             this.rbDay.Size = new System.Drawing.Size(48, 18);
             this.rbDay.TabIndex = 4;
@@ -979,7 +995,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(140, 22);
+            this.label1.Location = new System.Drawing.Point(154, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 12);
             this.label1.TabIndex = 3;
@@ -991,7 +1007,7 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Checked = true;
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbNight.Location = new System.Drawing.Point(0, 21);
+            this.rbNight.Location = new System.Drawing.Point(14, 21);
             this.rbNight.Name = "rbNight";
             this.rbNight.Size = new System.Drawing.Size(57, 18);
             this.rbNight.TabIndex = 3;
@@ -1004,7 +1020,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(231, 22);
+            this.label2.Location = new System.Drawing.Point(245, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 4;
@@ -1018,14 +1034,14 @@
             this.txtNotes.ForeColor = System.Drawing.Color.SaddleBrown;
             this.txtNotes.Location = new System.Drawing.Point(9, 77);
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(310, 19);
+            this.txtNotes.Size = new System.Drawing.Size(326, 19);
             this.txtNotes.TabIndex = 5;
             // 
             // btnEnter
             // 
             this.btnEnter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEnter.BackColor = System.Drawing.Color.BurlyWood;
-            this.btnEnter.Location = new System.Drawing.Point(244, 102);
+            this.btnEnter.Location = new System.Drawing.Point(260, 102);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(75, 21);
             this.btnEnter.TabIndex = 6;
@@ -1037,11 +1053,11 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileToolStripMenuItem,
+            this.calToolStripMenuItem,
             this.PreferencesToolStripMenuItem,
             this.KavuahToolStripMenuItem,
             this.RemoteToolStripMenuItem,
-            this.AboutToolStripMenuItem,
-            this.calToolStripMenuItem});
+            this.AboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(884, 24);
@@ -1161,6 +1177,13 @@
             this.toolStripMenuItemEntryList.Text = "רשימה - וסתות";
             this.toolStripMenuItemEntryList.Click += new System.EventHandler(this.toolStripMenuItemEntryList_Click);
             // 
+            // calToolStripMenuItem
+            // 
+            this.calToolStripMenuItem.Name = "calToolStripMenuItem";
+            this.calToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.calToolStripMenuItem.Text = "&לוח";
+            this.calToolStripMenuItem.Click += new System.EventHandler(this.calToolStripMenuItem_Click);
+            // 
             // PreferencesToolStripMenuItem
             // 
             this.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem";
@@ -1214,13 +1237,6 @@
             this.AboutToolStripMenuItem.Text = "&אודות";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AbouToolStripMenuItem_Click);
             // 
-            // calToolStripMenuItem
-            // 
-            this.calToolStripMenuItem.Name = "calToolStripMenuItem";
-            this.calToolStripMenuItem.Size = new System.Drawing.Size(36, 20);
-            this.calToolStripMenuItem.Text = "Cal";
-            this.calToolStripMenuItem.Click += new System.EventHandler(this.calToolStripMenuItem_Click);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "xml";
@@ -1253,19 +1269,19 @@
             this.btnCheshbonKavuahs.UseVisualStyleBackColor = true;
             this.btnCheshbonKavuahs.Click += new System.EventHandler(this.btnCheshbonKavuahs_Click);
             // 
-            // btnSave
+            // btnOpenLuach
             // 
-            this.btnSave.AutoSize = true;
-            this.btnSave.Image = global::Chashavshavon.Properties.Resources.save;
-            this.btnSave.Location = new System.Drawing.Point(10, 5);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(80, 48);
-            this.btnSave.TabIndex = 25;
-            this.btnSave.Text = "שמור";
-            this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolTip1.SetToolTip(this.btnSave, "שמור רשימה בקובץ");
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnOpenLuach.AutoSize = true;
+            this.btnOpenLuach.Image = global::Chashavshavon.Properties.Resources.calendar_date;
+            this.btnOpenLuach.Location = new System.Drawing.Point(10, 5);
+            this.btnOpenLuach.Name = "btnOpenLuach";
+            this.btnOpenLuach.Size = new System.Drawing.Size(80, 48);
+            this.btnOpenLuach.TabIndex = 25;
+            this.btnOpenLuach.Text = "פתח לוח";
+            this.btnOpenLuach.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolTip1.SetToolTip(this.btnOpenLuach, "פתח לוח חודשית");
+            this.btnOpenLuach.UseVisualStyleBackColor = true;
+            this.btnOpenLuach.Click += new System.EventHandler(this.btnOpenLuach_Click);
             // 
             // btnOpenKavuahs
             // 
@@ -1320,7 +1336,7 @@
             this.lblNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextProblem.ForeColor = System.Drawing.Color.Brown;
-            this.lblNextProblem.Location = new System.Drawing.Point(0, 232);
+            this.lblNextProblem.Location = new System.Drawing.Point(0, 236);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblNextProblem.Size = new System.Drawing.Size(882, 20);
@@ -1342,7 +1358,7 @@
             this.splitContainerMain.Panel1.BackColor = System.Drawing.Color.White;
             this.splitContainerMain.Panel1.Controls.Add(this.btnCheshbonKavuahs);
             this.splitContainerMain.Panel1.Controls.Add(this.label14);
-            this.splitContainerMain.Panel1.Controls.Add(this.btnSave);
+            this.splitContainerMain.Panel1.Controls.Add(this.btnOpenLuach);
             this.splitContainerMain.Panel1.Controls.Add(this.btnOpenKavuahs);
             this.splitContainerMain.Panel1.Controls.Add(this.pbWeb);
             this.splitContainerMain.Panel1.Controls.Add(this.btnPrintEntryList);
@@ -1360,7 +1376,7 @@
             this.splitContainerMain.Panel2.Controls.Add(this.lblNextProblem);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainerMain.Size = new System.Drawing.Size(884, 538);
-            this.splitContainerMain.SplitterDistance = 281;
+            this.splitContainerMain.SplitterDistance = 277;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 23;
             // 
@@ -1461,17 +1477,6 @@
         private System.Windows.Forms.Label lblYesterdayWeekDay;
         private System.Windows.Forms.Label lblYesterdayDate;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cmbMonth;
-        private System.Windows.Forms.ComboBox cmbDay;
-        private System.Windows.Forms.ComboBox cmbYear;
-        private System.Windows.Forms.RadioButton rbDay;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton rbNight;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtNotes;
-        private System.Windows.Forms.Button btnEnter;
         private System.Windows.Forms.ToolStripPanel BottomToolStripPanel;
         private System.Windows.Forms.ToolStripPanel TopToolStripPanel;
         private System.Windows.Forms.ToolStripPanel RightToolStripPanel;
@@ -1485,23 +1490,15 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label lblZmanim;
-        private System.Windows.Forms.Label lblLocation;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem NewToolStripMenuItem;        
         private System.Windows.Forms.ToolStripMenuItem SourceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem RefreshToolStripMenuItem;
-        private System.Windows.Forms.Label lblWarning;
         private System.Windows.Forms.ToolStripMenuItem SaveAsToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label lblTime;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ToolStripMenuItem RemoteToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.PictureBox pbWeb;
         private System.Windows.Forms.Label lblNextProblem;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label lblToday;
         private System.Windows.Forms.Label lblYesterdayNight;
         private System.Windows.Forms.Label lblYesterdayDay;
         private System.Windows.Forms.Label lblTodayDay;
@@ -1529,7 +1526,7 @@
         private System.Windows.Forms.ToolStripMenuItem AddKavuahToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SearchForKavuahsToolStripMenuItem;
         private System.Windows.Forms.Button btnOpenKavuahs;
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnOpenLuach;
         private System.Windows.Forms.DataGridViewLinkColumn btnDeleteColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DayNightColumn;
@@ -1538,6 +1535,26 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NotesColumn;
         private System.Windows.Forms.Button btnCheshbonKavuahs;
         private System.Windows.Forms.ToolStripMenuItem calToolStripMenuItem;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label lblToday;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblTime;
+        private System.Windows.Forms.Label lblWarning;
+        private System.Windows.Forms.Label lblZmanim;
+        private System.Windows.Forms.Label lblLocation;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cmbMonth;
+        private System.Windows.Forms.ComboBox cmbDay;
+        private System.Windows.Forms.ComboBox cmbYear;
+        private System.Windows.Forms.RadioButton rbDay;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RadioButton rbNight;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtNotes;
+        private System.Windows.Forms.Button btnEnter;
+        private System.Windows.Forms.Button btnOpenLuach2;
 
 
 

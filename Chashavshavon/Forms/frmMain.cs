@@ -116,7 +116,7 @@ namespace Chashavshavon
 
         private void cmbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_loading)
+            if (this._loading)
             {
                 return;
             }
@@ -126,13 +126,13 @@ namespace Chashavshavon
 
         private void cmbYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_loading)
+            if (this._loading)
             {
                 return;
             }
-            _loading = true;
+            this._loading = true;
             this.FillMonths();
-            _loading = false;
+            this._loading = false;
             this.FillDays();
             this.FillZmanim();
         }
@@ -149,21 +149,14 @@ namespace Chashavshavon
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            Entry newEntry = new Entry();
-
-            newEntry.Day = this.cmbDay.SelectedIndex + 1;
-            newEntry.Month = (MonthObject)cmbMonth.SelectedItem;
-            newEntry.Year = (int)cmbYear.SelectedItem;
-            newEntry.DayNight = rbNight.Checked ? DayNight.Night : DayNight.Day;
-            newEntry.Notes = this.txtNotes.Text;
-
-            this.bindingSourceEntries.Add(newEntry);
-            this.SortEntriesAndSetInterval();
-            Kavuah.FindAndPromptKavuahs();
-            this.FillCalendar();
-            this.SaveCurrentFile();
-            //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-            this.bindingSourceEntries.ResetBindings(false);
+            this.AddNewEntry(new Entry()
+            {
+                Day = this.cmbDay.SelectedIndex + 1,
+                Month = (MonthObject)cmbMonth.SelectedItem,
+                Year = (int)cmbYear.SelectedItem,
+                DayNight = rbNight.Checked ? DayNight.Night : DayNight.Day,
+                Notes = this.txtNotes.Text
+            });
         }
 
         private void dgEntries_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -188,45 +181,7 @@ namespace Chashavshavon
         {
             if (dgEntries.Columns[e.ColumnIndex] == btnDeleteColumn)
             {
-                Entry selectedEntry = (Entry)dgEntries.Rows[e.RowIndex].DataBoundItem;
-
-                if (MessageBox.Show("האם אתם בטוחים שברצונכם למחוק השורה של " +
-                                                    selectedEntry.DateTime.ToString("dd MMMM yyyy"),
-                                                  "מחיקת שורה " + selectedEntry.DateTime.ToString("dd MMMM yyyy"),
-                                                  MessageBoxButtons.YesNo,
-                                                  MessageBoxIcon.Question,
-                                                  MessageBoxDefaultButton.Button1,
-                                                  MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
-                {
-                    if (Kavuah.KavuahsList.Exists(k => k.SettingEntry == selectedEntry ||
-                        (k.SettingEntryDate == selectedEntry.DateTime && k.DayNight == selectedEntry.DayNight)))
-                    {
-                        if (MessageBox.Show(" נמצאו וסתי קבוע שהוגדרו על פי רשומה הזאת. האם אתם עדיין בטוחים שברצונכם למחוק השורה של " +
-                                                    selectedEntry.DateTime.ToString("dd MMMM yyyy") +
-                                                    " וגם כל וסת הקבוע שנרשמו בגללה?",
-                                                  "מחיקת שורה " + selectedEntry.DateTime.ToString("dd MMMM yyyy"),
-                                                  MessageBoxButtons.YesNo,
-                                                  MessageBoxIcon.Exclamation,
-                                                  MessageBoxDefaultButton.Button2,
-                                                  MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
-                        {
-                            Kavuah.KavuahsList.RemoveAll(k => k.SettingEntry == selectedEntry ||
-                                (k.SettingEntryDate == selectedEntry.DateTime && k.DayNight == selectedEntry.DayNight));
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    this.bindingSourceEntries.Remove(selectedEntry);
-                    this.SortEntriesAndSetInterval();
-                    Kavuah.FindAndPromptKavuahs();
-                    this.FillCalendar();
-                    this.SaveCurrentFile();
-                    //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-                    this.bindingSourceEntries.ResetBindings(false);
-
-                }
+                this.DeleteEntry((Entry)dgEntries.Rows[e.RowIndex].DataBoundItem);
             }
         }
 
@@ -275,9 +230,22 @@ namespace Chashavshavon
             this.PrintCalendarList();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void calToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.SaveCurrentFile();
+            frmLuach f = new frmLuach(Program.Today, this._problemOnas);
+            f.Show();
+        }
+
+        private void btnOpenLuach2_Click(object sender, EventArgs e)
+        {
+            frmLuach f = new frmLuach(Program.Today, this._problemOnas);
+            f.Show();
+        }
+
+        private void btnOpenLuach_Click(object sender, EventArgs e)
+        {
+            frmLuach f = new frmLuach(Program.Today, this._problemOnas);
+            f.Show();
         }
 
         private void btnOpenKavuahs_Click(object sender, EventArgs e)
@@ -609,7 +577,7 @@ namespace Chashavshavon
             //A list of 8 Onahs starting from yesterday until 2 days from now. Will be used to display 
             //in the calendar (right side of form) and text for printing.
             var onahs = GetCalendarOnahs();
-            
+
             //A list of Onahs that need to be kept. The list is worked out from the list of Entries.
             this.SetProblemOnahs();
 
@@ -635,7 +603,7 @@ namespace Chashavshavon
             var list = new List<Onah>();
             foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
                                         k.Active &&
-                                        k.KavuahType.In(KavuahType.DayOfMonth, 
+                                        k.KavuahType.In(KavuahType.DayOfMonth,
                                                         KavuahType.DayOfMonthMaayanPasuach)))
             {
                 DateTime startDate = (kavuah.Number >= Program.NowOnah.Day ?
@@ -667,13 +635,13 @@ namespace Chashavshavon
                     }
                 }
             }
-            
+
             foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
                                         k.Active &&
                                         k.KavuahType == KavuahType.Sirug))
             {
                 DateTime dt = kavuah.SettingEntryDate.AddMonths(kavuah.Number);
-                while(dt < Program.Today.AddMonths(kavuah.Number))
+                while (dt < Program.Today.AddMonths(kavuah.Number))
                 {
                     if (dt > Program.Today.AddDays(-2))
                     {
@@ -790,7 +758,7 @@ namespace Chashavshavon
         }
 
         private void SetProblemOnahs()
-        {   
+        {
             Onah thirty,
                thirtyOhrZarua,
                thirtyOne,
@@ -925,7 +893,7 @@ namespace Chashavshavon
                     }
                 }
             }
-            
+
         }
 
         private void SetWeekListHtml()
@@ -1342,6 +1310,57 @@ namespace Chashavshavon
         #endregion
 
         #region Public Functions
+        public void AddNewEntry(Entry newEntry)
+        {
+            this.bindingSourceEntries.Add(newEntry);
+            this.SortEntriesAndSetInterval();
+            Kavuah.FindAndPromptKavuahs();
+            this.FillCalendar();
+            this.SaveCurrentFile();
+            //In case there were changes to the notes on some entries such as if there was a NoKavuah added
+            this.bindingSourceEntries.ResetBindings(false);
+        }
+
+        public void DeleteEntry(Entry entry)
+        {
+            if (MessageBox.Show("האם אתם בטוחים שברצונכם למחוק השורה של " +
+                                                    entry.DateTime.ToString("dd MMMM yyyy"),
+                                                  "מחיקת שורה " + entry.DateTime.ToString("dd MMMM yyyy"),
+                                                  MessageBoxButtons.YesNo,
+                                                  MessageBoxIcon.Question,
+                                                  MessageBoxDefaultButton.Button1,
+                                                  MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+            {
+                if (Kavuah.KavuahsList.Exists(k => k.SettingEntry == entry ||
+                    (k.SettingEntryDate == entry.DateTime && k.DayNight == entry.DayNight)))
+                {
+                    if (MessageBox.Show(" נמצאו וסתי קבוע שהוגדרו על פי רשומה הזאת. האם אתם עדיין בטוחים שברצונכם למחוק השורה של " +
+                                                entry.DateTime.ToString("dd MMMM yyyy") +
+                                                " וגם כל וסת הקבוע שנרשמו בגללה?",
+                                              "מחיקת שורה " + entry.DateTime.ToString("dd MMMM yyyy"),
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Exclamation,
+                                              MessageBoxDefaultButton.Button2,
+                                              MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                    {
+                        Kavuah.KavuahsList.RemoveAll(k => k.SettingEntry == entry ||
+                            (k.SettingEntryDate == entry.DateTime && k.DayNight == entry.DayNight));
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                this.bindingSourceEntries.Remove(entry);
+                this.SortEntriesAndSetInterval();
+                Kavuah.FindAndPromptKavuahs();
+                this.FillCalendar();
+                this.SaveCurrentFile();
+                //In case there were changes to the notes on some entries such as if there was a NoKavuah added
+                this.bindingSourceEntries.ResetBindings(false);
+            }
+        }
+
         /// <summary>
         /// Checks to see if the user is connected to the internet, and activates remote functionality if they are.
         /// If the current file is a remote one and they are not connected, they are duly complained to about it...
@@ -1422,7 +1441,7 @@ namespace Chashavshavon
                         ka.KavuahType = (KavuahType)Enum.Parse(typeof(KavuahType), k.Attributes["KavuahType"].InnerText);
                         ka.Number = Convert.ToInt32(k.Attributes["Number"].InnerText);
                         ka.SettingEntryDate = newEntry.DateTime;
-                        ka.DayNight = newEntry.DayNight;                        
+                        ka.DayNight = newEntry.DayNight;
                         newEntry.NoKavuahList.Add(ka);
                     }
                     Entry.EntryList.Add(newEntry);
@@ -1541,12 +1560,6 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion
-
-        private void calToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmLuach f = new frmLuach(Program.Today, this._problemOnas);
-            f.Show();
-        }
+        #endregion        
     }
 }
