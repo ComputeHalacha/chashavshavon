@@ -597,10 +597,12 @@ namespace Chashavshavon
             var onahs = GetCalendarOnahs();
 
             //A list of Onahs that need to be kept. The list is worked out from the list of Entries.
+            //Problem Onahs are searched for from the date of each entry until the number of months specified in the 
+            //Property Setting "numberMonthsAheadToWarn"
             this.SetProblemOnahs();
 
             //Get the onahs that need to be kept for Kavuahs of yom hachodesh, sirug, 
-            //dilug haflagos (from projected day - not actual entry)
+            //dilug (from projected day - not actual entry)
             //and other Kavuahs that are not dependent on the actual entry list
             this.ProblemOnas.AddRange(this.GetIndependentKavuahOnahs(onahs));
 
@@ -638,6 +640,60 @@ namespace Chashavshavon
                     Onah o = new Onah(dt, kavuah.DayNight) { 
                         Name = kavuah.KavuahDescriptionHebrew,
                         Day = kavuah.Number
+                    };
+                    list.Add(o);
+                    if (Properties.Settings.Default.ShowOhrZeruah)
+                    {
+                        var ooz = Onah.GetPreviousOnah(o);
+                        ooz.Name = " או\"ז - " + o.Name;
+                        list.Add(ooz);
+                    }
+                }
+            }
+
+            //TODO: Do "Day Of Week" Kavuahs work with theoretical Entries? Does a single intervening entry break them?
+            //Kavuahs of "Day of week" - cheshboned from the theoretical Entries
+            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DayOfWeek && k.Active))
+            {
+                for (DateTime dt = kavuah.SettingEntryDate.AddDays(kavuah.Number);
+                    dt <= Program.Today.AddMonths(Properties.Settings.Default.numberMonthsAheadToWarn);
+                    dt = dt.AddDays(kavuah.Number))
+                {
+                    Onah o = new Onah(dt, kavuah.DayNight)
+                    {
+                        Name = kavuah.KavuahDescriptionHebrew,
+                        Day = kavuah.Number
+                    };
+                    list.Add(o);
+                    if (Properties.Settings.Default.ShowOhrZeruah)
+                    {
+                        var ooz = Onah.GetPreviousOnah(o);
+                        ooz.Name = " או\"ז - " + o.Name;
+                        list.Add(ooz);
+                    }
+                }                
+            }
+
+            //Kavuahs of Yom Hachodesh of Dilug - cheshboned from the theoretical Entries
+            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
+                                        k.Active &&
+                                        k.KavuahType == KavuahType.DilugDayOfMonth))
+            {
+                DateTime dt = kavuah.SettingEntryDate;
+                for (int i = 0; i >= 0; i++)
+                {
+                    dt = dt.AddMonths(1);
+                    DateTime dtNext = dt.AddDays(kavuah.Number * i);
+                    //We stop when we get to the beginning or end of the month
+                    if (dtNext.Month != dt.Month || 
+                        dtNext > Program.Today.AddMonths(Properties.Settings.Default.numberMonthsAheadToWarn))
+                    {
+                        break;
+                    }
+                   
+                    Onah o = new Onah(dtNext, kavuah.DayNight)
+                    {
+                        Name = kavuah.KavuahDescriptionHebrew
                     };
                     list.Add(o);
                     if (Properties.Settings.Default.ShowOhrZeruah)
@@ -792,8 +848,6 @@ namespace Chashavshavon
                intervalHaflagahOhrZarua,
                kavuahHaflaga,
                kavuahHaflagaOhrZarua,
-               kavuahDayOfWeek,
-               kavuahDayOfWeekOhrZarua,
                kavuahDilugHaflaga,
                kavuahDilugHaflagaOhrZarua,
                kavuahDilugDayofMonth,
@@ -879,27 +933,10 @@ namespace Chashavshavon
                         kavuahHaflagaOhrZarua.Name = " או\"ז - " + kavuahHaflaga.Name;
                         this.ProblemOnas.Add(kavuahHaflagaOhrZarua);
                     }
-                }
+                }                
 
-                //Kavuah Day of week
-                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DayOfWeek && k.Active))
-                {
-                    //DayOfWeek kavuas are the same as a haflagah just needs only 3 entries
-                    kavuahDayOfWeek = entry.AddDays(kavuah.Number);
-                    kavuahDayOfWeek.DayNight = kavuah.DayNight;
-                    kavuahDayOfWeek.Name = kavuah.KavuahDescriptionHebrew;
-                    this.ProblemOnas.Add(kavuahDayOfWeek);
-
-                    if (Properties.Settings.Default.ShowOhrZeruah)
-                    {
-                        kavuahDayOfWeekOhrZarua = Onah.GetPreviousOnah(kavuahDayOfWeek);
-                        kavuahDayOfWeekOhrZarua.Name = " או\"ז - " + kavuahDayOfWeek.Name;
-                        this.ProblemOnas.Add(kavuahDayOfWeekOhrZarua);
-                    }
-                }
-
-                //Kavvuah Dilug Haflagos - even if one was off, only works out from entry not from what was supposed to be
-                //This is a machlokes.
+                //Kavvuah Dilug Haflagos - from actual entry not from what was supposed to be. We cheshbon both.
+                //The theoretical ones, are worked out in the function "GetIndependentKavuahOnahs"
                 foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DilugHaflaga && k.Active))
                 {
                     kavuahDilugHaflaga = entry.AddDays(entry.Interval + kavuah.Number);
@@ -915,8 +952,10 @@ namespace Chashavshavon
                     }
                 }
 
-                //Kavvuah Dilug Yom Hachodesh - even if one was off, only works out from entry not from what was supposed to be
-                //This is a machlokes.
+                //TODO: Does Dilug of Yom Hachodesh continue from an actual entry even if it is off cheshbon? For ex. 35, 34, 33, 36 - is the next "35" or just continues theoretically 32, 31....
+                //Kavvuah Dilug Yom Hachodesh - even if one was off, only works out from entry not from what was supposed to be.
+                //We cheshbon both.
+                //The theoretical ones, are worked out in the function "GetIndependentKavuahOnahs"
                 foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DilugDayOfMonth && k.Active))
                 {
                     DateTime next = entry.DateTime.AddMonths(1);
