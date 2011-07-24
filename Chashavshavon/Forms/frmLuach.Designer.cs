@@ -41,6 +41,7 @@
             this.btnNextMonth = new System.Windows.Forms.Button();
             this.btnLastMonth = new System.Windows.Forms.Button();
             this.lblMonthName = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -162,11 +163,11 @@
             // 
             // btnNextMonth
             // 
-            this.btnNextMonth.BackColor = System.Drawing.Color.BurlyWood;
-            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnNextMonth.Location = new System.Drawing.Point(764, 23);
+            this.btnNextMonth.BackColor = System.Drawing.Color.Wheat;
+            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnNextMonth.Location = new System.Drawing.Point(735, 32);
             this.btnNextMonth.Name = "btnNextMonth";
-            this.btnNextMonth.Size = new System.Drawing.Size(75, 23);
+            this.btnNextMonth.Size = new System.Drawing.Size(104, 30);
             this.btnNextMonth.TabIndex = 1;
             this.btnNextMonth.Text = "button1";
             this.btnNextMonth.UseVisualStyleBackColor = false;
@@ -174,11 +175,11 @@
             // 
             // btnLastMonth
             // 
-            this.btnLastMonth.BackColor = System.Drawing.Color.BurlyWood;
-            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnLastMonth.Location = new System.Drawing.Point(6, 23);
+            this.btnLastMonth.BackColor = System.Drawing.Color.Wheat;
+            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnLastMonth.Location = new System.Drawing.Point(7, 32);
             this.btnLastMonth.Name = "btnLastMonth";
-            this.btnLastMonth.Size = new System.Drawing.Size(75, 23);
+            this.btnLastMonth.Size = new System.Drawing.Size(104, 30);
             this.btnLastMonth.TabIndex = 2;
             this.btnLastMonth.Text = "button2";
             this.btnLastMonth.UseVisualStyleBackColor = false;
@@ -188,19 +189,34 @@
             // 
             this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblMonthName.ForeColor = System.Drawing.Color.Maroon;
-            this.lblMonthName.Location = new System.Drawing.Point(94, 9);
+            this.lblMonthName.Location = new System.Drawing.Point(117, 9);
             this.lblMonthName.Name = "lblMonthName";
-            this.lblMonthName.Size = new System.Drawing.Size(664, 37);
+            this.lblMonthName.Size = new System.Drawing.Size(619, 27);
             this.lblMonthName.TabIndex = 3;
             this.lblMonthName.Text = "label8";
             this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnClose
+            // 
+            this.btnClose.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnClose.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnClose.Location = new System.Drawing.Point(786, 2);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(63, 23);
+            this.btnClose.TabIndex = 4;
+            this.btnClose.Text = "סגור";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // frmLuach
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(5F, 11F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Tan;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(851, 441);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblMonthName);
             this.Controls.Add(this.btnLastMonth);
             this.Controls.Add(this.btnNextMonth);
@@ -237,6 +253,7 @@
         private System.Windows.Forms.Button btnNextMonth;
         private System.Windows.Forms.Button btnLastMonth;
         private System.Windows.Forms.Label lblMonthName;
+        private System.Windows.Forms.Button btnClose;
 
 
     }

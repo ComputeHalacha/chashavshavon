@@ -168,5 +168,10 @@ namespace Chashavshavon
             this._monthToDisplay = this._monthToDisplay.AddMonths(-1);
             this.DisplayMonth();
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

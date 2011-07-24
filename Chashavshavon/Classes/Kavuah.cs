@@ -16,7 +16,7 @@ namespace Chashavshavon
         DilugHaflaga,
         DilugDayOfMonth,
         HaflagaMaayanPasuach,
-        DayOfMonthMaayanPasuach        
+        DayOfMonthMaayanPasuach
     }
 
     [Serializable()]
@@ -60,7 +60,7 @@ namespace Chashavshavon
                             this.Number / 7);
                         break;
                     case KavuahType.Sirug:
-                        sb.AppendFormat("הפלגה בסירוג - {0} לחודש כל {1} חודשים",                            
+                        sb.AppendFormat("הפלגה בסירוג - {0} לחודש כל {1} חודשים",
                             this.SettingEntryDate.ToString("dd"),
                             this.Number);
                         break;
@@ -71,9 +71,9 @@ namespace Chashavshavon
                         sb.AppendFormat("יום החדש - {0} בחדש - ע\"פ מעיין פתוח ", Zmanim.DaysOfMonthHebrew[this.Number]);
                         break;
                     case KavuahType.DilugHaflaga:
-                        sb.AppendFormat("הפלגה בדילוג {1}{0} ימים ",
+                        sb.AppendFormat("הפלגה בדילוג ({1}{0}) ימים ",
                             (this.Number < 0 ? "-" : "+"),
-                            this.Number);
+                            Math.Abs(this.Number));
                         break;
                     case KavuahType.DilugDayOfMonth:
                         sb.AppendFormat("יום החודש בדילוג {1}{0} ימים ",
@@ -87,7 +87,7 @@ namespace Chashavshavon
                 {
                     sb.Append(" - ע\"פ מעיין פתוח ");
                 }
-                sb.AppendFormat(" - עונת {0}  {1}", (this.DayNight == DayNight.Day ? " יום " : " לילה "), this.Notes);
+                sb.AppendFormat("<עונת {0}> {1}", (this.DayNight == DayNight.Day ? "יום" : "לילה"), this.Notes);
                 return sb.ToString();
             }
         }
@@ -105,6 +105,8 @@ namespace Chashavshavon
             }
             List<Kavuah> kavuahs = new List<Kavuah>();
 
+            //Get those Kavuahs that are not dependent on the Entries being 3 in a row
+            FillYomHachodeshKavuahs(entries[0], kavuahs);
 
             if (entries[0].DayNight.In(entries[1].DayNight, entries[2].DayNight))
             {
@@ -152,8 +154,8 @@ namespace Chashavshavon
                         });
                     }
                 }
-                
-                //Cheshbon out Kavuah of Siurug
+
+                //Cheshbon out Kavuah of Sirug - we go here that Sirug Kavuahs need 3 in a row with no intervening entries
                 int monthDiff = Convert.ToInt32(DateAndTime.DateDiff(DateInterval.Month, entries[0].DateTime, entries[1].DateTime));
                 if (monthDiff > 1 &&
                     (!kavuahs.Exists(k => k.KavuahType == KavuahType.DayOfMonth)) &&
@@ -161,7 +163,7 @@ namespace Chashavshavon
                     (entries[1].Day == entries[2].Day) &&
                     (DateAndTime.DateDiff(DateInterval.Month, entries[1].DateTime, entries[2].DateTime) == monthDiff))
                 {
-                   
+
                     //If the "NoKavuah" list for the 3rd entry does not include this "find"
                     if (!entries[2].NoKavuahList.Exists(k =>
                                 (k.KavuahType == KavuahType.Sirug) &&
@@ -176,31 +178,6 @@ namespace Chashavshavon
                             SettingEntryInterval = entries[2].Interval,
                             CancelsOnahBeinanis = true,
                             Number = monthDiff
-                        });
-                    }
-                }
-
-                //Cheshbon out Kavuah of same day-of-month
-                if ((entries[0].Day == entries[1].Day &&
-                    entries[1].Day == entries[2].Day) &&
-                    (entries[0].DateTime.AddMonths(1).Month == entries[1].DateTime.Month) &&
-                    (entries[1].DateTime.AddMonths(1).Month == entries[2].DateTime.Month))
-                {
-                    //If the "NoKavuah" list for the 3rd entry does not include this "find", 
-                    if (!entries[2].NoKavuahList.Exists(k =>
-                            (k.KavuahType == KavuahType.DayOfMonth) &&
-                            (k.Number == entries[0].Day)))
-                    {
-                        kavuahs.Add(new Kavuah()
-                        {
-                            DayNight = entries[0].DayNight,
-                            KavuahType = KavuahType.DayOfMonth,
-                            //For this type of Kavuah, you need 4 Entries to cancel the regular days.
-                            CancelsOnahBeinanis = false,
-                            SettingEntry = entries[2],
-                            SettingEntryDate = entries[2].DateTime,
-                            SettingEntryInterval = entries[2].Interval,
-                            Number = entries[0].Day
                         });
                     }
                 }
@@ -224,62 +201,6 @@ namespace Chashavshavon
                             SettingEntry = entries[2],
                             SettingEntryDate = entries[2].DateTime,
                             SettingEntryInterval = entries[2].Interval,
-                        });
-                    }
-                }
-
-                //Cheshbon out Dilug Yom Hachodesh
-                if (((entries[2].Day - entries[1].Day) == (entries[1].Day - entries[0].Day) &&
-                    (entries[2].Day - entries[1].Day) != 0) &&
-                    (entries[0].DateTime.AddMonths(1).Month == entries[1].DateTime.Month) &&
-                    (entries[1].DateTime.AddMonths(1).Month == entries[2].DateTime.Month))
-                {
-                    //If the "NoKavuah" list for the 3rd entry does not include this "find", 
-                    if (!entries[2].NoKavuahList.Exists(k =>
-                            (k.KavuahType == KavuahType.DilugDayOfMonth) &&
-                            (k.Number == (entries[2].Day - entries[1].Day))))
-                    {
-                        kavuahs.Add(new Kavuah()
-                        {
-                            DayNight = entries[0].DayNight,
-                            KavuahType = KavuahType.DilugDayOfMonth,
-                            //For this type of Kavuah, the regular days are not cancelled by default
-                            Number = (entries[2].Day - entries[1].Day),
-                            SettingEntry = entries[2],
-                            SettingEntryDate = entries[2].DateTime,
-                            SettingEntryInterval = entries[2].Interval,
-                        });
-                    }
-                }               
-            }
-
-
-            //Cheshbon out Ma'ayan Pasuachs of Yom Hachodesh - this does not need that the last one is the same DayNight
-            if (!kavuahs.Exists(k => k.KavuahType == KavuahType.DayOfMonth))
-            {
-                if ((entries[0].Day == entries[1].Day) &&
-                    (entries[0].DayNight == entries[1].DayNight) &&
-                    (entries[1].DateTime.AddMonths(1) > entries[2].DateTime) && 
-                    (entries[1].DateTime.AddMonths(1).AddDays(-5) < entries[2].DateTime) &&                    
-                    ((entries[1].DateTime - entries[0].DateTime).Days < 31))
-                {
-                    //"NoKavuah" list for the 3rd entry does not include this "find" 
-                    if (!entries[2].NoKavuahList.Exists(k =>
-                            (k.KavuahType.In(KavuahType.DayOfMonth, KavuahType.DayOfMonthMaayanPasuach)) &&
-                            (k.DayNight == entries[0].DayNight) &&
-                            (k.Number == entries[0].Day)))
-                    {
-                        kavuahs.Add(new Kavuah()
-                        {
-                            DayNight = entries[0].DayNight,
-                            KavuahType = KavuahType.DayOfMonthMaayanPasuach,
-                            IsMaayanPasuach = true,
-                            //For ma'ayan Pasuach, the regular days are usually not cancelled
-                            CancelsOnahBeinanis = false,
-                            SettingEntry = entries[2],
-                            SettingEntryDate = entries[2].DateTime,
-                            SettingEntryInterval = entries[2].Interval,
-                            Number = entries[0].Day
                         });
                     }
                 }
@@ -316,6 +237,78 @@ namespace Chashavshavon
             }
 
             return kavuahs;
+        }
+
+
+        /// <summary>
+        /// These Kavuahs are not dependent on the Entries being 3 in a row
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <param name="kavuahs"></param>
+        private static void FillYomHachodeshKavuahs(Entry entry, List<Kavuah> kavuahs)
+        {
+            //Cheshbon out Kavuah of same day-of-month - inlcuding Ma'ayan Pasuach for the third Entry
+            if (Entry.EntryList.Exists(en =>
+                    en.DayNight == entry.DayNight &&
+                    entry.Day == en.Day &&
+                    entry.DateTime.AddMonths(1).Month == en.DateTime.Month))
+            {
+                Entry thirdFind = Entry.EntryList.FirstOrDefault(en =>
+                    en.Day <= entry.Day &&
+                    en.Day >= (entry.Day - 5) &&
+                    ((en.DayNight == entry.DayNight) || (en.Day < entry.Day)) &&                    
+                    entry.DateTime.AddMonths(2).Month == en.DateTime.Month);
+
+                //If the "NoKavuah" list for the 3rd entry does not include this "find", 
+                if (thirdFind != null && !thirdFind.NoKavuahList.Exists(k =>
+                        (k.KavuahType.In(KavuahType.DayOfMonth, KavuahType.DayOfMonthMaayanPasuach)) &&
+                        (k.Number == entry.Day)))
+                {
+                    kavuahs.Add(new Kavuah()
+                    {
+                        DayNight = entry.DayNight,
+                        KavuahType = (thirdFind.Day < entry.Day ? KavuahType.DayOfMonthMaayanPasuach : KavuahType.DayOfMonth),
+                        CancelsOnahBeinanis = true,
+                        SettingEntry = thirdFind,
+                        SettingEntryDate = thirdFind.DateTime,
+                        SettingEntryInterval = thirdFind.Interval,
+                        Number = entry.Day
+                    });
+                    return;
+                }
+            }
+
+            //Cheshbon out Dilug Yom Hachodesh
+            Entry secondFind = Entry.EntryList.FirstOrDefault(en =>
+                en.DayNight == entry.DayNight &&
+                entry.Day != en.Day &&
+                entry.DateTime.AddMonths(1).Month == en.DateTime.Month);
+            if (secondFind != null)
+            {
+                Entry finalFind = Entry.EntryList.FirstOrDefault(en =>
+                    en.DayNight == entry.DayNight &&
+                    (en.Day - secondFind.Day) == (secondFind.Day - entry.Day) &&
+                    entry.DateTime.AddMonths(2).Month == en.DateTime.Month);
+
+                if (finalFind != null)
+                {
+                    //If the "NoKavuah" list for the 3rd entry does not include this "find", 
+                    if (!finalFind.NoKavuahList.Exists(k =>
+                            (k.KavuahType == KavuahType.DilugDayOfMonth) &&
+                            (k.Number == (finalFind.Day - secondFind.Day))))
+                    {
+                        kavuahs.Add(new Kavuah()
+                        {
+                            DayNight = entry.DayNight,
+                            KavuahType = KavuahType.DilugDayOfMonth,
+                            Number = (finalFind.Day - secondFind.Day),
+                            SettingEntry = finalFind,
+                            SettingEntryDate = finalFind.DateTime,
+                            SettingEntryInterval = finalFind.Interval,
+                        });
+                    }
+                }
+            }
         }
 
         public static bool FindAndPromptKavuahs()
@@ -371,7 +364,7 @@ namespace Chashavshavon
                             k.SettingEntry.NoKavuahList.Add(k);
                         }
                     }
-                }               
+                }
                 return true;
             }
             else

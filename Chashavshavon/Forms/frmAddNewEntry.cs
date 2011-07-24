@@ -143,7 +143,7 @@ namespace Chashavshavon
                     {
                         this.tableLayoutPanel1.Controls.Add(new Label()
                         {
-                            Text = "● עונת " + o.HebrewDayNight + " - " + o.Name,
+                            Text = "● " + o.HebrewDayNight + " - " + o.Name,
                             RightToLeft = RightToLeft.Yes,
                             AutoSize = true
                         });
@@ -276,6 +276,11 @@ namespace Chashavshavon
                 Notes = this.txtNotes.Text
             });
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         }
     }
 }
