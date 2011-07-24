@@ -159,6 +159,16 @@ namespace Chashavshavon
                     AutoSize = true
                 });
             }
+            if (this.tableLayoutPanel1.Controls.Count < 5)
+            {
+                this.tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
+                this.tableLayoutPanel1.BackColor = Color.White;
+            }
+            else
+            {
+                this.tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
+                this.tableLayoutPanel1.BackColor = Color.WhiteSmoke;
+            }
         }
 
         private void SetDateAndDayNight()

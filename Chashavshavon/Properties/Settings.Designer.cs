@@ -193,5 +193,41 @@ namespace Chashavshavon.Properties {
                 this["numberMonthsAheadToWarn"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool keepLongerHaflagah {
+            get {
+                return ((bool)(this["keepLongerHaflagah"]));
+            }
+            set {
+                this["keepLongerHaflagah"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool cheshbonKavuahByActualEntry {
+            get {
+                return ((bool)(this["cheshbonKavuahByActualEntry"]));
+            }
+            set {
+                this["cheshbonKavuahByActualEntry"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool cheshbonKavuahByCheshbon {
+            get {
+                return ((bool)(this["cheshbonKavuahByCheshbon"]));
+            }
+            set {
+                this["cheshbonKavuahByCheshbon"] = value;
+            }
+        }
     }
 }
