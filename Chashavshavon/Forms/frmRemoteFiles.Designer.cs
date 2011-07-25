@@ -160,7 +160,7 @@
             // 
             this.btnPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPreview.BackColor = System.Drawing.Color.BurlyWood;
-            this.btnPreview.Location = new System.Drawing.Point(185, 336);
+            this.btnPreview.Location = new System.Drawing.Point(193, 337);
             this.btnPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnPreview.Name = "btnPreview";
             this.btnPreview.Size = new System.Drawing.Size(69, 25);
@@ -173,7 +173,7 @@
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDelete.BackColor = System.Drawing.Color.BurlyWood;
-            this.btnDelete.Location = new System.Drawing.Point(46, 337);
+            this.btnDelete.Location = new System.Drawing.Point(39, 337);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(69, 25);
@@ -202,7 +202,7 @@
             this.lbFileNames.Font = new System.Drawing.Font("Narkisim", 10F);
             this.lbFileNames.ForeColor = System.Drawing.Color.SaddleBrown;
             this.lbFileNames.FormattingEnabled = true;
-            this.lbFileNames.Location = new System.Drawing.Point(17, 22);
+            this.lbFileNames.Location = new System.Drawing.Point(17, 24);
             this.lbFileNames.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lbFileNames.Name = "lbFileNames";
             this.lbFileNames.RightToLeft = System.Windows.Forms.RightToLeft.Yes;

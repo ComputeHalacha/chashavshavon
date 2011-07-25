@@ -97,7 +97,7 @@ namespace Chashavshavon.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://chashavshavon.appspot.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://chashavshavon.appspot.com")]
         public string URL {
             get {
                 return ((string)(this["URL"]));
