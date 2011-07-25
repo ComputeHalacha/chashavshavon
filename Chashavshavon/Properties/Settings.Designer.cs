@@ -185,48 +185,48 @@ namespace Chashavshavon.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("12")]
-        public int numberMonthsAheadToWarn {
+        public int NumberMonthsAheadToWarn {
             get {
-                return ((int)(this["numberMonthsAheadToWarn"]));
+                return ((int)(this["NumberMonthsAheadToWarn"]));
             }
             set {
-                this["numberMonthsAheadToWarn"] = value;
+                this["NumberMonthsAheadToWarn"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool keepLongerHaflagah {
+        public bool KeepLongerHaflagah {
             get {
-                return ((bool)(this["keepLongerHaflagah"]));
+                return ((bool)(this["KeepLongerHaflagah"]));
             }
             set {
-                this["keepLongerHaflagah"] = value;
+                this["KeepLongerHaflagah"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool cheshbonKavuahByActualEntry {
+        public bool CheshbonKavuahByActualEntry {
             get {
-                return ((bool)(this["cheshbonKavuahByActualEntry"]));
+                return ((bool)(this["CheshbonKavuahByActualEntry"]));
             }
             set {
-                this["cheshbonKavuahByActualEntry"] = value;
+                this["CheshbonKavuahByActualEntry"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool cheshbonKavuahByCheshbon {
+        public bool CheshbonKavuahByCheshbon {
             get {
-                return ((bool)(this["cheshbonKavuahByCheshbon"]));
+                return ((bool)(this["CheshbonKavuahByCheshbon"]));
             }
             set {
-                this["cheshbonKavuahByCheshbon"] = value;
+                this["CheshbonKavuahByCheshbon"] = value;
             }
         }
     }

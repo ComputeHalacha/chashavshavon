@@ -234,6 +234,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "הוסף וסת קבוע";
+            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.dgvKavuahList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);

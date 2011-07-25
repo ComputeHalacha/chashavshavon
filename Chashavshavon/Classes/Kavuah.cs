@@ -286,11 +286,16 @@ namespace Chashavshavon
                 (entries[2].Interval < entries[1].Interval) &&
                 (entries[2].Interval > (entries[1].Interval - 5)))
             {
-                //"NoKavuah" list for the 3rd entry does not include this "find" 
-                if (!entries[2].NoKavuahList.Exists(k =>
+                //"NoKavuah" list for the 3rd entry does not include this "find" and found kavuahs
+                if ((!entries[2].NoKavuahList.Exists(k =>
                         (k.DayNight == entries[0].DayNight) &&
-                        (k.KavuahType == KavuahType.HaflagaMaayanPasuach) &&
-                        (k.Number == entries[0].Interval)))
+                        (k.KavuahType.In(KavuahType.HaflagaMaayanPasuach, KavuahType.Haflagah) &&
+                        (k.Number == entries[0].Interval))) &&
+                        (!KavuahsList.Exists(kv =>
+                            kv.Active &&
+                            (kv.DayNight == entries[0].DayNight) &&
+                            (kv.KavuahType.In(KavuahType.HaflagaMaayanPasuach, KavuahType.Haflagah)) &&
+                            (kv.Number == entries[0].Interval)))))
                 {
                     kavuahs.Add(new Kavuah()
                     {
@@ -439,7 +444,7 @@ namespace Chashavshavon
         private static void FindDayOfMonthKavuah(Entry entry, List<Kavuah> kavuahs)
         {
             //We look for an entry that is exactly one Jewish month later
-            //Note, it is halachakly irrelevant if there were other entries in the interim
+            //Note, it is halachaklly irrelevant if there were other entries in the interim
             if (Entry.EntryList.Exists(en =>
                     en.DayNight == entry.DayNight &&
                     entry.Day == en.Day &&

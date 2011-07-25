@@ -632,15 +632,15 @@ namespace Chashavshavon
                                                         KavuahType.DayOfMonthMaayanPasuach,
                                                         KavuahType.Sirug)))
             {
-                for (DateTime dt = kavuah.SettingEntryDate.AddMonths(
+                for (DateTime dt = Program.HebrewCalendar.AddMonths(kavuah.SettingEntryDate,
                         kavuah.KavuahType == KavuahType.Sirug ? kavuah.Number : 1);
-                    dt <= Program.Today.AddMonths(Properties.Settings.Default.numberMonthsAheadToWarn);
-                    dt = dt.AddMonths(kavuah.KavuahType == KavuahType.Sirug ? kavuah.Number : 1))
+                    dt <= Program.HebrewCalendar.AddMonths(Program.Today, Properties.Settings.Default.NumberMonthsAheadToWarn);
+                    dt = Program.HebrewCalendar.AddMonths(dt, (kavuah.KavuahType == KavuahType.Sirug ? kavuah.Number : 1)))
                 {
                     Onah o = new Onah(dt, kavuah.DayNight)
                     {
                         Name = kavuah.KavuahDescriptionHebrew,
-                        Day = kavuah.Number
+                        Day = Program.HebrewCalendar.GetDayOfMonth(kavuah.SettingEntryDate)
                     };
                     list.Add(o);
                     if (Properties.Settings.Default.ShowOhrZeruah)
@@ -653,10 +653,11 @@ namespace Chashavshavon
             }
 
             //Kavuahs of "Day of week" - cheshboned from the theoretical Entries
-            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DayOfWeek && k.Active))
+            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
+                k.KavuahType == KavuahType.DayOfWeek && k.Active))
             {
                 for (DateTime dt = kavuah.SettingEntryDate.AddDays(kavuah.Number);
-                    dt <= Program.Today.AddMonths(Properties.Settings.Default.numberMonthsAheadToWarn);
+                    dt <= Program.HebrewCalendar.AddMonths(Program.Today, Properties.Settings.Default.NumberMonthsAheadToWarn);
                     dt = dt.AddDays(kavuah.Number))
                 {
                     Onah o = new Onah(dt, kavuah.DayNight)
@@ -673,7 +674,7 @@ namespace Chashavshavon
                 }
             }
 
-            if (Properties.Settings.Default.cheshbonKavuahByCheshbon)
+            if (Properties.Settings.Default.CheshbonKavuahByCheshbon)
             {
                 //Kavuahs of Yom Hachodesh of Dilug - cheshboned from the theoretical Entries
                 foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
@@ -683,11 +684,11 @@ namespace Chashavshavon
                     DateTime dt = kavuah.SettingEntryDate;
                     for (int i = 0; i >= 0; i++)
                     {
-                        dt = dt.AddMonths(1);
+                        dt = Program.HebrewCalendar.AddMonths(dt, 1);
                         DateTime dtNext = dt.AddDays(kavuah.Number * i);
                         //We stop when we get to the beginning or end of the month
                         if (dtNext.Month != dt.Month ||
-                            dtNext > Program.Today.AddMonths(Properties.Settings.Default.numberMonthsAheadToWarn))
+                            dtNext > Program.HebrewCalendar.AddMonths(Program.Today, Properties.Settings.Default.NumberMonthsAheadToWarn))
                         {
                             break;
                         }
@@ -712,15 +713,15 @@ namespace Chashavshavon
                                             k.KavuahType == KavuahType.DilugHaflaga))
                 {
                     DateTime dt = kavuah.SettingEntryDate;
-                    for (int i = 1;; i++)
+                    for (int i = 1; ; i++)
                     {
                         //For negative dilugim, we stop when we get to 0
                         if (((kavuah.SettingEntryInterval) + (kavuah.Number * i)) < 1)
                         {
                             break;
                         }
-                        dt = dt.AddDays(((kavuah.SettingEntryInterval  + (kavuah.Number * i))) + (-1));                            
-                        if (dt > Program.Today.AddMonths(Properties.Settings.Default.numberMonthsAheadToWarn))
+                        dt = dt.AddDays(((kavuah.SettingEntryInterval + (kavuah.Number * i))) + (-1));
+                        if (dt > Program.HebrewCalendar.AddMonths(Program.Today, Properties.Settings.Default.NumberMonthsAheadToWarn))
                         {
                             break;
                         }
@@ -906,7 +907,7 @@ namespace Chashavshavon
                 //Each Entry has an interval - the number of days from the previous entry
                 if (entry.Interval > 0)
                 {
-                    if (!Properties.Settings.Default.keepLongerHaflagah)
+                    if (!Properties.Settings.Default.KeepLongerHaflagah)
                     {
                         intervalHaflagah = entry.AddDays(entry.Interval - 1);
                         intervalHaflagah.Name = "יום הפלגה (" + entry.Interval + ")";
@@ -931,7 +932,7 @@ namespace Chashavshavon
                                              select e.DateTime).FirstOrDefault();
                         if (endCheck == DateTime.MinValue)
                         {
-                            endCheck = Program.Today.AddMonths(Properties.Settings.Default.numberMonthsAheadToWarn);
+                            endCheck = Program.HebrewCalendar.AddMonths(Program.Today, Properties.Settings.Default.NumberMonthsAheadToWarn);
                         }
                         Onah on = entry.AddDays(entry.Interval - 1);
                         bool isFirst = true;
@@ -961,7 +962,7 @@ namespace Chashavshavon
                 foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
                     k.KavuahType.In(KavuahType.Haflagah, KavuahType.HaflagaMaayanPasuach) && k.Active))
                 {
-                    kavuahHaflaga = entry.AddDays(kavuah.Number);
+                    kavuahHaflaga = entry.AddDays(kavuah.Number - 1);
                     kavuahHaflaga.DayNight = kavuah.DayNight;
                     kavuahHaflaga.Name = "קבוע " + kavuah.KavuahDescriptionHebrew;
                     this.ProblemOnas.Add(kavuahHaflaga);
@@ -974,7 +975,7 @@ namespace Chashavshavon
                     }
                 }
 
-                if (Properties.Settings.Default.cheshbonKavuahByActualEntry)
+                if (Properties.Settings.Default.CheshbonKavuahByActualEntry)
                 {
                     //Kavvuah Dilug Haflagos - from actual entry not from what was supposed to be. We cheshbon both.
                     //The theoretical ones, are worked out in the function "GetIndependentKavuahOnahs"
@@ -999,7 +1000,7 @@ namespace Chashavshavon
                     //The theoretical ones, are worked out in the function "GetIndependentKavuahOnahs"
                     foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DilugDayOfMonth && k.Active))
                     {
-                        DateTime next = entry.DateTime.AddMonths(1);
+                        DateTime next = Program.HebrewCalendar.AddMonths(entry.DateTime, 1);
                         next = next.AddDays(kavuah.Number);
                         kavuahDilugDayofMonth = new Onah(next, kavuah.DayNight);
                         kavuahDilugDayofMonth.Name = "קבוע " + kavuah.KavuahDescriptionHebrew;
