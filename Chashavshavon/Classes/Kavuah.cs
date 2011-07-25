@@ -81,7 +81,7 @@ namespace Chashavshavon
                             this.Number);
                         break;
                 }
-                //The user can set IsMaayanPasuach for any kavuah in frmKavuahs
+                //The user can set IsMaayanPasuach for any Kavuah in frmKavuahs
                 if (this.IsMaayanPasuach &&
                     !this.KavuahType.In(KavuahType.HaflagaMaayanPasuach, KavuahType.DayOfMonthMaayanPasuach))
                 {
@@ -90,56 +90,26 @@ namespace Chashavshavon
                 sb.AppendFormat("<עונת {0}> {1}", (this.DayNight == DayNight.Day ? "יום" : "לילה"), this.Notes);
                 return sb.ToString();
             }
-        }        
+        }
 
         /// <summary>
-        /// Gets a list of proposed Kavuahs from the Entry list and prompts the user either them add them or "NoKavuah" them 
+        /// Gets a list of proposed Kavuahs according to the entries in the Entry list 
+        /// and prompts the user to either add them or "NoKavuah" them 
         /// </summary>
         /// <returns></returns>
         public static bool FindAndPromptKavuahs()
         {
-            var lastThree = new Queue<Entry>();
-            Entry[] last3Array;
-            List<Kavuah> foundKavuahList = new List<Kavuah>();
-
-            foreach (Entry entry in Entry.EntryList)
-            {
-                //For cheshboning out Kavuas we need at most just the last 3 entries
-                //First, add this entry.
-                lastThree.Enqueue(entry);
-                if (lastThree.Count > 3)
-                {
-                    //pop out the earliest one - leaves us with this entry and the previous 2.
-                    lastThree.Dequeue();
-                }
-                last3Array = lastThree.ToArray<Entry>();
-
-                //Gets a list of Kavuahs from the given 3 entries
-                foundKavuahList.AddRange(GetProposedKavuahList(last3Array));                
-            }
+            List<Kavuah> kavuahList = GetProposedKavuahList();
             
-            //Get distinct proposed Kavuah list
-            for (int i = 0; i < foundKavuahList.Count; i++)
-            {
-                if (foundKavuahList.Exists(ka => IsSimilarKavuah(ka, foundKavuahList[i])))
-                {
-                    foundKavuahList.RemoveAt(i);
-                }
-            }
-
-            //Remove all found kavuahs that are already in the active list
-            foundKavuahList.RemoveAll(k => InActiveKavuahList(k));
-
-            //If there are any left
-            if (foundKavuahList.Count > 0)
+            if (kavuahList.Count > 0)
             {
                 //Prompt user to decide which ones to keep and their details
-                frmKavuahPrompt fkp = new frmKavuahPrompt(foundKavuahList);
+                frmKavuahPrompt fkp = new frmKavuahPrompt(kavuahList);
                 if (fkp.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     //For each found kavuah, either we add it to the main list 
                     //or we set it as a "NoKavuah" for the third entry so it shouldn't pop up again
-                    foreach (Kavuah k in foundKavuahList)
+                    foreach (Kavuah k in kavuahList)
                     {
                         //The ListToAdd property contains the ones the user decided to add
                         if (fkp.ListToAdd.Contains(k))
@@ -159,39 +129,10 @@ namespace Chashavshavon
             {
                 return false;
             }
-        }                
-
-        #region Private Functions
-        /// <summary>
-        /// Takes an array of 3 entries and returns a list of Kavuahs that can be determined from them
-        /// </summary>
-        /// <param name="entries"></param>
-        /// <returns></returns>
-        private static List<Kavuah> GetProposedKavuahList(Entry[] entries)
-        {
-            List<Kavuah> kavuahs = new List<Kavuah>();
-
-            //First get those Kavuahs that are not dependent on the Entries being 3 in a row
-            FindDayOfMonthKavuah(entries[0], kavuahs);
-            FindDilugDayOfMonthKavuah(entries[0], kavuahs);
-            FindDayOfWeekKavuah(entries[0], kavuahs);
-
-            //Now the Kavuahs that need 3 in-a-row
-            if (entries.Count() == 3)
-            {
-                //The Kavuahs that need all to be the same DayNight
-                if (entries[0].DayNight.In(entries[1].DayNight, entries[2].DayNight))
-                {
-                    FindHaflagahKavuah(entries, kavuahs);
-                    FindSirugKavuah(entries, kavuahs);
-                    FindDilugHaflagahKavuah(entries, kavuahs);
-                }
-                //Now the Kavuah that needs 3 in-a-row and doesn't need to be the same DayNight
-                FindMaayanPasuachHaflagahKavuah(entries, kavuahs);            
-            }
-            return kavuahs;
         }
 
+        #region Private Functions
+        
         private static bool IsSimilarKavuah(Kavuah a, Kavuah b)
         {
             return (a != b &&
@@ -205,13 +146,66 @@ namespace Chashavshavon
             return KavuahsList.Exists(k => IsSimilarKavuah(k, kavuah) && k.Active);
         }
 
+
+        private static List<Kavuah> GetProposedKavuahList()
+        {
+            List<Kavuah> foundKavuahList = new List<Kavuah>();
+            Queue<Entry> lastThree = new Queue<Entry>();
+
+            foreach (Entry entry in Entry.EntryList)
+            {
+                //First get those Kavuahs that are not dependent on the Entries being 3 in a row
+                FindDayOfMonthKavuah(entry, foundKavuahList);
+                FindDilugDayOfMonthKavuah(entry, foundKavuahList);
+                FindDayOfWeekKavuah(entry, foundKavuahList);
+
+                //For cheshboning out the other Kavuahs we need the last 3 entries
+                //First, add this entry.
+                lastThree.Enqueue(entry);
+                if (lastThree.Count > 3)
+                {
+                    //pop out the earliest one - leaves us with this entry and the previous 2.
+                    lastThree.Dequeue();
+                }
+
+                if (lastThree.Count == 3)
+                {
+                    Entry[] last3Array = lastThree.ToArray<Entry>();
+
+                    //The Kavuahs that need all to be the same DayNight                    
+                    if (last3Array[0].DayNight.In(last3Array[1].DayNight, last3Array[2].DayNight))
+                    {
+                        FindHaflagahKavuah(last3Array, foundKavuahList);
+                        FindSirugKavuah(last3Array, foundKavuahList);
+                        FindDilugHaflagahKavuah(last3Array, foundKavuahList);
+                    }
+                    //Now the Kavuah that needs 3 in-a-row and doesn't need to be the same DayNight
+                    FindMaayanPasuachHaflagahKavuah(last3Array, foundKavuahList);
+                }
+            }
+
+            //Remove double finds
+            for (int i = 0; i < foundKavuahList.Count; i++)
+            {
+                if (foundKavuahList.Exists(ka => IsSimilarKavuah(ka, foundKavuahList[i])))
+                {
+                    foundKavuahList.RemoveAt(i);
+                }
+            }
+
+            //Remove all found kavuahs that are already in the active list
+            foundKavuahList.RemoveAll(k => InActiveKavuahList(k));
+
+            return foundKavuahList;
+        }
+
         /// <summary>
         /// Cheshbon out Ma'ayan Pasuachs of haflaga - this does not need that the last one is the same DayNight
         /// </summary>
         /// <param name="entries"></param>
         /// <param name="kavuahs"></param>
         private static void FindMaayanPasuachHaflagahKavuah(Entry[] entries, List<Kavuah> kavuahs)
-        {            
+        {
             if (!kavuahs.Exists(k => k.KavuahType == KavuahType.Haflagah))
             {
                 if ((entries[0].Interval == entries[1].Interval) &&
@@ -248,7 +242,7 @@ namespace Chashavshavon
         /// <param name="entries"></param>
         /// <param name="kavuahs"></param>
         private static void FindDilugHaflagahKavuah(Entry[] entries, List<Kavuah> kavuahs)
-        {           
+        {
             if ((entries[2].Interval - entries[1].Interval) == (entries[1].Interval - entries[0].Interval) &&
                 ((entries[2].Interval - entries[1].Interval) != 0))
             {
@@ -278,7 +272,7 @@ namespace Chashavshavon
         /// <param name="entries"></param>
         /// <param name="kavuahs"></param>
         private static void FindSirugKavuah(Entry[] entries, List<Kavuah> kavuahs)
-        {            
+        {
             int monthDiff = Convert.ToInt32(DateAndTime.DateDiff(DateInterval.Month, entries[0].DateTime, entries[1].DateTime));
             if (monthDiff > 1 &&
                 (!kavuahs.Exists(k => k.KavuahType == KavuahType.DayOfMonth)) &&
@@ -341,7 +335,7 @@ namespace Chashavshavon
         /// <param name="entry"></param>
         /// <param name="kavuahs"></param>
         private static void FindDayOfWeekKavuah(Entry entry, List<Kavuah> kavuahs)
-        {            
+        {
             foreach (Entry firstFind in Entry.EntryList.Where(e => e.DateTime > entry.DateTime &&
                 e.DayOfWeek == entry.DayOfWeek &&
                 e.DayNight == entry.DayNight))
@@ -379,7 +373,7 @@ namespace Chashavshavon
         /// <param name="entry"></param>
         /// <param name="kavuahs"></param>
         private static void FindDilugDayOfMonthKavuah(Entry entry, List<Kavuah> kavuahs)
-        {           
+        {
             Entry secondFind = Entry.EntryList.FirstOrDefault(en =>
                 en.DayNight == entry.DayNight &&
                 entry.Day != en.Day &&
@@ -418,7 +412,7 @@ namespace Chashavshavon
         /// <param name="entry"></param>
         /// <param name="kavuahs"></param>
         private static void FindDayOfMonthKavuah(Entry entry, List<Kavuah> kavuahs)
-        {            
+        {
             if (Entry.EntryList.Exists(en =>
                     en.DayNight == entry.DayNight &&
                     entry.Day == en.Day &&
