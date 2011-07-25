@@ -100,14 +100,14 @@ namespace Chashavshavon
         public static bool FindAndPromptKavuahs()
         {
             List<Kavuah> kavuahList = GetProposedKavuahList();
-            
+
             if (kavuahList.Count > 0)
             {
-                //Prompt user to decide which ones to keep and their details
+                //Prompt user to decide which ones to keep and edit their details
                 frmKavuahPrompt fkp = new frmKavuahPrompt(kavuahList);
                 if (fkp.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    //For each found kavuah, either we add it to the main list 
+                    //For each found Kavuah, either we add it to the main list 
                     //or we set it as a "NoKavuah" for the third entry so it shouldn't pop up again
                     foreach (Kavuah k in kavuahList)
                     {
@@ -118,7 +118,7 @@ namespace Chashavshavon
                         }
                         else
                         {
-                            //The SettingEtry is set when the list kavuah was added to the list
+                            //The SettingEtry is set when the Kavuah was added to the proposed list
                             k.SettingEntry.NoKavuahList.Add(k);
                         }
                     }
@@ -132,7 +132,7 @@ namespace Chashavshavon
         }
 
         #region Private Functions
-        
+
         private static bool IsSimilarKavuah(Kavuah a, Kavuah b)
         {
             return (a != b &&
@@ -154,7 +154,7 @@ namespace Chashavshavon
 
             foreach (Entry entry in Entry.EntryList)
             {
-                //First get those Kavuahs that are not dependent on the Entries being 3 in a row
+                //First get those Kavuahs that are not dependent on their Entries being 3 in a row
                 FindDayOfMonthKavuah(entry, foundKavuahList);
                 FindDilugDayOfMonthKavuah(entry, foundKavuahList);
                 FindDayOfWeekKavuah(entry, foundKavuahList);
@@ -197,90 +197,28 @@ namespace Chashavshavon
             foundKavuahList.RemoveAll(k => InActiveKavuahList(k));
 
             return foundKavuahList;
-        }
+        }        
 
         /// <summary>
-        /// Cheshbon out Ma'ayan Pasuachs of haflaga - this does not need that the last one is the same DayNight
-        /// </summary>
-        /// <param name="entries"></param>
-        /// <param name="kavuahs"></param>
-        private static void FindMaayanPasuachHaflagahKavuah(Entry[] entries, List<Kavuah> kavuahs)
-        {
-            if (!kavuahs.Exists(k => k.KavuahType == KavuahType.Haflagah))
-            {
-                if ((entries[0].Interval == entries[1].Interval) &&
-                    (entries[0].DayNight == entries[1].DayNight) &&
-                    (entries[2].Interval < entries[1].Interval) &&
-                    (entries[2].Interval > (entries[1].Interval - 5)))
-                {
-                    //"NoKavuah" list for the 3rd entry does not include this "find" 
-                    if (!entries[2].NoKavuahList.Exists(k =>
-                            (k.DayNight == entries[0].DayNight) &&
-                            (k.KavuahType == KavuahType.HaflagaMaayanPasuach) &&
-                            (k.Number == entries[0].Interval)))
-                    {
-                        kavuahs.Add(new Kavuah()
-                        {
-                            DayNight = entries[0].DayNight,
-                            KavuahType = KavuahType.HaflagaMaayanPasuach,
-                            IsMaayanPasuach = true,
-                            //For Ma'ayan Pasuach, the regular days are usually not cancelled
-                            CancelsOnahBeinanis = false,
-                            SettingEntry = entries[2],
-                            SettingEntryDate = entries[2].DateTime,
-                            SettingEntryInterval = entries[2].Interval,
-                            Number = entries[0].Interval
-                        });
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Cheshbon out Dilug Haflagas
-        /// </summary>
-        /// <param name="entries"></param>
-        /// <param name="kavuahs"></param>
-        private static void FindDilugHaflagahKavuah(Entry[] entries, List<Kavuah> kavuahs)
-        {
-            if ((entries[2].Interval - entries[1].Interval) == (entries[1].Interval - entries[0].Interval) &&
-                ((entries[2].Interval - entries[1].Interval) != 0))
-            {
-                //If the "NoKavuah" list for the 3rd entry does not include this "find", 
-                if (!entries[2].NoKavuahList.Exists(k =>
-                        (k.KavuahType == KavuahType.DilugHaflaga) &&
-                        (k.Number == (entries[2].Interval - entries[1].Interval))))
-                {
-                    kavuahs.Add(new Kavuah()
-                    {
-                        DayNight = entries[0].DayNight,
-                        KavuahType = KavuahType.DilugHaflaga,
-                        //For this type of Kavuah, the regular days are not cancelled by default
-                        CancelsOnahBeinanis = false,
-                        Number = (entries[2].Interval - entries[1].Interval),
-                        SettingEntry = entries[2],
-                        SettingEntryDate = entries[2].DateTime,
-                        SettingEntryInterval = entries[2].Interval,
-                    });
-                }
-            }
-        }
-
-        /// <summary>
-        /// Cheshbon out Kavuah of Sirug - we go here that Sirug Kavuahs need 3 in a row with no intervening entries
+        /// Cheshbon out Kavuah of Sirug
+        /// We go here according to those that Sirug Kavuahs need 3 in a row with no intervening entries
         /// </summary>
         /// <param name="entries"></param>
         /// <param name="kavuahs"></param>
         private static void FindSirugKavuah(Entry[] entries, List<Kavuah> kavuahs)
         {
-            int monthDiff = Convert.ToInt32(DateAndTime.DateDiff(DateInterval.Month, entries[0].DateTime, entries[1].DateTime));
+            //We get the difference in months between the first 2 entries
+            int monthDiff = Convert.ToInt32(DateAndTime.DateDiff(DateInterval.Month, 
+                entries[0].DateTime, 
+                entries[1].DateTime));
+            //If the difference is 1, than it can not be a Sirug Kavuah - rather it may be a DayOfMonth kavuah.
+            //We now check to see if the third Entry is the same number of months 
+            //after the second one, and that all 3 entries are on the same day of the month.
             if (monthDiff > 1 &&
-                (!kavuahs.Exists(k => k.KavuahType == KavuahType.DayOfMonth)) &&
                 (entries[0].Day == entries[1].Day) &&
                 (entries[1].Day == entries[2].Day) &&
                 (DateAndTime.DateDiff(DateInterval.Month, entries[1].DateTime, entries[2].DateTime) == monthDiff))
             {
-
                 //If the "NoKavuah" list for the 3rd entry does not include this "find"
                 if (!entries[2].NoKavuahList.Exists(k =>
                             (k.KavuahType == KavuahType.Sirug) &&
@@ -307,6 +245,7 @@ namespace Chashavshavon
         /// <param name="kavuahs"></param>            
         private static void FindHaflagahKavuah(Entry[] entries, List<Kavuah> kavuahs)
         {
+            //We compare the intervals between the entries, if they are the same we have a Kavuah
             if ((entries[0].Interval == entries[1].Interval) &&
                 (entries[1].Interval == entries[2].Interval))
             {
@@ -330,19 +269,96 @@ namespace Chashavshavon
         }
 
         /// <summary>
-        /// Cheshbon out Kavuah of same day of the week - these kavuahs are even if there are entries in middle
+        /// Cheshbon out Ma'ayan Pasuachs of haflaga - this does not need that the last one is the same DayNight
+        /// </summary>
+        /// <param name="entries"></param>
+        /// <param name="kavuahs"></param>
+        private static void FindMaayanPasuachHaflagahKavuah(Entry[] entries, List<Kavuah> kavuahs)
+        {
+            //We check the entries to see if the first 2 entries have the same interval and the third
+            //one is within 5 days before the projected third interval. 
+            //This 3rd entry does not need to be in the same Onah as the first 2 as there was a Ma'ayan Pasuach during the correct Onah.
+            //Note, the number 5 is just a generality, Ma'ayan Pasuach is dependent on the actual length of the period
+            if ((entries[0].Interval == entries[1].Interval) &&
+                (entries[0].DayNight == entries[1].DayNight) &&
+                (entries[2].Interval < entries[1].Interval) &&
+                (entries[2].Interval > (entries[1].Interval - 5)))
+            {
+                //"NoKavuah" list for the 3rd entry does not include this "find" 
+                if (!entries[2].NoKavuahList.Exists(k =>
+                        (k.DayNight == entries[0].DayNight) &&
+                        (k.KavuahType == KavuahType.HaflagaMaayanPasuach) &&
+                        (k.Number == entries[0].Interval)))
+                {
+                    kavuahs.Add(new Kavuah()
+                    {
+                        DayNight = entries[0].DayNight,
+                        KavuahType = KavuahType.HaflagaMaayanPasuach,
+                        IsMaayanPasuach = true,
+                        //For Ma'ayan Pasuach, the regular days are usually not cancelled
+                        CancelsOnahBeinanis = false,
+                        SettingEntry = entries[2],
+                        SettingEntryDate = entries[2].DateTime,
+                        SettingEntryInterval = entries[2].Interval,
+                        Number = entries[0].Interval
+                    });
+                }
+            }
+        }
+
+        /// <summary>
+        /// Cheshbon out Dilug Haflaga Kavuahs
+        /// </summary>
+        /// <param name="entries"></param>
+        /// <param name="kavuahs"></param>
+        private static void FindDilugHaflagahKavuah(Entry[] entries, List<Kavuah> kavuahs)
+        {
+            //We check the three entries if their interval "Dilug"s are the same.
+            //If the "Dilug" is 0 it will be a regular Kavuah of Haflagah but not a Dilug one
+            if ((entries[2].Interval - entries[1].Interval) == (entries[1].Interval - entries[0].Interval) &&
+                ((entries[2].Interval - entries[1].Interval) != 0))
+            {
+                //If the "NoKavuah" list for the 3rd entry does not include this "find", 
+                if (!entries[2].NoKavuahList.Exists(k =>
+                        (k.KavuahType == KavuahType.DilugHaflaga) &&
+                        (k.Number == (entries[2].Interval - entries[1].Interval))))
+                {
+                    kavuahs.Add(new Kavuah()
+                    {
+                        DayNight = entries[0].DayNight,
+                        KavuahType = KavuahType.DilugHaflaga,
+                        //For this type of Kavuah, the regular days are not cancelled by default
+                        CancelsOnahBeinanis = false,
+                        Number = (entries[2].Interval - entries[1].Interval),
+                        SettingEntry = entries[2],
+                        SettingEntryDate = entries[2].DateTime,
+                        SettingEntryInterval = entries[2].Interval,
+                    });
+                }
+            }
+        }
+
+        /// <summary>
+        /// Cheshbon out Kavuah of same day of the week
         /// </summary>
         /// <param name="entry"></param>
         /// <param name="kavuahs"></param>
         private static void FindDayOfWeekKavuah(Entry entry, List<Kavuah> kavuahs)
         {
-            foreach (Entry firstFind in Entry.EntryList.Where(e => e.DateTime > entry.DateTime &&
+            //We go through the proceeding entries in the list looking for those that are on the same day of the week as the given entry
+            //Note, similar to Yom Hachodesh based kavuahs, it is halachakly irrelevant if there were other entries in the interim (משמרת הטהרה)
+            foreach (Entry firstFind in Entry.EntryList.Where(e => 
+                e.DateTime > entry.DateTime &&
                 e.DayOfWeek == entry.DayOfWeek &&
                 e.DayNight == entry.DayNight))
             {
+                //We get the interval in days between the found entry and the given entry
                 int interval = (firstFind.DateTime - entry.DateTime).Days;
 
-                Entry secondFind = Entry.EntryList.FirstOrDefault(en => en.DateTime == firstFind.DateTime.AddDays(interval) &&
+                //We now look for a second entry that is also on the same day of the week 
+                //and that has the same interval from the previously found entry
+                Entry secondFind = Entry.EntryList.FirstOrDefault(en => 
+                    en.DateTime == firstFind.DateTime.AddDays(interval) &&
                     en.DayOfWeek == entry.DayOfWeek &&
                     en.DayNight == entry.DayNight);
 
@@ -360,7 +376,8 @@ namespace Chashavshavon
                             Number = interval,
                             SettingEntry = secondFind,
                             SettingEntryDate = secondFind.DateTime,
-                            SettingEntryInterval = secondFind.Interval //The interval is enough for the day of week
+                            //The interval is enough for keeping track of the DayOfWeek Kavuah
+                            SettingEntryInterval = secondFind.Interval 
                         });
                     }
                 }
@@ -374,17 +391,23 @@ namespace Chashavshavon
         /// <param name="kavuahs"></param>
         private static void FindDilugDayOfMonthKavuah(Entry entry, List<Kavuah> kavuahs)
         {
+            //First, we look for any entry that is in the next Jewish month after the given entry - 
+            //but not on the same day as that would be a regular DayOfMonth Kavuah with no Dilug.
+            //Note, it is halachakly irrelevant if there were other entries in the interim     
             Entry secondFind = Entry.EntryList.FirstOrDefault(en =>
                 en.DayNight == entry.DayNight &&
                 entry.Day != en.Day &&
-                entry.DateTime.AddMonths(1).Month == en.DateTime.Month);
+                entry.DateTime.AddMonths(1).Month == en.DateTime.Month &&
+                entry.DateTime.AddMonths(1).Year == en.DateTime.Year);
             if (secondFind != null)
             {
+                //Now we look for another entry that is in the 3rd month and has the same "Dilug" as the previous find
                 Entry finalFind = Entry.EntryList.FirstOrDefault(en =>
                     en.DayNight == entry.DayNight &&
                     (en.Day - secondFind.Day) == (secondFind.Day - entry.Day) &&
-                    entry.DateTime.AddMonths(2).Month == en.DateTime.Month);
-
+                    entry.DateTime.AddMonths(2).Month == en.DateTime.Month &&
+                    entry.DateTime.AddMonths(2).Year == en.DateTime.Year);
+                
                 if (finalFind != null)
                 {
                     //If the "NoKavuah" list for the 3rd entry does not include this "find", 
@@ -413,16 +436,23 @@ namespace Chashavshavon
         /// <param name="kavuahs"></param>
         private static void FindDayOfMonthKavuah(Entry entry, List<Kavuah> kavuahs)
         {
+            //We look for an entry that is exactly one Jewish month later
+            //Note, it is halachakly irrelevant if there were other entries in the interim
             if (Entry.EntryList.Exists(en =>
                     en.DayNight == entry.DayNight &&
                     entry.Day == en.Day &&
-                    entry.DateTime.AddMonths(1).Month == en.DateTime.Month))
+                    entry.DateTime.AddMonths(1).Month == en.DateTime.Month &&
+                    entry.DateTime.AddMonths(1).Year == en.DateTime.Year))
             {
+                //Now we look for another entry that is exactly two Jewish months later - 
+                //... or if it is within 5 days before that day: Ma'ayan Pasuach.
+                //Note, the number 5 is just a generality, Ma'ayan Pasuach is dependent on the actual length of the period 
                 Entry thirdFind = Entry.EntryList.FirstOrDefault(en =>
                     en.Day <= entry.Day &&
                     en.Day >= (entry.Day - 5) &&
                     ((en.DayNight == entry.DayNight) || (en.Day < entry.Day)) &&
-                    entry.DateTime.AddMonths(2).Month == en.DateTime.Month);
+                    entry.DateTime.AddMonths(2).Month == en.DateTime.Month &&
+                    entry.DateTime.AddMonths(2).Year == en.DateTime.Year);
 
                 //If the "NoKavuah" list for the 3rd entry does not include this "find", 
                 if (thirdFind != null && !thirdFind.NoKavuahList.Exists(k =>
