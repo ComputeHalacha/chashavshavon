@@ -65,6 +65,7 @@ namespace Chashavshavon
                 {
                     Dock = DockStyle.Fill,
                     BackColor = Color.White,
+                    BorderStyle = Program.Today.IsSameday(date) ? BorderStyle.FixedSingle : BorderStyle.None,
                     Tag = i
                 };
 
@@ -73,7 +74,7 @@ namespace Chashavshavon
                 {
                     Dock = DockStyle.Top,
                     Font = new Font(Font.FontFamily, 15f, FontStyle.Bold),
-                    ForeColor = Color.SaddleBrown,
+                    ForeColor = Program.Today.IsSameday(date) ? Color.Blue : Color.SaddleBrown,
                     Text = Zmanim.DaysOfMonthHebrew[i],
                     TextAlign = ContentAlignment.MiddleCenter,
                     RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -88,8 +89,8 @@ namespace Chashavshavon
                 {
                     pnl.Controls.Add(new Label()
                     {
-                        Dock=DockStyle.Bottom,
-                        Padding = new Padding(0,7,0,2),
+                        Dock = DockStyle.Bottom,
+                        Padding = new Padding(0, 7, 0, 2),
                         Text = daySpecialText,
                         Font = new Font(Font.FontFamily, 6f),
                         ForeColor = Color.DarkGreen,
@@ -134,7 +135,7 @@ namespace Chashavshavon
                     {
                         Dock = DockStyle.Bottom,
                         Text = onahText.Substring(0, 17).PadRight(20, '.'),
-                        TextAlign = ContentAlignment.TopCenter,                        
+                        TextAlign = ContentAlignment.TopCenter,
                         Font = new Font(Font.FontFamily, 6f),
                         ForeColor = Color.Black,
                         RightToLeft = System.Windows.Forms.RightToLeft.Yes
