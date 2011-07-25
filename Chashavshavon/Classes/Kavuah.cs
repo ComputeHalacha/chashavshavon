@@ -117,6 +117,15 @@ namespace Chashavshavon
                 //Gets a list of Kavuahs from the given 3 entries
                 foundKavuahList.AddRange(GetProposedKavuahList(last3Array));                
             }
+            
+            //Get distinct proposed Kavuah list
+            for (int i = 0; i < foundKavuahList.Count; i++)
+            {
+                if (foundKavuahList.Exists(ka => IsSimilarKavuah(ka, foundKavuahList[i])))
+                {
+                    foundKavuahList.RemoveAt(i);
+                }
+            }
 
             //Remove all found kavuahs that are already in the active list
             foundKavuahList.RemoveAll(k => InActiveKavuahList(k));
@@ -183,16 +192,17 @@ namespace Chashavshavon
             return kavuahs;
         }
 
-        private bool IsSameKavuah(Kavuah b)
+        private static bool IsSimilarKavuah(Kavuah a, Kavuah b)
         {
-            return (this.KavuahType == b.KavuahType &&
-                this.DayNight == b.DayNight &&
-                this.Number == b.Number);
+            return (a != b &&
+                a.KavuahType == b.KavuahType &&
+                a.DayNight == b.DayNight &&
+                a.Number == b.Number);
         }
 
         private static bool InActiveKavuahList(Kavuah kavuah)
         {
-            return KavuahsList.Exists(k => k.IsSameKavuah(kavuah) && k.Active);
+            return KavuahsList.Exists(k => IsSimilarKavuah(k, kavuah) && k.Active);
         }
 
         /// <summary>
@@ -332,9 +342,9 @@ namespace Chashavshavon
         /// <param name="kavuahs"></param>
         private static void FindDayOfWeekKavuah(Entry entry, List<Kavuah> kavuahs)
         {            
-            foreach (Entry firstFind in Entry.EntryList.Where(e => e.DayOfWeek == entry.DayOfWeek &&
-                e.DayNight == entry.DayNight &&
-                e.DateTime > entry.DateTime))
+            foreach (Entry firstFind in Entry.EntryList.Where(e => e.DateTime > entry.DateTime &&
+                e.DayOfWeek == entry.DayOfWeek &&
+                e.DayNight == entry.DayNight))
             {
                 int interval = (firstFind.DateTime - entry.DateTime).Days;
 
