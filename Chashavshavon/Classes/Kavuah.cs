@@ -133,6 +133,21 @@ namespace Chashavshavon
                 return false;
             }
         }
+
+        /// <summary>
+        /// Removes double Kavuahs from list
+        /// </summary>
+        /// <param name="list"></param>
+        public static void ClearDoubleKavuahs(List<Kavuah> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list.Exists(ka => IsSimilarKavuah(ka, list[i])))
+                {
+                    list.RemoveAt(i);
+                }
+            }
+        }
         #endregion
 
         #region Private Static Functions
@@ -187,19 +202,13 @@ namespace Chashavshavon
             }
 
             //Remove double finds
-            for (int i = 0; i < foundKavuahList.Count; i++)
-            {
-                if (foundKavuahList.Exists(ka => IsSimilarKavuah(ka, foundKavuahList[i])))
-                {
-                    foundKavuahList.RemoveAt(i);
-                }
-            }
+            ClearDoubleKavuahs(foundKavuahList);
 
             //Remove all found kavuahs that are already in the active list
             foundKavuahList.RemoveAll(k => InActiveKavuahList(k));
 
             return foundKavuahList;
-        }        
+        }                
 
         /// <summary>
         /// Cheshbon out Kavuah of Sirug

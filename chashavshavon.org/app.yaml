@@ -7,12 +7,17 @@ handlers:
 - url: /
   static_files: static/userconsole.html 
   upload: static/userconsole.html
+  secure: optional
 - url: /static/([^A-Z]+)
   static_files: static/\1
   upload: static/.*
+  secure: optional
 - url: /static/.*
   script: tolowercase.py
+  secure: optional
 - url: /[A|a]dmin
   script: admin.py
+  secure: optional
 - url: /.*
   script: main.py
+  secure: optional

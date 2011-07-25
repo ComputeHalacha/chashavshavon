@@ -222,6 +222,87 @@ namespace Chashavshavon
             CreateNewFile();
         }
 
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.SaveCurrentFile(); //why not...            
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                try
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(this.openFileDialog1.FileName);
+                    //After the list of Entries, there is a lst of Kavuahs
+                    if (doc.SelectNodes("//Kavuah").Count > 0)
+                    {
+                        try
+                        {
+                            var ser = new XmlSerializer(typeof(List<Kavuah>));
+                            List<Kavuah> list = (List<Kavuah>)ser.Deserialize(
+                                new StringReader(doc.SelectSingleNode("//ArrayOfKavuah").OuterXml));
+                            bool addedEntries = false;
+                            foreach (Kavuah kav in list)
+                            {
+                                if (!Entry.EntryList.Exists(en => 
+                                    en.DateTime == kav.SettingEntryDate && 
+                                    en.DayNight == kav.DayNight && 
+                                    en.Interval == kav.SettingEntryInterval))
+                                {
+                                    Entry.EntryList.Add(new Entry(
+                                        Program.HebrewCalendar.GetDayOfMonth(kav.SettingEntryDate),
+                                        Program.HebrewCalendar.GetMonth(kav.SettingEntryDate),
+                                        Program.HebrewCalendar.GetYear(kav.SettingEntryDate),
+                                        kav.DayNight,
+                                        "מיובא מקובץ: " + Path.GetFileName(this.openFileDialog1.FileName)));
+                                    addedEntries = true;
+                                }
+                            }
+                            Kavuah.KavuahsList.AddRange(list);
+                            Kavuah.ClearDoubleKavuahs(Kavuah.KavuahsList);
+
+                            if (addedEntries)
+                            {
+                                MessageBox.Show("חלק מרשימת וסת קבוע בקובץ " + Environment.NewLine + "\"" +
+                                CurrentFile + "\"" + Environment.NewLine +
+                                "מבוססים על רשומות שאינם קיימים בקובץ הנוכחי.\r\nכדי לייבא הקבועים האלה, הובאו גם חלק מרשומות אלו.",
+                                "חשבשבון",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information,
+                                MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.RightAlign);
+                            }
+                            this.ShowKavuahList();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("רשימת וסת קבוע בקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
+                                CurrentFile + "\"" + Environment.NewLine +
+                                " איננה תקינה.",
+                                "חשבשבון",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation,
+                                MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.RightAlign);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("רשימת וסת קבוע בקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
+                            CurrentFile + "\"" + Environment.NewLine +
+                            " ריקה.",
+                            "חשבשבון",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information,
+                            MessageBoxDefaultButton.Button1,
+                            MessageBoxOptions.RightAlign);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
         private void AbouToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutBox ab = new AboutBox();
@@ -535,9 +616,7 @@ namespace Chashavshavon
 
         private void ShowKavuahList()
         {
-            frmKavuahs f = new frmKavuahs();
-            f.ShowDialog(this);
-            if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
+            if (new frmKavuahs().ShowDialog() != System.Windows.Forms.DialogResult.Cancel)
             {
                 this.SaveCurrentFile();
                 this.TestInternet();
@@ -1183,7 +1262,7 @@ namespace Chashavshavon
                 xtw.WriteEndElement();
             }
 
-            var ser = new System.Xml.Serialization.XmlSerializer(typeof(List<Kavuah>));
+            var ser = new XmlSerializer(typeof(List<Kavuah>));
             ser.Serialize(xtw, Kavuah.KavuahsList);
 
             xtw.WriteEndDocument();
@@ -1690,6 +1769,6 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion
-    }
+        #endregion        
+     }
 }
