@@ -30,6 +30,7 @@ namespace Chashavshavon
 
         public static List<Kavuah> KavuahsList { get; set; }
 
+        #region Public Instance Properties        
         public DayNight DayNight { get; set; }
         public KavuahType KavuahType { get; set; }
         public int Number { get; set; }
@@ -91,7 +92,9 @@ namespace Chashavshavon
                 return sb.ToString();
             }
         }
+        #endregion
 
+        #region Public Static Functions        
         /// <summary>
         /// Gets a list of proposed Kavuahs according to the entries in the Entry list 
         /// and prompts the user to either add them or "NoKavuah" them 
@@ -130,9 +133,9 @@ namespace Chashavshavon
                 return false;
             }
         }
+        #endregion
 
-        #region Private Functions
-
+        #region Private Static Functions
         private static bool IsSimilarKavuah(Kavuah a, Kavuah b)
         {
             return (a != b &&
@@ -145,7 +148,6 @@ namespace Chashavshavon
         {
             return KavuahsList.Exists(k => IsSimilarKavuah(k, kavuah) && k.Active);
         }
-
 
         private static List<Kavuah> GetProposedKavuahList()
         {
