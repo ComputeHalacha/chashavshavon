@@ -652,7 +652,6 @@ namespace Chashavshavon
                 }
             }
 
-            //TODO: Do "Day Of Week" Kavuahs work with theoretical Entries? Does a single intervening entry break them?
             //Kavuahs of "Day of week" - cheshboned from the theoretical Entries
             foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DayOfWeek && k.Active))
             {
@@ -663,7 +662,6 @@ namespace Chashavshavon
                     Onah o = new Onah(dt, kavuah.DayNight)
                     {
                         Name = "קבוע " + kavuah.KavuahDescriptionHebrew,
-                        Day = kavuah.Number
                     };
                     list.Add(o);
                     if (Properties.Settings.Default.ShowOhrZeruah)
