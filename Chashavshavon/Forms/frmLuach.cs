@@ -57,9 +57,9 @@ namespace Chashavshavon
 
             for (int i = 1; i < month.DaysInMonth + 1; i++)
             {
-                DateTime date = new DateTime(Program.HebrewCalendar.GetYear(this._monthToDisplay), 
-                    Program.HebrewCalendar.GetMonth(this._monthToDisplay), 
-                    i, 
+                DateTime date = new DateTime(Program.HebrewCalendar.GetYear(this._monthToDisplay),
+                    Program.HebrewCalendar.GetMonth(this._monthToDisplay),
+                    i,
                     Program.HebrewCalendar);
                 Panel pnl = new Panel()
                 {
@@ -72,12 +72,31 @@ namespace Chashavshavon
                 pnl.Controls.Add(new Label()
                 {
                     Dock = DockStyle.Top,
-                    Font = new Font(Font.FontFamily, 16f, FontStyle.Bold),
+                    Font = new Font(Font.FontFamily, 15f, FontStyle.Bold),
                     ForeColor = Color.SaddleBrown,
                     Text = Zmanim.DaysOfMonthHebrew[i],
                     TextAlign = ContentAlignment.MiddleCenter,
                     RightToLeft = System.Windows.Forms.RightToLeft.Yes
                 });
+
+                string daySpecialText = "";
+                foreach (string holiday in JewishHolidays.GetHebrewHolidays(date, Properties.Settings.Default.UserInIsrael))
+                {
+                    daySpecialText += holiday + " ";
+                }
+                if (daySpecialText.Length > 0)
+                {
+                    pnl.Controls.Add(new Label()
+                    {
+                        Dock=DockStyle.Bottom,
+                        Padding = new Padding(0,7,0,2),
+                        Text = daySpecialText,
+                        Font = new Font(Font.FontFamily, 6f),
+                        ForeColor = Color.DarkGreen,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                    });
+                }
 
                 string onahText = "";
 
@@ -93,7 +112,7 @@ namespace Chashavshavon
                         this.toolTip1.SetToolTip(pnl, onahText);
                     }
                 }
-                
+
                 Entry entry = Entry.EntryList.FirstOrDefault(en => en.DateTime == date);
                 if (entry != null)
                 {
@@ -103,20 +122,27 @@ namespace Chashavshavon
                         Dock = DockStyle.Bottom,
                         Text = "ראיה - עונת " + entry.HebrewDayNight + Environment.NewLine + " הפלגה: " + entry.Interval.ToString(),
                         ForeColor = Color.Red,
-                        TextAlign = ContentAlignment.BottomCenter,
+                        Font = new Font(Font.FontFamily, 6f),
+                        TextAlign = ContentAlignment.TopCenter,
                         RightToLeft = System.Windows.Forms.RightToLeft.Yes
                     });
                 }
                 else if (!string.IsNullOrEmpty(onahText))
                 {
-                    pnl.BackColor = Color.Tan;
+                    pnl.BackColor = Color.Yellow;
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
-                        Text = onahText.Split('\r').Length > 2 ? onahText.Substring(0, onahText.IndexOf('\r')) + "..." : onahText,
+                        Text = onahText.Substring(0, 17).PadRight(20, '.'),
+                        TextAlign = ContentAlignment.TopCenter,                        
+                        Font = new Font(Font.FontFamily, 6f),
                         ForeColor = Color.Black,
                         RightToLeft = System.Windows.Forms.RightToLeft.Yes
                     });
+                }
+                else if (currentColumn == tableLayoutPanel1.ColumnCount - 1)
+                {
+                    pnl.BackColor = Color.Tan;
                 }
 
                 foreach (Label lbl in pnl.Controls.OfType<Label>())
