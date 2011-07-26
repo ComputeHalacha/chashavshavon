@@ -169,7 +169,7 @@ namespace Chashavshavon
             List<Kavuah> foundKavuahList = new List<Kavuah>();
             Queue<Entry> lastThree = new Queue<Entry>();
 
-            foreach (Entry entry in Entry.EntryList)
+            foreach (Entry entry in Entry.EntryList.Where(en => !en.IsInvisible))
             {
                 //First get those Kavuahs that are not dependent on their Entries being 3 in a row
                 FindDayOfMonthKavuah(entry, foundKavuahList);
@@ -363,7 +363,8 @@ namespace Chashavshavon
         {
             //We go through the proceeding entries in the list looking for those that are on the same day of the week as the given entry
             //Note, similar to Yom Hachodesh based kavuahs, it is halachakly irrelevant if there were other entries in the interim (משמרת הטהרה)
-            foreach (Entry firstFind in Entry.EntryList.Where(e => 
+            foreach (Entry firstFind in Entry.EntryList.Where(e =>
+                !e.IsInvisible &&
                 e.DateTime > entry.DateTime &&
                 e.DayOfWeek == entry.DayOfWeek &&
                 e.DayNight == entry.DayNight))
@@ -373,7 +374,8 @@ namespace Chashavshavon
 
                 //We now look for a second entry that is also on the same day of the week 
                 //and that has the same interval from the previously found entry
-                Entry secondFind = Entry.EntryList.FirstOrDefault(en => 
+                Entry secondFind = Entry.EntryList.FirstOrDefault(en =>
+                    !en.IsInvisible &&
                     en.DateTime == firstFind.DateTime.AddDays(interval) &&
                     en.DayOfWeek == entry.DayOfWeek &&
                     en.DayNight == entry.DayNight);
@@ -411,6 +413,7 @@ namespace Chashavshavon
             //but not on the same day as that would be a regular DayOfMonth Kavuah with no Dilug.
             //Note, it is halachakly irrelevant if there were other entries in the interim     
             Entry secondFind = Entry.EntryList.FirstOrDefault(en =>
+                !en.IsInvisible &&
                 en.DayNight == entry.DayNight &&
                 entry.Day != en.Day &&
                 entry.DateTime.AddMonths(1).Month == en.DateTime.Month &&
@@ -419,6 +422,7 @@ namespace Chashavshavon
             {
                 //Now we look for another entry that is in the 3rd month and has the same "Dilug" as the previous find
                 Entry finalFind = Entry.EntryList.FirstOrDefault(en =>
+                    !en.IsInvisible &&
                     en.DayNight == entry.DayNight &&
                     (en.Day - secondFind.Day) == (secondFind.Day - entry.Day) &&
                     entry.DateTime.AddMonths(2).Month == en.DateTime.Month &&
@@ -455,6 +459,7 @@ namespace Chashavshavon
             //We look for an entry that is exactly one Jewish month later
             //Note, it is halachaklly irrelevant if there were other entries in the interim
             if (Entry.EntryList.Exists(en =>
+                    !en.IsInvisible &&
                     en.DayNight == entry.DayNight &&
                     entry.Day == en.Day &&
                     entry.DateTime.AddMonths(1).Month == en.DateTime.Month &&
@@ -464,6 +469,7 @@ namespace Chashavshavon
                 //... or if it is within 5 days before that day: Ma'ayan Pasuach.
                 //Note, the number 5 is just a generality, Ma'ayan Pasuach is dependent on the actual length of the period 
                 Entry thirdFind = Entry.EntryList.FirstOrDefault(en =>
+                    !en.IsInvisible &&
                     en.Day <= entry.Day &&
                     en.Day >= (entry.Day - 5) &&
                     ((en.DayNight == entry.DayNight) || (en.Day < entry.Day)) &&

@@ -30,10 +30,7 @@ namespace Chashavshavon
             string password = this.GetPassword();
 
             InitializeComponent();
-            LocationsXmlDoc = new XmlDocument();
-
-
-            this.bindingSourceEntries.DataSource = Entry.EntryList;
+            LocationsXmlDoc = new XmlDocument();                        
 
             //Fill the location list from the xml file
             LocationsXmlDoc.Load(Application.StartupPath + "\\Locations.xml");
@@ -99,6 +96,7 @@ namespace Chashavshavon
             this.TestInternet();
             //Load the last opened file. If it does not exist or this is the first run, a blank list is presented            
             this.LoadXmlFile();
+            this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
             this._loading = false;
         }
 
@@ -239,7 +237,6 @@ namespace Chashavshavon
                             var ser = new XmlSerializer(typeof(List<Kavuah>));
                             List<Kavuah> list = (List<Kavuah>)ser.Deserialize(
                                 new StringReader(doc.SelectSingleNode("//ArrayOfKavuah").OuterXml));
-                            bool addedEntries = false;
                             foreach (Kavuah kav in list)
                             {
                                 if (!Entry.EntryList.Exists(en => 
@@ -252,31 +249,22 @@ namespace Chashavshavon
                                         Program.HebrewCalendar.GetMonth(kav.SettingEntryDate),
                                         Program.HebrewCalendar.GetYear(kav.SettingEntryDate),
                                         kav.DayNight,
-                                        "מיובא מקובץ: " + Path.GetFileName(this.openFileDialog1.FileName)));
-                                    addedEntries = true;
+                                        "מיובא מקובץ: " + Path.GetFileName(this.openFileDialog1.FileName))
+                                        {
+                                            IsInvisible = true
+                                        });
                                 }
                             }
                             Kavuah.KavuahsList.AddRange(list);
                             Kavuah.ClearDoubleKavuahs(Kavuah.KavuahsList);
 
-                            if (addedEntries)
-                            {
-                                MessageBox.Show("חלק מרשימת וסת קבוע בקובץ " + Environment.NewLine + "\"" +
-                                CurrentFile + "\"" + Environment.NewLine +
-                                "מבוססים על רשומות שאינם קיימים בקובץ הנוכחי.\r\nכדי לייבא הקבועים האלה, הובאו גם חלק מרשומות אלו.",
-                                "חשבשבון",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign);
-                            }
                             this.ShowKavuahList();
                         }
                         catch
                         {
-                            MessageBox.Show("רשימת וסת קבוע בקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
-                                CurrentFile + "\"" + Environment.NewLine +
-                                " איננה תקינה.",
+                            MessageBox.Show("רשימת וסת קבוע בקובץ" + Environment.NewLine + "\"" +
+                                Path.GetFileName(this.openFileDialog1.FileName) + "\"" + Environment.NewLine +
+                                " .איננה תקינה",
                                 "חשבשבון",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Exclamation,
@@ -286,8 +274,8 @@ namespace Chashavshavon
                     }
                     else
                     {
-                        MessageBox.Show("רשימת וסת קבוע בקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
-                            CurrentFile + "\"" + Environment.NewLine +
+                        MessageBox.Show("רשימת וסת קבוע בקובץ" + Environment.NewLine + "\"" +
+                            Path.GetFileName(this.openFileDialog1.FileName) + "\"" + Environment.NewLine +
                             " ריקה.",
                             "חשבשבון",
                             MessageBoxButtons.OK,
@@ -359,7 +347,7 @@ namespace Chashavshavon
                 //Save the new Kavuahs to the file
                 this.SaveCurrentFile();
                 //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-                this.bindingSourceEntries.ResetBindings(false);
+                this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
             }
             else
             {
@@ -409,7 +397,7 @@ namespace Chashavshavon
                 //Save the new Kavuahs to the file
                 this.SaveCurrentFile();
                 //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-                this.bindingSourceEntries.ResetBindings(false);
+                this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
             }
             else
             {
@@ -935,7 +923,7 @@ namespace Chashavshavon
                kavuahDilugDayofMonth,
                kavuahDilugDayofMonthOhrZarua;
 
-            foreach (Entry entry in Entry.EntryList)
+            foreach (Entry entry in Entry.EntryList.Where(en => !en.IsInvisible))
             {
                 bool hasCancelByKavuah = Kavuah.KavuahsList.Exists(k => k.Active && k.CancelsOnahBeinanis);
 
@@ -1246,6 +1234,7 @@ namespace Chashavshavon
             foreach (Entry entry in Entry.EntryList)
             {
                 xtw.WriteStartElement("Entry");
+                xtw.WriteElementString("IsInvisible", entry.IsInvisible.ToString());
                 xtw.WriteElementString("Date", entry.DateTime.ToString("dd MMMM yyyy") + " " + entry.HebrewDayNight);
                 xtw.WriteElementString("Day", entry.Day.ToString());
                 xtw.WriteElementString("Month", entry.Month.MonthInYear.ToString());
@@ -1353,7 +1342,7 @@ namespace Chashavshavon
             sb.AppendFormat("<body><h3>רשימת וסתות - {0}</h3><table>", Program.Today.ToLongDateString());
             sb.Append("<tr><th>מספר</th><th>תאריך</th><th>יום/לילה</th><th>הפלגה</th><th>הערות</th></tr>");
             int count = 0;
-            foreach (Entry e in Entry.EntryList)
+            foreach (Entry e in Entry.EntryList.Where(en => !en.IsInvisible))
             {
                 sb.AppendFormat("<tr{0}><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
                     (count++ % 2 == 0 ? " class='alt'" : ""),
@@ -1520,13 +1509,13 @@ namespace Chashavshavon
         #region Public Functions
         public void AddNewEntry(Entry newEntry)
         {
-            this.bindingSourceEntries.Add(newEntry);
+            Entry.EntryList.Add(newEntry);
             this.SortEntriesAndSetInterval();
             Kavuah.FindAndPromptKavuahs();
             this.FillCalendar();
             this.SaveCurrentFile();
             //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-            this.bindingSourceEntries.ResetBindings(false);
+            this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
         }
 
         public void DeleteEntry(Entry entry)
@@ -1559,13 +1548,13 @@ namespace Chashavshavon
                         return;
                     }
                 }
-                this.bindingSourceEntries.Remove(entry);
+                Entry.EntryList.Remove(entry);
                 this.SortEntriesAndSetInterval();
                 Kavuah.FindAndPromptKavuahs();
                 this.FillCalendar();
                 this.SaveCurrentFile();
                 //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-                this.bindingSourceEntries.ResetBindings(false);
+                this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
             }
         }
 
@@ -1629,13 +1618,19 @@ namespace Chashavshavon
             {
                 foreach (XmlNode entryNode in xml.SelectNodes("//Entry"))
                 {
+                    bool isInvisible = entryNode.SelectSingleNode("IsInvisible") == null ? 
+                        false : 
+                        Convert.ToBoolean(entryNode.SelectSingleNode("IsInvisible").InnerText);
                     int day = Convert.ToInt32(entryNode.SelectSingleNode("Day").InnerText);
                     int month = Convert.ToInt32(entryNode.SelectSingleNode("Month").InnerText);
                     int year = Convert.ToInt32(entryNode.SelectSingleNode("Year").InnerText); ;
                     DayNight dayNight = (DayNight)Convert.ToInt32(entryNode.SelectSingleNode("DN").InnerText);
-                    string notes = entryNode.SelectSingleNode("Notes").InnerText; ;
+                    string notes = entryNode.SelectSingleNode("Notes").InnerText;
 
-                    Entry newEntry = new Entry(day, month, year, dayNight, notes);
+                    Entry newEntry = new Entry(day, month, year, dayNight, notes) 
+                    { 
+                        IsInvisible = isInvisible 
+                    };
 
                     // If during the addition of a new Entry the program finds 
                     // a set of 3 entries that might have been considered a Kavuah;
@@ -1686,7 +1681,7 @@ namespace Chashavshavon
             this.SetCaptionText();
             this.SortEntriesAndSetInterval();
             this.FillCalendar();
-            this.bindingSourceEntries.ResetBindings(false);
+            this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
         }
 
         public void SetCaptionText()

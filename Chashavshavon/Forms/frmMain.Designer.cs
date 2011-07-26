@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -125,8 +125,11 @@
             this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.KavuahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openKavuaListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.AddKavuahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.SearchForKavuahsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RemoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -143,9 +146,6 @@
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.label14 = new System.Windows.Forms.Label();
             this.pbWeb = new System.Windows.Forms.PictureBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
@@ -204,11 +204,11 @@
             this.dgEntries.AllowUserToAddRows = false;
             this.dgEntries.AllowUserToDeleteRows = false;
             this.dgEntries.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -216,14 +216,14 @@
             this.dgEntries.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgEntries.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.Wheat;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Wheat;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgEntries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgEntries.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.btnDeleteColumn,
@@ -238,30 +238,30 @@
             this.dgEntries.Name = "dgEntries";
             this.dgEntries.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dgEntries.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgEntries.RowHeadersVisible = false;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle18;
-            this.dgEntries.Size = new System.Drawing.Size(780, 249);
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgEntries.Size = new System.Drawing.Size(780, 246);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             this.dgEntries.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgEntries_CellFormatting);
             // 
             // btnDeleteColumn
             // 
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.Blue;
-            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
+            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.btnDeleteColumn.HeaderText = "";
             this.btnDeleteColumn.LinkColor = System.Drawing.Color.Maroon;
             this.btnDeleteColumn.Name = "btnDeleteColumn";
@@ -274,9 +274,9 @@
             // DateColumn
             // 
             this.DateColumn.DataPropertyName = "DateTime";
-            dataGridViewCellStyle16.Format = "dd MMM yyyy";
-            dataGridViewCellStyle16.NullValue = null;
-            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle4.Format = "dd MMM yyyy";
+            dataGridViewCellStyle4.NullValue = null;
+            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.DateColumn.HeaderText = "תאריך";
             this.DateColumn.Name = "DateColumn";
             this.DateColumn.ReadOnly = true;
@@ -334,7 +334,7 @@
             this.gbCalendar.Controls.Add(this.pnlTomorrow);
             this.gbCalendar.Controls.Add(this.pnlToday);
             this.gbCalendar.Controls.Add(this.pnlYesterday);
-            this.gbCalendar.Location = new System.Drawing.Point(359, 11);
+            this.gbCalendar.Location = new System.Drawing.Point(357, 11);
             this.gbCalendar.Name = "gbCalendar";
             this.gbCalendar.Size = new System.Drawing.Size(517, 220);
             this.gbCalendar.TabIndex = 13;
@@ -856,7 +856,7 @@
             this.groupBox1.Controls.Add(this.btnEnter);
             this.groupBox1.Location = new System.Drawing.Point(6, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(344, 220);
+            this.groupBox1.Size = new System.Drawing.Size(345, 220);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "רשומה חדשה";
@@ -875,14 +875,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(3, 131);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(338, 86);
+            this.panel1.Size = new System.Drawing.Size(339, 86);
             this.panel1.TabIndex = 13;
             // 
             // label16
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(303, 69);
+            this.label16.Location = new System.Drawing.Point(305, 69);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(28, 12);
             this.label16.TabIndex = 17;
@@ -891,7 +891,7 @@
             // lblToday
             // 
             this.lblToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblToday.Location = new System.Drawing.Point(174, 69);
+            this.lblToday.Location = new System.Drawing.Point(176, 69);
             this.lblToday.Name = "lblToday";
             this.lblToday.Size = new System.Drawing.Size(125, 12);
             this.lblToday.TabIndex = 16;
@@ -901,7 +901,7 @@
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(114, 69);
+            this.label15.Location = new System.Drawing.Point(116, 69);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(63, 12);
             this.label15.TabIndex = 15;
@@ -910,7 +910,7 @@
             // lblTime
             // 
             this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTime.Location = new System.Drawing.Point(58, 69);
+            this.lblTime.Location = new System.Drawing.Point(60, 69);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(56, 12);
             this.lblTime.TabIndex = 14;
@@ -933,7 +933,7 @@
             // 
             this.lblZmanim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZmanim.AutoSize = true;
-            this.lblZmanim.Location = new System.Drawing.Point(268, 33);
+            this.lblZmanim.Location = new System.Drawing.Point(270, 33);
             this.lblZmanim.Name = "lblZmanim";
             this.lblZmanim.Size = new System.Drawing.Size(63, 24);
             this.lblZmanim.TabIndex = 12;
@@ -948,7 +948,7 @@
             this.lblLocation.ForeColor = System.Drawing.Color.Wheat;
             this.lblLocation.Location = new System.Drawing.Point(0, 0);
             this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(336, 26);
+            this.lblLocation.Size = new System.Drawing.Size(337, 26);
             this.lblLocation.TabIndex = 11;
             this.lblLocation.Text = "זמנים לקרית ספר";
             this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -957,7 +957,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(316, 22);
+            this.label3.Location = new System.Drawing.Point(315, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(19, 12);
             this.label3.TabIndex = 5;
@@ -967,7 +967,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(303, 63);
+            this.label4.Location = new System.Drawing.Point(302, 63);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 12);
             this.label4.TabIndex = 10;
@@ -983,7 +983,7 @@
             this.cmbMonth.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbMonth.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbMonth.FormattingEnabled = true;
-            this.cmbMonth.Location = new System.Drawing.Point(193, 37);
+            this.cmbMonth.Location = new System.Drawing.Point(192, 38);
             this.cmbMonth.Name = "cmbMonth";
             this.cmbMonth.Size = new System.Drawing.Size(80, 20);
             this.cmbMonth.TabIndex = 1;
@@ -1000,7 +1000,7 @@
             this.cmbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbDay.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbDay.FormattingEnabled = true;
-            this.cmbDay.Location = new System.Drawing.Point(282, 37);
+            this.cmbDay.Location = new System.Drawing.Point(281, 38);
             this.cmbDay.Name = "cmbDay";
             this.cmbDay.Size = new System.Drawing.Size(53, 20);
             this.cmbDay.TabIndex = 0;
@@ -1016,7 +1016,7 @@
             this.cmbYear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbYear.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbYear.FormattingEnabled = true;
-            this.cmbYear.Location = new System.Drawing.Point(104, 37);
+            this.cmbYear.Location = new System.Drawing.Point(103, 38);
             this.cmbYear.Name = "cmbYear";
             this.cmbYear.Size = new System.Drawing.Size(71, 20);
             this.cmbYear.TabIndex = 2;
@@ -1027,9 +1027,9 @@
             this.rbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbDay.Location = new System.Drawing.Point(23, 41);
+            this.rbDay.Location = new System.Drawing.Point(27, 42);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(48, 18);
+            this.rbDay.Size = new System.Drawing.Size(43, 17);
             this.rbDay.TabIndex = 4;
             this.rbDay.Text = "יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -1039,7 +1039,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(154, 22);
+            this.label1.Location = new System.Drawing.Point(153, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 12);
             this.label1.TabIndex = 3;
@@ -1051,9 +1051,9 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Checked = true;
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbNight.Location = new System.Drawing.Point(14, 21);
+            this.rbNight.Location = new System.Drawing.Point(22, 22);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(57, 18);
+            this.rbNight.Size = new System.Drawing.Size(48, 17);
             this.rbNight.TabIndex = 3;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "לילה";
@@ -1064,7 +1064,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(245, 22);
+            this.label2.Location = new System.Drawing.Point(244, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 4;
@@ -1076,16 +1076,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNotes.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.txtNotes.Location = new System.Drawing.Point(9, 77);
+            this.txtNotes.Location = new System.Drawing.Point(10, 77);
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(326, 19);
+            this.txtNotes.Size = new System.Drawing.Size(324, 19);
             this.txtNotes.TabIndex = 5;
             // 
             // btnEnter
             // 
             this.btnEnter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEnter.BackColor = System.Drawing.Color.BurlyWood;
-            this.btnEnter.Location = new System.Drawing.Point(260, 102);
+            this.btnEnter.Location = new System.Drawing.Point(259, 102);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(75, 21);
             this.btnEnter.TabIndex = 6;
@@ -1256,6 +1256,11 @@
             this.openKavuaListToolStripMenuItem.Text = "&פתח רשימת וסת קבוע";
             this.openKavuaListToolStripMenuItem.Click += new System.EventHandler(this.openKavuaListToolStripMenuItem_Click);
             // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(260, 6);
+            // 
             // AddKavuahToolStripMenuItem
             // 
             this.AddKavuahToolStripMenuItem.Name = "AddKavuahToolStripMenuItem";
@@ -1263,12 +1268,22 @@
             this.AddKavuahToolStripMenuItem.Text = "&הוסף חדש";
             this.AddKavuahToolStripMenuItem.Click += new System.EventHandler(this.AddKavuahToolStripMenuItem_Click);
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(260, 6);
+            // 
             // SearchForKavuahsToolStripMenuItem
             // 
             this.SearchForKavuahsToolStripMenuItem.Name = "SearchForKavuahsToolStripMenuItem";
             this.SearchForKavuahsToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.SearchForKavuahsToolStripMenuItem.Text = "&חשבן וסתי קבוע";
             this.SearchForKavuahsToolStripMenuItem.Click += new System.EventHandler(this.SearchForKavuahsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(260, 6);
             // 
             // importToolStripMenuItem
             // 
@@ -1391,7 +1406,7 @@
             this.lblNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextProblem.ForeColor = System.Drawing.Color.Brown;
-            this.lblNextProblem.Location = new System.Drawing.Point(0, 231);
+            this.lblNextProblem.Location = new System.Drawing.Point(0, 234);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblNextProblem.Size = new System.Drawing.Size(882, 20);
@@ -1431,7 +1446,7 @@
             this.splitContainerMain.Panel2.Controls.Add(this.lblNextProblem);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainerMain.Size = new System.Drawing.Size(884, 538);
-            this.splitContainerMain.SplitterDistance = 282;
+            this.splitContainerMain.SplitterDistance = 279;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 23;
             // 
@@ -1458,21 +1473,6 @@
             this.pbWeb.TabIndex = 15;
             this.pbWeb.TabStop = false;
             this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(260, 6);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(260, 6);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(260, 6);
             // 
             // frmMain
             // 

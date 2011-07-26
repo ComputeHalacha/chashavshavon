@@ -22,7 +22,7 @@ namespace Chashavshavon
         }
 
         private void frmLuach_Load(object sender, EventArgs e)
-        {
+        {            
             this.DisplayMonth();
         }
 
@@ -114,7 +114,9 @@ namespace Chashavshavon
                     }
                 }
 
-                Entry entry = Entry.EntryList.FirstOrDefault(en => en.DateTime == date);
+                Entry entry = Entry.EntryList.FirstOrDefault(en => 
+                    !en.IsInvisible &&
+                    en.DateTime == date);
                 if (entry != null)
                 {
                     pnl.BackColor = Color.Pink;
@@ -200,5 +202,18 @@ namespace Chashavshavon
         {
             this.Close();
         }
+
+        private void frmLuach_ResizeBegin(object sender, EventArgs e)
+        {
+            this.tableLayoutPanel1.Visible = false;
+            this.tableLayoutPanel1.SuspendLayout();
+        }
+
+        
+        private void frmLuach_ResizeEnd(object sender, EventArgs e)
+        {
+            this.tableLayoutPanel1.ResumeLayout();
+            this.tableLayoutPanel1.Visible = true;            
+        }      
     }
 }

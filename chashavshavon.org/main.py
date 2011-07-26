@@ -44,13 +44,16 @@ def GetEntriesHTML(fileName, filexml):
     entries = xml.dom.minidom.parseString(filexml.encode( "utf-8" ))
     count = 0
     for entry in entries.getElementsByTagName('Entry'):
-        count += 1
-        date = entry.getElementsByTagName('Date')[0].childNodes[0].data
-        dn = ((entry.getElementsByTagName('DN')[0].childNodes[0].data == '1' and 'Day') or 'Night')
-        notesNode = entry.getElementsByTagName('Notes')[0].childNodes
-        notes = ((notesNode.length and notesNode[0].data) or '&nbsp;')
-        html += '<tr style="background-color:' + ('#ffffff;' if count % 2 else '#f1f1f1;') + '">'
-        html += '<td width="20">%s</td><td>%s</td><td>%s</td><td width="460">%s</td></tr>' % (count, date, dn, notes)
+        isInvisibleNodes = entry.getElementsByTagName('IsInvisible')
+        isInvisible = isInvisibleNodes.length and isInvisibleNodes[0].childNodes[0].data == 'True'
+        if not isInvisible:
+           count += 1
+           date = entry.getElementsByTagName('Date')[0].childNodes[0].data
+           dn = ((entry.getElementsByTagName('DN')[0].childNodes[0].data == '1' and 'Day') or 'Night')
+           notesNode = entry.getElementsByTagName('Notes')[0].childNodes
+           notes = ((notesNode.length and notesNode[0].data) or '&nbsp;')
+           html += '<tr style="background-color:' + ('#ffffff;' if count % 2 else '#f1f1f1;') + '">'
+           html += '<td width="20">%s</td><td>%s</td><td>%s</td><td width="460">%s</td></tr>' % (count, date, dn, notes)
     html += '</table>'
     kavuahs = entries.getElementsByTagName('Kavuah')
     if kavuahs.length:

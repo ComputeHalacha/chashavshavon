@@ -47,6 +47,9 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             this.tableLayoutPanel1.ColumnCount = 7;
@@ -65,7 +68,6 @@
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 68);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -76,7 +78,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(851, 373);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 494);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label7
@@ -85,7 +87,7 @@
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Location = new System.Drawing.Point(5, 2);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(115, 20);
+            this.label7.Size = new System.Drawing.Size(108, 20);
             this.label7.TabIndex = 6;
             this.label7.Text = "שבת קודש";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -94,9 +96,9 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Location = new System.Drawing.Point(128, 2);
+            this.label6.Location = new System.Drawing.Point(121, 2);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(113, 20);
+            this.label6.Size = new System.Drawing.Size(103, 20);
             this.label6.TabIndex = 5;
             this.label6.Text = "שישי";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -105,9 +107,9 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(249, 2);
+            this.label5.Location = new System.Drawing.Point(232, 2);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(113, 20);
+            this.label5.Size = new System.Drawing.Size(103, 20);
             this.label5.TabIndex = 4;
             this.label5.Text = "חמישי";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -116,9 +118,9 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(370, 2);
+            this.label4.Location = new System.Drawing.Point(343, 2);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(113, 20);
+            this.label4.Size = new System.Drawing.Size(103, 20);
             this.label4.TabIndex = 3;
             this.label4.Text = "רביעי";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -127,9 +129,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(491, 2);
+            this.label3.Location = new System.Drawing.Point(454, 2);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 20);
+            this.label3.Size = new System.Drawing.Size(103, 20);
             this.label3.TabIndex = 2;
             this.label3.Text = "שלישי";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -138,9 +140,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(612, 2);
+            this.label2.Location = new System.Drawing.Point(565, 2);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 20);
+            this.label2.Size = new System.Drawing.Size(103, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "שני";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -149,9 +151,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(733, 2);
+            this.label1.Location = new System.Drawing.Point(676, 2);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 20);
+            this.label1.Size = new System.Drawing.Size(103, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "ראשון";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -163,9 +165,10 @@
             // 
             // btnNextMonth
             // 
+            this.btnNextMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNextMonth.BackColor = System.Drawing.Color.Wheat;
             this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnNextMonth.Location = new System.Drawing.Point(735, 32);
+            this.btnNextMonth.Location = new System.Drawing.Point(668, 35);
             this.btnNextMonth.Name = "btnNextMonth";
             this.btnNextMonth.Size = new System.Drawing.Size(104, 30);
             this.btnNextMonth.TabIndex = 1;
@@ -177,7 +180,7 @@
             // 
             this.btnLastMonth.BackColor = System.Drawing.Color.Wheat;
             this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnLastMonth.Location = new System.Drawing.Point(7, 32);
+            this.btnLastMonth.Location = new System.Drawing.Point(7, 35);
             this.btnLastMonth.Name = "btnLastMonth";
             this.btnLastMonth.Size = new System.Drawing.Size(104, 30);
             this.btnLastMonth.TabIndex = 2;
@@ -187,9 +190,11 @@
             // 
             // lblMonthName
             // 
+            this.lblMonthName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblMonthName.ForeColor = System.Drawing.Color.Maroon;
-            this.lblMonthName.Location = new System.Drawing.Point(117, 9);
+            this.lblMonthName.Location = new System.Drawing.Point(83, 9);
             this.lblMonthName.Name = "lblMonthName";
             this.lblMonthName.Size = new System.Drawing.Size(619, 27);
             this.lblMonthName.TabIndex = 3;
@@ -198,10 +203,11 @@
             // 
             // btnClose
             // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.BackColor = System.Drawing.Color.BurlyWood;
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnClose.Location = new System.Drawing.Point(786, 2);
+            this.btnClose.Location = new System.Drawing.Point(716, 6);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(63, 23);
             this.btnClose.TabIndex = 4;
@@ -215,7 +221,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Tan;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(851, 441);
+            this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblMonthName);
             this.Controls.Add(this.btnLastMonth);
@@ -223,16 +229,17 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Tahoma", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "frmLuach";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "לוח חשבשבון";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmLuach_Load);
+            this.ResizeBegin += new System.EventHandler(this.frmLuach_ResizeBegin);
+            this.ResizeEnd += new System.EventHandler(this.frmLuach_ResizeEnd);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

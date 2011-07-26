@@ -31,6 +31,12 @@ namespace Chashavshavon
         public string Notes { get; set; }
 
         public int Interval { get; set; }
+
+        /// <summary>
+        /// When an entry should be (almost) totally ignored such as if the entry was 
+        /// imported together with a Kavuah that it was a SettngEntry for etc.
+        /// </summary>
+        public bool IsInvisible { get; set; }
         
         /// <summary>
         /// If during the addition of a new Entry the program finds 
