@@ -1287,7 +1287,6 @@ namespace Chashavshavon
             this.SetCaptionText();
         }
 
-
         /// <summary>
         /// Sorts the list of entries in order of occurrence, then sets the Interval for each Entry - 
         /// which is the days elapsed since the previous Entry.
@@ -1298,7 +1297,7 @@ namespace Chashavshavon
             Entry.EntryList.Sort(Onah.CompareOnahs);
 
             Entry previousEntry = null;
-            foreach (Entry entry in Entry.EntryList)
+            foreach (Entry entry in Entry.EntryList.Where(en => !en.IsInvisible))
             {
                 if (previousEntry != null)
                 {

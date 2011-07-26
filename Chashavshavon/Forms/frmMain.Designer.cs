@@ -252,7 +252,7 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgEntries.Size = new System.Drawing.Size(780, 246);
+            this.dgEntries.Size = new System.Drawing.Size(780, 247);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             this.dgEntries.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgEntries_CellFormatting);
@@ -1027,9 +1027,9 @@
             this.rbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbDay.Location = new System.Drawing.Point(27, 42);
+            this.rbDay.Location = new System.Drawing.Point(22, 42);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(43, 17);
+            this.rbDay.Size = new System.Drawing.Size(48, 18);
             this.rbDay.TabIndex = 4;
             this.rbDay.Text = "יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -1051,9 +1051,9 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Checked = true;
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbNight.Location = new System.Drawing.Point(22, 22);
+            this.rbNight.Location = new System.Drawing.Point(13, 22);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(48, 17);
+            this.rbNight.Size = new System.Drawing.Size(57, 18);
             this.rbNight.TabIndex = 3;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "לילה";
@@ -1406,7 +1406,7 @@
             this.lblNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextProblem.ForeColor = System.Drawing.Color.Brown;
-            this.lblNextProblem.Location = new System.Drawing.Point(0, 234);
+            this.lblNextProblem.Location = new System.Drawing.Point(0, 233);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblNextProblem.Size = new System.Drawing.Size(882, 20);
@@ -1446,7 +1446,7 @@
             this.splitContainerMain.Panel2.Controls.Add(this.lblNextProblem);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainerMain.Size = new System.Drawing.Size(884, 538);
-            this.splitContainerMain.SplitterDistance = 279;
+            this.splitContainerMain.SplitterDistance = 280;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 23;
             // 
