@@ -246,6 +246,8 @@
     <Content Include="chash.ico" />
     <None Include="Resources\database_process.png" />
     <None Include="Resources\calendar_date.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\previous.png" />
     <Content Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html" />
     <Content Include="Locations.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

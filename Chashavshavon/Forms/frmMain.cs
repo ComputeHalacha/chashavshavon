@@ -30,7 +30,7 @@ namespace Chashavshavon
             string password = this.GetPassword();
 
             InitializeComponent();
-            LocationsXmlDoc = new XmlDocument();                        
+            LocationsXmlDoc = new XmlDocument();
 
             //Fill the location list from the xml file
             LocationsXmlDoc.Load(Application.StartupPath + "\\Locations.xml");
@@ -229,19 +229,29 @@ namespace Chashavshavon
                 {
                     XmlDocument doc = new XmlDocument();
                     doc.Load(this.openFileDialog1.FileName);
-                    //After the list of Entries, there is a lst of Kavuahs
                     if (doc.SelectNodes("//Kavuah").Count > 0)
                     {
                         try
                         {
                             var ser = new XmlSerializer(typeof(List<Kavuah>));
-                            List<Kavuah> list = (List<Kavuah>)ser.Deserialize(
+                            var list = (List<Kavuah>)ser.Deserialize(
                                 new StringReader(doc.SelectSingleNode("//ArrayOfKavuah").OuterXml));
+
+                            Kavuah.KavuahsList.AddRange(list);
+
+                            /* If the setting entry of the Kavuah is not contained 
+                            * on the current list, than frmKavuah will cause an error 
+                            * as it uses the current EntryList as a DataSource for a drop-down
+                            * for the SettingEntry field and it sets its displayed value for each Kavuah
+                            * as the settingEntryDate of the Kavuah. So each Kavuah in the list 
+                            * needs a corresponding Entry in the EntryList.
+                            * This is the scenario that prompted the whole IsInvisible property of the
+                            * Entry class. */
                             foreach (Kavuah kav in list)
                             {
-                                if (!Entry.EntryList.Exists(en => 
-                                    en.DateTime == kav.SettingEntryDate && 
-                                    en.DayNight == kav.DayNight && 
+                                if (!Entry.EntryList.Exists(en =>
+                                    en.DateTime == kav.SettingEntryDate &&
+                                    en.DayNight == kav.DayNight &&
                                     en.Interval == kav.SettingEntryInterval))
                                 {
                                     Entry.EntryList.Add(new Entry(
@@ -249,22 +259,21 @@ namespace Chashavshavon
                                         Program.HebrewCalendar.GetMonth(kav.SettingEntryDate),
                                         Program.HebrewCalendar.GetYear(kav.SettingEntryDate),
                                         kav.DayNight,
-                                        "מיובא מקובץ: " + Path.GetFileName(this.openFileDialog1.FileName))
+                                        null)
                                         {
                                             IsInvisible = true
                                         });
                                 }
                             }
-                            Kavuah.KavuahsList.AddRange(list);
+                            //Clean out any overlappers
                             Kavuah.ClearDoubleKavuahs(Kavuah.KavuahsList);
 
                             this.ShowKavuahList();
                         }
                         catch
                         {
-                            MessageBox.Show("רשימת וסת קבוע בקובץ" + Environment.NewLine + "\"" +
-                                Path.GetFileName(this.openFileDialog1.FileName) + "\"" + Environment.NewLine +
-                                " .איננה תקינה",
+                            MessageBox.Show("רשימת וסת קבוע בקובץ\"" +
+                                Path.GetFileName(this.openFileDialog1.FileName) + "\" .איננה תקינה",
                                 "חשבשבון",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Exclamation,
@@ -274,9 +283,8 @@ namespace Chashavshavon
                     }
                     else
                     {
-                        MessageBox.Show("רשימת וסת קבוע בקובץ" + Environment.NewLine + "\"" +
-                            Path.GetFileName(this.openFileDialog1.FileName) + "\"" + Environment.NewLine +
-                            " ריקה.",
+                        MessageBox.Show("רשימת וסת קבוע בקובץ\"" +
+                            Path.GetFileName(this.openFileDialog1.FileName) + "\" ריקה.",
                             "חשבשבון",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information,
@@ -1618,8 +1626,8 @@ namespace Chashavshavon
             {
                 foreach (XmlNode entryNode in xml.SelectNodes("//Entry"))
                 {
-                    bool isInvisible = entryNode.SelectSingleNode("IsInvisible") == null ? 
-                        false : 
+                    bool isInvisible = entryNode.SelectSingleNode("IsInvisible") == null ?
+                        false :
                         Convert.ToBoolean(entryNode.SelectSingleNode("IsInvisible").InnerText);
                     int day = Convert.ToInt32(entryNode.SelectSingleNode("Day").InnerText);
                     int month = Convert.ToInt32(entryNode.SelectSingleNode("Month").InnerText);
@@ -1627,9 +1635,9 @@ namespace Chashavshavon
                     DayNight dayNight = (DayNight)Convert.ToInt32(entryNode.SelectSingleNode("DN").InnerText);
                     string notes = entryNode.SelectSingleNode("Notes").InnerText;
 
-                    Entry newEntry = new Entry(day, month, year, dayNight, notes) 
-                    { 
-                        IsInvisible = isInvisible 
+                    Entry newEntry = new Entry(day, month, year, dayNight, notes)
+                    {
+                        IsInvisible = isInvisible
                     };
 
                     // If during the addition of a new Entry the program finds 
@@ -1764,6 +1772,6 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion        
-     }
+        #endregion
+    }
 }

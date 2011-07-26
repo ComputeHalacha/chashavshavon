@@ -167,24 +167,32 @@
             // 
             this.btnNextMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNextMonth.BackColor = System.Drawing.Color.Wheat;
-            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnNextMonth.Location = new System.Drawing.Point(668, 35);
+            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnNextMonth.ForeColor = System.Drawing.Color.IndianRed;
+            this.btnNextMonth.Image = global::Chashavshavon.Properties.Resources.previous;
+            this.btnNextMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNextMonth.Location = new System.Drawing.Point(689, 27);
             this.btnNextMonth.Name = "btnNextMonth";
-            this.btnNextMonth.Size = new System.Drawing.Size(104, 30);
+            this.btnNextMonth.Size = new System.Drawing.Size(90, 34);
             this.btnNextMonth.TabIndex = 1;
             this.btnNextMonth.Text = "button1";
+            this.btnNextMonth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNextMonth.UseVisualStyleBackColor = false;
             this.btnNextMonth.Click += new System.EventHandler(this.btnNextMonth_Click);
             // 
             // btnLastMonth
             // 
             this.btnLastMonth.BackColor = System.Drawing.Color.Wheat;
-            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnLastMonth.Location = new System.Drawing.Point(7, 35);
+            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnLastMonth.ForeColor = System.Drawing.Color.IndianRed;
+            this.btnLastMonth.Image = global::Chashavshavon.Properties.Resources.next;
+            this.btnLastMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLastMonth.Location = new System.Drawing.Point(5, 27);
             this.btnLastMonth.Name = "btnLastMonth";
-            this.btnLastMonth.Size = new System.Drawing.Size(104, 30);
+            this.btnLastMonth.Size = new System.Drawing.Size(90, 34);
             this.btnLastMonth.TabIndex = 2;
             this.btnLastMonth.Text = "button2";
+            this.btnLastMonth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLastMonth.UseVisualStyleBackColor = false;
             this.btnLastMonth.Click += new System.EventHandler(this.btnLastMonth_Click);
             // 
@@ -194,9 +202,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblMonthName.ForeColor = System.Drawing.Color.Maroon;
-            this.lblMonthName.Location = new System.Drawing.Point(83, 9);
+            this.lblMonthName.Location = new System.Drawing.Point(99, 14);
             this.lblMonthName.Name = "lblMonthName";
-            this.lblMonthName.Size = new System.Drawing.Size(619, 27);
+            this.lblMonthName.Size = new System.Drawing.Size(587, 27);
             this.lblMonthName.TabIndex = 3;
             this.lblMonthName.Text = "label8";
             this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -204,12 +212,14 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.AutoSize = true;
+            this.btnClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClose.BackColor = System.Drawing.Color.BurlyWood;
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnClose.Location = new System.Drawing.Point(716, 6);
+            this.btnClose.Font = new System.Drawing.Font("Narkisim", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnClose.Location = new System.Drawing.Point(-100, 2);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(63, 23);
+            this.btnClose.Size = new System.Drawing.Size(33, 21);
             this.btnClose.TabIndex = 4;
             this.btnClose.Text = "סגור";
             this.btnClose.UseVisualStyleBackColor = false;
@@ -236,13 +246,13 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "לוח חשבשבון";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmLuach_Load);
             this.ResizeBegin += new System.EventHandler(this.frmLuach_ResizeBegin);
             this.ResizeEnd += new System.EventHandler(this.frmLuach_ResizeEnd);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

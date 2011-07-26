@@ -42,8 +42,8 @@ namespace Chashavshavon
             int currentRow = 1, currentColumn = firstDayOfWeek - 1;
 
             this.lblMonthName.Text = this._monthToDisplay.ToString("MMM yyyy");
-            this.btnLastMonth.Text = "<--  " + this._monthToDisplay.AddMonths(-1).ToString("MMM");
-            this.btnNextMonth.Text = this._monthToDisplay.AddMonths(1).ToString("MMM") + "  -->";
+            this.btnLastMonth.Text = "  " + this._monthToDisplay.AddMonths(-1).ToString("MMM") + "  ";
+            this.btnNextMonth.Text = "  " + this._monthToDisplay.AddMonths(1).ToString("MMM") + "  ";
 
             for (int i = 0; i < 7; i++)
             {
