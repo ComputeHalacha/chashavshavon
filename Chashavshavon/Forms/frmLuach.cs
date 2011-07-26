@@ -66,7 +66,7 @@ namespace Chashavshavon
                     Dock = DockStyle.Fill,
                     BackColor = Color.White,
                     BorderStyle = Program.Today.IsSameday(date) ? BorderStyle.FixedSingle : BorderStyle.None,
-                    Tag = i
+                    Tag = date
                 };
 
                 pnl.Click += new EventHandler(AddNewEntry);
@@ -108,7 +108,8 @@ namespace Chashavshavon
                     {
                         foreach (var o in pOnahs)
                         {
-                            onahText += o.HebrewDayNight + " - " + o.Name + Environment.NewLine;
+                            onahText += (o.IsIgnored ? "[" : "") + o.HebrewDayNight + " - " + 
+                                o.Name + (o.IsIgnored ? "]" : "") + Environment.NewLine;
                         }
                         this.toolTip1.SetToolTip(pnl, onahText);
                     }
@@ -150,7 +151,7 @@ namespace Chashavshavon
 
                 foreach (Label lbl in pnl.Controls.OfType<Label>())
                 {
-                    lbl.Tag = i;
+                    lbl.Tag = date;
                     lbl.Click += new EventHandler(AddNewEntry);
                     if (!string.IsNullOrEmpty(onahText))
                     {
@@ -176,9 +177,7 @@ namespace Chashavshavon
 
         void AddNewEntry(object sender, EventArgs e)
         {
-            frmAddNewEntry f = new frmAddNewEntry((int)((Control)sender).Tag,
-                Program.HebrewCalendar.GetMonth(this._monthToDisplay),
-                Program.HebrewCalendar.GetYear(this._monthToDisplay));
+            frmAddNewEntry f = new frmAddNewEntry((DateTime)((Control)sender).Tag);
             if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 //Refresh in case of change to current month

@@ -1470,9 +1470,7 @@ namespace Chashavshavon
 
         private void ShowDayDetails(DateTime dateTime)
         {
-            frmAddNewEntry f = new frmAddNewEntry(Program.HebrewCalendar.GetDayOfMonth(dateTime),
-                Program.HebrewCalendar.GetMonth(dateTime),
-                Program.HebrewCalendar.GetYear(dateTime));
+            frmAddNewEntry f = new frmAddNewEntry(dateTime);
             f.ShowDialog();
         }
 

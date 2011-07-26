@@ -42,6 +42,7 @@
             this.btnLastMonth = new System.Windows.Forms.Button();
             this.lblMonthName = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -211,7 +212,6 @@
             // 
             // btnClose
             // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.AutoSize = true;
             this.btnClose.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnClose.BackColor = System.Drawing.Color.BurlyWood;
@@ -225,6 +225,17 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Location = new System.Drawing.Point(213, 54);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(359, 11);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "התראות שיתכן שאינם פעילים עקב וסת קבוע וכדומה, [מוסגרים בסוגריים מרובעים]";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // frmLuach
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(5F, 11F);
@@ -232,6 +243,7 @@
             this.BackColor = System.Drawing.Color.Tan;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblMonthName);
             this.Controls.Add(this.btnLastMonth);
@@ -271,6 +283,7 @@
         private System.Windows.Forms.Button btnLastMonth;
         private System.Windows.Forms.Label lblMonthName;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label label8;
 
 
     }
