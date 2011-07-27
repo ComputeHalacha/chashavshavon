@@ -27,7 +27,7 @@ namespace Chashavshavon
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
 
-            if(string.IsNullOrEmpty(Properties.Settings.Default.ChashFilesPath))
+            if (string.IsNullOrEmpty(Properties.Settings.Default.ChashFilesPath))
             {
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Chashavshavon Files";
                 if (!System.IO.Directory.Exists(path))
@@ -39,11 +39,11 @@ namespace Chashavshavon
             }
             if (args.Length > 0)
             {
-                MainForm = new frmMain(args[0]);                
+                MainForm = new frmMain(args[0]);
             }
             else
             {
-                MainForm = new frmMain();                
+                MainForm = new frmMain();
             }
             Application.Run(MainForm);
         }
@@ -61,7 +61,7 @@ namespace Chashavshavon
                             MessageBoxDefaultButton.Button1,
                             MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
-     
+
         #region Extention Methods
         /// <summary>
         /// Tests to see if an object equals any one of the objects in a list.
@@ -86,16 +86,9 @@ namespace Chashavshavon
         /// <returns></returns>
         public static bool IsSameday(this DateTime firstDate, DateTime secondDate)
         {
-            bool isSameDate = false;
-            if (firstDate.Year == secondDate.Year
-                &&
-                firstDate.Month == secondDate.Month
-                &&
-                firstDate.Day == secondDate.Day)
-            {
-                isSameDate = true;
-            }
-            return isSameDate;
+            return (HebrewCalendar.GetYear(firstDate) == HebrewCalendar.GetYear(secondDate) &&
+                HebrewCalendar.GetMonth(firstDate) == HebrewCalendar.GetMonth(secondDate) &&
+                HebrewCalendar.GetDayOfMonth(firstDate) == HebrewCalendar.GetDayOfMonth(secondDate));           
         }
         #endregion
     }

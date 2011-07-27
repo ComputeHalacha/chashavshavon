@@ -116,10 +116,30 @@ namespace Chashavshavon
             return previousOnah;
         }
 
-        public static bool IsSameOnah(Onah first, Onah second)
+        public static bool IsSameOnahPeriod(Onah first, Onah second)
         {
             return (first.DateTime.IsSameday(second.DateTime) && first.DayNight == second.DayNight);
         }
+
+        public static bool IsSimilarOnah(Onah first, Onah second)
+        {
+            return (IsSameOnahPeriod(first, second) && (first.Name == second.Name));
+        }
+
+        /// <summary>
+        /// Removes double Onahs from list
+        /// </summary>
+        /// <param name="list"></param>
+        public static void ClearDoubleOnahs(List<Onah> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list.Exists(o => IsSimilarOnah(o, list[i])))
+                {
+                    list.RemoveAt(i);
+                }
+            }
+        }        
 
         /// <summary>
         /// This function is used to sort the Onahs/Entries by date

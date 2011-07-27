@@ -607,7 +607,7 @@ namespace Chashavshavon
                     lblNextDayEntryStuff.Text = "עונה: " + entry.HebrewDayNight + "\nהפלגה: " + entry.Interval.ToString();
                 }
             }
-            this.CalculateCalendar();
+            this.CalculateProblemOnahs();
         }
 
         private void ShowKavuahList()
@@ -657,7 +657,8 @@ namespace Chashavshavon
             }
         }
 
-        private void CalculateCalendar()
+        #region Calculate Problem Onahs        
+        private void CalculateProblemOnahs()
         {
             this.ClearCalendar();
             if (Entry.EntryList.Count == 0)
@@ -674,12 +675,16 @@ namespace Chashavshavon
             //A list of Onahs that need to be kept. The list is worked out from the list of Entries.
             //Problem Onahs are searched for from the date of each entry until the number of months specified in the 
             //Property Setting "numberMonthsAheadToWarn"
-            this.SetProblemOnahs();
+            this.SetEntryListDependentProblemOnahs();
 
             //Get the onahs that need to be kept for Kavuahs of yom hachodesh, sirug, 
             //dilug (from projected day - not actual entry)
             //and other Kavuahs that are not dependent on the actual entry list
-            this.ProblemOnas.AddRange(this.GetIndependentKavuahOnahs(onahs));
+            this.SetIndependentKavuahProblemOnahs(onahs);
+
+            //Clean out doubles
+            //TODO:Figure out why more than just doubles are getting deleted from the following
+            //Onah.ClearDoubleOnahs(this.ProblemOnas);
 
             //Goes through the list of problem Onahs and matches it up to the 8 Onahs in the calendar.
             //If any match - meaning that calendar Onah needs to be kept, the appropriate calendar box is filled and colored.
@@ -690,16 +695,215 @@ namespace Chashavshavon
             this.SetWeekListHtml();
         }
 
+        private void SetEntryListDependentProblemOnahs()
+        {
+            foreach (Entry entry in Entry.EntryList.Where(en => !en.IsInvisible))
+            {
+                this.SetOnahBeinenisProblemOnahs(entry);
+                this.SetEntryDependentKavuahProblemOnahs(entry);
+            }
+        }
+
+        private void SetOnahBeinenisProblemOnahs(Entry entry)
+        {
+            bool cancelOnahBeinenis = Kavuah.KavuahsList.Exists(k => k.Active && k.CancelsOnahBeinanis);
+
+            //Day Thirty
+            Onah thirty = entry.AddDays(29);
+            thirty.Name = "יום שלושים";
+            thirty.IsIgnored = cancelOnahBeinenis;
+            this.ProblemOnas.Add(thirty);
+
+            //If the user wants to keep 24 for the Onah Beinenis
+            if (Properties.Settings.Default.OnahBenIs24Hours)
+            {
+                Onah o = thirty.Clone();
+                o.DayNight = o.DayNight == DayNight.Day ? DayNight.Night : DayNight.Day;
+                this.ProblemOnas.Add(o);
+            }
+
+            //If the user wants to see the Ohr Zarua  - the previous onah
+            if (Properties.Settings.Default.ShowOhrZeruah)
+            {
+                Onah thirtyOhrZarua = Onah.GetPreviousOnah(thirty);
+                thirtyOhrZarua.Name = "או\"ז - יום שלושים";
+                thirtyOhrZarua.IsIgnored = cancelOnahBeinenis;
+                this.ProblemOnas.Add(thirtyOhrZarua);
+            }
+
+            //Day Thirty One
+            Onah thirtyOne = entry.AddDays(30);
+            thirtyOne.Name = "יום ל\"א";
+            thirtyOne.IsIgnored = cancelOnahBeinenis;
+            this.ProblemOnas.Add(thirtyOne);
+
+            if (Properties.Settings.Default.OnahBenIs24Hours)
+            {
+                Onah o = thirtyOne.Clone();
+                o.DayNight = o.DayNight == DayNight.Day ? DayNight.Night : DayNight.Day;
+                this.ProblemOnas.Add(o);
+            }
+
+            if (Properties.Settings.Default.ShowOhrZeruah)
+            {
+                Onah thirtyOneOhrZarua = Onah.GetPreviousOnah(thirtyOne);
+                thirtyOneOhrZarua.Name = "או\"ז - יום ל\"א";
+                thirtyOneOhrZarua.IsIgnored = cancelOnahBeinenis;
+                this.ProblemOnas.Add(thirtyOneOhrZarua);
+            }
+
+            //Haflagah
+            if (entry.Interval > 0)
+            {
+                if (!Properties.Settings.Default.KeepLongerHaflagah)
+                {
+                    Onah intervalHaflagah = entry.AddDays(entry.Interval - 1);
+                    intervalHaflagah.Name = "יום הפלגה (" + entry.Interval + ")";
+                    intervalHaflagah.IsIgnored = cancelOnahBeinenis;
+                    this.ProblemOnas.Add(intervalHaflagah);
+
+                    if (Properties.Settings.Default.ShowOhrZeruah)
+                    {
+                        Onah intervalHaflagahOhrZarua = Onah.GetPreviousOnah(intervalHaflagah);
+                        intervalHaflagahOhrZarua.Name = "או\"ז - " + intervalHaflagah.Name;
+                        intervalHaflagahOhrZarua.IsIgnored = cancelOnahBeinenis;
+                        this.ProblemOnas.Add(intervalHaflagahOhrZarua);
+                    }
+                }
+                else
+                {                    
+                    //First we look for a proceeding entry where the haflagah is longer than this one
+                    DateTime longerHaflagah = (from 
+                                             e in Entry.EntryList
+                                         where
+                                            e.DateTime > entry.DateTime &&
+                                            e.Interval > entry.Interval
+                                         select 
+                                            e.DateTime).FirstOrDefault();
+
+                    //If no such entry was found, we keep on going...
+                    if (longerHaflagah == DateTime.MinValue)
+                    {
+                        longerHaflagah = Program.HebrewCalendar.AddMonths(Program.Today, 
+                            Properties.Settings.Default.NumberMonthsAheadToWarn);
+                    }
+
+                    //TODO:How to cheshbon out the Shach (or rather not like the shach).
+                    //Is the question from the actual next entry or from the theoretical next entry or both?
+
+                    //First the theoretical problems - not based on real entries
+                    //We get the first problem Onah
+                    Onah on = entry.AddDays(entry.Interval - 1);
+                    //We don't flag the "שלא נתבטלה" for the first one, so we keep track
+                    bool isFirst = true;
+                    while (on.DateTime < longerHaflagah)
+                    {
+                        on.Name = "יום הפלגה (" + entry.Interval + ")";
+                        if (!isFirst)
+                        {
+                            on.Name += " שלא נתבטלה";
+                        }
+                        on.IsIgnored = cancelOnahBeinenis;
+                        this.ProblemOnas.Add(on);
+                        if (Properties.Settings.Default.ShowOhrZeruah)
+                        {
+                            Onah ooz = Onah.GetPreviousOnah(on);
+                            ooz.Name = "או\"ז - " + on.Name;
+                            ooz.IsIgnored = cancelOnahBeinenis;
+                            this.ProblemOnas.Add(ooz);
+                        }
+                        isFirst = false;
+                        on = on.AddDays(entry.Interval - 1);
+                    }
+
+                    //Now for the non-overided haflagah from the actual entries
+                    foreach (Entry en in Entry.EntryList.Where(e => 
+                        e.DateTime > entry.DateTime && e.DateTime < longerHaflagah))
+                    {
+                        on = en.AddDays(entry.Interval - 1);
+                        on.Name = "יום הפלגה (" + entry.Interval + ") שלא נתבטלה";                        
+                        on.IsIgnored = cancelOnahBeinenis;
+                        this.ProblemOnas.Add(on);
+                        if (Properties.Settings.Default.ShowOhrZeruah)
+                        {
+                            Onah ooz = Onah.GetPreviousOnah(on);
+                            ooz.Name = "או\"ז - " + on.Name;
+                            ooz.IsIgnored = cancelOnahBeinenis;
+                            this.ProblemOnas.Add(ooz);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SetEntryDependentKavuahProblemOnahs(Entry entry)
+        {
+            //Kavuah Haflagah - with or without Maayan Pasuach
+            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
+                k.KavuahType.In(KavuahType.Haflagah, KavuahType.HaflagaMaayanPasuach) && k.Active))
+            {
+                Onah kavuahHaflaga = entry.AddDays(kavuah.Number - 1);
+                kavuahHaflaga.DayNight = kavuah.DayNight;
+                kavuahHaflaga.Name = "קבוע " + kavuah.KavuahDescriptionHebrew;
+                this.ProblemOnas.Add(kavuahHaflaga);
+
+                if (Properties.Settings.Default.ShowOhrZeruah)
+                {
+                    Onah kavuahHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahHaflaga);
+                    kavuahHaflagaOhrZarua.Name = " או\"ז - " + kavuahHaflaga.Name;
+                    this.ProblemOnas.Add(kavuahHaflagaOhrZarua);
+                }
+            }
+
+            if (Properties.Settings.Default.CheshbonKavuahByActualEntry)
+            {
+                //Kavvuah Dilug Haflagos - from actual entry not from what was supposed to be. We cheshbon both.
+                //The theoretical ones, are worked out in the function "GetIndependentKavuahOnahs"
+                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DilugHaflaga && k.Active))
+                {
+                    Onah kavuahDilugHaflaga = entry.AddDays(entry.Interval + kavuah.Number - 1);
+                    kavuahDilugHaflaga.DayNight = kavuah.DayNight;
+                    kavuahDilugHaflaga.Name = "קבוע " + kavuah.KavuahDescriptionHebrew + " ע\"פ ראייה";
+                    this.ProblemOnas.Add(kavuahDilugHaflaga);
+
+                    if (Properties.Settings.Default.ShowOhrZeruah)
+                    {
+                        Onah kavuahDilugHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahDilugHaflaga);
+                        kavuahDilugHaflagaOhrZarua.Name = " או\"ז - " + kavuahDilugHaflaga.Name;
+                        this.ProblemOnas.Add(kavuahDilugHaflagaOhrZarua);
+                    }
+                }
+
+                //TODO: Does Dilug of Yom Hachodesh continue from an actual entry even if it is off cheshbon? For ex. 35, 34, 33, 36 - is the next "35" or just continues theoretically 32, 31....
+                //Kavvuah Dilug Yom Hachodesh - even if one was off, only works out from entry not from what was supposed to be.
+                //We cheshbon both.
+                //The theoretical ones, are worked out in the function "GetIndependentKavuahOnahs"
+                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DilugDayOfMonth && k.Active))
+                {
+                    DateTime next = Program.HebrewCalendar.AddMonths(entry.DateTime, 1);
+                    next = next.AddDays(kavuah.Number);
+                    Onah kavuahDilugDayofMonth = new Onah(next, kavuah.DayNight);
+                    kavuahDilugDayofMonth.Name = "קבוע " + kavuah.KavuahDescriptionHebrew;
+                    this.ProblemOnas.Add(kavuahDilugDayofMonth);
+
+                    if (Properties.Settings.Default.ShowOhrZeruah)
+                    {
+                        Onah kavuahDilugDayofMonthOhrZarua = Onah.GetPreviousOnah(kavuahDilugDayofMonth);
+                        kavuahDilugDayofMonthOhrZarua.Name = " או\"ז - " + kavuahDilugDayofMonth.Name;
+                        this.ProblemOnas.Add(kavuahDilugDayofMonthOhrZarua);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Work out the Kavuahs of yom hachodesh, sirug, dilug haflagos (from projected day - not actual entry)
         /// and other Kavuahs that are not dependant on the entry list
         /// </summary>
         /// <param name="onahs"></param>
         /// <returns></returns>
-        private List<Onah> GetIndependentKavuahOnahs(List<Onah> onahs)
+        private void SetIndependentKavuahProblemOnahs(List<Onah> onahs)
         {
-            var list = new List<Onah>();
-
             //Kavuahs of Yom Hachodesh and Sirug
             foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
                                         k.Active &&
@@ -717,12 +921,12 @@ namespace Chashavshavon
                         Name = kavuah.KavuahDescriptionHebrew,
                         Day = Program.HebrewCalendar.GetDayOfMonth(kavuah.SettingEntryDate)
                     };
-                    list.Add(o);
+                    this.ProblemOnas.Add(o);
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         var ooz = Onah.GetPreviousOnah(o);
                         ooz.Name = " או\"ז - " + o.Name;
-                        list.Add(ooz);
+                        this.ProblemOnas.Add(ooz);
                     }
                 }
             }
@@ -739,12 +943,12 @@ namespace Chashavshavon
                     {
                         Name = "קבוע " + kavuah.KavuahDescriptionHebrew,
                     };
-                    list.Add(o);
+                    this.ProblemOnas.Add(o);
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         var ooz = Onah.GetPreviousOnah(o);
                         ooz.Name = " או\"ז - " + o.Name;
-                        list.Add(ooz);
+                        this.ProblemOnas.Add(ooz);
                     }
                 }
             }
@@ -772,12 +976,12 @@ namespace Chashavshavon
                         {
                             Name = "קבוע " + kavuah.KavuahDescriptionHebrew
                         };
-                        list.Add(o);
+                        this.ProblemOnas.Add(o);
                         if (Properties.Settings.Default.ShowOhrZeruah)
                         {
                             var ooz = Onah.GetPreviousOnah(o);
                             ooz.Name = " או\"ז - " + o.Name;
-                            list.Add(ooz);
+                            this.ProblemOnas.Add(ooz);
                         }
                     }
                 }
@@ -807,61 +1011,23 @@ namespace Chashavshavon
                             //Negative kavuahs of haflagah are just a chumra
                             IsChumrah = kavuah.Number < 1
                         };
-                        list.Add(o);
+                        this.ProblemOnas.Add(o);
                         if (Properties.Settings.Default.ShowOhrZeruah)
                         {
                             var ooz = Onah.GetPreviousOnah(o);
                             ooz.Name = " או\"ז - " + o.Name;
-                            list.Add(ooz);
+                            this.ProblemOnas.Add(ooz);
                         }
                     }
                 }
             }
-
-            return list;
-        }
-
-        private string GetNextOnahText()
-        {
-            string nextProblemText = "";
-            if (this.ProblemOnas.Count > 0)
-            {
-                //We need to determine the earliest problem Onah, so we need to do a 
-                //special sort on the list where the night Onah is before the day one for the same date.
-                this.ProblemOnas.Sort(Onah.CompareOnahs);
-
-                Onah nowProblem = this.ProblemOnas.FirstOrDefault(o => (!o.IsIgnored) && Onah.IsSameOnah(o, Program.NowOnah));
-                Onah nextProblem = this.ProblemOnas.FirstOrDefault(o => (!o.IsIgnored) && (Onah.CompareOnahs(o, Program.NowOnah) == 1));
-
-                if (nowProblem != null)
-                {
-                    nextProblemText += "עכשיו הוא " + nowProblem.Name;
-                }
-
-                if (nextProblem != null)
-                {
-                    if (nextProblemText.Length > 0)
-                    {
-                        nextProblemText += " - ";
-                    }
-                    nextProblemText += "העונה הבאה בעוד " +
-                        ((nextProblem.DateTime - Program.Today).Days + 1).ToString() +
-                        " ימים - בתאריך: " +
-                        nextProblem.DateTime.ToString("dd MMMM yyyy") +
-                        " (" +
-                        nextProblem.HebrewDayNight +
-                        ") שהוא " +
-                        nextProblem.Name;
-                }
-            }
-            return nextProblemText;
         }
 
         private void ProcessProblemOnahList(List<Onah> onahs)
         {
             foreach (Onah onah in onahs)
             {
-                foreach (Onah problemOnah in this.ProblemOnas.Where(o => Onah.IsSameOnah(onah, o)))
+                foreach (Onah problemOnah in this.ProblemOnas.Where(o => Onah.IsSameOnahPeriod(onah, o)))
                 {
                     switch (onahs.IndexOf(onah))
                     {
@@ -916,180 +1082,40 @@ namespace Chashavshavon
             return onahs;
         }
 
-        private void SetProblemOnahs()
+        private string GetNextOnahText()
         {
-            Onah thirty,
-               thirtyOhrZarua,
-               thirtyOne,
-               thirtyOneOhrZarua,
-               intervalHaflagah,
-               intervalHaflagahOhrZarua,
-               kavuahHaflaga,
-               kavuahHaflagaOhrZarua,
-               kavuahDilugHaflaga,
-               kavuahDilugHaflagaOhrZarua,
-               kavuahDilugDayofMonth,
-               kavuahDilugDayofMonthOhrZarua;
-
-            foreach (Entry entry in Entry.EntryList.Where(en => !en.IsInvisible))
+            string nextProblemText = "";
+            if (this.ProblemOnas.Count > 0)
             {
-                bool hasCancelByKavuah = Kavuah.KavuahsList.Exists(k => k.Active && k.CancelsOnahBeinanis);
+                //We need to determine the earliest problem Onah, so we need to do a 
+                //special sort on the list where the night Onah is before the day one for the same date.
+                this.ProblemOnas.Sort(Onah.CompareOnahs);
 
-                //The 30th day after any entry is usually assur as an onah beinanus (unless there is a set Kavuah)
-                thirty = entry.AddDays(29);
-                thirty.Name = "יום שלושים";
-                thirty.IsIgnored = hasCancelByKavuah;
-                this.ProblemOnas.Add(thirty);
+                Onah nowProblem = this.ProblemOnas.FirstOrDefault(o => (!o.IsIgnored) && Onah.IsSameOnahPeriod(o, Program.NowOnah));
+                Onah nextProblem = this.ProblemOnas.FirstOrDefault(o => (!o.IsIgnored) && (Onah.CompareOnahs(o, Program.NowOnah) == 1));
 
-                //If the user wants to keep 24 for the Onah Beinenis
-                if (Properties.Settings.Default.OnahBenIs24Hours)
+                if (nowProblem != null)
                 {
-                    Onah o = thirty.Clone();
-                    o.DayNight = o.DayNight == DayNight.Day ? DayNight.Night : DayNight.Day;
-                    this.ProblemOnas.Add(o);
+                    nextProblemText += "עכשיו הוא " + nowProblem.Name;
                 }
 
-                //If the user wants to see the Ohr Zarua  - the previous onah
-                if (Properties.Settings.Default.ShowOhrZeruah)
+                if (nextProblem != null)
                 {
-                    thirtyOhrZarua = Onah.GetPreviousOnah(thirty);
-                    thirtyOhrZarua.Name = "או\"ז - יום שלושים";
-                    thirtyOhrZarua.IsIgnored = hasCancelByKavuah;
-                    this.ProblemOnas.Add(thirtyOhrZarua);
-                }
-
-                //31 is also an onah beinonus 
-                thirtyOne = entry.AddDays(30);
-                thirtyOne.Name = "יום ל\"א";
-                thirtyOne.IsIgnored = hasCancelByKavuah;
-                this.ProblemOnas.Add(thirtyOne);
-
-                if (Properties.Settings.Default.OnahBenIs24Hours)
-                {
-                    Onah o = thirtyOne.Clone();
-                    o.DayNight = o.DayNight == DayNight.Day ? DayNight.Night : DayNight.Day;
-                    this.ProblemOnas.Add(o);
-                }
-
-                if (Properties.Settings.Default.ShowOhrZeruah)
-                {
-                    thirtyOneOhrZarua = Onah.GetPreviousOnah(thirtyOne);
-                    thirtyOneOhrZarua.Name = "או\"ז - יום ל\"א";
-                    thirtyOneOhrZarua.IsIgnored = hasCancelByKavuah;
-                    this.ProblemOnas.Add(thirtyOneOhrZarua);
-                }
-
-                //Each Entry has an interval - the number of days from the previous entry
-                if (entry.Interval > 0)
-                {
-                    if (!Properties.Settings.Default.KeepLongerHaflagah)
+                    if (nextProblemText.Length > 0)
                     {
-                        intervalHaflagah = entry.AddDays(entry.Interval - 1);
-                        intervalHaflagah.Name = "יום הפלגה (" + entry.Interval + ")";
-                        intervalHaflagah.IsIgnored = hasCancelByKavuah;
-                        this.ProblemOnas.Add(intervalHaflagah);
-
-                        if (Properties.Settings.Default.ShowOhrZeruah)
-                        {
-                            intervalHaflagahOhrZarua = Onah.GetPreviousOnah(intervalHaflagah);
-                            intervalHaflagahOhrZarua.Name = "או\"ז - " + intervalHaflagah.Name;
-                            intervalHaflagahOhrZarua.IsIgnored = hasCancelByKavuah;
-                            this.ProblemOnas.Add(intervalHaflagahOhrZarua);
-                        }
+                        nextProblemText += " - ";
                     }
-                    else
-                    {
-                        //TODO:How to cheshbon out the Shach (or rather not like the shach). Is the question from the actual next entry or from the theoretical next entry
-                        DateTime endCheck = (from e in Entry.EntryList
-                                             where
-                                                e.DateTime > entry.DateTime &&
-                                                e.Interval > entry.Interval
-                                             select e.DateTime).FirstOrDefault();
-                        if (endCheck == DateTime.MinValue)
-                        {
-                            endCheck = Program.HebrewCalendar.AddMonths(Program.Today, Properties.Settings.Default.NumberMonthsAheadToWarn);
-                        }
-                        Onah on = entry.AddDays(entry.Interval - 1);
-                        bool isFirst = true;
-                        while (on.DateTime < endCheck)
-                        {
-                            on.Name = "יום הפלגה (" + entry.Interval + ")";
-                            if (!isFirst)
-                            {
-                                on.Name += " שלא נתבטלה";
-                            }
-                            on.IsIgnored = hasCancelByKavuah;
-                            this.ProblemOnas.Add(on);
-                            if (Properties.Settings.Default.ShowOhrZeruah)
-                            {
-                                Onah ooz = Onah.GetPreviousOnah(on);
-                                ooz.Name = "או\"ז - " + on.Name;
-                                ooz.IsIgnored = hasCancelByKavuah;
-                                this.ProblemOnas.Add(ooz);
-                            }
-                            isFirst = false;
-                            on = on.AddDays(entry.Interval);
-                        }
-                    }
-                }
-
-                //Kavuah Haflagah - with or without Maayan Pasuach
-                foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
-                    k.KavuahType.In(KavuahType.Haflagah, KavuahType.HaflagaMaayanPasuach) && k.Active))
-                {
-                    kavuahHaflaga = entry.AddDays(kavuah.Number - 1);
-                    kavuahHaflaga.DayNight = kavuah.DayNight;
-                    kavuahHaflaga.Name = "קבוע " + kavuah.KavuahDescriptionHebrew;
-                    this.ProblemOnas.Add(kavuahHaflaga);
-
-                    if (Properties.Settings.Default.ShowOhrZeruah)
-                    {
-                        kavuahHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahHaflaga);
-                        kavuahHaflagaOhrZarua.Name = " או\"ז - " + kavuahHaflaga.Name;
-                        this.ProblemOnas.Add(kavuahHaflagaOhrZarua);
-                    }
-                }
-
-                if (Properties.Settings.Default.CheshbonKavuahByActualEntry)
-                {
-                    //Kavvuah Dilug Haflagos - from actual entry not from what was supposed to be. We cheshbon both.
-                    //The theoretical ones, are worked out in the function "GetIndependentKavuahOnahs"
-                    foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DilugHaflaga && k.Active))
-                    {
-                        kavuahDilugHaflaga = entry.AddDays(entry.Interval + kavuah.Number - 1);
-                        kavuahDilugHaflaga.DayNight = kavuah.DayNight;
-                        kavuahDilugHaflaga.Name = "קבוע " + kavuah.KavuahDescriptionHebrew + " ע\"פ ראייה";
-                        this.ProblemOnas.Add(kavuahDilugHaflaga);
-
-                        if (Properties.Settings.Default.ShowOhrZeruah)
-                        {
-                            kavuahDilugHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahDilugHaflaga);
-                            kavuahDilugHaflagaOhrZarua.Name = " או\"ז - " + kavuahDilugHaflaga.Name;
-                            this.ProblemOnas.Add(kavuahDilugHaflagaOhrZarua);
-                        }
-                    }
-
-                    //TODO: Does Dilug of Yom Hachodesh continue from an actual entry even if it is off cheshbon? For ex. 35, 34, 33, 36 - is the next "35" or just continues theoretically 32, 31....
-                    //Kavvuah Dilug Yom Hachodesh - even if one was off, only works out from entry not from what was supposed to be.
-                    //We cheshbon both.
-                    //The theoretical ones, are worked out in the function "GetIndependentKavuahOnahs"
-                    foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k => k.KavuahType == KavuahType.DilugDayOfMonth && k.Active))
-                    {
-                        DateTime next = Program.HebrewCalendar.AddMonths(entry.DateTime, 1);
-                        next = next.AddDays(kavuah.Number);
-                        kavuahDilugDayofMonth = new Onah(next, kavuah.DayNight);
-                        kavuahDilugDayofMonth.Name = "קבוע " + kavuah.KavuahDescriptionHebrew;
-                        this.ProblemOnas.Add(kavuahDilugDayofMonth);
-
-                        if (Properties.Settings.Default.ShowOhrZeruah)
-                        {
-                            kavuahDilugDayofMonthOhrZarua = Onah.GetPreviousOnah(kavuahDilugDayofMonth);
-                            kavuahDilugDayofMonthOhrZarua.Name = " או\"ז - " + kavuahDilugDayofMonth.Name;
-                            this.ProblemOnas.Add(kavuahDilugDayofMonthOhrZarua);
-                        }
-                    }
+                    nextProblemText += "העונה הבאה בעוד " +
+                        ((nextProblem.DateTime - Program.Today).Days + 1).ToString() +
+                        " ימים - בתאריך: " +
+                        nextProblem.DateTime.ToString("dd MMMM yyyy") +
+                        " (" +
+                        nextProblem.HebrewDayNight +
+                        ") שהוא " +
+                        nextProblem.Name;
                 }
             }
+            return nextProblemText;
         }
 
         private void SetWeekListHtml()
@@ -1100,9 +1126,9 @@ namespace Chashavshavon
             var onahsToAdd = new List<Onah>();
             foreach (Onah onah in this.ProblemOnas.Where(on => on.DateTime >= Program.Today || Program.Today.IsSameday(on.DateTime)))
             {
-                if (onahsToAdd.Exists(o => Onah.IsSameOnah(o, onah) && o.IsIgnored == onah.IsIgnored))
+                if (onahsToAdd.Exists(o => Onah.IsSameOnahPeriod(o, onah) && o.IsIgnored == onah.IsIgnored))
                 {
-                    onahsToAdd.Where(o => Onah.IsSameOnah(o, onah)).First().Name += " וגם " + onah.Name;
+                    onahsToAdd.Where(o => Onah.IsSameOnahPeriod(o, onah)).First().Name += " וגם " + onah.Name;
                 }
                 else
                 {
@@ -1132,7 +1158,7 @@ namespace Chashavshavon
             foreach (Onah onah in onahsToAdd)
             {
                 sb.AppendFormat("<tr class='{0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
-                    (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnah(Program.NowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
+                    (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnahPeriod(Program.NowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
                     Zmanim.GetDayOfWeekText(onah.DateTime),
                     Zmanim.DaysOfMonthHebrew[onah.Day],
                     onah.Month.MonthName,
@@ -1195,6 +1221,7 @@ namespace Chashavshavon
                 lbl.BackColor = Color.Tan;
             }
         }
+        #endregion
 
         /// <summary>
         /// Saves all changes back to the source file. 
@@ -1702,7 +1729,7 @@ namespace Chashavshavon
             this.SetDateAndDayNight();
             this.FillCalendar();
             this.FillZmanim();
-            this.CalculateCalendar();
+            this.CalculateProblemOnahs();
             this.SetCaptionText();
         }
         #endregion

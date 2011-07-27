@@ -229,11 +229,11 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.Location = new System.Drawing.Point(213, 54);
+            this.label8.Location = new System.Drawing.Point(204, 54);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(359, 11);
+            this.label8.Size = new System.Drawing.Size(376, 11);
             this.label8.TabIndex = 5;
-            this.label8.Text = "התראות שיתכן שאינם פעילים עקב וסת קבוע וכדומה, [מוסגרים בסוגריים מרובעים]";
+            this.label8.Text = "התראות שיתכן שאינם פעילות עקב וסת קבוע וכדומה, [מוסגרים בסוגריים מרובעות]";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // frmLuach
