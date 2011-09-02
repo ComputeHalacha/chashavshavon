@@ -753,7 +753,7 @@ namespace Chashavshavon
             }
 
             //Haflagah
-            if (entry.Interval > 0)
+            if (entry.Interval > 1)
             {
                 if (!Properties.Settings.Default.KeepLongerHaflagah)
                 {
@@ -907,6 +907,7 @@ namespace Chashavshavon
             //Kavuahs of Yom Hachodesh and Sirug
             foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
                                         k.Active &&
+                                        k.SettingEntryDate > DateTime.MinValue &&
                                         k.KavuahType.In(KavuahType.DayOfMonth,
                                                         KavuahType.DayOfMonthMaayanPasuach,
                                                         KavuahType.Sirug)))

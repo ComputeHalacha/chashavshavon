@@ -52,8 +52,6 @@ namespace Chashavshavon
                 this.kavuahBindingSource.Remove(this.dgvKavuahList.Rows[e.RowIndex].DataBoundItem);
                 this.kavuahBindingSource.EndEdit();
             }
-        }
-
-       
+        }       
     }
 }

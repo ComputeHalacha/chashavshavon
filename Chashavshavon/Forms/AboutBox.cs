@@ -30,6 +30,7 @@ namespace Chashavshavon
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -107,12 +108,23 @@ namespace Chashavshavon
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
+            // lblVersion
+            // 
+            this.lblVersion.Location = new System.Drawing.Point(336, 12);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblVersion.Size = new System.Drawing.Size(105, 13);
+            this.lblVersion.TabIndex = 5;
+            this.lblVersion.Text = "גירסה";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // AboutBox
             // 
             this.AcceptButton = this.button1;
             this.BackColor = System.Drawing.Color.Tan;
             this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(453, 293);
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
@@ -126,6 +138,7 @@ namespace Chashavshavon
             this.RightToLeftLayout = true;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.AboutBox_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -137,6 +150,11 @@ namespace Chashavshavon
         private void button1_Click_1(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void AboutBox_Load(object sender, EventArgs e)
+        {
+            this.lblVersion.Text += " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
     }
 }

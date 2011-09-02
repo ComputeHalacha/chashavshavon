@@ -53,7 +53,8 @@ namespace Chashavshavon
             System.IO.File.AppendAllText(System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv",
                 "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"" +
                 (e.Exception.InnerException != null ? e.Exception.InnerException.Message : e.Exception.Message) +
-                "\"" + Environment.NewLine);
+                "\"" + Environment.NewLine,
+                System.Text.Encoding.UTF8);
             MessageBox.Show("ארעה שגיאה" + "\n\n" + (e.Exception.InnerException != null ? e.Exception.InnerException.Message : e.Exception.Message),
                             "חשבשבון",
                             MessageBoxButtons.OK,
