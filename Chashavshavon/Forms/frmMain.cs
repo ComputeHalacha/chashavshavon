@@ -55,20 +55,21 @@ namespace Chashavshavon
             else
             {
                 //Prompt for a password and don't stop prompting until the user gets it right or gives up
-                frmEnterPassword f = new frmEnterPassword(password);
-                do
+                using (frmEnterPassword f = new frmEnterPassword(password))
                 {
-                    f.ShowDialog();
-                    if (f.DialogResult == DialogResult.No)
-                        MessageBox.Show("סיסמה שגויה",
-                        "חשבשבון",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-
+                    do
+                    {
+                        f.ShowDialog();
+                        if (f.DialogResult == DialogResult.No)
+                            MessageBox.Show("סיסמה שגויה",
+                            "חשבשבון",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
+                    while (f.DialogResult == DialogResult.No);
+                    //If the user canceled etc. we will close this in form load
+                    this.CloseMeFirst = f.DialogResult != DialogResult.Yes;
                 }
-                while (f.DialogResult == DialogResult.No);
-                //If the user canceled etc. we will close this in form load
-                this.CloseMeFirst = f.DialogResult != DialogResult.Yes;
             }
         }
 
@@ -184,7 +185,7 @@ namespace Chashavshavon
                 string nkText = "";
                 foreach (Kavuah nk in entry.NoKavuahList)
                 {
-                    nkText += " לא לרשום קבוע " + nk.KavuahDescriptionHebrew;
+                    nkText += " לא לרשום קבוע " + nk.ToString();
                 }
                 if (nkText.Length > 0)
                 {
@@ -657,7 +658,7 @@ namespace Chashavshavon
             }
         }
 
-        #region Calculate Problem Onahs        
+        #region Calculate Problem Onahs
         private void CalculateProblemOnahs()
         {
             this.ClearCalendar();
@@ -771,20 +772,20 @@ namespace Chashavshavon
                     }
                 }
                 else
-                {                    
+                {
                     //First we look for a proceeding entry where the haflagah is longer than this one
-                    DateTime longerHaflagah = (from 
+                    DateTime longerHaflagah = (from
                                              e in Entry.EntryList
-                                         where
-                                            e.DateTime > entry.DateTime &&
-                                            e.Interval > entry.Interval
-                                         select 
-                                            e.DateTime).FirstOrDefault();
+                                               where
+                                                  e.DateTime > entry.DateTime &&
+                                                  e.Interval > entry.Interval
+                                               select
+                                                  e.DateTime).FirstOrDefault();
 
                     //If no such entry was found, we keep on going...
                     if (longerHaflagah == DateTime.MinValue)
                     {
-                        longerHaflagah = Program.HebrewCalendar.AddMonths(Program.Today, 
+                        longerHaflagah = Program.HebrewCalendar.AddMonths(Program.Today,
                             Properties.Settings.Default.NumberMonthsAheadToWarn);
                     }
 
@@ -817,11 +818,11 @@ namespace Chashavshavon
                     }
 
                     //Now for the non-overided haflagah from the actual entries
-                    foreach (Entry en in Entry.EntryList.Where(e => 
+                    foreach (Entry en in Entry.EntryList.Where(e =>
                         e.DateTime > entry.DateTime && e.DateTime < longerHaflagah))
                     {
                         on = en.AddDays(entry.Interval - 1);
-                        on.Name = "יום הפלגה (" + entry.Interval + ") שלא נתבטלה";                        
+                        on.Name = "יום הפלגה (" + entry.Interval + ") שלא נתבטלה";
                         on.IsIgnored = cancelOnahBeinenis;
                         this.ProblemOnas.Add(on);
                         if (Properties.Settings.Default.ShowOhrZeruah)
@@ -844,7 +845,7 @@ namespace Chashavshavon
             {
                 Onah kavuahHaflaga = entry.AddDays(kavuah.Number - 1);
                 kavuahHaflaga.DayNight = kavuah.DayNight;
-                kavuahHaflaga.Name = "קבוע " + kavuah.KavuahDescriptionHebrew;
+                kavuahHaflaga.Name = "קבוע " + kavuah.ToString();
                 this.ProblemOnas.Add(kavuahHaflaga);
 
                 if (Properties.Settings.Default.ShowOhrZeruah)
@@ -863,7 +864,7 @@ namespace Chashavshavon
                 {
                     Onah kavuahDilugHaflaga = entry.AddDays(entry.Interval + kavuah.Number - 1);
                     kavuahDilugHaflaga.DayNight = kavuah.DayNight;
-                    kavuahDilugHaflaga.Name = "קבוע " + kavuah.KavuahDescriptionHebrew + " ע\"פ ראייה";
+                    kavuahDilugHaflaga.Name = "קבוע " + kavuah.ToString() + " ע\"פ ראייה";
                     this.ProblemOnas.Add(kavuahDilugHaflaga);
 
                     if (Properties.Settings.Default.ShowOhrZeruah)
@@ -883,7 +884,7 @@ namespace Chashavshavon
                     DateTime next = Program.HebrewCalendar.AddMonths(entry.DateTime, 1);
                     next = next.AddDays(kavuah.Number);
                     Onah kavuahDilugDayofMonth = new Onah(next, kavuah.DayNight);
-                    kavuahDilugDayofMonth.Name = "קבוע " + kavuah.KavuahDescriptionHebrew;
+                    kavuahDilugDayofMonth.Name = "קבוע " + kavuah.ToString();
                     this.ProblemOnas.Add(kavuahDilugDayofMonth);
 
                     if (Properties.Settings.Default.ShowOhrZeruah)
@@ -919,7 +920,7 @@ namespace Chashavshavon
                 {
                     Onah o = new Onah(dt, kavuah.DayNight)
                     {
-                        Name = kavuah.KavuahDescriptionHebrew,
+                        Name = kavuah.ToString(),
                         Day = Program.HebrewCalendar.GetDayOfMonth(kavuah.SettingEntryDate)
                     };
                     this.ProblemOnas.Add(o);
@@ -942,7 +943,7 @@ namespace Chashavshavon
                 {
                     Onah o = new Onah(dt, kavuah.DayNight)
                     {
-                        Name = "קבוע " + kavuah.KavuahDescriptionHebrew,
+                        Name = "קבוע " + kavuah.ToString(),
                     };
                     this.ProblemOnas.Add(o);
                     if (Properties.Settings.Default.ShowOhrZeruah)
@@ -975,7 +976,7 @@ namespace Chashavshavon
 
                         Onah o = new Onah(dtNext, kavuah.DayNight)
                         {
-                            Name = "קבוע " + kavuah.KavuahDescriptionHebrew
+                            Name = "קבוע " + kavuah.ToString()
                         };
                         this.ProblemOnas.Add(o);
                         if (Properties.Settings.Default.ShowOhrZeruah)
@@ -1008,7 +1009,7 @@ namespace Chashavshavon
 
                         Onah o = new Onah(dt, kavuah.DayNight)
                         {
-                            Name = "קבוע " + kavuah.KavuahDescriptionHebrew + " ע\"פ חשבון",
+                            Name = "קבוע " + kavuah.ToString() + " ע\"פ חשבון",
                             //Negative kavuahs of haflagah are just a chumra
                             IsChumrah = kavuah.Number < 1
                         };

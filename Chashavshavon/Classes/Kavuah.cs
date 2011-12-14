@@ -30,7 +30,7 @@ namespace Chashavshavon
 
         public static List<Kavuah> KavuahsList { get; set; }
 
-        #region Public Instance Properties        
+        #region Public Instance Properties
         public DayNight DayNight { get; set; }
         public KavuahType KavuahType { get; set; }
         public int Number { get; set; }
@@ -42,59 +42,59 @@ namespace Chashavshavon
         public DateTime SettingEntryDate { get; set; }
         public int SettingEntryInterval { get; set; }
         public string Notes { get; set; }
-        public string KavuahDescriptionHebrew
+        #endregion
+
+        #region Public Functions
+        public override string ToString()
         {
-            get
+            StringBuilder sb = new StringBuilder();
+            switch (this.KavuahType)
             {
-                StringBuilder sb = new StringBuilder();
-                switch (this.KavuahType)
-                {
-                    case KavuahType.Haflagah:
-                        sb.AppendFormat("הפלגה - {0} ימים ", this.Number);
-                        break;
-                    case KavuahType.DayOfMonth:
-                        sb.AppendFormat("יום החדש - {0} בחדש ", Zmanim.DaysOfMonthHebrew[this.Number]);
-                        break;
-                    case KavuahType.DayOfWeek:
-                        sb.AppendFormat("יום השבוע - {0} כל {1} שבועות ",
-                            Program.CultureInfo.DateTimeFormat.GetDayName(this.SettingEntryDate.DayOfWeek),
-                            this.Number / 7);
-                        break;
-                    case KavuahType.Sirug:
-                        sb.AppendFormat("הפלגה בסירוג - {0} לחודש כל {1} חודשים",
-                            this.SettingEntryDate.ToString("dd"),
-                            this.Number);
-                        break;
-                    case Chashavshavon.KavuahType.HaflagaMaayanPasuach:
-                        sb.AppendFormat("הפלגה - {0} ימים - ע\"פ מעיין פתוח ", this.Number);
-                        break;
-                    case Chashavshavon.KavuahType.DayOfMonthMaayanPasuach:
-                        sb.AppendFormat("יום החדש - {0} בחדש - ע\"פ מעיין פתוח ", Zmanim.DaysOfMonthHebrew[this.Number]);
-                        break;
-                    case KavuahType.DilugHaflaga:
-                        sb.AppendFormat("הפלגה בדילוג ({1}{0}) ימים ",
-                            (this.Number < 0 ? "-" : "+"),
-                            Math.Abs(this.Number));
-                        break;
-                    case KavuahType.DilugDayOfMonth:
-                        sb.AppendFormat("יום החודש בדילוג {1}{0} ימים ",
-                            (this.Number < 0 ? "-" : "+"),
-                            this.Number);
-                        break;
-                }
-                //The user can set IsMaayanPasuach for any Kavuah in frmKavuahs
-                if (this.IsMaayanPasuach &&
-                    !this.KavuahType.In(KavuahType.HaflagaMaayanPasuach, KavuahType.DayOfMonthMaayanPasuach))
-                {
-                    sb.Append(" - ע\"פ מעיין פתוח ");
-                }
-                sb.AppendFormat("<עונת {0}> {1}", (this.DayNight == DayNight.Day ? "יום" : "לילה"), this.Notes);
-                return sb.ToString();
+                case KavuahType.Haflagah:
+                    sb.AppendFormat("הפלגה - {0} ימים ", this.Number);
+                    break;
+                case KavuahType.DayOfMonth:
+                    sb.AppendFormat("יום החדש - {0} בחדש ", Zmanim.DaysOfMonthHebrew[this.Number]);
+                    break;
+                case KavuahType.DayOfWeek:
+                    sb.AppendFormat("יום השבוע - {0} כל {1} שבועות ",
+                        Program.CultureInfo.DateTimeFormat.GetDayName(this.SettingEntryDate.DayOfWeek),
+                        this.Number / 7);
+                    break;
+                case KavuahType.Sirug:
+                    sb.AppendFormat("הפלגה בסירוג - {0} לחודש כל {1} חודשים",
+                        this.SettingEntryDate.ToString("dd"),
+                        this.Number);
+                    break;
+                case Chashavshavon.KavuahType.HaflagaMaayanPasuach:
+                    sb.AppendFormat("הפלגה - {0} ימים - ע\"פ מעיין פתוח ", this.Number);
+                    break;
+                case Chashavshavon.KavuahType.DayOfMonthMaayanPasuach:
+                    sb.AppendFormat("יום החדש - {0} בחדש - ע\"פ מעיין פתוח ", Zmanim.DaysOfMonthHebrew[this.Number]);
+                    break;
+                case KavuahType.DilugHaflaga:
+                    sb.AppendFormat("הפלגה בדילוג ({1}{0}) ימים ",
+                        (this.Number < 0 ? "-" : "+"),
+                        Math.Abs(this.Number));
+                    break;
+                case KavuahType.DilugDayOfMonth:
+                    sb.AppendFormat("יום החודש בדילוג {1}{0} ימים ",
+                        (this.Number < 0 ? "-" : "+"),
+                        this.Number);
+                    break;
             }
+            //The user can set IsMaayanPasuach for any Kavuah in frmKavuahs
+            if (this.IsMaayanPasuach &&
+                !this.KavuahType.In(KavuahType.HaflagaMaayanPasuach, KavuahType.DayOfMonthMaayanPasuach))
+            {
+                sb.Append(" - ע\"פ מעיין פתוח ");
+            }
+            sb.AppendFormat("<עונת {0}> {1}", (this.DayNight == DayNight.Day ? "יום" : "לילה"), this.Notes);
+            return sb.ToString();
         }
         #endregion
 
-        #region Public Static Functions        
+        #region Public Static Functions
         /// <summary>
         /// Gets a list of proposed Kavuahs according to the entries in the Entry list 
         /// and prompts the user to either add them or "NoKavuah" them 
@@ -107,22 +107,24 @@ namespace Chashavshavon
             if (kavuahList.Count > 0)
             {
                 //Prompt user to decide which ones to keep and edit their details
-                frmKavuahPrompt fkp = new frmKavuahPrompt(kavuahList);
-                if (fkp.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                using (frmKavuahPrompt fkp = new frmKavuahPrompt(kavuahList))
                 {
-                    //For each found Kavuah, either we add it to the main list 
-                    //or we set it as a "NoKavuah" for the third entry so it shouldn't pop up again
-                    foreach (Kavuah k in kavuahList)
+                    if (fkp.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        //The ListToAdd property contains the ones the user decided to add
-                        if (fkp.ListToAdd.Contains(k))
+                        //For each found Kavuah, either we add it to the main list 
+                        //or we set it as a "NoKavuah" for the third entry so it shouldn't pop up again
+                        foreach (Kavuah k in kavuahList)
                         {
-                            Kavuah.KavuahsList.Add(k);
-                        }
-                        else
-                        {
-                            //The SettingEtry is set when the Kavuah was added to the proposed list
-                            k.SettingEntry.NoKavuahList.Add(k);
+                            //The ListToAdd property contains the ones the user decided to add
+                            if (fkp.ListToAdd.Contains(k))
+                            {
+                                Kavuah.KavuahsList.Add(k);
+                            }
+                            else
+                            {
+                                //The SettingEtry is set when the Kavuah was added to the proposed list
+                                k.SettingEntry.NoKavuahList.Add(k);
+                            }
                         }
                     }
                 }
@@ -208,7 +210,7 @@ namespace Chashavshavon
             foundKavuahList.RemoveAll(k => InActiveKavuahList(k));
 
             return foundKavuahList;
-        }                
+        }
 
         /// <summary>
         /// Cheshbon out Kavuah of Sirug
@@ -219,8 +221,8 @@ namespace Chashavshavon
         private static void FindSirugKavuah(Entry[] entries, List<Kavuah> kavuahs)
         {
             //We get the difference in months between the first 2 entries
-            int monthDiff = Convert.ToInt32(DateAndTime.DateDiff(DateInterval.Month, 
-                entries[0].DateTime, 
+            int monthDiff = Convert.ToInt32(DateAndTime.DateDiff(DateInterval.Month,
+                entries[0].DateTime,
                 entries[1].DateTime));
             //If the difference is 1, than it can not be a Sirug Kavuah - rather it may be a DayOfMonth kavuah.
             //We now check to see if the third Entry is the same number of months 
@@ -395,7 +397,7 @@ namespace Chashavshavon
                             SettingEntry = secondFind,
                             SettingEntryDate = secondFind.DateTime,
                             //The interval is enough for keeping track of the DayOfWeek Kavuah
-                            SettingEntryInterval = secondFind.Interval 
+                            SettingEntryInterval = secondFind.Interval
                         });
                     }
                 }
@@ -427,7 +429,7 @@ namespace Chashavshavon
                     (en.Day - secondFind.Day) == (secondFind.Day - entry.Day) &&
                     entry.DateTime.AddMonths(2).Month == en.DateTime.Month &&
                     entry.DateTime.AddMonths(2).Year == en.DateTime.Year);
-                
+
                 if (finalFind != null)
                 {
                     //If the "NoKavuah" list for the 3rd entry does not include this "find", 
