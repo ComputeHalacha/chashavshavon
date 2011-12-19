@@ -107,13 +107,13 @@ namespace Chashavshavon.Utils
             {
                 dataStream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(dataStream);
-                responseText=reader.ReadToEnd();
+                responseText = reader.ReadToEnd();
                 reader.Close();
                 dataStream.Close();
             }
-            response.Close();            
+            response.Close();
             return responseText;
-        }        
+        }
 
         private static XmlDocument ExecuteRemoteCall(string function, params KeyValuePair<string, string>[] fields)
         {
@@ -148,6 +148,6 @@ namespace Chashavshavon.Utils
                 }
             }
             return doc;
-        }       
+        }
     }
 }

@@ -155,7 +155,7 @@ class DisplayAdmin(webapp.RequestHandler):
                                 <tr>
                                     <td colspan="2">
                                         *
-                                        <span class="Link" onclick="javascript:runQuery('GetUsers');return false;">
+                                        <span class="Link" onclick="javascript:runQuery('GetUsersListLinks');return false;">
                                             Get List of Users</span><br />
                                         *
                                         <span class="Link" onclick="javascript:runQuery('NewUser');return false;">

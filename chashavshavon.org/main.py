@@ -20,8 +20,15 @@ def getHtmlFrame():
                        }
                        td{
                            border:solid 1px #d4d4d4;
-                           font-size: 11pt;
-                       }
+                           font-size: 9pt;
+                       }  
+                       tr.headrow{
+                           color: #008800;
+                           font-weight: bold;                                                      
+                       }                   
+                       tr.headRow td{
+                           border:0;
+                        }                        
                        .header{
                            color: maroon;
                            font-weight: bold;
@@ -242,13 +249,62 @@ class GetFileListLinks(webapp.RequestHandler):
           self.response.out.write('''<tr style="background-color:%s;">
                                          <td>%s.</td>
                                          <td width="400"><span onclick="javascript:go('GetFileAsHTML', '%s');return false;" class="link">%s</span></td>
-                                         <td><a href="" onclick="javascript:deleteFile('%s');return false;">Delete File</a> |
-                                             <a href="" onclick="javascript:go('GetFileText', '%s');return false;">View Source</a></td>
+                                         <td><a class="link" href="" onclick="javascript:deleteFile('%s');return false;">Delete File</a> |
+                                             <a class="link" href="" onclick="javascript:go('GetFileText', '%s');return false;">View Source</a></td>
                                      </tr>''' % ('#ffffff' if count % 2 else '#f1f1f1', count, file.fileName, file.fileName, file.fileName, file.fileName))
       self.response.out.write('</table></body></html>')
+      
+class GetUsersListLinks(webapp.RequestHandler):
+    def post(self):
+          self.response.out.write(getHtmlFrame() + '''<script type="text/javascript" language="javascript">
+                                               function go(funcName, userName, password){
+                                                   document.forms[0].action='/' + funcName;
+                                                   document.forms[0].userName.value = userName;
+                                                   document.forms[0].password.value = password;
+                                                   document.forms[0].submit();
+                                               }
+
+                                               function deleteUser(userName, password) {
+                                                   if(confirm('Are you sure that you wish to permanently delete the user "' + userName + '"?')) {
+                                                       go('DeleteUser', userName, password);
+                                                   }
+                                               }
+                                       </script>
+                                 ''')
+          user = GetUser(self.request.get('userName'),
+                         self.request.get('password'))
+          if(not user):
+              self.response.out.write('<strong style="color:red;">User not found</strong> - Please check your User Name and Password.</body></html>')
+              return
+
+          users = Users.all().fetch(1000, 0)
+
+          self.response.out.write('''<span class="header">List of Users</span>
+                                     <form method="post" target="_self">
+                                     <input name="userName" type="hidden" value="" />
+                                     <input name="password" type="hidden" value="" />                                 
+                                     <table cellspacing="0" cellpadding="5"><tr class="headRow">
+                                        <td></td>
+                                        <td>User Name</td>
+                                        <td>Password</td>
+                                        <td>Is Admin?</td>
+                                        <td></td></tr><tr>''')
+          count = 0
+          for user in users:
+              count += 1
+              self.response.out.write('''<tr style="background-color:%s;">
+                                             <td>%s.</td>
+                                             <td>%s</td>
+                                             <td>%s</td>
+                                             <td>%s</td>
+                                             <td><a class="link" onclick="javascript:go('GetFileListLinks', '%s', '%s');return false;">View Files</a> | 
+                                                 <a class="link" onclick="javascript:deleteUser('%s', '%s');return false;">Delete User</a></td>
+                                         </tr>''' % ('#ffffff' if count % 2 else '#f1f1f1', count, user.userName, user.password, str(user.isAdmin), user.userName, user.password, user.userName, user.password,))
+          self.response.out.write('</table></body></html>')      
+       
 
 class SetFileText(webapp.RequestHandler):
-  def post(self):
+  def post(self):  
       SetContentTypeToXml(self)
       user = GetUser(self.request.get('userName'),
                      self.request.get('password'))
@@ -290,5 +346,6 @@ if __name__ == "__main__":
                                        ('/GetUsers', GetUsers),
                                        ('/GetFileAsHTML', GetFileAsHTML),
                                        ('/GetFileListLinks', GetFileListLinks),
+                                       ('/GetUsersListLinks', GetUsersListLinks),
                                        ('/Test', Test)],
                                      debug=True))

@@ -258,7 +258,7 @@ namespace Chashavshavon
         /// <param name="kavuahs"></param>            
         private static void FindHaflagahKavuah(Entry[] entries, List<Kavuah> kavuahs)
         {
-            //We compare the intervals between the entries, if they are the same we have a Kavuah
+            //We compare the intervals between the entries, if they are the same, we have a Kavuah
             if ((entries[0].Interval == entries[1].Interval) &&
                 (entries[1].Interval == entries[2].Interval))
             {
@@ -459,7 +459,7 @@ namespace Chashavshavon
         private static void FindDayOfMonthKavuah(Entry entry, List<Kavuah> kavuahs)
         {
             //We look for an entry that is exactly one Jewish month later
-            //Note, it is halachaklly irrelevant if there were other entries in the interim
+            //Note, it is halachakly irrelevant if there were other entries in the interim
             if (Entry.EntryList.Exists(en =>
                     !en.IsInvisible &&
                     en.DayNight == entry.DayNight &&

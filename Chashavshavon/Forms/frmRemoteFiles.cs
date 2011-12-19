@@ -24,11 +24,11 @@ namespace Chashavshavon
 
             if (!this._mainForm.TestInternet())
             {
-                MessageBox.Show("אין גישה לרשת כרגע", 
-                    "חשבשבון", 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Exclamation, 
-                    MessageBoxDefaultButton.Button1, 
+                MessageBox.Show("אין גישה לרשת כרגע",
+                    "חשבשבון",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button1,
                     MessageBoxOptions.RightAlign);
                 this.Close();
                 return;
@@ -71,12 +71,16 @@ namespace Chashavshavon
             this.SaveUser();
             if (_mainForm.CurrentFileIsRemote && _mainForm.CurrentFileName == this.txtCurrentFileName.Text)
             {
-                if (MessageBox.Show(string.Format("קובץ בשם" + "{0}\"{1}\"{0}" + ".כבר קיים ברשימת קובצים שלכם{0}?האם להחליפו בקובץ הנוכחי", Environment.NewLine, this.txtCurrentFileName.Text),
-                                    "חשבשבון",
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question,
-                                    MessageBoxDefaultButton.Button2,
-                                    MessageBoxOptions.RightAlign) == DialogResult.Yes)
+                if (MessageBox.Show(
+                    string.Format("קובץ בשם" + "{0}\"{1}\"{0}" +
+                        ".כבר קיים ברשימת קובצים שלכם{0}?האם להחליפו בקובץ הנוכחי",
+                        Environment.NewLine,
+                        this.txtCurrentFileName.Text),
+                    "חשבשבון",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2,
+                    MessageBoxOptions.RightAlign) == DialogResult.Yes)
                 {
                     if (!this.SaveCurrentFile(this.txtCurrentFileName.Text, this._mainForm.CurrentFileXML))
                     {
@@ -193,7 +197,7 @@ namespace Chashavshavon
                 frmBrowser fb = new frmBrowser();
                 fb.Text = "הצגת קובץ רשת - " + lbFileNames.SelectedItem.ToString();
                 fb.Html = html;
-                fb.ShowDialog(this);                
+                fb.ShowDialog(this);
             }
             else
             {
@@ -286,7 +290,7 @@ namespace Chashavshavon
             {
                 return true;
             }
-        }        
+        }
 
         private bool AddCurrentFile(string fileName, string xml)
         {
@@ -300,6 +304,6 @@ namespace Chashavshavon
             return Utils.RemoteFunctions.GetRemoteResponse("SetFileText",
                                     Utils.RemoteFunctions.NewParam("fileName", fileName),
                                     Utils.RemoteFunctions.NewParam("fileText", xml)) != null;
-        }      
+        }
     }
 }
