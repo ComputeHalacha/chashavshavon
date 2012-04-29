@@ -31,6 +31,7 @@ namespace Chashavshavon
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblVersion = new System.Windows.Forms.Label();
+            this.llContact = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -118,12 +119,25 @@ namespace Chashavshavon
             this.lblVersion.Text = "גירסה";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // llContact
+            // 
+            this.llContact.AutoSize = true;
+            this.llContact.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llContact.Location = new System.Drawing.Point(14, 240);
+            this.llContact.Name = "llContact";
+            this.llContact.Size = new System.Drawing.Size(160, 16);
+            this.llContact.TabIndex = 6;
+            this.llContact.TabStop = true;
+            this.llContact.Text = "https://www.compute.co.il/contact";
+            this.llContact.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llContact_LinkClicked);
+            // 
             // AboutBox
             // 
             this.AcceptButton = this.button1;
             this.BackColor = System.Drawing.Color.Tan;
             this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(453, 293);
+            this.Controls.Add(this.llContact);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -155,6 +169,12 @@ namespace Chashavshavon
         private void AboutBox_Load(object sender, EventArgs e)
         {
             this.lblVersion.Text += " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.llContact.Visible = Properties.Settings.Default.UseLocalURL || Utils.RemoteFunctions.IsConnectedToInternet();
+        }
+
+        private void llContact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.compute.co.il/contact/");
         }
     }
 }
