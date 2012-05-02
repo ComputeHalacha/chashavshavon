@@ -291,7 +291,7 @@ namespace Chashavshavon.Utils
             if (Program.HebrewCalendar.GetMonth(dt).In(7, 8, 9, 10))
             {
                 int year = Program.HebrewCalendar.GetYear(dt);
-                int month = Program.HebrewCalendar.IsLeapYear(Program.HebrewCalendar.GetYear(dt)) ? 8 : 7;
+                int month = Program.HebrewCalendar.IsLeapYear(year) ? 8 : 7;
                 DateTime firstDayOfPesach = new DateTime(year, month, 15, Program.HebrewCalendar);
                 int dayOfSefirah = (dt - firstDayOfPesach).Days;
 
