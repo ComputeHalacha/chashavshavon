@@ -40,6 +40,7 @@ namespace Chashavshavon
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.llContact);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Location = new System.Drawing.Point(13, 79);
@@ -122,10 +123,10 @@ namespace Chashavshavon
             // llContact
             // 
             this.llContact.AutoSize = true;
-            this.llContact.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.llContact.Location = new System.Drawing.Point(14, 240);
+            this.llContact.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llContact.Location = new System.Drawing.Point(234, 130);
             this.llContact.Name = "llContact";
-            this.llContact.Size = new System.Drawing.Size(160, 16);
+            this.llContact.Size = new System.Drawing.Size(174, 14);
             this.llContact.TabIndex = 6;
             this.llContact.TabStop = true;
             this.llContact.Text = "https://www.compute.co.il/contact";
@@ -137,7 +138,6 @@ namespace Chashavshavon
             this.BackColor = System.Drawing.Color.Tan;
             this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(453, 293);
-            this.Controls.Add(this.llContact);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);

@@ -27,7 +27,7 @@ namespace Chashavshavon
         }
 
         private void DisplayMonth()
-        {
+        {       
             this.tableLayoutPanel1.Visible = false;
             this.tableLayoutPanel1.SuspendLayout();
 

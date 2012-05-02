@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -204,11 +204,11 @@
             this.dgEntries.AllowUserToAddRows = false;
             this.dgEntries.AllowUserToDeleteRows = false;
             this.dgEntries.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle19;
             this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -216,14 +216,14 @@
             this.dgEntries.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgEntries.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Wheat;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.Wheat;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.dgEntries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgEntries.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.btnDeleteColumn,
@@ -238,30 +238,30 @@
             this.dgEntries.Name = "dgEntries";
             this.dgEntries.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dgEntries.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle23;
             this.dgEntries.RowHeadersVisible = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgEntries.Size = new System.Drawing.Size(780, 247);
+            dataGridViewCellStyle24.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle24;
+            this.dgEntries.Size = new System.Drawing.Size(780, 248);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             this.dgEntries.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgEntries_CellFormatting);
             // 
             // btnDeleteColumn
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
-            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.Blue;
+            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle21;
             this.btnDeleteColumn.HeaderText = "";
             this.btnDeleteColumn.LinkColor = System.Drawing.Color.Maroon;
             this.btnDeleteColumn.Name = "btnDeleteColumn";
@@ -274,9 +274,9 @@
             // DateColumn
             // 
             this.DateColumn.DataPropertyName = "DateTime";
-            dataGridViewCellStyle4.Format = "dd MMM yyyy";
-            dataGridViewCellStyle4.NullValue = null;
-            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle22.Format = "dd MMM yyyy";
+            dataGridViewCellStyle22.NullValue = null;
+            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle22;
             this.DateColumn.HeaderText = "תאריך";
             this.DateColumn.Name = "DateColumn";
             this.DateColumn.ReadOnly = true;
@@ -344,10 +344,14 @@
             // btnOpenLuach2
             // 
             this.btnOpenLuach2.AutoSize = true;
+            this.btnOpenLuach2.FlatAppearance.BorderSize = 0;
+            this.btnOpenLuach2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenLuach2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnOpenLuach2.ForeColor = System.Drawing.Color.Blue;
             this.btnOpenLuach2.Image = global::Chashavshavon.Properties.Resources.calendar_date;
-            this.btnOpenLuach2.Location = new System.Drawing.Point(3, 152);
+            this.btnOpenLuach2.Location = new System.Drawing.Point(3, 39);
             this.btnOpenLuach2.Name = "btnOpenLuach2";
-            this.btnOpenLuach2.Size = new System.Drawing.Size(51, 48);
+            this.btnOpenLuach2.Size = new System.Drawing.Size(51, 49);
             this.btnOpenLuach2.TabIndex = 21;
             this.btnOpenLuach2.Text = "לוח";
             this.btnOpenLuach2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -358,10 +362,14 @@
             // btnPrintCalendar
             // 
             this.btnPrintCalendar.AutoSize = true;
+            this.btnPrintCalendar.FlatAppearance.BorderSize = 0;
+            this.btnPrintCalendar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrintCalendar.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPrintCalendar.ForeColor = System.Drawing.Color.Blue;
             this.btnPrintCalendar.Image = global::Chashavshavon.Properties.Resources.printer;
-            this.btnPrintCalendar.Location = new System.Drawing.Point(3, 95);
+            this.btnPrintCalendar.Location = new System.Drawing.Point(3, 151);
             this.btnPrintCalendar.Name = "btnPrintCalendar";
-            this.btnPrintCalendar.Size = new System.Drawing.Size(51, 47);
+            this.btnPrintCalendar.Size = new System.Drawing.Size(51, 48);
             this.btnPrintCalendar.TabIndex = 20;
             this.btnPrintCalendar.Text = "הדפס";
             this.btnPrintCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -372,10 +380,14 @@
             // btnViewTextCalendar
             // 
             this.btnViewTextCalendar.AutoSize = true;
+            this.btnViewTextCalendar.FlatAppearance.BorderSize = 0;
+            this.btnViewTextCalendar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnViewTextCalendar.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnViewTextCalendar.ForeColor = System.Drawing.Color.Blue;
             this.btnViewTextCalendar.Image = global::Chashavshavon.Properties.Resources.page_previous;
-            this.btnViewTextCalendar.Location = new System.Drawing.Point(3, 38);
+            this.btnViewTextCalendar.Location = new System.Drawing.Point(3, 94);
             this.btnViewTextCalendar.Name = "btnViewTextCalendar";
-            this.btnViewTextCalendar.Size = new System.Drawing.Size(51, 47);
+            this.btnViewTextCalendar.Size = new System.Drawing.Size(52, 48);
             this.btnViewTextCalendar.TabIndex = 19;
             this.btnViewTextCalendar.Text = "רשימה";
             this.btnViewTextCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -983,7 +995,7 @@
             this.cmbMonth.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbMonth.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbMonth.FormattingEnabled = true;
-            this.cmbMonth.Location = new System.Drawing.Point(192, 38);
+            this.cmbMonth.Location = new System.Drawing.Point(187, 38);
             this.cmbMonth.Name = "cmbMonth";
             this.cmbMonth.Size = new System.Drawing.Size(80, 20);
             this.cmbMonth.TabIndex = 1;
@@ -1027,9 +1039,9 @@
             this.rbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbDay.Location = new System.Drawing.Point(22, 42);
+            this.rbDay.Location = new System.Drawing.Point(27, 42);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(48, 18);
+            this.rbDay.Size = new System.Drawing.Size(43, 17);
             this.rbDay.TabIndex = 4;
             this.rbDay.Text = "יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -1051,9 +1063,9 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Checked = true;
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbNight.Location = new System.Drawing.Point(13, 22);
+            this.rbNight.Location = new System.Drawing.Point(22, 22);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(57, 18);
+            this.rbNight.Size = new System.Drawing.Size(48, 17);
             this.rbNight.TabIndex = 3;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "לילה";
@@ -1064,7 +1076,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(244, 23);
+            this.label2.Location = new System.Drawing.Point(239, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 4;
@@ -1084,12 +1096,16 @@
             // btnEnter
             // 
             this.btnEnter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEnter.BackColor = System.Drawing.Color.BurlyWood;
-            this.btnEnter.Location = new System.Drawing.Point(259, 102);
+            this.btnEnter.FlatAppearance.BorderSize = 0;
+            this.btnEnter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnEnter.ForeColor = System.Drawing.Color.Blue;
+            this.btnEnter.Image = global::Chashavshavon.Properties.Resources.previous;
+            this.btnEnter.Location = new System.Drawing.Point(228, 102);
             this.btnEnter.Name = "btnEnter";
-            this.btnEnter.Size = new System.Drawing.Size(75, 21);
+            this.btnEnter.Size = new System.Drawing.Size(106, 27);
             this.btnEnter.TabIndex = 6;
-            this.btnEnter.Text = "הוסף";
+            this.btnEnter.Text = "הוסף רשומה";
+            this.btnEnter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnEnter.UseVisualStyleBackColor = false;
             this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
             // 
@@ -1098,9 +1114,9 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileToolStripMenuItem,
             this.calToolStripMenuItem,
-            this.PreferencesToolStripMenuItem,
             this.KavuahToolStripMenuItem,
             this.RemoteToolStripMenuItem,
+            this.PreferencesToolStripMenuItem,
             this.AboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -1327,11 +1343,14 @@
             // 
             // btnCheshbonKavuahs
             // 
-            this.btnCheshbonKavuahs.AutoSize = true;
+            this.btnCheshbonKavuahs.FlatAppearance.BorderSize = 0;
+            this.btnCheshbonKavuahs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCheshbonKavuahs.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnCheshbonKavuahs.ForeColor = System.Drawing.Color.Blue;
             this.btnCheshbonKavuahs.Image = global::Chashavshavon.Properties.Resources.database_process;
-            this.btnCheshbonKavuahs.Location = new System.Drawing.Point(10, 221);
+            this.btnCheshbonKavuahs.Location = new System.Drawing.Point(3, 221);
             this.btnCheshbonKavuahs.Name = "btnCheshbonKavuahs";
-            this.btnCheshbonKavuahs.Size = new System.Drawing.Size(80, 48);
+            this.btnCheshbonKavuahs.Size = new System.Drawing.Size(86, 48);
             this.btnCheshbonKavuahs.TabIndex = 26;
             this.btnCheshbonKavuahs.Text = "חשבן קבוע";
             this.btnCheshbonKavuahs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1341,13 +1360,16 @@
             // 
             // btnOpenLuach
             // 
-            this.btnOpenLuach.AutoSize = true;
+            this.btnOpenLuach.FlatAppearance.BorderSize = 0;
+            this.btnOpenLuach.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenLuach.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnOpenLuach.ForeColor = System.Drawing.Color.Blue;
             this.btnOpenLuach.Image = global::Chashavshavon.Properties.Resources.calendar_date;
-            this.btnOpenLuach.Location = new System.Drawing.Point(10, 5);
+            this.btnOpenLuach.Location = new System.Drawing.Point(3, 5);
             this.btnOpenLuach.Name = "btnOpenLuach";
-            this.btnOpenLuach.Size = new System.Drawing.Size(80, 48);
+            this.btnOpenLuach.Size = new System.Drawing.Size(86, 48);
             this.btnOpenLuach.TabIndex = 25;
-            this.btnOpenLuach.Text = "פתח לוח";
+            this.btnOpenLuach.Text = "לוח";
             this.btnOpenLuach.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolTip1.SetToolTip(this.btnOpenLuach, "פתח לוח חודשית");
             this.btnOpenLuach.UseVisualStyleBackColor = true;
@@ -1355,11 +1377,14 @@
             // 
             // btnOpenKavuahs
             // 
-            this.btnOpenKavuahs.AutoSize = true;
+            this.btnOpenKavuahs.FlatAppearance.BorderSize = 0;
+            this.btnOpenKavuahs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenKavuahs.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnOpenKavuahs.ForeColor = System.Drawing.Color.Blue;
             this.btnOpenKavuahs.Image = global::Chashavshavon.Properties.Resources.database_add_small;
-            this.btnOpenKavuahs.Location = new System.Drawing.Point(10, 167);
+            this.btnOpenKavuahs.Location = new System.Drawing.Point(3, 167);
             this.btnOpenKavuahs.Name = "btnOpenKavuahs";
-            this.btnOpenKavuahs.Size = new System.Drawing.Size(80, 48);
+            this.btnOpenKavuahs.Size = new System.Drawing.Size(86, 50);
             this.btnOpenKavuahs.TabIndex = 24;
             this.btnOpenKavuahs.Text = "רשימת קבוע";
             this.btnOpenKavuahs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1369,11 +1394,14 @@
             // 
             // btnPrintEntryList
             // 
-            this.btnPrintEntryList.AutoSize = true;
+            this.btnPrintEntryList.FlatAppearance.BorderSize = 0;
+            this.btnPrintEntryList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrintEntryList.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPrintEntryList.ForeColor = System.Drawing.Color.Blue;
             this.btnPrintEntryList.Image = global::Chashavshavon.Properties.Resources.printer;
-            this.btnPrintEntryList.Location = new System.Drawing.Point(10, 113);
+            this.btnPrintEntryList.Location = new System.Drawing.Point(3, 113);
             this.btnPrintEntryList.Name = "btnPrintEntryList";
-            this.btnPrintEntryList.Size = new System.Drawing.Size(80, 48);
+            this.btnPrintEntryList.Size = new System.Drawing.Size(86, 48);
             this.btnPrintEntryList.TabIndex = 22;
             this.btnPrintEntryList.Text = "הדפס";
             this.btnPrintEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1383,11 +1411,14 @@
             // 
             // btnViewTextEntryList
             // 
-            this.btnViewTextEntryList.AutoSize = true;
+            this.btnViewTextEntryList.FlatAppearance.BorderSize = 0;
+            this.btnViewTextEntryList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnViewTextEntryList.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnViewTextEntryList.ForeColor = System.Drawing.Color.Blue;
             this.btnViewTextEntryList.Image = global::Chashavshavon.Properties.Resources.page_previous;
-            this.btnViewTextEntryList.Location = new System.Drawing.Point(10, 59);
+            this.btnViewTextEntryList.Location = new System.Drawing.Point(3, 59);
             this.btnViewTextEntryList.Name = "btnViewTextEntryList";
-            this.btnViewTextEntryList.Size = new System.Drawing.Size(80, 48);
+            this.btnViewTextEntryList.Size = new System.Drawing.Size(86, 48);
             this.btnViewTextEntryList.TabIndex = 21;
             this.btnViewTextEntryList.Text = "רשימה";
             this.btnViewTextEntryList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1406,7 +1437,7 @@
             this.lblNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextProblem.ForeColor = System.Drawing.Color.Brown;
-            this.lblNextProblem.Location = new System.Drawing.Point(0, 233);
+            this.lblNextProblem.Location = new System.Drawing.Point(0, 232);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblNextProblem.Size = new System.Drawing.Size(882, 20);
@@ -1418,6 +1449,7 @@
             this.splitContainerMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerMain.IsSplitterFixed = true;
             this.splitContainerMain.Location = new System.Drawing.Point(0, 24);
             this.splitContainerMain.Name = "splitContainerMain";
             this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -1446,7 +1478,7 @@
             this.splitContainerMain.Panel2.Controls.Add(this.lblNextProblem);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainerMain.Size = new System.Drawing.Size(884, 538);
-            this.splitContainerMain.SplitterDistance = 280;
+            this.splitContainerMain.SplitterDistance = 281;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 23;
             // 

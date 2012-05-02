@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Chashavshavon.Utils
 {
-    public static class Zmanim 
+    public static class Zmanim
     {
         public static string[] DaysOfWeekHebrewFull = { "ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת קודש" };
         public static string[] DaysOfWeekHebrew = { "יום א", "יום ב", "יום ג", "יום ד", "יום ה", "יום ו", "שבת" };
@@ -13,10 +13,8 @@ namespace Chashavshavon.Utils
 
         public static void SetSummerTime()
         {
-            if (Properties.Settings.Default.UserInIsrael)
-            {
-                Properties.Settings.Default.IsSummerTime = TimesCalculation.IsIsraeliSummerTime(DateTime.Now);
-            }
+            Properties.Settings.Default.IsSummerTime = TimeZoneInfo.Local.IsDaylightSavingTime(DateTime.Now) ||
+                TimeZone.CurrentTimeZone.IsDaylightSavingTime(DateTime.Now);
         }
 
         public static string GetDayOfWeekText(DateTime d)
@@ -120,32 +118,6 @@ namespace Chashavshavon.Utils
 
             return new AstronomicalTime(result / 60, result % 60);
         }
-
-        public static bool IsIsraeliSummerTime(DateTime currentDate)
-        {
-            GregorianCalendar gcal = new GregorianCalendar();
-            DateTime startDate = new DateTime
-                (currentDate.Year, 4, 2);
-            // Begin: Last Friday before 2 April
-            startDate = startDate - new TimeSpan(1, 0, 0, 0);
-
-            while (startDate.DayOfWeek != DayOfWeek.Friday)
-                startDate = startDate - new TimeSpan(1, 0, 0, 0);
-
-            // End: Sunday between Rosh Hashanah and Yom Kippur
-            DateTime dt = new DateTime(currentDate.Year, 12, 31);
-            HebrewCalendar hcal = new HebrewCalendar();
-            int hebrewYear = hcal.GetYear(dt);
-            DateTime endDate = new DateTime(hebrewYear, 1, 10, hcal);
-            endDate = endDate - new TimeSpan(1, 0, 0, 0);
-
-            while (endDate.DayOfWeek != DayOfWeek.Sunday)
-                endDate = endDate - new TimeSpan(1, 0, 0, 0);
-            if (currentDate >= startDate && currentDate < endDate)
-                return true;
-            else
-                return false;
-        }
     }
 
     public class AstronomicalTime
@@ -245,7 +217,7 @@ namespace Chashavshavon.Utils
         ShavuothI,
         ShavuothII,
         TzomTammuz,
-        FastofAv,                
+        FastofAv,
         TuBeav
     }
 
@@ -305,15 +277,30 @@ namespace Chashavshavon.Utils
             };
         }
 
-        public static string[] GetHebrewHolidays(DateTime dt, bool inIsrael)
+        public static List<string> GetHebrewHolidays(DateTime dt, bool inIsrael)
         {
             DiasporaOrIsrael diasporaOrIsrael = (inIsrael ? DiasporaOrIsrael.Israel : DiasporaOrIsrael.Diaspora);
             List<Holiday> holidays = GetHolidaysForDate(dt, new HebrewCalendar(), diasporaOrIsrael);
-            string[] hebs = new string[holidays.Count];
+            List<string> hebs = new List<string>();
+
             for (int i = 0; i < holidays.Count; i++)
             {
-                hebs[i] = HolidaysInHebrew[(int)holidays[i]];
+                hebs.Add(HolidaysInHebrew[(int)holidays[i]]);
             }
+
+            if (Program.HebrewCalendar.GetMonth(dt).In(7, 8, 9, 10))
+            {
+                int year = Program.HebrewCalendar.GetYear(dt);
+                int month = Program.HebrewCalendar.IsLeapYear(Program.HebrewCalendar.GetYear(dt)) ? 8 : 7;
+                DateTime firstDayOfPesach = new DateTime(year, month, 15, Program.HebrewCalendar);
+                int dayOfSefirah = (dt - firstDayOfPesach).Days;
+
+                if (dayOfSefirah > 0 && dayOfSefirah < 50)
+                {
+                    hebs.Add(dayOfSefirah.ToString() + " לעומר");
+                }
+            }
+
             return hebs;
         }
 
@@ -659,7 +646,7 @@ namespace Chashavshavon.Utils
 
         public override string ToString()
         {
-            return Name;           
+            return Name;
         }
     }
 
