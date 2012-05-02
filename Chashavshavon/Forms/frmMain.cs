@@ -25,60 +25,17 @@ namespace Chashavshavon
         #region Constructors
         public frmMain()
         {
-            //In case we will display the password entry form, we hide this until form load
-            this.Hide();
-            string password = this.GetPassword();
-
-            InitializeComponent();
-            LocationsXmlDoc = new XmlDocument();
-
-            //Fill the location list from the xml file
-            LocationsXmlDoc.Load(Application.StartupPath + "\\Locations.xml");
-
-            //The following sets all output displays of date time functions to Jewish dates for the current thread
-            Program.CultureInfo.DateTimeFormat.Calendar = Program.HebrewCalendar;
-            System.Threading.Thread.CurrentThread.CurrentCulture = Program.CultureInfo;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = Program.CultureInfo;
-
-            Zmanim.SetSummerTime();
-            this.SetLocation();
-            this.SetDateAndDayNight();
-            this.FillZmanData();
-
-            //The timer is for the clock
-            this.timer1.Start();
-
-            if (password == null)
-            {
-                this.Show();
-            }
-            else
-            {
-                //Prompt for a password and don't stop prompting until the user gets it right or gives up
-                using (frmEnterPassword f = new frmEnterPassword(password))
-                {
-                    do
-                    {
-                        f.ShowDialog();
-                        if (f.DialogResult == DialogResult.No)
-                            MessageBox.Show("סיסמה שגויה",
-                            "חשבשבון",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-                    }
-                    while (f.DialogResult == DialogResult.No);
-                    //If the user canceled etc. we will close this in form load
-                    this.CloseMeFirst = f.DialogResult != DialogResult.Yes;
-                }
-            }
+            this.StartUp();
         }
 
+
         public frmMain(string filePath)
-            : this()
         {
             this.CurrentFileIsRemote = false;
             this.CurrentFile = filePath;
+            this.StartUp();
         }
+
         #endregion
 
         #region Event Handlers
@@ -480,6 +437,56 @@ namespace Chashavshavon
         #endregion
 
         #region Private Functions
+        private void StartUp()
+        {
+            //In case we will display the password entry form, we hide this until form load
+            this.Hide();
+            string password = this.GetPassword();
+
+            InitializeComponent();
+            LocationsXmlDoc = new XmlDocument();
+
+            //Fill the location list from the xml file
+            LocationsXmlDoc.Load(Application.StartupPath + "\\Locations.xml");
+
+            //The following sets all output displays of date time functions to Jewish dates for the current thread
+            Program.CultureInfo.DateTimeFormat.Calendar = Program.HebrewCalendar;
+            System.Threading.Thread.CurrentThread.CurrentCulture = Program.CultureInfo;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = Program.CultureInfo;
+
+            Zmanim.SetSummerTime();
+            this.SetLocation();
+            this.SetDateAndDayNight();
+            this.FillZmanData();
+
+            //The timer is for the clock
+            this.timer1.Start();
+
+            if (password == null)
+            {
+                this.Show();
+            }
+            else
+            {
+                //Prompt for a password and don't stop prompting until the user gets it right or gives up
+                using (frmEnterPassword f = new frmEnterPassword(password))
+                {
+                    do
+                    {
+                        f.ShowDialog();
+                        if (f.DialogResult == DialogResult.No)
+                            MessageBox.Show("סיסמה שגויה",
+                            "חשבשבון",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
+                    while (f.DialogResult == DialogResult.No);
+                    //If the user canceled etc. we will close this in form load
+                    this.CloseMeFirst = f.DialogResult != DialogResult.Yes;
+                }
+            }
+        }
+
         private void FillZmanData()
         {
             for (int i = 5600; i < 6001; i++)
@@ -1722,7 +1729,10 @@ namespace Chashavshavon
         {
             this.Text = "חשבשבון - " + Program.CurrentLocation.Name + " - " +
                 (this.CurrentFileIsRemote ? "קובץ רשת - " : "") + this.CurrentFileName;
-            this.pbWeb.Visible = this.CurrentFileIsRemote;
+            if (this.pbWeb != null)
+            {
+                this.pbWeb.Visible = this.CurrentFileIsRemote;
+            }
         }
 
         public void AfterChangePreferences()
