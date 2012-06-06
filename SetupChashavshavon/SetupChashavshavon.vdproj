@@ -270,7 +270,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_7E172A37D631474E8EC1488097B379EF"
                     {
-                    "Name" = "8:Chashavshavon"
+                    "Name" = "8:Compute"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -320,21 +320,21 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
-        "ProductCode" = "8:{E2BA6D48-8B3A-4C19-A055-01CFE2B3E3CB}"
-        "PackageCode" = "8:{9C3AFA1E-B0E9-40F9-BF6A-230D3F784AC4}"
+        "ProductCode" = "8:{2AF269BF-6393-4399-81C1-3F97442810B9}"
+        "PackageCode" = "8:{F6E1C3E7-4445-47C3-8C7F-4CA572116D99}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.5.1"
-        "Manufacturer" = "8:Compute.co.il"
-        "ARPHELPTELEPHONE" = "8:08-974-1364"
+        "ProductVersion" = "8:2.5.2"
+        "Manufacturer" = "8:Compute Software Solutions"
+        "ARPHELPTELEPHONE" = "8:052-732-3138"
         "ARPHELPLINK" = "8:http://www.compute.co.il/contact"
         "Title" = "8:Chashavshavon"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Compute.co.il"
+        "ARPCONTACT" = "8:CBS - Compute Software Solutions"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:http://www.compute.co.il"
@@ -926,7 +926,7 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_AC3E61C5C68B47748B5917282E6D25C1"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1FBC664BF1A4477E904E091BC77BD0E3"
             {
             "SourcePath" = "8:"
             "TargetName" = "8:"

@@ -1,6 +1,8 @@
 syntax: glob
-Chashavshavon/bin/
-Chashavshavon/obj/
 Thumbs.db
 *.suo
 *.user
+Release/
+bin/
+obj/
+Debug/

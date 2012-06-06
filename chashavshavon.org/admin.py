@@ -93,8 +93,8 @@ class DisplayAdmin(webapp.RequestHandler):
                 <form method="post" target="iframeResults">
                 <table height="100%" style="padding: 0; margin: 0;" cellpadding="10">
                     <tr>
-                        <td style="background-color: #f1f1f1;">
-                            <img src="/static/chash.png" style="float: left;" alt="Chashavshavon" />
+                        <td style="background-color: #f1f1f1;width:210px;">
+                            <img src="/static/Scroll.png" height="20" style="float: left;margin:0 5px 5px 0;" alt="Chashavshavon" />
                             <div style="height: 25px; color: Maroon; font-size: 9pt; font-weight: bold;">
                                 &nbsp;Chashavshavon Admin Console
                             </div>
