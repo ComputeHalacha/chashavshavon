@@ -120,6 +120,43 @@
                 }
             }
         }
+        "x64"
+        {
+        "DisplayName" = "8:x64"
+        "IsDebugOnly" = "11:FALSE"
+        "IsReleaseOnly" = "11:FALSE"
+        "OutputFilename" = "8:x64\\SetupChashavshavon.msi"
+        "PackageFilesAs" = "3:2"
+        "PackageFileSize" = "3:-2147483648"
+        "CabType" = "3:1"
+        "Compression" = "3:3"
+        "SignOutput" = "11:FALSE"
+        "CertificateFile" = "8:"
+        "PrivateKeyFile" = "8:"
+        "TimeStampServer" = "8:"
+        "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
+            }
+        }
     }
     "Deployable"
     {
@@ -140,7 +177,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v3.5"
+                "FrameworkVersion" = "8:ANY"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=9832"
                 }
@@ -321,7 +358,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
         "ProductCode" = "8:{2AF269BF-6393-4399-81C1-3F97442810B9}"
-        "PackageCode" = "8:{F6E1C3E7-4445-47C3-8C7F-4CA572116D99}"
+        "PackageCode" = "8:{E3477040-A617-432B-B6C7-1485E6E77223}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -342,7 +379,7 @@
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:0"
+        "TargetPlatform" = "3:1"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"
@@ -900,7 +937,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_010BB34F6CCC48F5A63ADAFCA30F85D7"
             {
-            "SourcePath" = "8:..\\Chashavshavon\\obj\\Release\\Chashavshavon.exe"
+            "SourcePath" = "8:..\\Chashavshavon\\obj\\x64\\x64\\Chashavshavon.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
