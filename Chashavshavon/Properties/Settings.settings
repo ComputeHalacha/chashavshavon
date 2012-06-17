@@ -5,7 +5,7 @@
     <Setting Name="CurrentFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">חשבשבון.pm</Value>
     </Setting>
-    <Setting Name="UserLocationId" Type="System.Int32" Scope="User">
+    <Setting Name="UserPlaceId" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="IsSummerTime" Type="System.Boolean" Scope="User">

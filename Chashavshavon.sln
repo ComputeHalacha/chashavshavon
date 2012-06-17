@@ -34,7 +34,6 @@ Global
 		{AEC8490F-968F-40EB-93E1-038B21C5418F}.Release|x64.Build.0 = Release
 		{AEC8490F-968F-40EB-93E1-038B21C5418F}.x64|Any CPU.ActiveCfg = x64
 		{AEC8490F-968F-40EB-93E1-038B21C5418F}.x64|x64.ActiveCfg = x64
-		{AEC8490F-968F-40EB-93E1-038B21C5418F}.x64|x64.Build.0 = x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

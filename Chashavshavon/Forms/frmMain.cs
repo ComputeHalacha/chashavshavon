@@ -18,6 +18,7 @@ namespace Chashavshavon
         #region Private Variables
         //The combos are changed dynamically and we don't want to fire the change event during initial loading.
         private bool _loading;
+        
         #endregion
 
         #region Constructors
@@ -1399,8 +1400,8 @@ namespace Chashavshavon
         private void SetDateAndDayNight()
         {
             TimesCalculation tc = new TimesCalculation();
-            AstronomicalTime shkiah = tc.GetSunset(DateTime.Now, Program.CurrentLocation);
-            AstronomicalTime netz = tc.GetSunrise(DateTime.Now, Program.CurrentLocation);
+            AstronomicalTime shkiah = tc.GetSunset(DateTime.Now, Program.CurrentPlace);
+            AstronomicalTime netz = tc.GetSunrise(DateTime.Now, Program.CurrentPlace);
             DateTime now = DateTime.Now;
 
             if (Properties.Settings.Default.IsSummerTime)
@@ -1423,7 +1424,7 @@ namespace Chashavshavon
             Program.NowOnah = new Onah(Program.Today, isNightTime ? DayNight.Night : DayNight.Day);
 
             string todayString = Program.Today.ToString("dd MMMM");
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Program.CurrentLocation.IsInIsrael))
+            foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Program.CurrentPlace.IsInIsrael))
             {
                 todayString += " - " + holiday;
             }
@@ -1433,14 +1434,14 @@ namespace Chashavshavon
         private string GetToolTipForDate(DateTime dateTime)
         {
             StringBuilder toolTip = new StringBuilder();
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(dateTime, Program.CurrentLocation.IsInIsrael))
+            foreach (string holiday in JewishHolidays.GetHebrewHolidays(dateTime, Program.CurrentPlace.IsInIsrael))
             {
                 toolTip.AppendLine(holiday);
             }
 
             TimesCalculation tc = new TimesCalculation();
-            AstronomicalTime shkiah = tc.GetSunset(dateTime, Program.CurrentLocation);
-            AstronomicalTime netz = tc.GetSunrise(dateTime, Program.CurrentLocation);
+            AstronomicalTime shkiah = tc.GetSunset(dateTime, Program.CurrentPlace);
+            AstronomicalTime netz = tc.GetSunrise(dateTime, Program.CurrentPlace);
 
             if (Properties.Settings.Default.IsSummerTime)
             {
@@ -1467,8 +1468,8 @@ namespace Chashavshavon
             DateTime selDate = new DateTime(year, month, day, Program.HebrewCalendar);
 
             TimesCalculation tc = new TimesCalculation();
-            AstronomicalTime shkiah = tc.GetSunset(selDate, Program.CurrentLocation);
-            AstronomicalTime netz = tc.GetSunrise(selDate, Program.CurrentLocation);
+            AstronomicalTime shkiah = tc.GetSunset(selDate, Program.CurrentPlace);
+            AstronomicalTime netz = tc.GetSunrise(selDate, Program.CurrentPlace);
 
             if (Properties.Settings.Default.IsSummerTime)
             {
@@ -1477,7 +1478,7 @@ namespace Chashavshavon
             }
 
             string sHoliday = null;
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(selDate, Program.CurrentLocation.IsInIsrael))
+            foreach (string holiday in JewishHolidays.GetHebrewHolidays(selDate, Program.CurrentPlace.IsInIsrael))
             {
                 sHoliday += holiday + " ";
             }
@@ -1487,7 +1488,7 @@ namespace Chashavshavon
                 sHoliday = " - " + sHoliday;
             }
 
-            lblLocation.Text = Program.GetCurrentLocationName() + " - " + selDate.ToString("dddd dd MMM yyyy") + sHoliday;
+            lblLocation.Text = Program.GetCurrentPlaceName() + " - " + selDate.ToString("dddd dd MMM yyyy") + sHoliday;
 
             StringBuilder sb = new StringBuilder("נץ - ");
             sb.Append(netz.Hour.ToString());
@@ -1509,13 +1510,13 @@ namespace Chashavshavon
 
         private void SetLocation()
         {
-            int locId = Properties.Settings.Default.UserLocationId;
+            int locId = Properties.Settings.Default.UserPlaceId;
             if (locId <=  0)
             {
-                locId = Properties.Settings.Default.UserLocationId = 151; //Yerushalayim
+                locId = Properties.Settings.Default.UserPlaceId = 151; //Yerushalayim
             }
 
-            Program.CurrentLocation = clsLocations.GetLocation(locId);
+            Program.CurrentPlace = Utils.Place.GetPlace(locId);
         }
 
         private string GetPassword()
@@ -1714,7 +1715,7 @@ namespace Chashavshavon
 
         public void SetCaptionText()
         {
-            this.Text = "חשבשבון - " + Program.GetCurrentLocationName() + " - " +
+            this.Text = "חשבשבון - " + Program.GetCurrentPlaceName() + " - " +
                 (this.CurrentFileIsRemote ? "קובץ רשת - " : "") + this.CurrentFileName;
             if (this.pbWeb != null)
             {

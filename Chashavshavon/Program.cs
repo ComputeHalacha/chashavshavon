@@ -13,7 +13,7 @@ namespace Chashavshavon
         public static DateTime Today { get; set; }
         public static Onah NowOnah { get; set; }
         //Keeps track of where user is; for calculating zmanim
-        public static Chashavshavon.Utils.Location CurrentLocation { get; set; }
+        public static Chashavshavon.Utils.Place CurrentPlace { get; set; }
         public static frmMain MainForm { get; set; }
 
         /// <summary>
@@ -62,10 +62,10 @@ namespace Chashavshavon
                             MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
 
-        internal static string GetCurrentLocationName()
+        internal static string GetCurrentPlaceName()
         {
-            return String.IsNullOrWhiteSpace(CurrentLocation.NameHebrew) ? 
-                CurrentLocation.Name : CurrentLocation.NameHebrew;
+            return String.IsNullOrWhiteSpace(CurrentPlace.NameHebrew) ? 
+                CurrentPlace.Name : CurrentPlace.NameHebrew;
         }
 
         #region Extention Methods

@@ -17,20 +17,20 @@ namespace Chashavshavon
 
         private void Preferences_Load(object sender, EventArgs e)
         {
-            this.rbLocsInIsrael.Checked = Program.CurrentLocation.IsInIsrael;
-            this.rbLocsInDiaspora.Checked = (!this.rbLocsInIsrael.Checked);
+            this.rbPlacesInIsrael.Checked = Program.CurrentPlace.IsInIsrael;
+            this.rbPlacesInDiaspora.Checked = (!this.rbPlacesInIsrael.Checked);
 
-            if (this.cbLocations.Items.Count == 0)
+            if (this.cbPlaces.Items.Count == 0)
             {
-                FillLocations();
+                FillPlaces();
             }
 
-            for (int i = 0; i < this.cbLocations.Items.Count; i++)
+            for (int i = 0; i < this.cbPlaces.Items.Count; i++)
             {
-                Location loc = (Location)this.cbLocations.Items[i];
-                if (loc.LocationId == Program.CurrentLocation.LocationId)
+                Place place = (Place)this.cbPlaces.Items[i];
+                if (place.PlaceId == Program.CurrentPlace.PlaceId)
                 {
-                    this.cbLocations.SelectedIndex = i;
+                    this.cbPlaces.SelectedIndex = i;
                     break;
                 }
             }
@@ -44,41 +44,37 @@ namespace Chashavshavon
             }
 
             //We wait until the form is loaded...
-            this.cbLocations.SelectedIndexChanged += delegate
+            this.cbPlaces.SelectedIndexChanged += delegate
             {
-                //We will only automatically set the DST if the users current time zone matches that of the selected location.
-                if (TimeZoneInfo.Local.BaseUtcOffset.Hours == 
-                    Program.CurrentLocation.TimeZone)
-                {
-                    this.cbSummerTime.Checked = DateTime.Now.IsDaylightSavingTime();
-                }
+                Zmanim.SetSummerTime();
+                this.cbSummerTime.Checked = Properties.Settings.Default.IsSummerTime;                
             };
         }
 
-        private void FillLocations()
+        private void FillPlaces()
         {
-            cbLocations.Items.Clear();
-            IEnumerable<Location> locs = clsLocations.Locations.Where(l => l.IsInIsrael == this.rbLocsInIsrael.Checked);
+            cbPlaces.Items.Clear();
+            IEnumerable<Place> places = Utils.Place.PlacesList.Where(l => l.IsInIsrael == this.rbPlacesInIsrael.Checked);
             //First Hebrew named ones
-            foreach (Location loc in locs.Where(l => !string.IsNullOrWhiteSpace(l.NameHebrew)).OrderBy(l => l.NameHebrew))
+            foreach (Place place in places.Where(l => !string.IsNullOrWhiteSpace(l.NameHebrew)).OrderBy(l => l.NameHebrew))
             {
-                this.cbLocations.Items.Add(loc);
+                this.cbPlaces.Items.Add(place);
             }
-            foreach (Location loc in locs.Where(l => string.IsNullOrWhiteSpace(l.NameHebrew)).OrderBy(l => l.Name))
+            foreach (Place place in places.Where(l => string.IsNullOrWhiteSpace(l.NameHebrew)).OrderBy(l => l.Name))
             {
-                this.cbLocations.Items.Add(loc);
+                this.cbPlaces.Items.Add(place);
             }
-            this.cbLocations.SelectedIndex = 0;
+            this.cbPlaces.SelectedIndex = 0;
         }
 
-        private void rbLocsInIsrael_CheckedChanged(object sender, EventArgs e)
+        private void rbPlacesInIsrael_CheckedChanged(object sender, EventArgs e)
         {
-            this.FillLocations();
+            this.FillPlaces();
         }
 
-        private void rbLocsInDiaspora_CheckedChanged(object sender, EventArgs e)
+        private void rbPlacesInDiaspora_CheckedChanged(object sender, EventArgs e)
         {
-            this.FillLocations();
+            this.FillPlaces();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -97,8 +93,8 @@ namespace Chashavshavon
                 this._regKey.SetValue("Straight", this.cbRequirePassword.Checked ? "0" : "1", RegistryValueKind.String);
             }
 
-            Program.CurrentLocation = ((Location)this.cbLocations.SelectedItem);
-            Properties.Settings.Default.UserLocationId = Program.CurrentLocation.LocationId;
+            Program.CurrentPlace = ((Place)this.cbPlaces.SelectedItem);
+            Properties.Settings.Default.UserPlaceId = Program.CurrentPlace.PlaceId;
             Properties.Settings.Default.Save();
             ((frmMain)this.Owner).AfterChangePreferences();
             this.Close();
@@ -123,12 +119,12 @@ namespace Chashavshavon
             this._regKey.Close();
         }
 
-        private void cbLocations_Format(object sender, ListControlConvertEventArgs e)
+        private void cbPlacess_Format(object sender, ListControlConvertEventArgs e)
         {
-            if (e.Value is Location)
+            if (e.Value is Place)
             {
-                Location loc = (Location)e.Value;
-                e.Value = (string.IsNullOrEmpty(loc.NameHebrew) ? loc.Name : loc.NameHebrew);
+                Place place = (Place)e.Value;
+                e.Value = (string.IsNullOrEmpty(place.NameHebrew) ? place.Name : place.NameHebrew);
             }
         }
     }

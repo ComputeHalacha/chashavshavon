@@ -137,7 +137,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\clsLocations.cs" />
+    <Compile Include="Classes\Place.cs" />
     <Compile Include="Classes\Kavuah.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
@@ -291,7 +291,7 @@
     <None Include="Resources\next.png" />
     <None Include="Resources\previous.png" />
     <Content Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html" />
-    <Content Include="Locations.xml">
+    <Content Include="Places.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

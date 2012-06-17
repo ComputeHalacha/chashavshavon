@@ -60,41 +60,41 @@ namespace Chashavshavon.Utils
     //The following source code is Copyright © by Ulrich and Ziporah Greve (2005)
     public class TimesCalculation
     {
-        public AstronomicalTime GetSunrise(DateTime currentDate, Location loc)
+        public AstronomicalTime GetSunrise(DateTime currentDate, Place place)
         {
             AstronomicalTime sunrise;
             TimesCalculationInternal calcInternal = new TimesCalculationInternal();
             sunrise = calcInternal.GetSunsetOrSunrise(currentDate,
-              Occurrence.Sunrise, loc);
+              Occurrence.Sunrise, place);
             return sunrise;
         }
-        public AstronomicalTime GetSunset(DateTime currentDate, Location loc)
+        public AstronomicalTime GetSunset(DateTime currentDate, Place place)
         {
             AstronomicalTime sunset;
             TimesCalculationInternal calcInternal = new TimesCalculationInternal();
             sunset = calcInternal.GetSunsetOrSunrise(currentDate,
-              Occurrence.Sunset, loc);
+              Occurrence.Sunset, place);
             return sunset;
         }
 
         public AstronomicalTime GetSunriseDegreesBelowHorizon(DateTime currentDate,
                                                               double DegreesBelowHorizon,
-                                                              Location loc)
+                                                              Place place)
         {
-            AstronomicalTime sunrise = GetSunrise(currentDate, loc);
+            AstronomicalTime sunrise = GetSunrise(currentDate, place);
             TimesCalculationInternal calcInternal = new TimesCalculationInternal();
             AstronomicalTime db = calcInternal.GetDegreesBelowHorizon(currentDate,
-              DegreesBelowHorizon, loc);
+              DegreesBelowHorizon, place);
             return sunrise - db;
         }
         public AstronomicalTime GetSunsetDegreesBelowHorizon(DateTime currentDate,
                                                              double DegreesBelowHorizon,
-                                                             Location loc)
+                                                             Place place)
         {
-            AstronomicalTime sunset = GetSunset(currentDate, loc);
+            AstronomicalTime sunset = GetSunset(currentDate, place);
             TimesCalculationInternal calcInternal = new TimesCalculationInternal();
             AstronomicalTime db = calcInternal.GetDegreesBelowHorizon(currentDate,
-              DegreesBelowHorizon, loc);
+              DegreesBelowHorizon, place);
             return sunset + db;
         }
 
@@ -237,7 +237,6 @@ namespace Chashavshavon.Utils
                 "ערב יום כיפור",
                 "יום כיפור",
                 "ערב סוכות",
-                "סוכות",
                 "סוכות יום א'",
                 "סוכות יום ב'",
                 "חול המועד",
@@ -632,27 +631,6 @@ namespace Chashavshavon.Utils
         East = 1, West = 2
     }
 
-    public class Location
-    {
-        public int LocationId { get; set; }
-        public string Name { get; set; }
-        public string NameHebrew { get; set; }
-        public bool IsInIsrael { get; set; }
-        public int LatitudeDegrees { get; set; }
-        public int LatitudeMinutes { get; set; }
-        public LatitudeTypeEnum LatitudeType { get; set; }
-        public int LongitudeDegrees { get; set; }
-        public int LongitudeMinutes { get; set; }
-        public LongitudeTypeEnum LongitudeType { get; set; }
-        public int TimeZone { get; set; }
-        public int Elevation { get; set; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
-
     enum Occurrence
     {
         Sunrise, Sunset
@@ -823,13 +801,13 @@ namespace Chashavshavon.Utils
 
         public AstronomicalTime GetSunsetOrSunrise(DateTime currentDate,
                     Occurrence occurrence,
-                    Location loc)
+                    Place place)
         {
             double[] sunriseSunset = suntime(currentDate.Day, currentDate.Month, currentDate.Year,
                 90, 50,
-                loc.LongitudeDegrees, loc.LongitudeMinutes, (loc.LongitudeType == LongitudeTypeEnum.West) ? 0 : 1,
-                loc.LatitudeDegrees, loc.LatitudeMinutes, (loc.LatitudeType == LatitudeTypeEnum.South) ? 1 : 0,
-                loc.TimeZone, loc.Elevation);
+                place.LongitudeDegrees, place.LongitudeMinutes, (place.LongitudeType == LongitudeTypeEnum.West) ? 0 : 1,
+                place.LatitudeDegrees, place.LatitudeMinutes, (place.LatitudeType == LatitudeTypeEnum.South) ? 1 : 0,
+                place.TimeZone, place.Elevation);
             if (sunriseSunset != null)
             {
                 AstronomicalTime sunrise = timeadj(sunriseSunset[0]);
@@ -852,13 +830,13 @@ namespace Chashavshavon.Utils
 
         public AstronomicalTime GetDegreesBelowHorizon(DateTime currentDate,
                     double DegreesBelowHorizon,
-                    Location loc)
+                    Place place)
         {
             double[] sunriseSunset = suntime(currentDate.Day, currentDate.Month, currentDate.Year,
                 90, 50,
-                loc.LongitudeDegrees, loc.LongitudeMinutes, (loc.LongitudeType == LongitudeTypeEnum.West) ? 0 : 1,
-                loc.LatitudeDegrees, loc.LatitudeMinutes, (loc.LatitudeType == LatitudeTypeEnum.South) ? 1 : 0,
-                loc.TimeZone, loc.Elevation);
+                place.LongitudeDegrees, place.LongitudeMinutes, (place.LongitudeType == LongitudeTypeEnum.West) ? 0 : 1,
+                place.LatitudeDegrees, place.LatitudeMinutes, (place.LatitudeType == LatitudeTypeEnum.South) ? 1 : 0,
+                place.TimeZone, place.Elevation);
             if (sunriseSunset != null)
             {
                 double db = DegreesBelowHorizon + 90.0;
@@ -869,9 +847,9 @@ namespace Chashavshavon.Utils
 
                 double[] sunriseSunset2 = suntime(currentDate.Day, currentDate.Month, currentDate.Year,
                     deghour, degmin,
-                    loc.LongitudeDegrees, loc.LongitudeMinutes, (loc.LongitudeType == LongitudeTypeEnum.West) ? 0 : 1,
-                    loc.LatitudeDegrees, loc.LatitudeMinutes, (loc.LatitudeType == LatitudeTypeEnum.South) ? 1 : 0,
-                    loc.TimeZone, loc.Elevation);
+                    place.LongitudeDegrees, place.LongitudeMinutes, (place.LongitudeType == LongitudeTypeEnum.West) ? 0 : 1,
+                    place.LatitudeDegrees, place.LatitudeMinutes, (place.LatitudeType == LatitudeTypeEnum.South) ? 1 : 0,
+                    place.TimeZone, place.Elevation);
                 if (sunriseSunset2 != null)
                 {
                     AstronomicalTime sunset = timeadj(sunriseSunset[1]);

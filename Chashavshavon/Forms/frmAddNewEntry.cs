@@ -93,8 +93,8 @@ namespace Chashavshavon
                 Program.HebrewCalendar);
 
             TimesCalculation tc = new TimesCalculation();
-            AstronomicalTime shkiah = tc.GetSunset(this._date, Program.CurrentLocation);
-            AstronomicalTime netz = tc.GetSunrise(this._date, Program.CurrentLocation);
+            AstronomicalTime shkiah = tc.GetSunset(this._date, Program.CurrentPlace);
+            AstronomicalTime netz = tc.GetSunrise(this._date, Program.CurrentPlace);
 
             if (Properties.Settings.Default.IsSummerTime)
             {
@@ -103,7 +103,7 @@ namespace Chashavshavon
             }
 
             string sHoliday = null;
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(this._date, Program.CurrentLocation.IsInIsrael))
+            foreach (string holiday in JewishHolidays.GetHebrewHolidays(this._date, Program.CurrentPlace.IsInIsrael))
             {
                 sHoliday += holiday + " ";
             }
@@ -113,7 +113,7 @@ namespace Chashavshavon
                 sHoliday = " - " + sHoliday;
             }
 
-            lblLocation.Text = Program.CurrentLocation.Name + " - " + this._date.ToString("dddd dd MMM yyyy") + sHoliday;
+            lblLocation.Text = Program.CurrentPlace.Name + " - " + this._date.ToString("dddd dd MMM yyyy") + sHoliday;
 
             StringBuilder sb = new StringBuilder("נץ - ");
             sb.Append(netz.Hour.ToString());
@@ -192,8 +192,8 @@ namespace Chashavshavon
         private void SetDateAndDayNight()
         {
             TimesCalculation tc = new TimesCalculation();
-            AstronomicalTime shkiah = tc.GetSunset(DateTime.Now, Program.CurrentLocation);
-            AstronomicalTime netz = tc.GetSunrise(DateTime.Now, Program.CurrentLocation);
+            AstronomicalTime shkiah = tc.GetSunset(DateTime.Now, Program.CurrentPlace);
+            AstronomicalTime netz = tc.GetSunrise(DateTime.Now, Program.CurrentPlace);
             DateTime now = DateTime.Now;
 
             if (Properties.Settings.Default.IsSummerTime)
@@ -216,7 +216,7 @@ namespace Chashavshavon
             Program.NowOnah = new Onah(Program.Today, isNightTime ? DayNight.Night : DayNight.Day);
 
             string todayString = Program.Today.ToString("dd MMMM");
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Program.CurrentLocation.IsInIsrael))
+            foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Program.CurrentPlace.IsInIsrael))
             {
                 todayString += " - " + holiday;
             }

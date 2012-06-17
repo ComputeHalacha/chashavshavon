@@ -38,12 +38,12 @@ namespace Chashavshavon.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int UserLocationId {
+        public int UserPlaceId {
             get {
-                return ((int)(this["UserLocationId"]));
+                return ((int)(this["UserPlaceId"]));
             }
             set {
-                this["UserLocationId"] = value;
+                this["UserPlaceId"] = value;
             }
         }
         
