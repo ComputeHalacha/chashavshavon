@@ -24,7 +24,7 @@ SourceFiles=SourceFiles
 InstallPrompt=
 DisplayLicense=
 FinishMessage=
-TargetName=D:\Repositories\Chashavshavon\SetupChashavshavon\Release\Chashavshavon_Installer.exe
+TargetName=D:\Insync\cb@compute.co.il\Repositories\Chashavshavon\SetupChashavshavon\Release\Chashavshavon_Installer_32bit.exe
 FriendlyName=Chashavshavon
 AppLaunched=setup.exe
 PostInstallCmd=<None>
@@ -33,7 +33,7 @@ UserQuietInstCmd=
 FILE0="setup.exe"
 FILE1="SetupChashavshavon.msi"
 [SourceFiles]
-SourceFiles0=D:\Repositories\Chashavshavon\SetupChashavshavon\Release\
+SourceFiles0=D:\Insync\cb@compute.co.il\Repositories\Chashavshavon\SetupChashavshavon\Release\
 [SourceFiles0]
 %FILE0%=
 %FILE1%=
