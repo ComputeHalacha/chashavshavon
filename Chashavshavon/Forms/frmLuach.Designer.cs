@@ -207,7 +207,7 @@
             this.lblMonthName.Name = "lblMonthName";
             this.lblMonthName.Size = new System.Drawing.Size(587, 27);
             this.lblMonthName.TabIndex = 3;
-            this.lblMonthName.Text = "label8";
+            this.lblMonthName.Text = "Month Name";
             this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnClose

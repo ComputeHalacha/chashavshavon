@@ -5,11 +5,8 @@
     <Setting Name="CurrentFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">חשבשבון.pm</Value>
     </Setting>
-    <Setting Name="UserInIsrael" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="UserLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">קרית ספר</Value>
+    <Setting Name="UserLocationId" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="IsSummerTime" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

@@ -14,9 +14,7 @@ namespace Chashavshavon
 {
     public partial class frmMain : Form
     {
-        //List of locations
-        public static XmlDocument LocationsXmlDoc;
-
+        
         #region Private Variables
         //The combos are changed dynamically and we don't want to fire the change event during initial loading.
         private bool _loading;
@@ -138,15 +136,18 @@ namespace Chashavshavon
             if (e.ColumnIndex == this.dgEntries.Columns["NotesColumn"].Index)
             {
                 DataGridViewRow r = this.dgEntries.Rows[e.RowIndex];
-                Entry entry = (Entry)r.DataBoundItem;
-                string nkText = "";
-                foreach (Kavuah nk in entry.NoKavuahList)
+                if (r.DataBoundItem is Entry)
                 {
-                    nkText += " לא לרשום קבוע " + nk.ToString();
-                }
-                if (nkText.Length > 0)
-                {
-                    e.Value += " [" + nkText.Trim() + "]";
+                    Entry entry = (Entry)r.DataBoundItem;
+                    string nkText = "";
+                    foreach (Kavuah nk in entry.NoKavuahList)
+                    {
+                        nkText += " לא לרשום קבוע " + nk.ToString();
+                    }
+                    if (nkText.Length > 0)
+                    {
+                        e.Value += " [" + nkText.Trim() + "]";
+                    }
                 }
             }
         }
@@ -444,11 +445,7 @@ namespace Chashavshavon
             string password = this.GetPassword();
 
             InitializeComponent();
-            LocationsXmlDoc = new XmlDocument();
-
-            //Fill the location list from the xml file
-            LocationsXmlDoc.Load(Application.StartupPath + "\\Locations.xml");
-
+            
             //The following sets all output displays of date time functions to Jewish dates for the current thread
             Program.CultureInfo.DateTimeFormat.Calendar = Program.HebrewCalendar;
             System.Threading.Thread.CurrentThread.CurrentCulture = Program.CultureInfo;
@@ -1426,7 +1423,7 @@ namespace Chashavshavon
             Program.NowOnah = new Onah(Program.Today, isNightTime ? DayNight.Night : DayNight.Day);
 
             string todayString = Program.Today.ToString("dd MMMM");
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Properties.Settings.Default.UserInIsrael))
+            foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Program.CurrentLocation.IsInIsrael))
             {
                 todayString += " - " + holiday;
             }
@@ -1436,7 +1433,7 @@ namespace Chashavshavon
         private string GetToolTipForDate(DateTime dateTime)
         {
             StringBuilder toolTip = new StringBuilder();
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(dateTime, Properties.Settings.Default.UserInIsrael))
+            foreach (string holiday in JewishHolidays.GetHebrewHolidays(dateTime, Program.CurrentLocation.IsInIsrael))
             {
                 toolTip.AppendLine(holiday);
             }
@@ -1480,7 +1477,7 @@ namespace Chashavshavon
             }
 
             string sHoliday = null;
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(selDate, Properties.Settings.Default.UserInIsrael))
+            foreach (string holiday in JewishHolidays.GetHebrewHolidays(selDate, Program.CurrentLocation.IsInIsrael))
             {
                 sHoliday += holiday + " ";
             }
@@ -1490,7 +1487,7 @@ namespace Chashavshavon
                 sHoliday = " - " + sHoliday;
             }
 
-            lblLocation.Text = Program.CurrentLocation.Name + " - " + selDate.ToString("dddd dd MMM yyyy") + sHoliday;
+            lblLocation.Text = Program.GetCurrentLocationName() + " - " + selDate.ToString("dddd dd MMM yyyy") + sHoliday;
 
             StringBuilder sb = new StringBuilder("נץ - ");
             sb.Append(netz.Hour.ToString());
@@ -1512,23 +1509,13 @@ namespace Chashavshavon
 
         private void SetLocation()
         {
-            string locName = Properties.Settings.Default.UserLocation;
-            XmlNode locNode = LocationsXmlDoc.SelectSingleNode("//Location[Name='" + locName + "']");
-
-            Program.CurrentLocation = new Location();
-
-            Program.CurrentLocation.Name = locName;
-            if (locNode != null)
+            int locId = Properties.Settings.Default.UserLocationId;
+            if (locId <=  0)
             {
-                Program.CurrentLocation.LatitudeDegrees = Convert.ToInt32(locNode.SelectSingleNode("LatitudeDegrees").InnerText);
-                Program.CurrentLocation.LatitudeMinutes = Convert.ToInt32(locNode.SelectSingleNode("LatitudeMinutes").InnerText);
-                Program.CurrentLocation.LatitudeType = (locNode.SelectSingleNode("LatitudeType").InnerText == "N" ? LatitudeTypeEnum.North : LatitudeTypeEnum.South);
-                Program.CurrentLocation.LongitudeDegrees = Convert.ToInt32(locNode.SelectSingleNode("LongitudeDegrees").InnerText);
-                Program.CurrentLocation.LongitudeMinutes = Convert.ToInt32(locNode.SelectSingleNode("LongitudeMinutes").InnerText);
-                Program.CurrentLocation.LongitudeType = (locNode.SelectSingleNode("LongitudeType").InnerText == "E" ? LongitudeTypeEnum.East : LongitudeTypeEnum.West);
-                Program.CurrentLocation.TimeZone = Convert.ToInt32(locNode.SelectSingleNode("Timezone").InnerText);
-                Program.CurrentLocation.Elevation = Convert.ToInt32(locNode.SelectSingleNode("Elevation").InnerText);
+                locId = Properties.Settings.Default.UserLocationId = 151; //Yerushalayim
             }
+
+            Program.CurrentLocation = clsLocations.GetLocation(locId);
         }
 
         private string GetPassword()
@@ -1727,7 +1714,7 @@ namespace Chashavshavon
 
         public void SetCaptionText()
         {
-            this.Text = "חשבשבון - " + Program.CurrentLocation.Name + " - " +
+            this.Text = "חשבשבון - " + Program.GetCurrentLocationName() + " - " +
                 (this.CurrentFileIsRemote ? "קובץ רשת - " : "") + this.CurrentFileName;
             if (this.pbWeb != null)
             {

@@ -81,7 +81,7 @@ namespace Chashavshavon
                 });
 
                 string daySpecialText = "";
-                foreach (string holiday in JewishHolidays.GetHebrewHolidays(date, Properties.Settings.Default.UserInIsrael))
+                foreach (string holiday in JewishHolidays.GetHebrewHolidays(date, Program.CurrentLocation.IsInIsrael))
                 {
                     daySpecialText += holiday + " ";
                 }

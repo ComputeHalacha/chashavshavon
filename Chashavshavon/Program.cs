@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace Chashavshavon
 {
@@ -11,11 +10,11 @@ namespace Chashavshavon
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
         public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
         //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
-        public static DateTime Today;
-        public static Onah NowOnah;
+        public static DateTime Today { get; set; }
+        public static Onah NowOnah { get; set; }
         //Keeps track of where user is; for calculating zmanim
-        public static Chashavshavon.Utils.Location CurrentLocation;
-        public static frmMain MainForm;
+        public static Chashavshavon.Utils.Location CurrentLocation { get; set; }
+        public static frmMain MainForm { get; set; }
 
         /// <summary>
         /// The main entry point for the application.
@@ -63,6 +62,12 @@ namespace Chashavshavon
                             MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
         }
 
+        internal static string GetCurrentLocationName()
+        {
+            return String.IsNullOrWhiteSpace(CurrentLocation.NameHebrew) ? 
+                CurrentLocation.Name : CurrentLocation.NameHebrew;
+        }
+
         #region Extention Methods
         /// <summary>
         /// Tests to see if an object equals any one of the objects in a list.
@@ -89,8 +94,8 @@ namespace Chashavshavon
         {
             return (HebrewCalendar.GetYear(firstDate) == HebrewCalendar.GetYear(secondDate) &&
                 HebrewCalendar.GetMonth(firstDate) == HebrewCalendar.GetMonth(secondDate) &&
-                HebrewCalendar.GetDayOfMonth(firstDate) == HebrewCalendar.GetDayOfMonth(secondDate));           
+                HebrewCalendar.GetDayOfMonth(firstDate) == HebrewCalendar.GetDayOfMonth(secondDate));
         }
-        #endregion
+        #endregion      
     }
 }

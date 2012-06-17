@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Globalization;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Chashavshavon.Utils
 {
@@ -632,17 +632,20 @@ namespace Chashavshavon.Utils
         East = 1, West = 2
     }
 
-    public struct Location
+    public class Location
     {
-        public string Name;
-        public int LatitudeDegrees;
-        public int LatitudeMinutes;
-        public LatitudeTypeEnum LatitudeType;
-        public int LongitudeDegrees;
-        public int LongitudeMinutes;
-        public LongitudeTypeEnum LongitudeType;
-        public int TimeZone;
-        public int Elevation;
+        public int LocationId { get; set; }
+        public string Name { get; set; }
+        public string NameHebrew { get; set; }
+        public bool IsInIsrael { get; set; }
+        public int LatitudeDegrees { get; set; }
+        public int LatitudeMinutes { get; set; }
+        public LatitudeTypeEnum LatitudeType { get; set; }
+        public int LongitudeDegrees { get; set; }
+        public int LongitudeMinutes { get; set; }
+        public LongitudeTypeEnum LongitudeType { get; set; }
+        public int TimeZone { get; set; }
+        public int Elevation { get; set; }
 
         public override string ToString()
         {

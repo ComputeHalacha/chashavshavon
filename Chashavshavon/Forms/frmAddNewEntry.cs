@@ -103,7 +103,7 @@ namespace Chashavshavon
             }
 
             string sHoliday = null;
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(this._date, Properties.Settings.Default.UserInIsrael))
+            foreach (string holiday in JewishHolidays.GetHebrewHolidays(this._date, Program.CurrentLocation.IsInIsrael))
             {
                 sHoliday += holiday + " ";
             }
@@ -216,7 +216,7 @@ namespace Chashavshavon
             Program.NowOnah = new Onah(Program.Today, isNightTime ? DayNight.Night : DayNight.Day);
 
             string todayString = Program.Today.ToString("dd MMMM");
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Properties.Settings.Default.UserInIsrael))
+            foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Program.CurrentLocation.IsInIsrael))
             {
                 todayString += " - " + holiday;
             }

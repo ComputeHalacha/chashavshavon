@@ -37,25 +37,13 @@ namespace Chashavshavon.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool UserInIsrael {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int UserLocationId {
             get {
-                return ((bool)(this["UserInIsrael"]));
+                return ((int)(this["UserLocationId"]));
             }
             set {
-                this["UserInIsrael"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("קרית ספר")]
-        public string UserLocation {
-            get {
-                return ((string)(this["UserLocation"]));
-            }
-            set {
-                this["UserLocation"] = value;
+                this["UserLocationId"] = value;
             }
         }
         
