@@ -6,7 +6,7 @@
       <Value Profile="(Default)">חשבשבון.pm</Value>
     </Setting>
     <Setting Name="UserPlaceId" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">151</Value>
     </Setting>
     <Setting Name="IsSummerTime" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
