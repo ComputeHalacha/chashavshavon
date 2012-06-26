@@ -436,6 +436,11 @@ namespace Chashavshavon
             }
             System.Diagnostics.Process.Start("notepad.exe", fileName);
         }
+
+        private void cmbYear_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = new DateTime((int)e.Value, 1, 1, Program.HebrewCalendar).ToString("yyyy");
+        }
         #endregion
 
         #region Private Functions
@@ -487,7 +492,7 @@ namespace Chashavshavon
 
         private void FillZmanData()
         {
-            for (int i = 5600; i < 6001; i++)
+            for (int i = 5600; i < 6000; i++)
             {
                 cmbYear.Items.Add(i);
             }
@@ -1796,6 +1801,6 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion
+        #endregion        
     }
 }

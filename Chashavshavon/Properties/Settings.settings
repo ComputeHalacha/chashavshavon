@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="CurrentFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">חשבשבון.pm</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="UserPlaceId" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">151</Value>
@@ -27,7 +27,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="UseLocalURL" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LocalURL" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://localhost:8080</Value>

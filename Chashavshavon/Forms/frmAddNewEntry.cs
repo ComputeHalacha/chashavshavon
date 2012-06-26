@@ -225,7 +225,7 @@ namespace Chashavshavon
 
         private void FillZmanData()
         {
-            for (int i = 5600; i < 6001; i++)
+            for (int i = 5750; i < 6000; i++)
             {
                 cmbYear.Items.Add(i);
             }
@@ -309,6 +309,11 @@ namespace Chashavshavon
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+        }
+
+        private void cmbYear_Format(object sender, ListControlConvertEventArgs e)
+        {
+            e.Value = new DateTime((int)e.Value, 1, 1, Program.HebrewCalendar).ToString("yyyy");
         }
     }
 }

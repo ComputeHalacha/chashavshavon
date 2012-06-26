@@ -24,6 +24,7 @@ namespace Chashavshavon
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.llContact = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -31,7 +32,6 @@ namespace Chashavshavon
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblVersion = new System.Windows.Forms.Label();
-            this.llContact = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -47,6 +47,18 @@ namespace Chashavshavon
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(428, 154);
             this.panel1.TabIndex = 0;
+            // 
+            // llContact
+            // 
+            this.llContact.AutoSize = true;
+            this.llContact.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llContact.Location = new System.Drawing.Point(282, 130);
+            this.llContact.Name = "llContact";
+            this.llContact.Size = new System.Drawing.Size(141, 14);
+            this.llContact.TabIndex = 6;
+            this.llContact.TabStop = true;
+            this.llContact.Text = "www.compute.co.il/contact";
+            this.llContact.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llContact_LinkClicked);
             // 
             // label5
             // 
@@ -120,18 +132,6 @@ namespace Chashavshavon
             this.lblVersion.Text = "גירסה";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // llContact
-            // 
-            this.llContact.AutoSize = true;
-            this.llContact.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.llContact.Location = new System.Drawing.Point(234, 130);
-            this.llContact.Name = "llContact";
-            this.llContact.Size = new System.Drawing.Size(174, 14);
-            this.llContact.TabIndex = 6;
-            this.llContact.TabStop = true;
-            this.llContact.Text = "https://www.compute.co.il/contact";
-            this.llContact.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llContact_LinkClicked);
-            // 
             // AboutBox
             // 
             this.AcceptButton = this.button1;
@@ -174,7 +174,7 @@ namespace Chashavshavon
 
         private void llContact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.compute.co.il/contact/");
+            System.Diagnostics.Process.Start("https://www.compute.co.il/contact/?heb=y");
         }
     }
 }

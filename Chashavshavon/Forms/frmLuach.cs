@@ -41,7 +41,7 @@ namespace Chashavshavon
             int firstDayOfWeek = 1 + (int)this._monthToDisplay.AddDays(1 - Program.HebrewCalendar.GetDayOfMonth(this._monthToDisplay)).DayOfWeek;
             int currentRow = 1, currentColumn = firstDayOfWeek - 1;
 
-            this.lblMonthName.Text = this._monthToDisplay.ToString("MMM yyyy");
+            this.lblMonthName.Text = this._monthToDisplay.ToString("MMM yyyy", Program.CultureInfo);
             this.btnLastMonth.Text = "  " + this._monthToDisplay.AddMonths(-1).ToString("MMM") + "  ";
             this.btnNextMonth.Text = "  " + this._monthToDisplay.AddMonths(1).ToString("MMM") + "  ";
 
