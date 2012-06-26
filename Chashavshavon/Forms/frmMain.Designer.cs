@@ -253,7 +253,7 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgEntries.Size = new System.Drawing.Size(780, 254);
+            this.dgEntries.Size = new System.Drawing.Size(780, 255);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             this.dgEntries.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgEntries_CellFormatting);
@@ -335,7 +335,7 @@
             this.gbCalendar.Controls.Add(this.pnlTomorrow);
             this.gbCalendar.Controls.Add(this.pnlToday);
             this.gbCalendar.Controls.Add(this.pnlYesterday);
-            this.gbCalendar.Location = new System.Drawing.Point(358, 6);
+            this.gbCalendar.Location = new System.Drawing.Point(341, 6);
             this.gbCalendar.Name = "gbCalendar";
             this.gbCalendar.Size = new System.Drawing.Size(517, 220);
             this.gbCalendar.TabIndex = 13;
@@ -869,7 +869,7 @@
             this.groupBox1.Controls.Add(this.btnEnter);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(346, 220);
+            this.groupBox1.Size = new System.Drawing.Size(329, 220);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "רשומה חדשה";
@@ -888,14 +888,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(3, 131);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(340, 86);
+            this.panel1.Size = new System.Drawing.Size(323, 86);
             this.panel1.TabIndex = 13;
             // 
             // label16
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(306, 69);
+            this.label16.Location = new System.Drawing.Point(289, 69);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(28, 12);
             this.label16.TabIndex = 17;
@@ -904,7 +904,7 @@
             // lblToday
             // 
             this.lblToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblToday.Location = new System.Drawing.Point(177, 69);
+            this.lblToday.Location = new System.Drawing.Point(160, 69);
             this.lblToday.Name = "lblToday";
             this.lblToday.Size = new System.Drawing.Size(125, 12);
             this.lblToday.TabIndex = 16;
@@ -914,7 +914,7 @@
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(117, 69);
+            this.label15.Location = new System.Drawing.Point(100, 69);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(63, 12);
             this.label15.TabIndex = 15;
@@ -923,7 +923,7 @@
             // lblTime
             // 
             this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTime.Location = new System.Drawing.Point(61, 69);
+            this.lblTime.Location = new System.Drawing.Point(44, 69);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(56, 12);
             this.lblTime.TabIndex = 14;
@@ -946,7 +946,7 @@
             // 
             this.lblZmanim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZmanim.AutoSize = true;
-            this.lblZmanim.Location = new System.Drawing.Point(271, 33);
+            this.lblZmanim.Location = new System.Drawing.Point(254, 33);
             this.lblZmanim.Name = "lblZmanim";
             this.lblZmanim.Size = new System.Drawing.Size(63, 24);
             this.lblZmanim.TabIndex = 12;
@@ -961,7 +961,7 @@
             this.lblLocation.ForeColor = System.Drawing.Color.Wheat;
             this.lblLocation.Location = new System.Drawing.Point(0, 0);
             this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(338, 26);
+            this.lblLocation.Size = new System.Drawing.Size(321, 26);
             this.lblLocation.TabIndex = 11;
             this.lblLocation.Text = "זמנים לקרית ספר";
             this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -970,7 +970,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(324, 23);
+            this.label3.Location = new System.Drawing.Point(307, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(19, 12);
             this.label3.TabIndex = 5;
@@ -980,7 +980,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(311, 63);
+            this.label4.Location = new System.Drawing.Point(294, 63);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 12);
             this.label4.TabIndex = 10;
@@ -996,7 +996,7 @@
             this.cmbMonth.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbMonth.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbMonth.FormattingEnabled = true;
-            this.cmbMonth.Location = new System.Drawing.Point(196, 38);
+            this.cmbMonth.Location = new System.Drawing.Point(179, 38);
             this.cmbMonth.Name = "cmbMonth";
             this.cmbMonth.Size = new System.Drawing.Size(80, 20);
             this.cmbMonth.TabIndex = 1;
@@ -1013,7 +1013,7 @@
             this.cmbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbDay.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbDay.FormattingEnabled = true;
-            this.cmbDay.Location = new System.Drawing.Point(290, 38);
+            this.cmbDay.Location = new System.Drawing.Point(273, 38);
             this.cmbDay.Name = "cmbDay";
             this.cmbDay.Size = new System.Drawing.Size(53, 20);
             this.cmbDay.TabIndex = 0;
@@ -1029,7 +1029,7 @@
             this.cmbYear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbYear.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbYear.FormattingEnabled = true;
-            this.cmbYear.Location = new System.Drawing.Point(112, 38);
+            this.cmbYear.Location = new System.Drawing.Point(95, 38);
             this.cmbYear.Name = "cmbYear";
             this.cmbYear.Size = new System.Drawing.Size(71, 20);
             this.cmbYear.TabIndex = 2;
@@ -1041,9 +1041,9 @@
             this.rbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbDay.Location = new System.Drawing.Point(31, 42);
+            this.rbDay.Location = new System.Drawing.Point(19, 42);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(48, 18);
+            this.rbDay.Size = new System.Drawing.Size(43, 17);
             this.rbDay.TabIndex = 4;
             this.rbDay.Text = "יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -1053,7 +1053,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(162, 23);
+            this.label1.Location = new System.Drawing.Point(145, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 12);
             this.label1.TabIndex = 3;
@@ -1065,9 +1065,9 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Checked = true;
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbNight.Location = new System.Drawing.Point(22, 22);
+            this.rbNight.Location = new System.Drawing.Point(14, 22);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(57, 18);
+            this.rbNight.Size = new System.Drawing.Size(48, 17);
             this.rbNight.TabIndex = 3;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "לילה";
@@ -1078,7 +1078,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(248, 23);
+            this.label2.Location = new System.Drawing.Point(231, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 4;
@@ -1092,7 +1092,7 @@
             this.txtNotes.ForeColor = System.Drawing.Color.SaddleBrown;
             this.txtNotes.Location = new System.Drawing.Point(6, 77);
             this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(337, 19);
+            this.txtNotes.Size = new System.Drawing.Size(320, 19);
             this.txtNotes.TabIndex = 5;
             // 
             // btnEnter
@@ -1102,7 +1102,7 @@
             this.btnEnter.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnEnter.ForeColor = System.Drawing.Color.Blue;
             this.btnEnter.Image = global::Chashavshavon.Properties.Resources.previous;
-            this.btnEnter.Location = new System.Drawing.Point(237, 102);
+            this.btnEnter.Location = new System.Drawing.Point(220, 102);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(106, 27);
             this.btnEnter.TabIndex = 6;
@@ -1442,7 +1442,7 @@
             this.lblNextProblem.Location = new System.Drawing.Point(0, 226);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lblNextProblem.Size = new System.Drawing.Size(882, 20);
+            this.lblNextProblem.Size = new System.Drawing.Size(865, 20);
             this.lblNextProblem.TabIndex = 16;
             this.lblNextProblem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1480,7 +1480,7 @@
             this.splitContainerMain.Panel2.Controls.Add(this.lblNextProblem);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainerMain.Size = new System.Drawing.Size(884, 538);
-            this.splitContainerMain.SplitterDistance = 287;
+            this.splitContainerMain.SplitterDistance = 288;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 23;
             // 
