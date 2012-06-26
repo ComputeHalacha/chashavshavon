@@ -23,15 +23,13 @@ namespace Chashavshavon
         #region Constructors
         public frmMain()
         {
-            this._monthToDisplay = DateTime.Now;
-            this.StartUp();            
+            this.StartUp();
         }
 
         public frmMain(string filePath)
         {
             this.CurrentFileIsRemote = false;
             this.CurrentFile = filePath;
-            this._monthToDisplay = DateTime.Now;
             this.StartUp();
         }
 
@@ -52,6 +50,7 @@ namespace Chashavshavon
             //Load the last opened file. If it does not exist or this is the first run, a blank list is presented            
             this.LoadXmlFile();
             this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
+            this._monthToDisplay = Program.Today;
             this.DisplayMonth();
         }
 
@@ -93,13 +92,13 @@ namespace Chashavshavon
 
         private void btnNextMonth_Click(object sender, EventArgs e)
         {
-            this._monthToDisplay = this._monthToDisplay.AddMonths(1);
+            this._monthToDisplay = Program.HebrewCalendar.AddMonths(this._monthToDisplay, 1);
             this.DisplayMonth();
         }
 
         private void btnLastMonth_Click(object sender, EventArgs e)
         {
-            this._monthToDisplay = this._monthToDisplay.AddMonths(-1);
+            this._monthToDisplay = Program.HebrewCalendar.AddMonths(this._monthToDisplay, -1);
             this.DisplayMonth();
         }
 
@@ -411,7 +410,7 @@ namespace Chashavshavon
             }
             System.Diagnostics.Process.Start("notepad.exe", fileName);
         }
-     
+
         private void btnToday_Click(object sender, EventArgs e)
         {
             this._monthToDisplay = Program.Today;
@@ -1273,7 +1272,8 @@ namespace Chashavshavon
         {
             int year = Program.HebrewCalendar.GetYear(this._monthToDisplay);
             MonthObject month = new MonthObject(year, Program.HebrewCalendar.GetMonth(this._monthToDisplay));
-            int firstDayOfWeek = 1 + (int)this._monthToDisplay.AddDays(1 - Program.HebrewCalendar.GetDayOfMonth(this._monthToDisplay)).DayOfWeek;
+            DateTime firstDayOfMonth = this._monthToDisplay.AddDays(1 - Program.HebrewCalendar.GetDayOfMonth(this._monthToDisplay));
+            int firstDayOfWeek = 1 + (int)firstDayOfMonth.DayOfWeek;
             int currentRow = 1, currentColumn = firstDayOfWeek - 1;
 
             this.luachTableLayout.Visible = false;
@@ -1286,8 +1286,28 @@ namespace Chashavshavon
             this.luachTableLayout.Controls.Clear();
 
             this.lblMonthName.Text = this._monthToDisplay.ToString("MMM yyyy", Program.CultureInfo);
-            this.btnLastMonth.Text = "  " + this._monthToDisplay.AddMonths(-1).ToString("MMM") + "  ";
-            this.btnNextMonth.Text = "  " + this._monthToDisplay.AddMonths(1).ToString("MMM") + "  ";
+            this.btnLastMonth.Text = "  " + Program.HebrewCalendar.AddMonths(this._monthToDisplay, -1).ToString("MMM") + "  ";
+            this.btnNextMonth.Text = "  " + Program.HebrewCalendar.AddMonths(this._monthToDisplay, 1).ToString("MMM") + "  ";
+
+            if (((int)firstDayOfMonth.DayOfWeek >= 6) &&
+                   Program.HebrewCalendar.GetDaysInMonth(year, month.MonthInYear)
+                > 29)
+            {
+                this.luachTableLayout.RowCount = 7;
+                this.luachTableLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 16.66667F));
+                foreach (RowStyle rs in this.luachTableLayout.RowStyles)
+                {
+                    if (rs.SizeType == SizeType.Percent)
+                    {
+                        rs.Height = 16.66667F;
+                    }
+                }               
+            }
+            else
+            {
+                this.luachTableLayout.RowCount = 6;
+            }
+
 
             for (int i = 0; i < 7; i++)
             {
@@ -1295,9 +1315,14 @@ namespace Chashavshavon
                 {
                     Text = Zmanim.DaysOfWeekHebrewFull[i],
                     Dock = DockStyle.Fill,
-                    TextAlign = ContentAlignment.MiddleCenter
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    ForeColor = Color.White,
+                    BackColor = Color.LightSlateGray,
+                    Font = new Font(this.luachTableLayout.Font.FontFamily, 12f)
                 }, i, 0);
             }
+
+
 
             for (int i = 1; i < month.DaysInMonth + 1; i++)
             {
@@ -1682,8 +1707,8 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion        
+        #endregion
 
-        
+
     }
 }

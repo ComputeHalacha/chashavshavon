@@ -87,9 +87,9 @@
             this.btnPrefs = new System.Windows.Forms.Button();
             this.btnAddEntry = new System.Windows.Forms.Button();
             this.btnAddKavuah = new System.Windows.Forms.Button();
+            this.btnToday = new System.Windows.Forms.Button();
             this.lblNextProblem = new System.Windows.Forms.Label();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
-            this.btnToday = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnLastMonth = new System.Windows.Forms.Button();
             this.btnNextMonth = new System.Windows.Forms.Button();
@@ -650,6 +650,25 @@
             this.btnAddKavuah.UseVisualStyleBackColor = true;
             this.btnAddKavuah.Click += new System.EventHandler(this.btnAddKavuah_Click);
             // 
+            // btnToday
+            // 
+            this.btnToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnToday.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnToday.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnToday.Font = new System.Drawing.Font("Narkisim", 9.25F, System.Drawing.FontStyle.Bold);
+            this.btnToday.ForeColor = System.Drawing.Color.Lavender;
+            this.btnToday.Image = global::Chashavshavon.Properties.Resources.down;
+            this.btnToday.Location = new System.Drawing.Point(812, 5);
+            this.btnToday.Name = "btnToday";
+            this.btnToday.Size = new System.Drawing.Size(66, 29);
+            this.btnToday.TabIndex = 36;
+            this.btnToday.Text = "היום";
+            this.btnToday.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnToday.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnToday, "הצג בלוח החודש הנוכחי");
+            this.btnToday.UseVisualStyleBackColor = false;
+            this.btnToday.Click += new System.EventHandler(this.btnToday_Click);
+            // 
             // lblNextProblem
             // 
             this.lblNextProblem.AutoEllipsis = true;
@@ -701,25 +720,6 @@
             this.splitContainerMain.SplitterDistance = 500;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 23;
-            // 
-            // btnToday
-            // 
-            this.btnToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToday.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnToday.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnToday.Font = new System.Drawing.Font("Narkisim", 9.25F, System.Drawing.FontStyle.Bold);
-            this.btnToday.ForeColor = System.Drawing.Color.Lavender;
-            this.btnToday.Image = global::Chashavshavon.Properties.Resources.down;
-            this.btnToday.Location = new System.Drawing.Point(812, 5);
-            this.btnToday.Name = "btnToday";
-            this.btnToday.Size = new System.Drawing.Size(66, 29);
-            this.btnToday.TabIndex = 36;
-            this.btnToday.Text = "היום";
-            this.btnToday.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnToday.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip1.SetToolTip(this.btnToday, "הצג בלוח החודש הנוכחי");
-            this.btnToday.UseVisualStyleBackColor = false;
-            this.btnToday.Click += new System.EventHandler(this.btnToday_Click);
             // 
             // panel1
             // 
@@ -796,7 +796,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.luachTableLayout.BackColor = System.Drawing.SystemColors.Control;
-            this.luachTableLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
+            this.luachTableLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.luachTableLayout.ColumnCount = 7;
             this.luachTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.luachTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
@@ -814,6 +814,7 @@
             this.luachTableLayout.Controls.Add(this.label12, 0, 0);
             this.luachTableLayout.Cursor = System.Windows.Forms.Cursors.Hand;
             this.luachTableLayout.Location = new System.Drawing.Point(0, 0);
+            this.luachTableLayout.Margin = new System.Windows.Forms.Padding(0);
             this.luachTableLayout.Name = "luachTableLayout";
             this.luachTableLayout.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.luachTableLayout.RowCount = 6;
@@ -829,10 +830,13 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.LightSlateGray;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(5, 2);
+            this.label7.Font = new System.Drawing.Font("Narkisim", 12F);
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(4, 1);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(121, 20);
+            this.label7.Size = new System.Drawing.Size(122, 20);
             this.label7.TabIndex = 6;
             this.label7.Text = "שבת קודש";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -840,10 +844,13 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.LightSlateGray;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Location = new System.Drawing.Point(134, 2);
+            this.label6.Font = new System.Drawing.Font("Narkisim", 12F);
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(133, 1);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(120, 20);
+            this.label6.Size = new System.Drawing.Size(121, 20);
             this.label6.TabIndex = 5;
             this.label6.Text = "שישי";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -851,10 +858,13 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.LightSlateGray;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(262, 2);
+            this.label5.Font = new System.Drawing.Font("Narkisim", 12F);
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(261, 1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 20);
+            this.label5.Size = new System.Drawing.Size(121, 20);
             this.label5.TabIndex = 4;
             this.label5.Text = "חמישי";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -862,10 +872,13 @@
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.LightSlateGray;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(390, 2);
+            this.label9.Font = new System.Drawing.Font("Narkisim", 12F);
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(389, 1);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(120, 20);
+            this.label9.Size = new System.Drawing.Size(121, 20);
             this.label9.TabIndex = 3;
             this.label9.Text = "רביעי";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -873,10 +886,13 @@
             // label10
             // 
             this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.LightSlateGray;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(518, 2);
+            this.label10.Font = new System.Drawing.Font("Narkisim", 12F);
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(517, 1);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(120, 20);
+            this.label10.Size = new System.Drawing.Size(121, 20);
             this.label10.TabIndex = 2;
             this.label10.Text = "שלישי";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -884,10 +900,13 @@
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.LightSlateGray;
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label11.Location = new System.Drawing.Point(646, 2);
+            this.label11.Font = new System.Drawing.Font("Narkisim", 12F);
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(645, 1);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(120, 20);
+            this.label11.Size = new System.Drawing.Size(121, 20);
             this.label11.TabIndex = 1;
             this.label11.Text = "שני";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -895,10 +914,13 @@
             // label12
             // 
             this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.LightSlateGray;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Location = new System.Drawing.Point(774, 2);
+            this.label12.Font = new System.Drawing.Font("Narkisim", 12F);
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(773, 1);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(119, 20);
+            this.label12.Size = new System.Drawing.Size(121, 20);
             this.label12.TabIndex = 0;
             this.label12.Text = "ראשון";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
