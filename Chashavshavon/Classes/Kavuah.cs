@@ -42,6 +42,14 @@ namespace Chashavshavon
         public DateTime SettingEntryDate { get; set; }
         public int SettingEntryInterval { get; set; }
         public string Notes { get; set; }
+        [System.Xml.Serialization.XmlIgnore]
+        public string KavuahDescriptionHebrew
+        {
+            get
+            {
+                return this.ToString();
+            }
+        }
         #endregion
 
         #region Public Functions

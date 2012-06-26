@@ -24,9 +24,8 @@ namespace Chashavshavon
         public frmMain()
         {
             this._monthToDisplay = DateTime.Now;
-            this.StartUp();
+            this.StartUp();            
         }
-
 
         public frmMain(string filePath)
         {
@@ -69,15 +68,15 @@ namespace Chashavshavon
 
         private void frmMain_ResizeBegin(object sender, EventArgs e)
         {
-            this.tableLayoutPanel1.Visible = false;
-            this.tableLayoutPanel1.SuspendLayout();
+            this.luachTableLayout.Visible = false;
+            this.luachTableLayout.SuspendLayout();
         }
 
 
         private void frmMain_ResizeEnd(object sender, EventArgs e)
         {
-            this.tableLayoutPanel1.ResumeLayout();
-            this.tableLayoutPanel1.Visible = true;
+            this.luachTableLayout.ResumeLayout();
+            this.luachTableLayout.Visible = true;
         }
 
         void AddNewEntry(object sender, EventArgs e)
@@ -412,10 +411,11 @@ namespace Chashavshavon
             }
             System.Diagnostics.Process.Start("notepad.exe", fileName);
         }
-
-        private void cmbYear_Format(object sender, ListControlConvertEventArgs e)
+     
+        private void btnToday_Click(object sender, EventArgs e)
         {
-            e.Value = new DateTime((int)e.Value, 1, 1, Program.HebrewCalendar).ToString("yyyy");
+            this._monthToDisplay = Program.Today;
+            this.DisplayMonth();
         }
         #endregion
 
@@ -1276,14 +1276,14 @@ namespace Chashavshavon
             int firstDayOfWeek = 1 + (int)this._monthToDisplay.AddDays(1 - Program.HebrewCalendar.GetDayOfMonth(this._monthToDisplay)).DayOfWeek;
             int currentRow = 1, currentColumn = firstDayOfWeek - 1;
 
-            this.tableLayoutPanel1.Visible = false;
-            this.tableLayoutPanel1.SuspendLayout();
+            this.luachTableLayout.Visible = false;
+            this.luachTableLayout.SuspendLayout();
 
-            foreach (Control c in this.tableLayoutPanel1.Controls)
+            foreach (Control c in this.luachTableLayout.Controls)
             {
                 c.Dispose();
             }
-            this.tableLayoutPanel1.Controls.Clear();
+            this.luachTableLayout.Controls.Clear();
 
             this.lblMonthName.Text = this._monthToDisplay.ToString("MMM yyyy", Program.CultureInfo);
             this.btnLastMonth.Text = "  " + this._monthToDisplay.AddMonths(-1).ToString("MMM") + "  ";
@@ -1291,7 +1291,7 @@ namespace Chashavshavon
 
             for (int i = 0; i < 7; i++)
             {
-                this.tableLayoutPanel1.Controls.Add(new Label()
+                this.luachTableLayout.Controls.Add(new Label()
                 {
                     Text = Zmanim.DaysOfWeekHebrewFull[i],
                     Dock = DockStyle.Fill,
@@ -1389,7 +1389,7 @@ namespace Chashavshavon
                         RightToLeft = System.Windows.Forms.RightToLeft.Yes
                     });
                 }
-                else if (currentColumn == tableLayoutPanel1.ColumnCount - 1)
+                else if (currentColumn == luachTableLayout.ColumnCount - 1)
                 {
                     pnl.BackColor = Color.Lavender;
                 }
@@ -1404,9 +1404,9 @@ namespace Chashavshavon
                     }
                 }
 
-                this.tableLayoutPanel1.Controls.Add(pnl, currentColumn, currentRow);
+                this.luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);
 
-                if (currentColumn == tableLayoutPanel1.ColumnCount - 1)
+                if (currentColumn == luachTableLayout.ColumnCount - 1)
                 {
                     currentColumn = 0;
                     currentRow++;
@@ -1416,8 +1416,8 @@ namespace Chashavshavon
                     currentColumn++;
                 }
             }
-            this.tableLayoutPanel1.ResumeLayout();
-            this.tableLayoutPanel1.Visible = true;
+            this.luachTableLayout.ResumeLayout();
+            this.luachTableLayout.Visible = true;
         }
 
         #endregion
@@ -1683,5 +1683,7 @@ namespace Chashavshavon
             }
         }
         #endregion        
+
+        
     }
 }

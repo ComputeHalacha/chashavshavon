@@ -1,5 +1,6 @@
-<html>
+﻿<html>
 <head>
+    <meta charset='utf-8'>
     <title>Chashavshavon - User Console</title>
 
     <script type="text/javascript" language="JavaScript">
@@ -42,51 +43,29 @@
             }
         }
     </script>
-
+    
     <style type="text/css">
-        body, td, input
-        {
-            font-family: arial;
-            font-size: 8pt;
-        }
-        input
-        {
-            border: solid 1px silver;
-            width: 220px;
-        }
-        .Heading
-        {
-            color: Maroon;
-            font-weight: bold;
-            font-size: 14pt;
-            margin-bottom: 10px;
-            padding-left: 20px;
-            padding-top: 0;
-            margin-top: 0;
-        }
-        .Message
-        {
-            color: #FF0000;
-            font-size: 7pt;
-            border: solid 0 #FF0000;
-            padding: 5px;
-            margin: 5px;
-        }
-        .Link
-        {
-            color: Blue;
-            cursor: pointer;
-        }
-        .Link:hover
-        {
-            text-decoration: underline;
-        }
+        body, td, input { font-family: arial; font-size: 8pt; }
+        input { border: solid 1px silver; width: 220px; }
+        .Heading { color: Maroon; font-weight: bold; font-size: 14pt; margin-bottom: 10px; padding-left: 20px; padding-top: 0; margin-top: 0; }
+        .Message { color: #FF0000; font-size: 7pt; border: solid 0 #FF0000; padding: 5px; margin: 5px; }
+        .Link { color: Blue; cursor: pointer; }
+        .Link:hover { text-decoration: underline; }
+        div.topRight { float:right; margin:3px; width:300px; }  
+        div.basad { float:right; width:20px; font-weight:bold; color:#bbb; }
     </style>
     <link rel="icon" type="image/png" href="/static/chash.png" />
     <link rel="shortcut icon" href="/static/chash.ico" />
 </head>
 <body style="margin: 0; padding: 0px;">
-    <img src="http://code.google.com/appengine/images/appengine-silver-120x30.gif" style="float:right;margin:3px;" alt="Powered by Google App Engine" />
+    <div class="topRight">
+        <a href="http://www.compute.co.il/Products/Chashavshavon/" title="Download the latest version of the Chashavshavon Application">Download Chashavshavon</a> 
+        &nbsp;&nbsp;&diams;&nbsp;&nbsp;
+        <a href="http://www.compute.co.il/Products/Chashavshavon/" title=" הורד תוכנית חשבשבון">הורד תוכנית חשבשבון</a>  
+        <div class="basad">
+            בס"ד          
+        </div>
+    </div>
     <form method="post" target="iframeResults">
     <div style="background-color: #f1f1f1; padding: 5px;">
         <img src="/static/Scroll.png" height="25" style="float: left;margin:0 5px 5px 0;" alt="Chashavshavon" />

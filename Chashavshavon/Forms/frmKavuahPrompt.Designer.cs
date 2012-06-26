@@ -147,7 +147,7 @@
             // 
             // bindingSource1
             // 
-            //this.bindingSource1.DataSource = typeof(Chashavshavon.Kavuah);
+            this.bindingSource1.DataSource = typeof(Chashavshavon.Kavuah);
             // 
             // btnAdd
             // 

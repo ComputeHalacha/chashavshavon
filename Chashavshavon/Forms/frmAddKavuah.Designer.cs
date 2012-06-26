@@ -289,6 +289,10 @@
             this.cmbSettingEntry.ValueMember = "DateTime";
             this.cmbSettingEntry.SelectedIndexChanged += new System.EventHandler(this.cmbSettingEntry_SelectedIndexChanged);
             // 
+            // entryBindingSource
+            // 
+            this.entryBindingSource.DataSource = typeof(Chashavshavon.Entry);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;

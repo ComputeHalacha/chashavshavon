@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <head>
     <title>Chashavshavon - Admin Login</title>
 
@@ -56,15 +56,34 @@
             border: solid 0 #FF0000;
             padding: 5px;
             margin: 5px;
+        } 
+        div.topRight 
+        { 
+            float:right; 
+            margin:3px; 
+            width:300px; 
+        }  
+        div.basad 
+        { 
+            float:right; 
+            width:20px; 
+            font-weight:bold; 
+            color:#bbb; 
         }        
     </style>
     <link rel="icon" type="image/png" href="/static/chash.png" />
     <link rel="shortcut icon" href="/static/chash.ico" />
 </head>
 <body style="margin: 0; padding: 10px;" onload="javascript:if(location.search.indexOf('BLI=1') > -1){message('Please log in to an administrator account.');}">
-    <img src="http://code.google.com/appengine/images/appengine-silver-120x30.gif" style="float:right;margin:3px;" alt="Powered by Google App Engine" />
     <form method="post" action="/admin">
-        <img src="/static/Scroll.png" height="25" style="float: left;margin:0 5px 5px 0;" alt="Chashavshavon" />
+        <div class="topRight">
+            <a href="http://www.compute.co.il/Products/Chashavshavon/" title="Download the latest version of the Chashavshavon Application">Download Chashavshavon</a> 
+            &nbsp;&nbsp;&diams;&nbsp;&nbsp;
+            <a href="http://www.compute.co.il/Products/Chashavshavon/" title=" הורד תוכנית חשבשבון">הורד תוכנית חשבשבון</a>  
+            <div class="basad">
+                בס"ד          
+            </div>
+        </div>
         <div class="Heading">
             Chashavshavon - Admin Login
         </div>

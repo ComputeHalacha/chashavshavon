@@ -137,6 +137,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DoubleBufferedLayoutTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Classes\Place.cs" />
     <Compile Include="Classes\Kavuah.cs" />
     <Compile Include="Forms\AboutBox.cs">
@@ -285,6 +288,7 @@
     <None Include="Resources\add.png" />
     <None Include="Resources\database_search.png" />
     <None Include="Resources\scroll1.png" />
+    <None Include="Resources\down.png" />
     <Content Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html" />
     <Content Include="Places.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
