@@ -81,7 +81,7 @@ namespace Chashavshavon
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.BurlyWood;
+            this.button1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.Location = new System.Drawing.Point(366, 258);
             this.button1.Name = "button1";
@@ -96,7 +96,7 @@ namespace Chashavshavon
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Narkisim", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label1.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.label1.Location = new System.Drawing.Point(27, 6);
+            this.label1.Location = new System.Drawing.Point(74, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(183, 47);
             this.label1.TabIndex = 3;
@@ -106,7 +106,7 @@ namespace Chashavshavon
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label2.Location = new System.Drawing.Point(32, 53);
+            this.label2.Location = new System.Drawing.Point(79, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(192, 16);
             this.label2.TabIndex = 4;
@@ -114,11 +114,11 @@ namespace Chashavshavon
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Chashavshavon.Properties.Resources.chash;
+            this.pictureBox1.Image = global::Chashavshavon.Properties.Resources.scroll;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.Size = new System.Drawing.Size(61, 61);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -135,7 +135,7 @@ namespace Chashavshavon
             // AboutBox
             // 
             this.AcceptButton = this.button1;
-            this.BackColor = System.Drawing.Color.Tan;
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(453, 293);
             this.Controls.Add(this.lblVersion);

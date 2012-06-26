@@ -213,7 +213,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnAdd.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnAdd.Location = new System.Drawing.Point(303, 437);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(87, 23);
@@ -224,7 +224,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnClose.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Location = new System.Drawing.Point(207, 437);
             this.btnClose.Name = "btnClose";
@@ -289,10 +289,6 @@
             this.cmbSettingEntry.ValueMember = "DateTime";
             this.cmbSettingEntry.SelectedIndexChanged += new System.EventHandler(this.cmbSettingEntry_SelectedIndexChanged);
             // 
-            // entryBindingSource
-            // 
-            this.entryBindingSource.DataSource = typeof(Chashavshavon.Entry);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -307,7 +303,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Narkisim", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label4.ForeColor = System.Drawing.Color.Maroon;
+            this.label4.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.label4.Location = new System.Drawing.Point(50, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(110, 16);
@@ -329,7 +325,7 @@
             this.AcceptButton = this.btnAdd;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Tan;
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(420, 471);
             this.Controls.Add(this.pictureBox1);

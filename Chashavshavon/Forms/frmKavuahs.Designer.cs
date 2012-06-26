@@ -37,15 +37,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.dgvKavuahList = new System.Windows.Forms.DataGridView();
             this.btnDelete = new System.Windows.Forms.DataGridViewImageColumn();
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.StartingEntryDate = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.entryBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.notesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dayNightDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.kavuahTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kavuahBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -57,7 +50,7 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.BurlyWood;
+            this.button2.BackColor = System.Drawing.Color.LightSteelBlue;
             this.button2.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.button2.Location = new System.Drawing.Point(693, 14);
             this.button2.Name = "button2";
@@ -71,7 +64,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Narkisim", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label4.ForeColor = System.Drawing.Color.Maroon;
+            this.label4.ForeColor = System.Drawing.Color.SteelBlue;
             this.label4.Location = new System.Drawing.Point(50, 12);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(121, 16);
@@ -99,14 +92,7 @@
             this.dgvKavuahList.ColumnHeadersHeight = 25;
             this.dgvKavuahList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.btnDelete,
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn,
-            this.activeDataGridViewCheckBoxColumn,
-            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn,
-            this.StartingEntryDate,
-            this.notesDataGridViewTextBoxColumn,
-            this.dayNightDataGridViewTextBoxColumn,
-            this.kavuahTypeDataGridViewTextBoxColumn,
-            this.numberDataGridViewTextBoxColumn});
+            this.StartingEntryDate});
             this.dgvKavuahList.DataSource = this.kavuahBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
@@ -136,80 +122,19 @@
             this.btnDelete.ToolTipText = "מחק רשומה הזאת";
             this.btnDelete.Width = 40;
             // 
-            // kavuahDescriptionHebrewDataGridViewTextBoxColumn
-            // 
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.DataPropertyName = "KavuahDescriptionHebrew";
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.Frozen = true;
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.HeaderText = "סוג";
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.Name = "kavuahDescriptionHebrewDataGridViewTextBoxColumn";
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.ReadOnly = true;
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.Width = 250;
-            // 
-            // activeDataGridViewCheckBoxColumn
-            // 
-            this.activeDataGridViewCheckBoxColumn.DataPropertyName = "Active";
-            this.activeDataGridViewCheckBoxColumn.HeaderText = "פעיל?";
-            this.activeDataGridViewCheckBoxColumn.Name = "activeDataGridViewCheckBoxColumn";
-            this.activeDataGridViewCheckBoxColumn.Width = 50;
-            // 
-            // cancelsOnahBeinanisDataGridViewCheckBoxColumn
-            // 
-            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.DataPropertyName = "CancelsOnahBeinanis";
-            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.HeaderText = "מבטל עונה בינונית?";
-            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.Name = "cancelsOnahBeinanisDataGridViewCheckBoxColumn";
-            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.Width = 135;
-            // 
             // StartingEntryDate
             // 
             this.StartingEntryDate.DataPropertyName = "SettingEntryDate";
             this.StartingEntryDate.DataSource = this.entryBindingSource;
             dataGridViewCellStyle2.Format = "dddd dd MMM yyyy";
             this.StartingEntryDate.DefaultCellStyle = dataGridViewCellStyle2;
-            this.StartingEntryDate.DisplayMember = "DateTime";
             this.StartingEntryDate.HeaderText = "ראיה הקובע";
             this.StartingEntryDate.Name = "StartingEntryDate";
-            this.StartingEntryDate.ValueMember = "DateTime";
             this.StartingEntryDate.Width = 180;
-            // 
-            // entryBindingSource
-            // 
-            this.entryBindingSource.DataSource = typeof(Chashavshavon.Entry);
-            // 
-            // notesDataGridViewTextBoxColumn
-            // 
-            this.notesDataGridViewTextBoxColumn.DataPropertyName = "Notes";
-            this.notesDataGridViewTextBoxColumn.HeaderText = "הערות";
-            this.notesDataGridViewTextBoxColumn.Name = "notesDataGridViewTextBoxColumn";
-            this.notesDataGridViewTextBoxColumn.Width = 198;
-            // 
-            // dayNightDataGridViewTextBoxColumn
-            // 
-            this.dayNightDataGridViewTextBoxColumn.DataPropertyName = "DayNight";
-            this.dayNightDataGridViewTextBoxColumn.HeaderText = "DayNight";
-            this.dayNightDataGridViewTextBoxColumn.Name = "dayNightDataGridViewTextBoxColumn";
-            this.dayNightDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // kavuahTypeDataGridViewTextBoxColumn
-            // 
-            this.kavuahTypeDataGridViewTextBoxColumn.DataPropertyName = "KavuahType";
-            this.kavuahTypeDataGridViewTextBoxColumn.HeaderText = "KavuahType";
-            this.kavuahTypeDataGridViewTextBoxColumn.Name = "kavuahTypeDataGridViewTextBoxColumn";
-            this.kavuahTypeDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // numberDataGridViewTextBoxColumn
-            // 
-            this.numberDataGridViewTextBoxColumn.DataPropertyName = "Number";
-            this.numberDataGridViewTextBoxColumn.HeaderText = "Number";
-            this.numberDataGridViewTextBoxColumn.Name = "numberDataGridViewTextBoxColumn";
-            this.numberDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // kavuahBindingSource
-            // 
-            this.kavuahBindingSource.DataSource = typeof(Chashavshavon.Kavuah);
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.BurlyWood;
+            this.button1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.button1.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.button1.Location = new System.Drawing.Point(784, 14);
             this.button1.Name = "button1";
@@ -233,7 +158,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Tan;
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(880, 413);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);

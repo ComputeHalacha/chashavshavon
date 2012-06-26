@@ -83,7 +83,7 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClose.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnClose.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnClose.Location = new System.Drawing.Point(695, 522);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnClose.Name = "btnClose";
@@ -96,7 +96,7 @@
             // btnEnter
             // 
             this.btnEnter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEnter.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnEnter.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnEnter.Location = new System.Drawing.Point(206, 142);
             this.btnEnter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnEnter.Name = "btnEnter";
@@ -109,7 +109,7 @@
             // btnNewUser
             // 
             this.btnNewUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNewUser.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnNewUser.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnNewUser.Location = new System.Drawing.Point(99, 142);
             this.btnNewUser.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnNewUser.Name = "btnNewUser";
@@ -159,7 +159,7 @@
             // btnPreview
             // 
             this.btnPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPreview.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnPreview.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnPreview.Location = new System.Drawing.Point(193, 337);
             this.btnPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnPreview.Name = "btnPreview";
@@ -172,7 +172,7 @@
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnDelete.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnDelete.Location = new System.Drawing.Point(39, 337);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnDelete.Name = "btnDelete";
@@ -185,7 +185,7 @@
             // btnOpen
             // 
             this.btnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpen.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnOpen.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnOpen.Location = new System.Drawing.Point(116, 337);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOpen.Name = "btnOpen";
@@ -197,7 +197,7 @@
             // 
             // lbFileNames
             // 
-            this.lbFileNames.BackColor = System.Drawing.Color.Wheat;
+            this.lbFileNames.BackColor = System.Drawing.Color.Lavender;
             this.lbFileNames.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbFileNames.Font = new System.Drawing.Font("Narkisim", 10F);
             this.lbFileNames.ForeColor = System.Drawing.Color.SaddleBrown;
@@ -232,7 +232,7 @@
             // btnDeleteUser
             // 
             this.btnDeleteUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteUser.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnDeleteUser.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnDeleteUser.Location = new System.Drawing.Point(153, 173);
             this.btnDeleteUser.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnDeleteUser.Name = "btnDeleteUser";
@@ -259,7 +259,7 @@
             // btnSaveCurrent
             // 
             this.btnSaveCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveCurrent.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnSaveCurrent.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnSaveCurrent.Location = new System.Drawing.Point(22, 43);
             this.btnSaveCurrent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnSaveCurrent.Name = "btnSaveCurrent";
@@ -344,7 +344,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Tan;
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(794, 560);
             this.Controls.Add(this.llSite);
             this.Controls.Add(this.label4);

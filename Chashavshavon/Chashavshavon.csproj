@@ -176,12 +176,6 @@
     <Compile Include="Forms\frmKavuahs.Designer.cs">
       <DependentUpon>frmKavuahs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmLuach.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmLuach.Designer.cs">
-      <DependentUpon>frmLuach.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,9 +222,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmKavuahs.resx">
       <DependentUpon>frmKavuahs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmLuach.resx">
-      <DependentUpon>frmLuach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMain.resx">
       <SubType>Designer</SubType>
@@ -290,6 +281,10 @@
     <None Include="Resources\calendar_date.png" />
     <None Include="Resources\next.png" />
     <None Include="Resources\previous.png" />
+    <None Include="Resources\process.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\database_search.png" />
+    <None Include="Resources\scroll1.png" />
     <Content Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html" />
     <Content Include="Places.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

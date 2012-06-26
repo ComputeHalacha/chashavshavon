@@ -147,7 +147,7 @@
             // 
             // bindingSource1
             // 
-            this.bindingSource1.DataSource = typeof(Chashavshavon.Kavuah);
+            //this.bindingSource1.DataSource = typeof(Chashavshavon.Kavuah);
             // 
             // btnAdd
             // 
@@ -215,7 +215,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Tan;
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(784, 424);
             this.ControlBox = false;
             this.Controls.Add(this.label1);

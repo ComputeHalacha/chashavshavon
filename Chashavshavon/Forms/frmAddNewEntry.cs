@@ -113,7 +113,7 @@ namespace Chashavshavon
                 sHoliday = " - " + sHoliday;
             }
 
-            lblLocation.Text = Program.CurrentPlace.Name + " - " + this._date.ToString("dddd dd MMM yyyy") + sHoliday;
+            lblLocation.Text = Program.GetCurrentPlaceName() + " - " + this._date.ToString("dddd dd MMM yyyy") + sHoliday;
 
             StringBuilder sb = new StringBuilder("נץ - ");
             sb.Append(netz.Hour.ToString());
@@ -215,7 +215,7 @@ namespace Chashavshavon
             this.rbNight.Checked = isNightTime;
             Program.NowOnah = new Onah(Program.Today, isNightTime ? DayNight.Night : DayNight.Day);
 
-            string todayString = Program.Today.ToString("dd MMMM");
+            string todayString = Program.Today.ToString("dddd dd MMM yyyy");
             foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Program.CurrentPlace.IsInIsrael))
             {
                 todayString += " - " + holiday;

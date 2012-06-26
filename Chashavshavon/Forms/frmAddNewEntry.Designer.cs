@@ -53,17 +53,20 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnClose = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.Tan;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.BackColor = System.Drawing.Color.Lavender;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label16);
             this.panel1.Controls.Add(this.lblToday);
             this.panel1.Controls.Add(this.label15);
@@ -71,16 +74,16 @@
             this.panel1.Controls.Add(this.lblWarning);
             this.panel1.Controls.Add(this.lblZmanim);
             this.panel1.Controls.Add(this.lblLocation);
-            this.panel1.Location = new System.Drawing.Point(14, 72);
+            this.panel1.Location = new System.Drawing.Point(242, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(645, 86);
+            this.panel1.Size = new System.Drawing.Size(425, 101);
             this.panel1.TabIndex = 25;
             // 
             // label16
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(595, 65);
+            this.label16.Location = new System.Drawing.Point(382, 79);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(37, 15);
             this.label16.TabIndex = 17;
@@ -89,9 +92,9 @@
             // lblToday
             // 
             this.lblToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblToday.Location = new System.Drawing.Point(466, 66);
+            this.lblToday.Location = new System.Drawing.Point(141, 80);
             this.lblToday.Name = "lblToday";
-            this.lblToday.Size = new System.Drawing.Size(125, 12);
+            this.lblToday.Size = new System.Drawing.Size(241, 12);
             this.lblToday.TabIndex = 16;
             this.lblToday.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -99,7 +102,7 @@
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(374, 65);
+            this.label15.Location = new System.Drawing.Point(60, 79);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(81, 15);
             this.label15.TabIndex = 15;
@@ -108,7 +111,7 @@
             // lblTime
             // 
             this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTime.Location = new System.Drawing.Point(312, 65);
+            this.lblTime.Location = new System.Drawing.Point(4, 80);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(56, 12);
             this.lblTime.TabIndex = 14;
@@ -117,9 +120,9 @@
             // lblWarning
             // 
             this.lblWarning.AutoSize = true;
-            this.lblWarning.BackColor = System.Drawing.Color.Wheat;
+            this.lblWarning.BackColor = System.Drawing.Color.Lavender;
             this.lblWarning.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.lblWarning.ForeColor = System.Drawing.Color.DarkRed;
+            this.lblWarning.ForeColor = System.Drawing.Color.SteelBlue;
             this.lblWarning.Location = new System.Drawing.Point(5, 31);
             this.lblWarning.Name = "lblWarning";
             this.lblWarning.Padding = new System.Windows.Forms.Padding(3);
@@ -131,22 +134,23 @@
             // 
             this.lblZmanim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZmanim.AutoSize = true;
-            this.lblZmanim.Location = new System.Drawing.Point(555, 33);
+            this.lblZmanim.Font = new System.Drawing.Font("Narkisim", 13F);
+            this.lblZmanim.Location = new System.Drawing.Point(321, 33);
             this.lblZmanim.Name = "lblZmanim";
-            this.lblZmanim.Size = new System.Drawing.Size(80, 30);
+            this.lblZmanim.Size = new System.Drawing.Size(94, 36);
             this.lblZmanim.TabIndex = 12;
-            this.lblZmanim.Text = "שקיעה: 13:44\r\nנץ : 14:54";
+            this.lblZmanim.Text = "שקיעה: 13:44\r\nנץ: 14:54";
             // 
             // lblLocation
             // 
-            this.lblLocation.BackColor = System.Drawing.Color.SaddleBrown;
+            this.lblLocation.BackColor = System.Drawing.Color.SteelBlue;
             this.lblLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblLocation.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblLocation.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.lblLocation.ForeColor = System.Drawing.Color.Wheat;
+            this.lblLocation.ForeColor = System.Drawing.Color.Lavender;
             this.lblLocation.Location = new System.Drawing.Point(0, 0);
             this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(641, 26);
+            this.lblLocation.Size = new System.Drawing.Size(423, 26);
             this.lblLocation.TabIndex = 11;
             this.lblLocation.Text = "זמנים לקרית ספר";
             this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -276,10 +280,10 @@
             // btnEnter
             // 
             this.btnEnter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEnter.BackColor = System.Drawing.Color.BurlyWood;
-            this.btnEnter.Location = new System.Drawing.Point(550, 152);
+            this.btnEnter.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnEnter.Location = new System.Drawing.Point(524, 145);
             this.btnEnter.Name = "btnEnter";
-            this.btnEnter.Size = new System.Drawing.Size(75, 21);
+            this.btnEnter.Size = new System.Drawing.Size(104, 28);
             this.btnEnter.TabIndex = 23;
             this.btnEnter.Text = "הוסף";
             this.btnEnter.UseVisualStyleBackColor = false;
@@ -297,7 +301,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.rbNight);
             this.groupBox1.Controls.Add(this.rbDay);
-            this.groupBox1.Location = new System.Drawing.Point(14, 306);
+            this.groupBox1.Location = new System.Drawing.Point(18, 154);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.groupBox1.Size = new System.Drawing.Size(645, 182);
@@ -308,7 +312,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox2.Location = new System.Drawing.Point(14, 179);
+            this.groupBox2.Location = new System.Drawing.Point(18, 18);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(645, 113);
             this.groupBox2.TabIndex = 27;
@@ -334,26 +338,47 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.BurlyWood;
+            this.btnClose.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point(585, 9);
+            this.btnClose.Location = new System.Drawing.Point(560, 477);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 21);
+            this.btnClose.Size = new System.Drawing.Size(104, 28);
             this.btnClose.TabIndex = 28;
             this.btnClose.Text = "סגור";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Narkisim", 7F);
+            this.label5.Location = new System.Drawing.Point(184, 132);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(312, 10);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "התראות שיתכן שאינם פעילות עקב וסת קבוע וכדומה, [מוסגרים בסוגריים מרובעות]";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.groupBox2);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.groupBox1);
+            this.panel2.Location = new System.Drawing.Point(-4, 112);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(682, 350);
+            this.panel2.TabIndex = 30;
+            // 
             // frmAddNewEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(672, 501);
+            this.ClientSize = new System.Drawing.Size(672, 510);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
@@ -377,6 +402,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -408,6 +435,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel2;
 
 
     }

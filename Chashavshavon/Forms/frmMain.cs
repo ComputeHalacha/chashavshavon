@@ -14,16 +14,16 @@ namespace Chashavshavon
 {
     public partial class frmMain : Form
     {
-        
+
         #region Private Variables
-        //The combos are changed dynamically and we don't want to fire the change event during initial loading.
-        private bool _loading;
-        
+        private DateTime _monthToDisplay;
+
         #endregion
 
         #region Constructors
         public frmMain()
         {
+            this._monthToDisplay = DateTime.Now;
             this.StartUp();
         }
 
@@ -32,6 +32,7 @@ namespace Chashavshavon
         {
             this.CurrentFileIsRemote = false;
             this.CurrentFile = filePath;
+            this._monthToDisplay = DateTime.Now;
             this.StartUp();
         }
 
@@ -47,14 +48,12 @@ namespace Chashavshavon
 
             dgEntries.AutoGenerateColumns = false;
 
-            //The combos are changed dynamically and we don't want to fire the change event during initial loading.        
-            this._loading = true;
             //Checks to see if the user is connected to the internet, and activates remote functionality if they are.
             this.TestInternet();
             //Load the last opened file. If it does not exist or this is the first run, a blank list is presented            
             this.LoadXmlFile();
             this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
-            this._loading = false;
+            this.DisplayMonth();
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -68,68 +67,41 @@ namespace Chashavshavon
             Properties.Settings.Default.Save();
         }
 
-        private void ShowDayDetails(object sender, EventArgs e)
+        private void frmMain_ResizeBegin(object sender, EventArgs e)
         {
-            switch (((Control)((Control)sender).Parent).Name)
+            this.tableLayoutPanel1.Visible = false;
+            this.tableLayoutPanel1.SuspendLayout();
+        }
+
+
+        private void frmMain_ResizeEnd(object sender, EventArgs e)
+        {
+            this.tableLayoutPanel1.ResumeLayout();
+            this.tableLayoutPanel1.Visible = true;
+        }
+
+        void AddNewEntry(object sender, EventArgs e)
+        {
+            using (frmAddNewEntry f = new frmAddNewEntry((DateTime)((Control)sender).Tag))
             {
-                case "pnlYesterday":
-                    this.ShowDayDetails(Program.Today.AddDays(-1));
-                    break;
-                case "pnlToday":
-                    this.ShowDayDetails(Program.Today);
-                    break;
-                case "pnlTomorrow":
-                    this.ShowDayDetails(Program.Today.AddDays(1));
-                    break;
-                case "pnlDayAfter":
-                    this.ShowDayDetails(Program.Today.AddDays(2));
-                    break;
+                if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    //Refresh in case of change to current month
+                    this.DisplayMonth();
+                }
             }
         }
 
-        private void cmbMonth_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnNextMonth_Click(object sender, EventArgs e)
         {
-            if (this._loading)
-            {
-                return;
-            }
-            this.FillDays();
-            this.FillZmanim();
+            this._monthToDisplay = this._monthToDisplay.AddMonths(1);
+            this.DisplayMonth();
         }
 
-        private void cmbYear_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnLastMonth_Click(object sender, EventArgs e)
         {
-            if (this._loading)
-            {
-                return;
-            }
-            this._loading = true;
-            this.FillMonths();
-            this._loading = false;
-            this.FillDays();
-            this.FillZmanim();
-        }
-
-        private void rbDay_CheckedChanged(object sender, EventArgs e)
-        {
-            rbDay.Checked = !rbNight.Checked;
-        }
-
-        private void rbNight_CheckedChanged(object sender, EventArgs e)
-        {
-            rbNight.Checked = !rbDay.Checked;
-        }
-
-        private void btnEnter_Click(object sender, EventArgs e)
-        {
-            this.AddNewEntry(new Entry()
-            {
-                Day = this.cmbDay.SelectedIndex + 1,
-                Month = (MonthObject)cmbMonth.SelectedItem,
-                Year = (int)cmbYear.SelectedItem,
-                DayNight = rbNight.Checked ? DayNight.Night : DayNight.Day,
-                Notes = this.txtNotes.Text
-            });
+            this._monthToDisplay = this._monthToDisplay.AddMonths(-1);
+            this.DisplayMonth();
         }
 
         private void dgEntries_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -261,8 +233,20 @@ namespace Chashavshavon
 
         private void AbouToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AboutBox ab = new AboutBox();
-            ab.ShowDialog(this);
+            using (AboutBox ab = new AboutBox())
+            {
+                ab.ShowDialog(this);
+            }
+        }
+
+        private void btnAddEntry_Click(object sender, EventArgs e)
+        {
+            frmAddNewEntry f = new frmAddNewEntry(Program.Today);
+            if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                //Refresh in case of change to current month
+                this.DisplayMonth();
+            }
         }
 
         private void btnViewTextCalendar_Click(object sender, EventArgs e)
@@ -285,27 +269,15 @@ namespace Chashavshavon
             this.PrintCalendarList();
         }
 
-        private void calToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmLuach f = new frmLuach(Program.Today, this.ProblemOnas);
-            f.ShowDialog();
-        }
-
-        private void btnOpenLuach2_Click(object sender, EventArgs e)
-        {
-            frmLuach f = new frmLuach(Program.Today, this.ProblemOnas);
-            f.ShowDialog();
-        }
-
-        private void btnOpenLuach_Click(object sender, EventArgs e)
-        {
-            frmLuach f = new frmLuach(Program.Today, this.ProblemOnas);
-            f.ShowDialog();
-        }
-
         private void btnOpenKavuahs_Click(object sender, EventArgs e)
         {
             this.ShowKavuahList();
+        }
+
+        private void btnPrefs_Click(object sender, EventArgs e)
+        {
+            frmPreferences prefs = new frmPreferences();
+            prefs.Show(this);
         }
 
         private void btnCheshbonKavuahs_Click(object sender, EventArgs e)
@@ -323,6 +295,20 @@ namespace Chashavshavon
             }
         }
 
+        private void btnAddKavuah_Click(object sender, EventArgs e)
+        {
+            using (frmAddKavuah f = new frmAddKavuah())
+            {
+                f.ShowDialog(this);
+                if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
+                {
+                    this.SaveCurrentFile();
+                    this.TestInternet();
+                    this.LoadXmlFile();
+                }
+            }
+        }
+
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.SaveCurrentFile();
@@ -336,8 +322,6 @@ namespace Chashavshavon
         private void PreferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmPreferences prefs = new frmPreferences();
-            prefs.Top = Convert.ToInt32(this.Top + ((this.Height / 2) - (prefs.Height / 2)));
-            prefs.Left = Convert.ToInt32(this.Left + ((this.Width / 2) - (prefs.Width / 2)));
             prefs.Show(this);
         }
 
@@ -348,13 +332,15 @@ namespace Chashavshavon
 
         private void AddKavuahToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAddKavuah f = new frmAddKavuah();
-            f.ShowDialog(this);
-            if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
+            using (frmAddKavuah f = new frmAddKavuah())
             {
-                this.SaveCurrentFile();
-                this.TestInternet();
-                this.LoadXmlFile();
+                f.ShowDialog(this);
+                if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
+                {
+                    this.SaveCurrentFile();
+                    this.TestInternet();
+                    this.LoadXmlFile();
+                }
             }
         }
 
@@ -411,16 +397,6 @@ namespace Chashavshavon
             f.Show(this);
         }
 
-        private void cmbDay_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.FillZmanim();
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            this.lblTime.Text = DateTime.Now.ToLongTimeString();
-        }
-
         private void SourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveCurrentFile();
@@ -451,7 +427,7 @@ namespace Chashavshavon
             string password = this.GetPassword();
 
             InitializeComponent();
-            
+
             //The following sets all output displays of date time functions to Jewish dates for the current thread
             Program.CultureInfo.DateTimeFormat.Calendar = Program.HebrewCalendar;
             System.Threading.Thread.CurrentThread.CurrentCulture = Program.CultureInfo;
@@ -460,10 +436,6 @@ namespace Chashavshavon
             Zmanim.SetSummerTime();
             this.SetLocation();
             this.SetDateAndDayNight();
-            this.FillZmanData();
-
-            //The timer is for the clock
-            this.timer1.Start();
 
             if (password == null)
             {
@@ -490,144 +462,16 @@ namespace Chashavshavon
             }
         }
 
-        private void FillZmanData()
-        {
-            for (int i = 5600; i < 6000; i++)
-            {
-                cmbYear.Items.Add(i);
-            }
-
-            cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(Program.Today);
-
-            this.FillMonths();
-            this.FillDays();
-            this.FillZmanim();
-        }
-
-        private void FillMonths()
-        {
-            string currentSelection = null;
-            if (cmbMonth.Items.Count != 0)
-            {
-                currentSelection = cmbMonth.Text;
-                cmbMonth.Items.Clear();
-            }
-            int year = (int)cmbYear.SelectedItem;
-            for (int i = 0; i < Program.HebrewCalendar.GetMonthsInYear(year); i++)
-            {
-                MonthObject month = new MonthObject(year, i + 1);
-                if (currentSelection == null && month.Year == Program.HebrewCalendar.GetYear(Program.Today) && month.MonthInYear == Program.HebrewCalendar.GetMonth(Program.Today))
-                {
-                    currentSelection = month.MonthName;
-                }
-                cmbMonth.Items.Add(month);
-                if (month.MonthName == currentSelection)
-                {
-                    cmbMonth.SelectedItem = month;
-                }
-            }
-        }
-
-        private void FillDays()
-        {
-            MonthObject curMonth = (MonthObject)cmbMonth.SelectedItem;
-            KeyValuePair<int, string> curDay;
-
-            if (cmbDay.Items.Count == 0)
-            {
-                curDay = new KeyValuePair<int, string>(Program.HebrewCalendar.GetDayOfMonth(Program.Today), Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(Program.Today)]);
-            }
-            else
-            {
-                curDay = (KeyValuePair<int, string>)cmbDay.SelectedItem;
-            }
-
-            cmbDay.Items.Clear();
-            for (int i = 1; i < curMonth.DaysInMonth + 1; i++)
-            {
-                KeyValuePair<int, string> day = new KeyValuePair<int, string>(i, Zmanim.DaysOfMonthHebrew[i]);
-                cmbDay.Items.Add(day);
-            }
-
-            //If the current month does not have as many days as the last one and the 30th day was selected, we go to day 29.
-            if (curDay.Key > curMonth.DaysInMonth)
-            {
-                cmbDay.SelectedIndex = cmbDay.Items.Count - 1;
-            }
-            else
-            {
-                cmbDay.SelectedItem = curDay;
-            }
-        }
-
-        private void FillCalendar()
-        {
-            DateTime tomorrow = Program.Today.AddDays(1);
-            DateTime dayAfterTomorrow = Program.Today.AddDays(2);
-            DateTime yesterday = Program.Today.AddDays(-1);
-
-            MonthObject ms = new MonthObject(Program.HebrewCalendar.GetYear(yesterday),
-                Program.HebrewCalendar.GetMonth(yesterday));
-            this.lblYesterdayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(yesterday)] +
-                " " + ms.MonthName;
-            this.toolTip1.SetToolTip(this.lblYesterdayDate, this.GetToolTipForDate(yesterday));
-            lblYesterdayWeekDay.Text = Zmanim.GetDayOfWeekText(yesterday);
-
-            ms = new MonthObject(Program.HebrewCalendar.GetYear(Program.Today),
-                Program.HebrewCalendar.GetMonth(Program.Today));
-            this.lblTodayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(Program.Today)] +
-                " " + ms.MonthName;
-            this.toolTip1.SetToolTip(this.lblTodayDate, this.GetToolTipForDate(Program.Today));
-            lblTodayWeekDay.Text = Zmanim.GetDayOfWeekText(Program.Today);
-
-            ms = new MonthObject(Program.HebrewCalendar.GetYear(tomorrow),
-                Program.HebrewCalendar.GetMonth(tomorrow));
-            this.lblTomorrowDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(tomorrow)] +
-                " " + ms.MonthName;
-            this.toolTip1.SetToolTip(this.lblTomorrowDate, this.GetToolTipForDate(tomorrow));
-            lblTomorrowWeekDay.Text = Zmanim.GetDayOfWeekText(tomorrow);
-
-            ms = new MonthObject(Program.HebrewCalendar.GetYear(dayAfterTomorrow),
-                Program.HebrewCalendar.GetMonth(dayAfterTomorrow));
-            this.lblNextdayDate.Text = Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(dayAfterTomorrow)] +
-                " " + ms.MonthName;
-            this.toolTip1.SetToolTip(this.lblNextdayDate, this.GetToolTipForDate(dayAfterTomorrow));
-            lblNextDayWeekDay.Text = Zmanim.GetDayOfWeekText(dayAfterTomorrow);
-
-            lblYesterdayEntryStuff.Text = "";
-            lblTodayEntryStuff.Text = "";
-            lblTomorrowEntryStuff.Text = "";
-            lblNextDayEntryStuff.Text = "";
-
-            foreach (Entry entry in Entry.EntryList)
-            {
-                if (entry.DateTime.IsSameday(yesterday))
-                {
-                    lblYesterdayEntryStuff.Text = "עונה: " + entry.HebrewDayNight + "\nהפלגה: " + entry.Interval.ToString();
-                }
-                if (entry.DateTime.IsSameday(Program.Today))
-                {
-                    lblTodayEntryStuff.Text = "עונה: " + entry.HebrewDayNight + "\nהפלגה: " + entry.Interval.ToString();
-                }
-                if (entry.DateTime.IsSameday(tomorrow))
-                {
-                    lblTomorrowEntryStuff.Text = "עונה: " + entry.HebrewDayNight + "\nהפלגה: " + entry.Interval.ToString();
-                }
-                if (entry.DateTime.IsSameday(dayAfterTomorrow))
-                {
-                    lblNextDayEntryStuff.Text = "עונה: " + entry.HebrewDayNight + "\nהפלגה: " + entry.Interval.ToString();
-                }
-            }
-            this.CalculateProblemOnahs();
-        }
-
         private void ShowKavuahList()
         {
-            if (new frmKavuahs().ShowDialog() != System.Windows.Forms.DialogResult.Cancel)
+            using (frmKavuahs f = new frmKavuahs())
             {
-                this.SaveCurrentFile();
-                this.TestInternet();
-                this.LoadXmlFile();
+                if (f.ShowDialog() != System.Windows.Forms.DialogResult.Cancel)
+                {
+                    this.SaveCurrentFile();
+                    this.TestInternet();
+                    this.LoadXmlFile();
+                }
             }
         }
 
@@ -671,7 +515,6 @@ namespace Chashavshavon
         #region Calculate Problem Onahs
         private void CalculateProblemOnahs()
         {
-            this.ClearCalendar();
             if (Entry.EntryList.Count == 0)
             {
                 return;
@@ -697,10 +540,6 @@ namespace Chashavshavon
             //TODO:Figure out why more than just doubles are getting deleted from the following
             //Onah.ClearDoubleOnahs(this.ProblemOnas);
 
-            //Goes through the list of problem Onahs and matches it up to the 8 Onahs in the calendar.
-            //If any match - meaning that calendar Onah needs to be kept, the appropriate calendar box is filled and colored.
-            this.ProcessProblemOnahList(onahs);
-
             //The lblNextProblem displays the next upcoming Onah that needs to be kept
             this.lblNextProblem.Text = GetNextOnahText();
             this.SetWeekListHtml();
@@ -713,6 +552,28 @@ namespace Chashavshavon
                 this.SetOnahBeinenisProblemOnahs(entry);
                 this.SetEntryDependentKavuahProblemOnahs(entry);
             }
+        }
+
+        private List<Onah> GetCalendarOnahs()
+        {
+            var onahs = new List<Onah>();
+            var days = new DateTime[4];
+            DateTime yesterday = Program.Today.AddDays(-1),
+                     tomorrow = Program.Today.AddDays(1),
+                     dayAfterTomorrow = Program.Today.AddDays(2);
+
+            days[0] = yesterday;
+            days[1] = Program.Today;
+            days[2] = tomorrow;
+            days[3] = dayAfterTomorrow;
+
+            foreach (DateTime date in days)
+            {
+                onahs.Add(new Onah(date, DayNight.Night));
+                onahs.Add(new Onah(date, DayNight.Day));
+            }
+
+            return onahs;
         }
 
         private void SetOnahBeinenisProblemOnahs(Entry entry)
@@ -1035,65 +896,6 @@ namespace Chashavshavon
             }
         }
 
-        private void ProcessProblemOnahList(List<Onah> onahs)
-        {
-            foreach (Onah onah in onahs)
-            {
-                foreach (Onah problemOnah in this.ProblemOnas.Where(o => Onah.IsSameOnahPeriod(onah, o)))
-                {
-                    switch (onahs.IndexOf(onah))
-                    {
-                        case 0: //yesterday night
-                            ProccessProblem(lblYesterdayNight, lblYesterdayDate, problemOnah);
-                            break;
-                        case 1: //yesterday day  
-                            ProccessProblem(lblYesterdayDay, lblYesterdayDate, problemOnah);
-                            break;
-                        case 2: //today night
-                            ProccessProblem(lblTodayNight, lblTodayDate, problemOnah);
-                            break;
-                        case 3: //today day    
-                            ProccessProblem(lblTodayDay, lblTodayDate, problemOnah);
-                            break;
-                        case 4: //tomorrow night
-                            ProccessProblem(lblTomorrowNight, lblTomorrowDate, problemOnah);
-                            break;
-                        case 5: //tomorrow day 
-                            ProccessProblem(lblTomorrowDay, lblTomorrowDate, problemOnah);
-                            break;
-                        case 6: //day after tomorrow night
-                            ProccessProblem(lblNextDayNight, lblNextdayDate, problemOnah);
-                            break;
-                        case 7: //day after tomorrow day  
-                            ProccessProblem(lblNextDayDay, lblNextdayDate, problemOnah);
-                            break;
-                    }
-                }
-            }
-        }
-
-        private List<Onah> GetCalendarOnahs()
-        {
-            var onahs = new List<Onah>();
-            var days = new DateTime[4];
-            DateTime yesterday = Program.Today.AddDays(-1),
-                     tomorrow = Program.Today.AddDays(1),
-                     dayAfterTomorrow = Program.Today.AddDays(2);
-
-            days[0] = yesterday;
-            days[1] = Program.Today;
-            days[2] = tomorrow;
-            days[3] = dayAfterTomorrow;
-
-            foreach (DateTime date in days)
-            {
-                onahs.Add(new Onah(date, DayNight.Night));
-                onahs.Add(new Onah(date, DayNight.Day));
-            }
-
-            return onahs;
-        }
-
         private string GetNextOnahText()
         {
             string nextProblemText = "";
@@ -1182,25 +984,29 @@ namespace Chashavshavon
             this.WeekListHtml = sb.ToString();
         }
 
-        private void ClearCalendar()
+        private void SetDateAndDayNight()
         {
-            foreach (Label l in gbCalendar.Controls.OfType<Panel>().SelectMany(pnl => pnl.Controls.OfType<Label>()))
+            TimesCalculation tc = new TimesCalculation();
+            AstronomicalTime shkiah = tc.GetSunset(DateTime.Now, Program.CurrentPlace);
+            AstronomicalTime netz = tc.GetSunrise(DateTime.Now, Program.CurrentPlace);
+            DateTime now = DateTime.Now;
+
+            if (Properties.Settings.Default.IsSummerTime)
             {
-                switch (Convert.ToString(l.Tag))
-                {
-                    case "Date":
-                        l.BackColor = Color.Wheat;
-                        l.ForeColor = Color.Black;
-                        break;
-                    case "Day":
-                    case "Night":
-                        l.Text = "";
-                        l.BackColor = Color.White;
-                        l.ForeColor = Color.Black;
-                        l.Font = new Font(l.Font.FontFamily, 8);
-                        break;
-                }
+                shkiah.Hour++;
+                netz.Hour++;
             }
+
+            int curHour = now.Hour;
+            int curMin = now.Minute;
+
+            bool isAfterNetz = curHour > netz.Hour || (curHour == netz.Hour && curMin > netz.Minute);
+            bool isBeforeShkiah = (curHour < shkiah.Hour || (curHour == shkiah.Hour && curMin < shkiah.Minute));
+            bool isNightTime = (!isAfterNetz) || (!isBeforeShkiah);
+            bool isAfterMidnight = now.Hour < shkiah.Hour || (now.Hour == shkiah.Hour && now.Minute < shkiah.Minute);
+
+            Program.Today = isNightTime && !isAfterMidnight ? now.AddDays(1) : now; //after shkia before midnight is tomorrow in Jewish...
+            Program.NowOnah = new Onah(Program.Today, isNightTime ? DayNight.Night : DayNight.Day);
         }
 
         private void ProccessProblem(Label lbl, Label lblDate, Onah problemOnah)
@@ -1222,15 +1028,15 @@ namespace Chashavshavon
             //If this onah is to be ignored and the same onah doesn't have another non-ignoreable problem
 
             lblDate.BackColor = Color.SteelBlue;
-            lblDate.ForeColor = Color.Wheat;
+            lblDate.ForeColor = Color.Lavender;
             if (lbl.Name.Contains("Today") && Program.NowOnah.DayNight == problemOnah.DayNight)
             {
                 lbl.BackColor = Color.Red;
-                lbl.ForeColor = Color.Wheat;
+                lbl.ForeColor = Color.Lavender;
             }
             else
             {
-                lbl.BackColor = Color.Tan;
+                lbl.BackColor = Color.LightSteelBlue;
             }
         }
         #endregion
@@ -1402,40 +1208,6 @@ namespace Chashavshavon
             return sb.ToString();
         }
 
-        private void SetDateAndDayNight()
-        {
-            TimesCalculation tc = new TimesCalculation();
-            AstronomicalTime shkiah = tc.GetSunset(DateTime.Now, Program.CurrentPlace);
-            AstronomicalTime netz = tc.GetSunrise(DateTime.Now, Program.CurrentPlace);
-            DateTime now = DateTime.Now;
-
-            if (Properties.Settings.Default.IsSummerTime)
-            {
-                shkiah.Hour++;
-                netz.Hour++;
-            }
-
-            int curHour = now.Hour;
-            int curMin = now.Minute;
-
-            bool isAfterNetz = curHour > netz.Hour || (curHour == netz.Hour && curMin > netz.Minute);
-            bool isBeforeShkiah = (curHour < shkiah.Hour || (curHour == shkiah.Hour && curMin < shkiah.Minute));
-            bool isNightTime = (!isAfterNetz) || (!isBeforeShkiah);
-            bool isAfterMidnight = now.Hour < shkiah.Hour || (now.Hour == shkiah.Hour && now.Minute < shkiah.Minute);
-
-            Program.Today = isNightTime && !isAfterMidnight ? now.AddDays(1) : now; //after shkia before midnight is tomorrow in Jewish...
-            this.rbDay.Checked = !isNightTime;
-            this.rbNight.Checked = isNightTime;
-            Program.NowOnah = new Onah(Program.Today, isNightTime ? DayNight.Night : DayNight.Day);
-
-            string todayString = Program.Today.ToString("dd MMMM");
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Program.CurrentPlace.IsInIsrael))
-            {
-                todayString += " - " + holiday;
-            }
-            this.lblToday.Text = todayString;
-        }
-
         private string GetToolTipForDate(DateTime dateTime)
         {
             StringBuilder toolTip = new StringBuilder();
@@ -1464,59 +1236,18 @@ namespace Chashavshavon
             return toolTip.ToString();
         }
 
-        private void FillZmanim()
-        {
-            int day = this.cmbDay.SelectedIndex + 1;
-            int month = ((MonthObject)cmbMonth.SelectedItem).MonthInYear;
-            int year = (int)cmbYear.SelectedItem;
-
-            DateTime selDate = new DateTime(year, month, day, Program.HebrewCalendar);
-
-            TimesCalculation tc = new TimesCalculation();
-            AstronomicalTime shkiah = tc.GetSunset(selDate, Program.CurrentPlace);
-            AstronomicalTime netz = tc.GetSunrise(selDate, Program.CurrentPlace);
-
-            if (Properties.Settings.Default.IsSummerTime)
-            {
-                shkiah.Hour++;
-                netz.Hour++;
-            }
-
-            string sHoliday = null;
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(selDate, Program.CurrentPlace.IsInIsrael))
-            {
-                sHoliday += holiday + " ";
-            }
-
-            if (sHoliday != null)
-            {
-                sHoliday = " - " + sHoliday;
-            }
-
-            lblLocation.Text = Program.GetCurrentPlaceName() + " - " + selDate.ToString("dddd dd MMM yyyy") + sHoliday;
-
-            StringBuilder sb = new StringBuilder("נץ - ");
-            sb.Append(netz.Hour.ToString());
-            sb.Append(":");
-            sb.Append(netz.Minute.ToString("0#"));
-            sb.Append("\nשקיעה - ");
-            sb.Append(shkiah.Hour.ToString());
-            sb.Append(":");
-            sb.Append(shkiah.Minute.ToString("0#"));
-
-            lblZmanim.Text = sb.ToString();
-        }
-
         private void ShowDayDetails(DateTime dateTime)
         {
-            frmAddNewEntry f = new frmAddNewEntry(dateTime);
-            f.ShowDialog();
+            using (frmAddNewEntry f = new frmAddNewEntry(dateTime))
+            {
+                f.ShowDialog();
+            }
         }
 
         private void SetLocation()
         {
             int locId = Properties.Settings.Default.UserPlaceId;
-            if (locId <=  0)
+            if (locId <= 0)
             {
                 locId = Properties.Settings.Default.UserPlaceId = 151; //Yerushalayim
             }
@@ -1538,6 +1269,157 @@ namespace Chashavshavon
             return password;
         }
 
+        private void DisplayMonth()
+        {
+            int year = Program.HebrewCalendar.GetYear(this._monthToDisplay);
+            MonthObject month = new MonthObject(year, Program.HebrewCalendar.GetMonth(this._monthToDisplay));
+            int firstDayOfWeek = 1 + (int)this._monthToDisplay.AddDays(1 - Program.HebrewCalendar.GetDayOfMonth(this._monthToDisplay)).DayOfWeek;
+            int currentRow = 1, currentColumn = firstDayOfWeek - 1;
+
+            this.tableLayoutPanel1.Visible = false;
+            this.tableLayoutPanel1.SuspendLayout();
+
+            foreach (Control c in this.tableLayoutPanel1.Controls)
+            {
+                c.Dispose();
+            }
+            this.tableLayoutPanel1.Controls.Clear();
+
+            this.lblMonthName.Text = this._monthToDisplay.ToString("MMM yyyy", Program.CultureInfo);
+            this.btnLastMonth.Text = "  " + this._monthToDisplay.AddMonths(-1).ToString("MMM") + "  ";
+            this.btnNextMonth.Text = "  " + this._monthToDisplay.AddMonths(1).ToString("MMM") + "  ";
+
+            for (int i = 0; i < 7; i++)
+            {
+                this.tableLayoutPanel1.Controls.Add(new Label()
+                {
+                    Text = Zmanim.DaysOfWeekHebrewFull[i],
+                    Dock = DockStyle.Fill,
+                    TextAlign = ContentAlignment.MiddleCenter
+                }, i, 0);
+            }
+
+            for (int i = 1; i < month.DaysInMonth + 1; i++)
+            {
+                DateTime date = new DateTime(Program.HebrewCalendar.GetYear(this._monthToDisplay),
+                    Program.HebrewCalendar.GetMonth(this._monthToDisplay),
+                    i,
+                    Program.HebrewCalendar);
+                Panel pnl = new Panel()
+                {
+                    Dock = DockStyle.Fill,
+                    BackColor = Color.White,
+                    BorderStyle = Program.Today.IsSameday(date) ? BorderStyle.FixedSingle : BorderStyle.None,
+                    Tag = date
+                };
+
+                pnl.Click += new EventHandler(AddNewEntry);
+                pnl.Controls.Add(new Label()
+                {
+                    Dock = DockStyle.Top,
+                    Font = new Font(Font.FontFamily, 15f, FontStyle.Bold),
+                    ForeColor = Program.Today.IsSameday(date) ? Color.Blue : Color.SaddleBrown,
+                    Text = Zmanim.DaysOfMonthHebrew[i],
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                });
+
+                string daySpecialText = "";
+                foreach (string holiday in JewishHolidays.GetHebrewHolidays(date, Program.CurrentPlace.IsInIsrael))
+                {
+                    daySpecialText += holiday + " ";
+                }
+                if (daySpecialText.Length > 0)
+                {
+                    pnl.BackColor = Color.Lavender;
+                    pnl.Controls.Add(new Label()
+                    {
+                        Dock = DockStyle.Bottom,
+                        Padding = new Padding(0, 7, 0, 2),
+                        Text = daySpecialText,
+                        Font = new Font(Font.FontFamily, 7f),
+                        ForeColor = Color.DarkGreen,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                    });
+                }
+
+                string onahText = "";
+
+                if (this.ProblemOnas != null)
+                {
+                    var pOnahs = this.ProblemOnas.Where(o => o.DateTime == date);
+                    if (pOnahs.Count() > 0)
+                    {
+                        foreach (var o in pOnahs)
+                        {
+                            onahText += (o.IsIgnored ? "[" : "") + o.HebrewDayNight + " - " +
+                                o.Name + (o.IsIgnored ? "]" : "") + Environment.NewLine;
+                        }
+                        this.toolTip1.SetToolTip(pnl, onahText);
+                    }
+                }
+
+                Entry entry = Entry.EntryList.FirstOrDefault(en =>
+                    !en.IsInvisible &&
+                    en.DateTime == date);
+                if (entry != null)
+                {
+                    pnl.BackColor = Color.Pink;
+                    pnl.Controls.Add(new Label()
+                    {
+                        Dock = DockStyle.Bottom,
+                        Text = "ראיה - עונת " + entry.HebrewDayNight + Environment.NewLine + " הפלגה: " + entry.Interval.ToString(),
+                        ForeColor = Color.Red,
+                        Font = new Font(Font.FontFamily, 7f),
+                        TextAlign = ContentAlignment.TopCenter,
+                        RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                    });
+                }
+                else if (!string.IsNullOrEmpty(onahText))
+                {
+                    pnl.BackColor = Color.Yellow;
+                    pnl.Controls.Add(new Label()
+                    {
+                        Dock = DockStyle.Bottom,
+                        Text = onahText.Substring(0, 17).PadRight(20, '.'),
+                        TextAlign = ContentAlignment.TopCenter,
+                        Font = new Font(Font.FontFamily, 7f),
+                        ForeColor = Color.Black,
+                        RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                    });
+                }
+                else if (currentColumn == tableLayoutPanel1.ColumnCount - 1)
+                {
+                    pnl.BackColor = Color.Lavender;
+                }
+
+                foreach (Label lbl in pnl.Controls.OfType<Label>())
+                {
+                    lbl.Tag = date;
+                    lbl.Click += new EventHandler(AddNewEntry);
+                    if (!string.IsNullOrEmpty(onahText))
+                    {
+                        this.toolTip1.SetToolTip(lbl, onahText);
+                    }
+                }
+
+                this.tableLayoutPanel1.Controls.Add(pnl, currentColumn, currentRow);
+
+                if (currentColumn == tableLayoutPanel1.ColumnCount - 1)
+                {
+                    currentColumn = 0;
+                    currentRow++;
+                }
+                else
+                {
+                    currentColumn++;
+                }
+            }
+            this.tableLayoutPanel1.ResumeLayout();
+            this.tableLayoutPanel1.Visible = true;
+        }
+
         #endregion
 
         #region Public Functions
@@ -1546,7 +1428,7 @@ namespace Chashavshavon
             Entry.EntryList.Add(newEntry);
             this.SortEntriesAndSetInterval();
             Kavuah.FindAndPromptKavuahs();
-            this.FillCalendar();
+            this.CalculateProblemOnahs();
             this.SaveCurrentFile();
             //In case there were changes to the notes on some entries such as if there was a NoKavuah added
             this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
@@ -1585,7 +1467,7 @@ namespace Chashavshavon
                 Entry.EntryList.Remove(entry);
                 this.SortEntriesAndSetInterval();
                 Kavuah.FindAndPromptKavuahs();
-                this.FillCalendar();
+                this.CalculateProblemOnahs();
                 this.SaveCurrentFile();
                 //In case there were changes to the notes on some entries such as if there was a NoKavuah added
                 this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
@@ -1714,7 +1596,7 @@ namespace Chashavshavon
 
             this.SetCaptionText();
             this.SortEntriesAndSetInterval();
-            this.FillCalendar();
+            this.CalculateProblemOnahs();
             this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
         }
 
@@ -1732,8 +1614,7 @@ namespace Chashavshavon
         {
             this.SetLocation();
             this.SetDateAndDayNight();
-            this.FillCalendar();
-            this.FillZmanim();
+            this.CalculateProblemOnahs();
             this.CalculateProblemOnahs();
             this.SetCaptionText();
         }
