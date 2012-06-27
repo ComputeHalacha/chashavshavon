@@ -4,9 +4,9 @@
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
 "ProjectName" = "8:SetupChashavshavon"
-"LanguageId" = "3:1033"
+"LanguageId" = "3:0"
 "CodePage" = "3:1252"
-"UILanguageId" = "3:1033"
+"UILanguageId" = "3:0"
 "SccProjectName" = "8:"
 "SccLocalPath" = "8:"
 "SccAuxPath" = "8:"
@@ -22,18 +22,6 @@
         "Entry"
         {
         "MsmKey" = "8:_117A60BAD4044FA99441EEFB71B6224F"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_57EB124FBC184854A0C4FA578A7B2298"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_AD782E5A1EDD496D8E982E9BE885A507"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -129,7 +117,7 @@
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:3"
+        "Compression" = "3:2"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
@@ -205,46 +193,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_57EB124FBC184854A0C4FA578A7B2298"
-            {
-            "SourcePath" = "8:..\\Chashavshavon\\Resources\\chash.ico"
-            "TargetName" = "8:chash.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AD782E5A1EDD496D8E982E9BE885A507"
-            {
-            "SourcePath" = "8:..\\Chashavshavon\\Resources\\ChashFile.ico"
-            "TargetName" = "8:ChashFile.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
         }
         "FileType"
         {
@@ -254,8 +202,8 @@
             "Description" = "8:Chashavshavon File"
             "Extensions" = "8:pm"
             "MIME" = "8:"
-            "Icon" = "8:_AD782E5A1EDD496D8E982E9BE885A507"
-            "IconIndex" = "3:0"
+            "Icon" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
+            "IconIndex" = "3:32512"
                 "Command"
                 {
                 "Command" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
@@ -307,7 +255,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_7E172A37D631474E8EC1488097B379EF"
                     {
-                    "Name" = "8:Compute"
+                    "Name" = "8:Chashavshavon"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -350,7 +298,7 @@
         }
         "MsiBootstrapper"
         {
-        "LangId" = "3:1033"
+        "LangId" = "3:0"
         "RequiresElevation" = "11:FALSE"
         }
         "Product"
@@ -368,7 +316,7 @@
         "ProductVersion" = "8:3.0.4"
         "Manufacturer" = "8:Compute Software Solutions"
         "ARPHELPTELEPHONE" = "8:052-732-3138"
-        "ARPHELPLINK" = "8:http://www.compute.co.il/contact"
+        "ARPHELPLINK" = "8:https://www.compute.co.il/contact"
         "Title" = "8:Chashavshavon"
         "Subject" = "8:"
         "ARPCONTACT" = "8:CBS - Compute Software Solutions"
@@ -514,12 +462,12 @@
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
             "Target" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
             "Folder" = "8:_7E172A37D631474E8EC1488097B379EF"
             "WorkingFolder" = "8:_F240F467926B4F928A35E13F2588BEAA"
-            "Icon" = "8:_57EB124FBC184854A0C4FA578A7B2298"
+            "Icon" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8528430C173244FB8C67D39942AE7FD2"
@@ -528,12 +476,12 @@
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
             "Target" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
             "Folder" = "8:_FD38B552AA484180A3677D34C71C7151"
             "WorkingFolder" = "8:_F240F467926B4F928A35E13F2588BEAA"
-            "Icon" = "8:_57EB124FBC184854A0C4FA578A7B2298"
+            "Icon" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
             "Feature" = "8:"
             }
         }
@@ -963,7 +911,7 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1FBC664BF1A4477E904E091BC77BD0E3"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_17A6FBFD367C44AA851852D616E442AA"
             {
             "SourcePath" = "8:"
             "TargetName" = "8:"

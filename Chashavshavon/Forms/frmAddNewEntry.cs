@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,7 +16,7 @@ namespace Chashavshavon
 
         public frmAddNewEntry(DateTime date)
         {
-            InitializeComponent();
+            InitializeComponent();           
 
             this.FillZmanData();
 
@@ -113,7 +111,8 @@ namespace Chashavshavon
                 sHoliday = " - " + sHoliday;
             }
 
-            lblLocation.Text = Program.GetCurrentPlaceName() + " - " + this._date.ToString("dddd dd MMM yyyy") + sHoliday;
+            this.Text = this._date.ToString("dddd dd MMM yyyy", Program.CultureInfo) + sHoliday;
+            this.lblLocation.Text = Program.GetCurrentPlaceName() + " - " + this.Text;
 
             StringBuilder sb = new StringBuilder("נץ - ");
             sb.Append(netz.Hour.ToString());
@@ -302,7 +301,7 @@ namespace Chashavshavon
                 Year = (int)cmbYear.SelectedItem,
                 DayNight = rbNight.Checked ? DayNight.Night : DayNight.Day,
                 Notes = this.txtNotes.Text
-            });
+            }, this);
             this.DialogResult = DialogResult.OK;
         }
 

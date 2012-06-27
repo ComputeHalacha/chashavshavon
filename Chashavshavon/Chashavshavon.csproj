@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Chashavshavon</RootNamespace>
     <AssemblyName>Chashavshavon</AssemblyName>
-    <ApplicationIcon>chash.ico</ApplicationIcon>
+    <ApplicationIcon>scroll.ico</ApplicationIcon>
     <StartupObject>Chashavshavon.Program</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -266,7 +266,6 @@
     </Compile>
     <Compile Include="Utils\RemoteFunctions.cs" />
     <Compile Include="Utils\Zmanim.cs" />
-    <None Include="Shailos.docx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\chash.png" />
@@ -277,9 +276,6 @@
     <None Include="Resources\database_add.png" />
     <None Include="Resources\save.png" />
     <None Include="Resources\database_add_small.png" />
-    <None Include="Resources\chash.ico" />
-    <None Include="Resources\ChashFile.ico" />
-    <Content Include="chash.ico" />
     <None Include="Resources\database_process.png" />
     <None Include="Resources\calendar_date.png" />
     <None Include="Resources\next.png" />
@@ -287,9 +283,10 @@
     <None Include="Resources\process.png" />
     <None Include="Resources\add.png" />
     <None Include="Resources\database_search.png" />
-    <None Include="Resources\scroll1.png" />
     <None Include="Resources\down.png" />
-    <Content Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html" />
+    <None Include="Resources\ButtonBackground.gif" />
+    <None Include="Resources\scroll.png" />
+    <Content Include="scroll.ico" />
     <Content Include="Places.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -125,7 +125,8 @@ namespace Chashavshavon
 
         private void dgEntries_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgEntries.Columns[e.ColumnIndex] == btnDeleteColumn)
+            if (dgEntries.Columns[e.ColumnIndex] == btnDeleteColumn &&
+                dgEntries.Rows[e.RowIndex].DataBoundItem is Entry)
             {
                 this.DeleteEntry((Entry)dgEntries.Rows[e.RowIndex].DataBoundItem);
             }
@@ -474,12 +475,12 @@ namespace Chashavshavon
             }
         }
 
-        private void SaveAs()
+        private void SaveAs(Form sourceForm = null)
         {
             openFileDialog1.CheckFileExists = false;
             openFileDialog1.DefaultExt = "pm";
             openFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pm";
-            if (openFileDialog1.ShowDialog(this) != DialogResult.OK)
+            if (openFileDialog1.ShowDialog(sourceForm ?? this) != DialogResult.OK)
             {
                 return;
             }
@@ -1046,7 +1047,7 @@ namespace Chashavshavon
         /// <remarks>
         /// This function is run whenever a change is made to the list and when closing the app.
         /// </remarks>
-        private void SaveCurrentFile()
+        private void SaveCurrentFile(Form sourceForm = null)
         {
             //If no file was originally loaded, CurrentFile will be null. 
             //In this case, if there are entries in the list
@@ -1061,7 +1062,7 @@ namespace Chashavshavon
                         MessageBoxDefaultButton.Button1,
                         MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.SaveAs();
+                    this.SaveAs(sourceForm);
                 }
                 else
                 {
@@ -1310,16 +1311,25 @@ namespace Chashavshavon
 
             for (int i = 0; i < 7; i++)
             {
-                this.luachTableLayout.Controls.Add(new Label()
+                Panel dow = new Panel()
+                {
+                    BackgroundImage = Properties.Resources.ButtonBackground,
+                    BackgroundImageLayout = ImageLayout.Stretch,
+                    Margin = new Padding(0),
+                    Height = 20,
+                    Padding = new Padding(0),
+                    Dock = DockStyle.Fill
+                };
+                dow.Controls.Add(new Label()
                 {
                     Text = Zmanim.DaysOfWeekHebrewFull[i],
                     Dock = DockStyle.Fill,
-                    Margin = new Padding(0),
                     TextAlign = ContentAlignment.MiddleCenter,
                     ForeColor = Color.White,
-                    BackColor = Color.LightSlateGray,
+                    BackColor = Color.Transparent,
                     Font = new Font(this.luachTableLayout.Font.FontFamily, 12f)
-                }, i, 0);
+                });
+                this.luachTableLayout.Controls.Add(dow, i, 0);
             }
 
             for (int i = 1; i < month.DaysInMonth + 1; i++)
@@ -1435,7 +1445,7 @@ namespace Chashavshavon
                         Dock = DockStyle.Fill,
                         Margin = new Padding(0),
                         Padding = new Padding(2),
-                        BackColor = Color.LightSlateGray                        
+                        BackColor = Color.LightSlateGray
                     };
                     border.Controls.Add(pnl);
                     this.luachTableLayout.Controls.Add(border, currentColumn, currentRow);
@@ -1462,13 +1472,13 @@ namespace Chashavshavon
         #endregion
 
         #region Public Functions
-        public void AddNewEntry(Entry newEntry)
+        public void AddNewEntry(Entry newEntry, Form sourceForm = null)
         {
             Entry.EntryList.Add(newEntry);
             this.SortEntriesAndSetInterval();
             Kavuah.FindAndPromptKavuahs();
             this.CalculateProblemOnahs();
-            this.SaveCurrentFile();
+            this.SaveCurrentFile(sourceForm);
             //In case there were changes to the notes on some entries such as if there was a NoKavuah added
             this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
         }
@@ -1656,6 +1666,7 @@ namespace Chashavshavon
             this.CalculateProblemOnahs();
             this.CalculateProblemOnahs();
             this.SetCaptionText();
+            this.DisplayMonth();
         }
         #endregion
 

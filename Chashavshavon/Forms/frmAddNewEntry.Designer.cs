@@ -92,9 +92,9 @@
             // lblToday
             // 
             this.lblToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblToday.Location = new System.Drawing.Point(141, 80);
+            this.lblToday.Location = new System.Drawing.Point(141, 79);
             this.lblToday.Name = "lblToday";
-            this.lblToday.Size = new System.Drawing.Size(241, 12);
+            this.lblToday.Size = new System.Drawing.Size(241, 15);
             this.lblToday.TabIndex = 16;
             this.lblToday.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -111,9 +111,9 @@
             // lblTime
             // 
             this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTime.Location = new System.Drawing.Point(4, 80);
+            this.lblTime.Location = new System.Drawing.Point(4, 79);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(56, 12);
+            this.lblTime.Size = new System.Drawing.Size(56, 15);
             this.lblTime.TabIndex = 14;
             this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -351,10 +351,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Narkisim", 7F);
+            this.label5.Font = new System.Drawing.Font("Narkisim", 9F);
             this.label5.Location = new System.Drawing.Point(184, 132);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(312, 10);
+            this.label5.Size = new System.Drawing.Size(370, 12);
             this.label5.TabIndex = 29;
             this.label5.Text = "התראות שיתכן שאינם פעילות עקב וסת קבוע וכדומה, [מוסגרים בסוגריים מרובעות]";
             // 
