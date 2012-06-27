@@ -82,7 +82,7 @@ namespace Chashavshavon
         {
             using (frmAddNewEntry f = new frmAddNewEntry((DateTime)((Control)sender).Tag))
             {
-                if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (f.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
                     //Refresh in case of change to current month
                     this.DisplayMonth();
@@ -153,7 +153,7 @@ namespace Chashavshavon
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.SaveCurrentFile(); //why not...            
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (openFileDialog1.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
                 try
                 {
@@ -240,7 +240,7 @@ namespace Chashavshavon
         private void btnAddEntry_Click(object sender, EventArgs e)
         {
             frmAddNewEntry f = new frmAddNewEntry(Program.Today);
-            if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (f.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
                 //Refresh in case of change to current month
                 this.DisplayMonth();
@@ -310,7 +310,7 @@ namespace Chashavshavon
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.SaveCurrentFile();
-            openFileDialog1.ShowDialog();
+            openFileDialog1.ShowDialog(this);
             openFileDialog1.CheckFileExists = true;
             CurrentFile = openFileDialog1.FileName;
             CurrentFileIsRemote = false;
@@ -447,7 +447,7 @@ namespace Chashavshavon
                 {
                     do
                     {
-                        f.ShowDialog();
+                        f.ShowDialog(this);
                         if (f.DialogResult == DialogResult.No)
                             MessageBox.Show("סיסמה שגויה",
                             "חשבשבון",
@@ -465,7 +465,7 @@ namespace Chashavshavon
         {
             using (frmKavuahs f = new frmKavuahs())
             {
-                if (f.ShowDialog() != System.Windows.Forms.DialogResult.Cancel)
+                if (f.ShowDialog(this) != System.Windows.Forms.DialogResult.Cancel)
                 {
                     this.SaveCurrentFile();
                     this.TestInternet();
@@ -503,7 +503,7 @@ namespace Chashavshavon
             saveFileDialog1.DefaultExt = "pm";
             saveFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pm";
 
-            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (saveFileDialog1.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
                 CurrentFile = saveFileDialog1.FileName;
                 CurrentFileIsRemote = false;
@@ -1239,7 +1239,7 @@ namespace Chashavshavon
         {
             using (frmAddNewEntry f = new frmAddNewEntry(dateTime))
             {
-                f.ShowDialog();
+                f.ShowDialog(this);
             }
         }
 
@@ -1301,13 +1301,12 @@ namespace Chashavshavon
                     {
                         rs.Height = 16.66667F;
                     }
-                }               
+                }
             }
             else
             {
                 this.luachTableLayout.RowCount = 6;
             }
-
 
             for (int i = 0; i < 7; i++)
             {
@@ -1315,14 +1314,13 @@ namespace Chashavshavon
                 {
                     Text = Zmanim.DaysOfWeekHebrewFull[i],
                     Dock = DockStyle.Fill,
+                    Margin = new Padding(0),
                     TextAlign = ContentAlignment.MiddleCenter,
                     ForeColor = Color.White,
                     BackColor = Color.LightSlateGray,
                     Font = new Font(this.luachTableLayout.Font.FontFamily, 12f)
                 }, i, 0);
             }
-
-
 
             for (int i = 1; i < month.DaysInMonth + 1; i++)
             {
@@ -1333,8 +1331,8 @@ namespace Chashavshavon
                 Panel pnl = new Panel()
                 {
                     Dock = DockStyle.Fill,
+                    Margin = new Padding(0),
                     BackColor = Color.White,
-                    BorderStyle = Program.Today.IsSameday(date) ? BorderStyle.FixedSingle : BorderStyle.None,
                     Tag = date
                 };
 
@@ -1342,9 +1340,10 @@ namespace Chashavshavon
                 pnl.Controls.Add(new Label()
                 {
                     Dock = DockStyle.Top,
-                    Font = new Font(Font.FontFamily, 15f, FontStyle.Bold),
-                    ForeColor = Program.Today.IsSameday(date) ? Color.Blue : Color.SaddleBrown,
-                    Text = Zmanim.DaysOfMonthHebrew[i],
+                    Height = 40,
+                    Font = new Font("Verdana", 18f, FontStyle.Bold),
+                    ForeColor = Color.LightSlateGray,
+                    Text = Zmanim.DaysOfMonthHebrew[i].Replace("\"", "").Replace("\'", ""),
                     TextAlign = ContentAlignment.MiddleCenter,
                     RightToLeft = System.Windows.Forms.RightToLeft.Yes
                 });
@@ -1390,7 +1389,7 @@ namespace Chashavshavon
                     en.DateTime == date);
                 if (entry != null)
                 {
-                    pnl.BackColor = Color.Pink;
+                    pnl.BackColor = Color.FromArgb(255, 240, 240);
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
@@ -1403,7 +1402,7 @@ namespace Chashavshavon
                 }
                 else if (!string.IsNullOrEmpty(onahText))
                 {
-                    pnl.BackColor = Color.Yellow;
+                    pnl.BackColor = Color.LightYellow;
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
@@ -1429,7 +1428,22 @@ namespace Chashavshavon
                     }
                 }
 
-                this.luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);
+                if (Program.Today.IsSameday(date))
+                {
+                    Panel border = new Panel()
+                    {
+                        Dock = DockStyle.Fill,
+                        Margin = new Padding(0),
+                        Padding = new Padding(2),
+                        BackColor = Color.LightSlateGray                        
+                    };
+                    border.Controls.Add(pnl);
+                    this.luachTableLayout.Controls.Add(border, currentColumn, currentRow);
+                }
+                else
+                {
+                    this.luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);
+                }
 
                 if (currentColumn == luachTableLayout.ColumnCount - 1)
                 {
