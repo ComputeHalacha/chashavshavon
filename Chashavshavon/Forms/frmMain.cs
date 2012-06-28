@@ -316,6 +316,7 @@ namespace Chashavshavon
             CurrentFile = openFileDialog1.FileName;
             CurrentFileIsRemote = false;
             LoadXmlFile();
+            DisplayMonth();
         }
 
         private void PreferencesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1399,7 +1400,7 @@ namespace Chashavshavon
                     en.DateTime == date);
                 if (entry != null)
                 {
-                    pnl.BackColor = Color.FromArgb(255, 200, 200);
+                    pnl.BackColor = Color.FromArgb(255, 230, 230);
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
@@ -1412,7 +1413,7 @@ namespace Chashavshavon
                 }
                 else if (!string.IsNullOrEmpty(onahText))
                 {
-                    pnl.BackColor = Color.FromArgb(255,255,100);
+                    pnl.BackColor = Color.FromArgb(255,255,195);
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
