@@ -1399,7 +1399,7 @@ namespace Chashavshavon
                     en.DateTime == date);
                 if (entry != null)
                 {
-                    pnl.BackColor = Color.FromArgb(255, 240, 240);
+                    pnl.BackColor = Color.FromArgb(255, 200, 200);
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
@@ -1412,7 +1412,7 @@ namespace Chashavshavon
                 }
                 else if (!string.IsNullOrEmpty(onahText))
                 {
-                    pnl.BackColor = Color.LightYellow;
+                    pnl.BackColor = Color.FromArgb(255,255,100);
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
