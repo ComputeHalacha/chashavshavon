@@ -40,9 +40,9 @@ namespace Chashavshavon.Utils
         {
             this.Year = year;
             this.MonthInYear = monthInYear;
-            this.DaysInMonth = Onah.HebrewCalendar.GetDaysInMonth(year, monthInYear);
+            this.DaysInMonth = Program.HebrewCalendar.GetDaysInMonth(year, monthInYear);
 
-            int monthsInYear = Onah.HebrewCalendar.GetMonthsInYear(year);
+            int monthsInYear = Program.HebrewCalendar.GetMonthsInYear(year);
             bool isLeapYear = (monthsInYear == 13);
 
             if (monthInYear <= 6 || isLeapYear)
@@ -53,7 +53,7 @@ namespace Chashavshavon.Utils
             {
                 this.MonthIndex = monthInYear;
             }
-            this.MonthName = Onah.MonthNames[MonthIndex];
+            this.MonthName = Program.CultureInfo.DateTimeFormat.MonthNames[MonthIndex];
         }
     }
 
@@ -280,7 +280,7 @@ namespace Chashavshavon.Utils
         public static List<string> GetHebrewHolidays(DateTime dt, bool inIsrael)
         {
             DiasporaOrIsrael diasporaOrIsrael = (inIsrael ? DiasporaOrIsrael.Israel : DiasporaOrIsrael.Diaspora);
-            List<Holiday> holidays = GetHolidaysForDate(dt, new HebrewCalendar(), diasporaOrIsrael);
+            List<Holiday> holidays = GetHolidaysForDate(dt, Program.HebrewCalendar, diasporaOrIsrael);
             List<string> hebs = new List<string>();
 
             for (int i = 0; i < holidays.Count; i++)
@@ -616,9 +616,8 @@ namespace Chashavshavon.Utils
 
         private static DayOfWeek GetWeekdayOfHebrewDate(int day, int month, int year)
         {
-            HebrewCalendar hcal = new HebrewCalendar();
-            DateTime dt = new DateTime(year, month, day, hcal);
-            return hcal.GetDayOfWeek(dt);
+            DateTime dt = new DateTime(year, month, day, Program.HebrewCalendar);
+            return Program.HebrewCalendar.GetDayOfWeek(dt);
         }
     }
 

@@ -122,7 +122,7 @@
             this.lblWarning.AutoSize = true;
             this.lblWarning.BackColor = System.Drawing.Color.Lavender;
             this.lblWarning.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.lblWarning.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblWarning.ForeColor = System.Drawing.Color.SlateGray;
             this.lblWarning.Location = new System.Drawing.Point(5, 31);
             this.lblWarning.Name = "lblWarning";
             this.lblWarning.Padding = new System.Windows.Forms.Padding(3);
@@ -143,7 +143,7 @@
             // 
             // lblLocation
             // 
-            this.lblLocation.BackColor = System.Drawing.Color.SteelBlue;
+            this.lblLocation.BackColor = System.Drawing.Color.SlateGray;
             this.lblLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblLocation.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblLocation.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
@@ -280,7 +280,7 @@
             // btnEnter
             // 
             this.btnEnter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEnter.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnEnter.BackColor = System.Drawing.Color.Lavender;
             this.btnEnter.Location = new System.Drawing.Point(524, 145);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(104, 28);
@@ -338,7 +338,7 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnClose.BackColor = System.Drawing.Color.Lavender;
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Location = new System.Drawing.Point(560, 477);
             this.btnClose.Name = "btnClose";
@@ -374,7 +374,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.BackColor = System.Drawing.Color.Lavender;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(672, 510);
             this.Controls.Add(this.panel2);

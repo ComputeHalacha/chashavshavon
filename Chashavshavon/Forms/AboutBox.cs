@@ -81,7 +81,7 @@ namespace Chashavshavon
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.button1.BackColor = System.Drawing.Color.Lavender;
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.Location = new System.Drawing.Point(366, 258);
             this.button1.Name = "button1";
@@ -135,7 +135,7 @@ namespace Chashavshavon
             // AboutBox
             // 
             this.AcceptButton = this.button1;
-            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.BackColor = System.Drawing.Color.Lavender;
             this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(453, 293);
             this.Controls.Add(this.lblVersion);

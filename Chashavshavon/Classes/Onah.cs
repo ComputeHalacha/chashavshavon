@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Chashavshavon.Utils;
-using System.Xml.Serialization;
 
 namespace Chashavshavon
 {
@@ -12,42 +10,17 @@ namespace Chashavshavon
         Night = 2
     }
 
-    public enum ProblemOnahType
-    {
-        Haflagah,
-        DayOfMonth
-    }
-    
     public class Onah
     {
-        private static string[] _monthNames;
-        private static System.Globalization.HebrewCalendar _hebrewCalendar;       
-
-        public int Day { get; set; }        
+        public int Day { get; set; }
         public MonthObject Month { get; set; }
         public int Year { get; set; }
-        public DayNight DayNight { get; set; }        
-        public string Name { get; set; }        
+        public DayNight DayNight { get; set; }
+        public string Name { get; set; }
         public bool IsIgnored { get; set; }
         public bool IsChumrah { get; set; }
 
-        static Onah()
-        {
-            if (_monthNames == null)
-            {
-                _monthNames = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.MonthNames;
-            }
-            _hebrewCalendar = new System.Globalization.HebrewCalendar();
-        }
-
-        public Onah()
-        {
-            if (_monthNames == null)
-            {
-                _monthNames = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.MonthNames;
-            }
-            _hebrewCalendar = new System.Globalization.HebrewCalendar();
-        }
+        public Onah() { }
 
         public Onah(DayNight dayNight)
             : this()
@@ -64,11 +37,10 @@ namespace Chashavshavon
         }
 
         public Onah(DateTime dateTime)
-            : this()
         {
-            this.Day = _hebrewCalendar.GetDayOfMonth(dateTime);
-            this.Year = _hebrewCalendar.GetYear(dateTime);
-            this.Month = new MonthObject(this.Year, _hebrewCalendar.GetMonth(dateTime));
+            this.Day = Program.HebrewCalendar.GetDayOfMonth(dateTime);
+            this.Year = Program.HebrewCalendar.GetYear(dateTime);
+            this.Month = new MonthObject(this.Year, Program.HebrewCalendar.GetMonth(dateTime));
         }
 
         public Onah(DateTime dateTime, DayNight dayNight)
@@ -79,14 +51,14 @@ namespace Chashavshavon
 
         public Onah Clone()
         {
-            return new Onah() 
+            return new Onah()
             {
                 Day = this.Day,
                 Month = this.Month,
                 Year = this.Year,
                 DayNight = this.DayNight,
                 Name = this.Name,
-                IsIgnored=this.IsIgnored,
+                IsIgnored = this.IsIgnored,
                 IsChumrah = this.IsChumrah
             };
         }
@@ -139,7 +111,7 @@ namespace Chashavshavon
                     list.RemoveAt(i);
                 }
             }
-        }        
+        }
 
         /// <summary>
         /// This function is used to sort the Onahs/Entries by date
@@ -171,23 +143,22 @@ namespace Chashavshavon
             return 0;
         }
 
-        
         public DateTime DateTime
         {
             get
             {
-                DateTime hDate = new DateTime(this.Year, this.Month.MonthInYear, this.Day, _hebrewCalendar);
+                DateTime hDate = new DateTime(this.Year, this.Month.MonthInYear, this.Day, Program.HebrewCalendar);
                 return hDate;
             }
         }
-        
+
         public string HebrewDayNight
         {
             get
             {
                 return this.DayNight == DayNight.Day ? "יום" : "לילה";
             }
-        }      
+        }
 
         public string MonthName
         {
@@ -196,15 +167,15 @@ namespace Chashavshavon
                 return this.Month.MonthName;
             }
         }
-        
+
         public DayOfWeek DayOfWeek
         {
             get
             {
-                return _hebrewCalendar.GetDayOfWeek(this.DateTime);
+                return Program.HebrewCalendar.GetDayOfWeek(this.DateTime);
             }
         }
-        
+
         public string HebrewDayOfWeek
         {
             get
@@ -212,22 +183,5 @@ namespace Chashavshavon
                 return Zmanim.DaysOfWeekHebrew[(int)this.DayOfWeek];
             }
         }
-
-
-        public static string[] MonthNames
-        {
-            get
-            {
-                return _monthNames;
-            }
-        }
-
-        public static System.Globalization.HebrewCalendar HebrewCalendar
-        {
-            get
-            {
-                return _hebrewCalendar;
-            }
-        }        
     }
 }

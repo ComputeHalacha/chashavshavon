@@ -286,6 +286,7 @@
     <None Include="Resources\down.png" />
     <None Include="Resources\ButtonBackground.gif" />
     <None Include="Resources\scroll.png" />
+    <None Include="Resources\HeaderBackground.gif" />
     <Content Include="scroll.ico" />
     <Content Include="Places.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

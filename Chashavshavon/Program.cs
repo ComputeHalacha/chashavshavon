@@ -8,7 +8,7 @@ namespace Chashavshavon
     {
 
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
-        public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
+        public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);        
         //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
         public static DateTime Today { get; set; }
         public static Onah NowOnah { get; set; }

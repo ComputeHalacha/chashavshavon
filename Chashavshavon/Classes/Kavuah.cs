@@ -372,7 +372,7 @@ namespace Chashavshavon
         private static void FindDayOfWeekKavuah(Entry entry, List<Kavuah> kavuahs)
         {
             //We go through the proceeding entries in the list looking for those that are on the same day of the week as the given entry
-            //Note, similar to Yom Hachodesh based kavuahs, it is halachakly irrelevant if there were other entries in the interim (משמרת הטהרה)
+            //Note, similar to Yom Hachodesh based kavuahs, it is irrelevant if there were other entries in the interim (משמרת הטהרה)
             foreach (Entry firstFind in Entry.EntryList.Where(e =>
                 !e.IsInvisible &&
                 e.DateTime > entry.DateTime &&
@@ -421,7 +421,7 @@ namespace Chashavshavon
         {
             //First, we look for any entry that is in the next Jewish month after the given entry - 
             //but not on the same day as that would be a regular DayOfMonth Kavuah with no Dilug.
-            //Note, it is halachakly irrelevant if there were other entries in the interim     
+            //Note, it is irrelevant if there were other entries in the interim     
             Entry secondFind = Entry.EntryList.FirstOrDefault(en =>
                 !en.IsInvisible &&
                 en.DayNight == entry.DayNight &&
@@ -467,7 +467,7 @@ namespace Chashavshavon
         private static void FindDayOfMonthKavuah(Entry entry, List<Kavuah> kavuahs)
         {
             //We look for an entry that is exactly one Jewish month later
-            //Note, it is halachakly irrelevant if there were other entries in the interim
+            //Note, it is irrelevant if there were other entries in the interim
             if (Entry.EntryList.Exists(en =>
                     !en.IsInvisible &&
                     en.DayNight == entry.DayNight &&

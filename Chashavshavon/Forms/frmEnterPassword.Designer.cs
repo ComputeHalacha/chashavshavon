@@ -59,7 +59,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnExit.BackColor = System.Drawing.Color.Lavender;
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExit.Location = new System.Drawing.Point(162, 77);
             this.btnExit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -72,7 +72,7 @@
             // 
             // btnEnter
             // 
-            this.btnEnter.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnEnter.BackColor = System.Drawing.Color.Lavender;
             this.btnEnter.Location = new System.Drawing.Point(256, 77);
             this.btnEnter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnEnter.Name = "btnEnter";
@@ -97,7 +97,7 @@
             this.AcceptButton = this.btnEnter;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.BackColor = System.Drawing.Color.Lavender;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(508, 118);
             this.Controls.Add(this.label1);

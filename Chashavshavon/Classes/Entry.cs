@@ -27,6 +27,10 @@ namespace Chashavshavon
 
         public string Notes { get; set; }
 
+        /// <summary>
+        /// The number of days between the previous entry and this one.
+        /// Used for Haflagah calculations.
+        /// </summary>
         public int Interval { get; set; }
 
         /// <summary>

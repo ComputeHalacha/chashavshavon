@@ -524,10 +524,10 @@ namespace Chashavshavon
             this.ProblemOnas = new List<Onah>();
 
             //A list of 8 Onahs starting from yesterday until 2 days from now. Will be used to display 
-            //in the calendar (right side of form) and text for printing.
+            //in the problem days list.
             var onahs = GetCalendarOnahs();
 
-            //A list of Onahs that need to be kept. The list is worked out from the list of Entries.
+            //A list of Onahs that need to be kept. This first list is worked out from the list of Entries.
             //Problem Onahs are searched for from the date of each entry until the number of months specified in the 
             //Property Setting "numberMonthsAheadToWarn"
             this.SetEntryListDependentProblemOnahs();
@@ -646,13 +646,10 @@ namespace Chashavshavon
                 else
                 {
                     //First we look for a proceeding entry where the haflagah is longer than this one
-                    DateTime longerHaflagah = (from
-                                             e in Entry.EntryList
-                                               where
-                                                  e.DateTime > entry.DateTime &&
-                                                  e.Interval > entry.Interval
-                                               select
-                                                  e.DateTime).FirstOrDefault();
+                    DateTime longerHaflagah = (from e in Entry.EntryList
+                                               where e.DateTime > entry.DateTime &&
+                                                     e.Interval > entry.Interval
+                                               select e.DateTime).FirstOrDefault();
 
                     //If no such entry was found, we keep on going...
                     if (longerHaflagah == DateTime.MinValue)
@@ -661,8 +658,8 @@ namespace Chashavshavon
                             Properties.Settings.Default.NumberMonthsAheadToWarn);
                     }
 
-                    //TODO:How to cheshbon out the Shach (or rather not like the shach).
-                    //Is the question from the actual next entry or from the theoretical next entry or both?
+                    //TODO:How to cheshbon out the Shach (or rather not like the Shach).
+                    //Is the question from the actual next entry or from the theoretical next entry, or both?
 
                     //First the theoretical problems - not based on real entries
                     //We get the first problem Onah
@@ -1028,7 +1025,7 @@ namespace Chashavshavon
 
             //If this onah is to be ignored and the same onah doesn't have another non-ignoreable problem
 
-            lblDate.BackColor = Color.SteelBlue;
+            lblDate.BackColor = Color.SlateGray;
             lblDate.ForeColor = Color.Lavender;
             if (lbl.Name.Contains("Today") && Program.NowOnah.DayNight == problemOnah.DayNight)
             {
@@ -1037,7 +1034,7 @@ namespace Chashavshavon
             }
             else
             {
-                lbl.BackColor = Color.LightSteelBlue;
+                lbl.BackColor = Color.Lavender;
             }
         }
         #endregion

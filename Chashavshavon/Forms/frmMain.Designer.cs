@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -92,10 +92,11 @@
             this.lblNextProblem = new System.Windows.Forms.Label();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pbWeb = new System.Windows.Forms.PictureBox();
             this.btnLastMonth = new System.Windows.Forms.Button();
             this.btnNextMonth = new System.Windows.Forms.Button();
-            this.pbWeb = new System.Windows.Forms.PictureBox();
             this.lblMonthName = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.luachTableLayout = new Chashavshavon.DoubleBufferedLayoutTable();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -114,6 +115,7 @@
             this.splitContainerMain.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).BeginInit();
+            this.panel2.SuspendLayout();
             this.luachTableLayout.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -159,11 +161,11 @@
             this.dgEntries.AllowUserToAddRows = false;
             this.dgEntries.AllowUserToDeleteRows = false;
             this.dgEntries.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle37.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle37.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle37.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle37.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -171,14 +173,14 @@
             this.dgEntries.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgEntries.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle38.BackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle38.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle38.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle38;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Lavender;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgEntries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgEntries.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.btnDeleteColumn,
@@ -193,20 +195,20 @@
             this.dgEntries.Name = "dgEntries";
             this.dgEntries.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dgEntries.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle41.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle41.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle41.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle41;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgEntries.RowHeadersVisible = false;
-            dataGridViewCellStyle42.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle42.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle42;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgEntries.Size = new System.Drawing.Size(921, 183);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
@@ -214,11 +216,11 @@
             // 
             // btnDeleteColumn
             // 
-            dataGridViewCellStyle39.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle39.ForeColor = System.Drawing.Color.Blue;
-            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle39;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
+            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.btnDeleteColumn.HeaderText = "";
-            this.btnDeleteColumn.LinkColor = System.Drawing.Color.SteelBlue;
+            this.btnDeleteColumn.LinkColor = System.Drawing.Color.SlateGray;
             this.btnDeleteColumn.Name = "btnDeleteColumn";
             this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.btnDeleteColumn.Text = "מחק";
@@ -229,9 +231,9 @@
             // DateColumn
             // 
             this.DateColumn.DataPropertyName = "DateTime";
-            dataGridViewCellStyle40.Format = "dd MMM yyyy";
-            dataGridViewCellStyle40.NullValue = null;
-            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle40;
+            dataGridViewCellStyle4.Format = "dd MMM yyyy";
+            dataGridViewCellStyle4.NullValue = null;
+            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.DateColumn.HeaderText = "תאריך";
             this.DateColumn.Name = "DateColumn";
             this.DateColumn.ReadOnly = true;
@@ -357,7 +359,7 @@
             this.btnViewTextCalendar.Click += new System.EventHandler(this.btnViewTextCalendar_Click);
             // 
             // menuStrip1
-            //
+            // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileToolStripMenuItem,
             this.KavuahToolStripMenuItem,
@@ -372,9 +374,6 @@
             // 
             // FileToolStripMenuItem
             // 
-            this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            this.FileToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.FileToolStripMenuItem.Text = "&קובץ";
             this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SaveToolStripMenuItem,
             this.SaveAsToolStripMenuItem,
@@ -389,6 +388,9 @@
             this.toolStripSeparator4,
             this.toolStripMenuItemPrintEntryList,
             this.toolStripMenuItemEntryList});
+            this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.FileToolStripMenuItem.Text = "&קובץ";
             // 
             // SaveToolStripMenuItem
             // 
@@ -485,9 +487,6 @@
             // 
             // KavuahToolStripMenuItem
             // 
-            this.KavuahToolStripMenuItem.Name = "KavuahToolStripMenuItem";
-            this.KavuahToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.KavuahToolStripMenuItem.Text = "ק&בוע";
             this.KavuahToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openKavuaListToolStripMenuItem,
             this.toolStripSeparator6,
@@ -496,7 +495,9 @@
             this.SearchForKavuahsToolStripMenuItem,
             this.toolStripSeparator1,
             this.importToolStripMenuItem});
-
+            this.KavuahToolStripMenuItem.Name = "KavuahToolStripMenuItem";
+            this.KavuahToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.KavuahToolStripMenuItem.Text = "ק&בוע";
             // 
             // openKavuaListToolStripMenuItem
             // 
@@ -675,8 +676,7 @@
             // btnToday
             // 
             this.btnToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToday.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnToday.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnToday.BackColor = System.Drawing.Color.SlateGray;
             this.btnToday.Font = new System.Drawing.Font("Narkisim", 9.25F, System.Drawing.FontStyle.Bold);
             this.btnToday.ForeColor = System.Drawing.Color.Lavender;
             this.btnToday.Image = global::Chashavshavon.Properties.Resources.down;
@@ -716,18 +716,14 @@
             // 
             this.splitContainerMain.Panel1.AutoScroll = true;
             this.splitContainerMain.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainerMain.Panel1.Controls.Add(this.btnToday);
             this.splitContainerMain.Panel1.Controls.Add(this.panel1);
             this.splitContainerMain.Panel1.Controls.Add(this.btnAddKavuah);
             this.splitContainerMain.Panel1.Controls.Add(this.btnAddEntry);
             this.splitContainerMain.Panel1.Controls.Add(this.btnPrefs);
-            this.splitContainerMain.Panel1.Controls.Add(this.btnLastMonth);
-            this.splitContainerMain.Panel1.Controls.Add(this.btnNextMonth);
             this.splitContainerMain.Panel1.Controls.Add(this.pbWeb);
             this.splitContainerMain.Panel1.Controls.Add(this.btnCheshbonKavuahs);
             this.splitContainerMain.Panel1.Controls.Add(this.btnViewTextCalendar);
             this.splitContainerMain.Panel1.Controls.Add(this.btnOpenKavuahs);
-            this.splitContainerMain.Panel1.Controls.Add(this.lblMonthName);
             this.splitContainerMain.Panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.splitContainerMain.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             // 
@@ -754,12 +750,26 @@
             this.panel1.Size = new System.Drawing.Size(898, 459);
             this.panel1.TabIndex = 35;
             // 
+            // pbWeb
+            // 
+            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
+            this.pbWeb.Location = new System.Drawing.Point(-509, -3);
+            this.pbWeb.Name = "pbWeb";
+            this.pbWeb.Size = new System.Drawing.Size(53, 51);
+            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbWeb.TabIndex = 15;
+            this.pbWeb.TabStop = false;
+            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
+            // 
             // btnLastMonth
             // 
             this.btnLastMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLastMonth.BackColor = System.Drawing.Color.Lavender;
-            this.btnLastMonth.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 9.25F, System.Drawing.FontStyle.Bold);
+            this.btnLastMonth.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLastMonth.BackgroundImage")));
+            this.btnLastMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnLastMonth.ForeColor = System.Drawing.Color.AliceBlue;
             this.btnLastMonth.Image = global::Chashavshavon.Properties.Resources.next;
             this.btnLastMonth.Location = new System.Drawing.Point(884, 5);
             this.btnLastMonth.Name = "btnLastMonth";
@@ -774,10 +784,12 @@
             // btnNextMonth
             // 
             this.btnNextMonth.BackColor = System.Drawing.Color.Lavender;
-            this.btnNextMonth.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 9.25F, System.Drawing.FontStyle.Bold);
+            this.btnNextMonth.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnNextMonth.BackgroundImage")));
+            this.btnNextMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnNextMonth.ForeColor = System.Drawing.Color.AliceBlue;
             this.btnNextMonth.Image = ((System.Drawing.Image)(resources.GetObject("btnNextMonth.Image")));
-            this.btnNextMonth.Location = new System.Drawing.Point(85, 4);
+            this.btnNextMonth.Location = new System.Drawing.Point(86, 4);
             this.btnNextMonth.Name = "btnNextMonth";
             this.btnNextMonth.Size = new System.Drawing.Size(96, 29);
             this.btnNextMonth.TabIndex = 28;
@@ -787,30 +799,33 @@
             this.btnNextMonth.UseVisualStyleBackColor = false;
             this.btnNextMonth.Click += new System.EventHandler(this.btnNextMonth_Click);
             // 
-            // pbWeb
-            // 
-            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
-            this.pbWeb.Location = new System.Drawing.Point(-509, -3);
-            this.pbWeb.Name = "pbWeb";
-            this.pbWeb.Size = new System.Drawing.Size(53, 51);
-            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbWeb.TabIndex = 15;
-            this.pbWeb.TabStop = false;
-            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
-            // 
             // lblMonthName
             // 
             this.lblMonthName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 20F);
-            this.lblMonthName.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lblMonthName.Location = new System.Drawing.Point(178, 4);
+            this.lblMonthName.BackColor = System.Drawing.Color.Transparent;
+            this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 25F);
+            this.lblMonthName.ForeColor = System.Drawing.Color.SlateGray;
+            this.lblMonthName.Location = new System.Drawing.Point(188, 4);
             this.lblMonthName.Name = "lblMonthName";
-            this.lblMonthName.Size = new System.Drawing.Size(708, 27);
+            this.lblMonthName.Size = new System.Drawing.Size(690, 27);
             this.lblMonthName.TabIndex = 30;
             this.lblMonthName.Text = "Month Name";
             this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel2
+            // 
+            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.HeaderBackground;
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Controls.Add(this.btnLastMonth);
+            this.panel2.Controls.Add(this.btnToday);
+            this.panel2.Controls.Add(this.lblMonthName);
+            this.panel2.Controls.Add(this.btnNextMonth);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(984, 38);
+            this.panel2.TabIndex = 37;
             // 
             // luachTableLayout
             // 
@@ -960,6 +975,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(984, 762);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
@@ -988,6 +1004,7 @@
             this.splitContainerMain.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.luachTableLayout.ResumeLayout(false);
             this.luachTableLayout.PerformLayout();
             this.ResumeLayout(false);
@@ -1065,6 +1082,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnToday;
         private System.Windows.Forms.Button btnAddEntry2;
+        private System.Windows.Forms.Panel panel2;
 
 
 

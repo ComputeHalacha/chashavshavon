@@ -213,7 +213,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnAdd.BackColor = System.Drawing.Color.Lavender;
             this.btnAdd.Location = new System.Drawing.Point(303, 437);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(87, 23);
@@ -224,7 +224,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnClose.BackColor = System.Drawing.Color.Lavender;
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Location = new System.Drawing.Point(207, 437);
             this.btnClose.Name = "btnClose";
@@ -329,7 +329,7 @@
             this.AcceptButton = this.btnAdd;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.BackColor = System.Drawing.Color.Lavender;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(420, 471);
             this.Controls.Add(this.pictureBox1);
