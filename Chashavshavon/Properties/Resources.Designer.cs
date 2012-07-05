@@ -74,13 +74,6 @@ namespace Chashavshavon.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap ButtonBackgroundDark {
-            get {
-                object obj = ResourceManager.GetObject("ButtonBackgroundDark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap calendar_date {
             get {
                 object obj = ResourceManager.GetObject("calendar_date", resourceCulture);
