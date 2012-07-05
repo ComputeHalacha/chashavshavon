@@ -16,17 +16,14 @@ namespace Chashavshavon
 
         public frmAddNewEntry(DateTime date)
         {
-            InitializeComponent();           
-
-           
+            InitializeComponent();  
 
             this._date = date;
             this.FillZmanData();
             this.cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(this._date);
             this.cmbMonth.SelectedIndex = Program.HebrewCalendar.GetMonth(this._date) - 1;
             this.cmbDay.SelectedIndex = Program.HebrewCalendar.GetDayOfMonth(this._date) - 1;
-            
-            
+                        
             this.SetDateAndDayNight();
 
             //The timer is for the clock
@@ -212,8 +209,7 @@ namespace Chashavshavon
             bool isAfterMidnight = now.Hour < shkiah.Hour || (now.Hour == shkiah.Hour && now.Minute < shkiah.Minute);
             this.rbDay.Checked = !isNightTime;
             this.rbNight.Checked = isNightTime;
-            Program.NowOnah = new Onah(this._date, isNightTime ? DayNight.Night : DayNight.Day);
-
+            
             string todayString = this._date.ToString("dddd dd MMM yyyy");
             foreach (string holiday in JewishHolidays.GetHebrewHolidays(this._date, Program.CurrentPlace.IsInIsrael))
             {

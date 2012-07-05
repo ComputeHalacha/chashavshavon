@@ -20,9 +20,7 @@ namespace Chashavshavon
 
         private void button2_Click(object sender, EventArgs e)
         {
-            frmAddKavuah f = new frmAddKavuah();
-            f.ShowDialog(this);
-            if (f.DialogResult == System.Windows.Forms.DialogResult.OK)
+            if (Program.MainForm.AddNewKavuah(this))
             {
                 this.kavuahBindingSource.DataSource = Kavuah.KavuahsList;
                 this.kavuahBindingSource.ResetBindings(false);

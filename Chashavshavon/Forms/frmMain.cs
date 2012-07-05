@@ -199,6 +199,8 @@ namespace Chashavshavon
                             //Clean out any overlappers
                             Kavuah.ClearDoubleKavuahs(Kavuah.KavuahsList);
 
+                            this.CalculateProblemOnahs();
+                            this.DisplayMonth();
                             this.ShowKavuahList();
                         }
                         catch
@@ -296,16 +298,7 @@ namespace Chashavshavon
 
         private void btnAddKavuah_Click(object sender, EventArgs e)
         {
-            using (frmAddKavuah f = new frmAddKavuah())
-            {
-                f.ShowDialog(this);
-                if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
-                {
-                    this.SaveCurrentFile();
-                    this.TestInternet();
-                    this.LoadXmlFile();
-                }
-            }
+            this.AddNewKavuah(this);
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -332,16 +325,7 @@ namespace Chashavshavon
 
         private void AddKavuahToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (frmAddKavuah f = new frmAddKavuah())
-            {
-                f.ShowDialog(this);
-                if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
-                {
-                    this.SaveCurrentFile();
-                    this.TestInternet();
-                    this.LoadXmlFile();
-                }
-            }
+            this.AddNewKavuah(this);
         }
 
         private void SearchForKavuahsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -473,6 +457,10 @@ namespace Chashavshavon
                     this.TestInternet();
                     this.LoadXmlFile();
                 }
+
+                //In case some Kavuahs were added or deleted...
+                this.CalculateProblemOnahs();
+                this.DisplayMonth();
             }
         }
 
@@ -1410,7 +1398,7 @@ namespace Chashavshavon
                 }
                 else if (!string.IsNullOrEmpty(onahText))
                 {
-                    pnl.BackColor = Color.FromArgb(255,255,195);
+                    pnl.BackColor = Color.FromArgb(255, 255, 195);
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
@@ -1518,7 +1506,25 @@ namespace Chashavshavon
                 this.SaveCurrentFile();
                 //In case there were changes to the notes on some entries such as if there was a NoKavuah added
                 this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
+                this.DisplayMonth();
             }
+        }
+
+        public bool AddNewKavuah(Form owner)
+        {
+            using (frmAddKavuah f = new frmAddKavuah())
+            {
+                f.ShowDialog(owner);
+                if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
+                {
+                    this.SaveCurrentFile();
+                    this.TestInternet();
+                    this.LoadXmlFile();
+                    this.DisplayMonth();
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -1649,7 +1655,9 @@ namespace Chashavshavon
 
         public void SetCaptionText()
         {
-            this.Text = "חשבשבון - " + Program.GetCurrentPlaceName() + " - " +
+            this.Text = " חשבשבון גירסה " +
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + " - " +
+                Program.GetCurrentPlaceName() + " - " +
                 (this.CurrentFileIsRemote ? "קובץ רשת - " : "") + this.CurrentFileName;
             if (this.pbWeb != null)
             {
@@ -1661,7 +1669,6 @@ namespace Chashavshavon
         {
             this.SetLocation();
             this.SetDateAndDayNight();
-            this.CalculateProblemOnahs();
             this.CalculateProblemOnahs();
             this.SetCaptionText();
             this.DisplayMonth();

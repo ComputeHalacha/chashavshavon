@@ -55,10 +55,12 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -67,13 +69,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Lavender;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.label16);
             this.panel1.Controls.Add(this.lblToday);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.lblTime);
             this.panel1.Controls.Add(this.lblWarning);
             this.panel1.Controls.Add(this.lblZmanim);
-            this.panel1.Controls.Add(this.lblLocation);
             this.panel1.Location = new System.Drawing.Point(242, 5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(425, 101);
@@ -123,7 +125,7 @@
             this.lblWarning.BackColor = System.Drawing.Color.Lavender;
             this.lblWarning.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblWarning.ForeColor = System.Drawing.Color.SlateGray;
-            this.lblWarning.Location = new System.Drawing.Point(5, 31);
+            this.lblWarning.Location = new System.Drawing.Point(5, 38);
             this.lblWarning.Name = "lblWarning";
             this.lblWarning.Padding = new System.Windows.Forms.Padding(3);
             this.lblWarning.Size = new System.Drawing.Size(167, 34);
@@ -135,7 +137,7 @@
             this.lblZmanim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZmanim.AutoSize = true;
             this.lblZmanim.Font = new System.Drawing.Font("Narkisim", 13F);
-            this.lblZmanim.Location = new System.Drawing.Point(321, 33);
+            this.lblZmanim.Location = new System.Drawing.Point(321, 39);
             this.lblZmanim.Name = "lblZmanim";
             this.lblZmanim.Size = new System.Drawing.Size(94, 36);
             this.lblZmanim.TabIndex = 12;
@@ -143,14 +145,12 @@
             // 
             // lblLocation
             // 
-            this.lblLocation.BackColor = System.Drawing.Color.SlateGray;
-            this.lblLocation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblLocation.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblLocation.BackColor = System.Drawing.Color.Transparent;
             this.lblLocation.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblLocation.ForeColor = System.Drawing.Color.Lavender;
-            this.lblLocation.Location = new System.Drawing.Point(0, 0);
+            this.lblLocation.Location = new System.Drawing.Point(3, 3);
             this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(423, 26);
+            this.lblLocation.Size = new System.Drawing.Size(418, 26);
             this.lblLocation.TabIndex = 11;
             this.lblLocation.Text = "זמנים לקרית ספר";
             this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -226,9 +226,9 @@
             this.rbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbDay.Location = new System.Drawing.Point(580, 50);
+            this.rbDay.Location = new System.Drawing.Point(579, 50);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(48, 18);
+            this.rbDay.Size = new System.Drawing.Size(49, 20);
             this.rbDay.TabIndex = 19;
             this.rbDay.Text = "יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -251,7 +251,7 @@
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbNight.Location = new System.Drawing.Point(571, 30);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(57, 18);
+            this.rbNight.Size = new System.Drawing.Size(57, 20);
             this.rbNight.TabIndex = 18;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "לילה";
@@ -370,6 +370,17 @@
             this.panel2.Size = new System.Drawing.Size(682, 350);
             this.panel2.TabIndex = 30;
             // 
+            // panel3
+            // 
+            this.panel3.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
+            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel3.Controls.Add(this.lblLocation);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(423, 35);
+            this.panel3.TabIndex = 18;
+            // 
             // frmAddNewEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -404,6 +415,7 @@
             this.groupBox2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,6 +449,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
 
 
     }

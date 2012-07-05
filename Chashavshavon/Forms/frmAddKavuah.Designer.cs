@@ -63,7 +63,7 @@
             // lblNumber
             // 
             this.lblNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblNumber.Location = new System.Drawing.Point(201, 120);
+            this.lblNumber.Location = new System.Drawing.Point(25, 126);
             this.lblNumber.Name = "lblNumber";
             this.lblNumber.Size = new System.Drawing.Size(199, 13);
             this.lblNumber.TabIndex = 0;
@@ -74,7 +74,7 @@
             this.cmbNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNumber.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbNumber.FormattingEnabled = true;
-            this.cmbNumber.Location = new System.Drawing.Point(288, 137);
+            this.cmbNumber.Location = new System.Drawing.Point(112, 143);
             this.cmbNumber.Name = "cmbNumber";
             this.cmbNumber.Size = new System.Drawing.Size(112, 21);
             this.cmbNumber.TabIndex = 1;
@@ -195,7 +195,7 @@
             this.rbDay.Checked = true;
             this.rbDay.Location = new System.Drawing.Point(299, 18);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(42, 17);
+            this.rbDay.Size = new System.Drawing.Size(41, 17);
             this.rbDay.TabIndex = 7;
             this.rbDay.TabStop = true;
             this.rbDay.Text = "יום";
@@ -206,7 +206,7 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Location = new System.Drawing.Point(195, 18);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(51, 17);
+            this.rbNight.Size = new System.Drawing.Size(48, 17);
             this.rbNight.TabIndex = 6;
             this.rbNight.Text = "לילה";
             this.rbNight.UseVisualStyleBackColor = true;
@@ -261,8 +261,8 @@
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.cmbSettingEntry);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.tbNotes);
             this.panel1.Controls.Add(this.cbActive);
@@ -282,7 +282,7 @@
             this.cmbSettingEntry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSettingEntry.FormatString = "dddd dd MMM yyyy";
             this.cmbSettingEntry.FormattingEnabled = true;
-            this.cmbSettingEntry.Location = new System.Drawing.Point(25, 136);
+            this.cmbSettingEntry.Location = new System.Drawing.Point(230, 142);
             this.cmbSettingEntry.Name = "cmbSettingEntry";
             this.cmbSettingEntry.Size = new System.Drawing.Size(169, 21);
             this.cmbSettingEntry.TabIndex = 15;
@@ -296,7 +296,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(130, 120);
+            this.label1.Location = new System.Drawing.Point(335, 126);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 13);
             this.label1.TabIndex = 14;
