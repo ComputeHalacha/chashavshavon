@@ -676,13 +676,17 @@
             // btnToday
             // 
             this.btnToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToday.BackColor = System.Drawing.Color.SlateGray;
+            this.btnToday.BackColor = System.Drawing.Color.Lavender;
+            this.btnToday.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
+            this.btnToday.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnToday.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnToday.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnToday.Font = new System.Drawing.Font("Narkisim", 9.25F, System.Drawing.FontStyle.Bold);
             this.btnToday.ForeColor = System.Drawing.Color.Lavender;
             this.btnToday.Image = global::Chashavshavon.Properties.Resources.down;
-            this.btnToday.Location = new System.Drawing.Point(812, 5);
+            this.btnToday.Location = new System.Drawing.Point(779, 1);
             this.btnToday.Name = "btnToday";
-            this.btnToday.Size = new System.Drawing.Size(66, 29);
+            this.btnToday.Size = new System.Drawing.Size(77, 35);
             this.btnToday.TabIndex = 36;
             this.btnToday.Text = "היום";
             this.btnToday.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -765,37 +769,39 @@
             // btnLastMonth
             // 
             this.btnLastMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLastMonth.BackColor = System.Drawing.Color.Lavender;
             this.btnLastMonth.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLastMonth.BackgroundImage")));
             this.btnLastMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnLastMonth.ForeColor = System.Drawing.Color.AliceBlue;
+            this.btnLastMonth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLastMonth.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnLastMonth.ForeColor = System.Drawing.Color.Lavender;
             this.btnLastMonth.Image = global::Chashavshavon.Properties.Resources.next;
-            this.btnLastMonth.Location = new System.Drawing.Point(884, 5);
+            this.btnLastMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLastMonth.Location = new System.Drawing.Point(857, 1);
             this.btnLastMonth.Name = "btnLastMonth";
-            this.btnLastMonth.Size = new System.Drawing.Size(96, 29);
+            this.btnLastMonth.Size = new System.Drawing.Size(126, 35);
             this.btnLastMonth.TabIndex = 29;
             this.btnLastMonth.Text = "button2";
             this.btnLastMonth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnLastMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLastMonth.UseVisualStyleBackColor = false;
             this.btnLastMonth.Click += new System.EventHandler(this.btnLastMonth_Click);
             // 
             // btnNextMonth
             // 
-            this.btnNextMonth.BackColor = System.Drawing.Color.Lavender;
             this.btnNextMonth.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnNextMonth.BackgroundImage")));
             this.btnNextMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnNextMonth.ForeColor = System.Drawing.Color.AliceBlue;
+            this.btnNextMonth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNextMonth.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnNextMonth.ForeColor = System.Drawing.Color.Lavender;
             this.btnNextMonth.Image = ((System.Drawing.Image)(resources.GetObject("btnNextMonth.Image")));
-            this.btnNextMonth.Location = new System.Drawing.Point(86, 4);
+            this.btnNextMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNextMonth.Location = new System.Drawing.Point(1, 1);
             this.btnNextMonth.Name = "btnNextMonth";
-            this.btnNextMonth.Size = new System.Drawing.Size(96, 29);
+            this.btnNextMonth.Size = new System.Drawing.Size(126, 35);
             this.btnNextMonth.TabIndex = 28;
             this.btnNextMonth.Text = "button1";
             this.btnNextMonth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNextMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnNextMonth.UseVisualStyleBackColor = false;
             this.btnNextMonth.Click += new System.EventHandler(this.btnNextMonth_Click);
             // 
@@ -806,9 +812,9 @@
             this.lblMonthName.BackColor = System.Drawing.Color.Transparent;
             this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 25F);
             this.lblMonthName.ForeColor = System.Drawing.Color.SlateGray;
-            this.lblMonthName.Location = new System.Drawing.Point(188, 4);
+            this.lblMonthName.Location = new System.Drawing.Point(133, 4);
             this.lblMonthName.Name = "lblMonthName";
-            this.lblMonthName.Size = new System.Drawing.Size(690, 27);
+            this.lblMonthName.Size = new System.Drawing.Size(717, 27);
             this.lblMonthName.TabIndex = 30;
             this.lblMonthName.Text = "Month Name";
             this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -816,7 +822,6 @@
             // panel2
             // 
             this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.HeaderBackground;
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel2.Controls.Add(this.btnLastMonth);
             this.panel2.Controls.Add(this.btnToday);
             this.panel2.Controls.Add(this.lblMonthName);

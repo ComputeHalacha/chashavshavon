@@ -18,13 +18,15 @@ namespace Chashavshavon
         {
             InitializeComponent();           
 
-            this.FillZmanData();
+           
 
             this._date = date;
+            this.FillZmanData();
             this.cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(this._date);
             this.cmbMonth.SelectedIndex = Program.HebrewCalendar.GetMonth(this._date) - 1;
             this.cmbDay.SelectedIndex = Program.HebrewCalendar.GetDayOfMonth(this._date) - 1;
-
+            
+            
             this.SetDateAndDayNight();
 
             //The timer is for the clock
@@ -208,14 +210,12 @@ namespace Chashavshavon
             bool isBeforeShkiah = (curHour < shkiah.Hour || (curHour == shkiah.Hour && curMin < shkiah.Minute));
             bool isNightTime = (!isAfterNetz) || (!isBeforeShkiah);
             bool isAfterMidnight = now.Hour < shkiah.Hour || (now.Hour == shkiah.Hour && now.Minute < shkiah.Minute);
-
-            Program.Today = isNightTime && !isAfterMidnight ? now.AddDays(1) : now; //after shkia before midnight is tomorrow in Jewish...
             this.rbDay.Checked = !isNightTime;
             this.rbNight.Checked = isNightTime;
-            Program.NowOnah = new Onah(Program.Today, isNightTime ? DayNight.Night : DayNight.Day);
+            Program.NowOnah = new Onah(this._date, isNightTime ? DayNight.Night : DayNight.Day);
 
-            string todayString = Program.Today.ToString("dddd dd MMM yyyy");
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(Program.Today, Program.CurrentPlace.IsInIsrael))
+            string todayString = this._date.ToString("dddd dd MMM yyyy");
+            foreach (string holiday in JewishHolidays.GetHebrewHolidays(this._date, Program.CurrentPlace.IsInIsrael))
             {
                 todayString += " - " + holiday;
             }
@@ -229,7 +229,7 @@ namespace Chashavshavon
                 cmbYear.Items.Add(i);
             }
 
-            cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(Program.Today);
+            cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(this._date);
 
             this.FillMonths();
             this.FillDays();
@@ -247,7 +247,7 @@ namespace Chashavshavon
             for (int i = 0; i < Program.HebrewCalendar.GetMonthsInYear(year); i++)
             {
                 MonthObject month = new MonthObject(year, i + 1);
-                if (currentSelection == null && month.Year == Program.HebrewCalendar.GetYear(Program.Today) && month.MonthInYear == Program.HebrewCalendar.GetMonth(Program.Today))
+                if (currentSelection == null && month.Year == Program.HebrewCalendar.GetYear(this._date) && month.MonthInYear == Program.HebrewCalendar.GetMonth(this._date))
                 {
                     currentSelection = month.MonthName;
                 }
@@ -266,8 +266,8 @@ namespace Chashavshavon
 
             if (cmbDay.Items.Count == 0)
             {
-                curDay = new KeyValuePair<int, string>(Program.HebrewCalendar.GetDayOfMonth(Program.Today),
-                    Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(Program.Today)]);
+                curDay = new KeyValuePair<int, string>(Program.HebrewCalendar.GetDayOfMonth(this._date),
+                    Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(this._date)]);
             }
             else
             {
