@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using System.Net.Mail;
 
 namespace Chashavshavon.Utils
 {
@@ -83,7 +84,8 @@ namespace Chashavshavon.Utils
         {
             string responseText = null;
             WebRequest request = WebRequest.Create(
-                                (Properties.Settings.Default.UseLocalURL ? Properties.Settings.Default.LocalURL : Properties.Settings.Default.URL) +
+                                (Properties.Settings.Default.UseLocalURL ? 
+                                    Properties.Settings.Default.LocalURL : Properties.Settings.Default.URL) +
                                 "/" + function);
             request.Method = "POST";
 
@@ -113,6 +115,40 @@ namespace Chashavshavon.Utils
             }
             response.Close();
             return responseText;
+        }
+
+        public static void ProcessRemoteException(Exception excep, string logFilePath)
+        {
+            using (MailMessage mailMessage = new MailMessage(Properties.Settings.Default.ErrorGetterAddress,
+                    Properties.Settings.Default.ErrorGetterAddress))
+            {
+                mailMessage.Subject = "Chashavshavon Version: " +
+                        System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +
+                        " Exception";
+                mailMessage.IsBodyHtml = true;
+                mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+                mailMessage.Attachments.Add(new System.Net.Mail.Attachment(logFilePath));
+                if (Program.MainForm is Form)
+                {
+                    mailMessage.Attachments.Add(new System.Net.Mail.Attachment(Program.MainForm.GetTempXmlFile()));
+                }
+                mailMessage.Body = "Exception: " + excep.Message +
+                    "<br />Source: " + excep.Source +
+                    "<br />Target Site: " + excep.TargetSite +
+                    "<br />Stack Trace: " + excep.StackTrace.Replace(Environment.NewLine, "<br />");
+                
+                var mailClient = new SmtpClient()
+                {
+                    Port = 997,
+                    Host = "smtp.gmail.com",
+                    EnableSsl = true,
+                    Credentials = new NetworkCredential(Properties.Settings.Default.ErrorGetterAddress,
+                        Utils.GeneralUtils.Decrypt(Properties.Settings.Default.ApplicationSetId,
+                                    Properties.Settings.Default.ApplicationRuntime))
+                };
+                mailClient.SendAsync(mailMessage, null);
+                mailClient.Dispose();
+            }
         }
 
         private static XmlDocument ExecuteRemoteCall(string function, params KeyValuePair<string, string>[] fields)

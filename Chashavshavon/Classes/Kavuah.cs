@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Chashavshavon.Utils;
 using Microsoft.VisualBasic;
+using System.Xml.Serialization;
 
 namespace Chashavshavon
 {
@@ -37,12 +38,12 @@ namespace Chashavshavon
         public bool Active { get; set; }
         public bool IsMaayanPasuach { get; set; }
         public bool CancelsOnahBeinanis { get; set; }
-        [System.Xml.Serialization.XmlIgnore]
+        [XmlIgnore]
         public Entry SettingEntry { get; set; }
         public DateTime SettingEntryDate { get; set; }
         public int SettingEntryInterval { get; set; }
         public string Notes { get; set; }
-        [System.Xml.Serialization.XmlIgnore]
+        [XmlIgnore]
         public string KavuahDescriptionHebrew
         {
             get

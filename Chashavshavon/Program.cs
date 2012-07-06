@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
-using System.Net.Mail;
-using System.Net;
 
 namespace Chashavshavon
 {
     static class Program
     {
-        private static readonly string runtimeArgumentHandle = Utils.GeneralUtils.Decrypt(Properties.Settings.Default.ApplicationSetId,
-                                Properties.Settings.Default.ApplicationRuntime);
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
         public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
         //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
@@ -50,9 +46,9 @@ namespace Chashavshavon
             Application.Run(MainForm);
         }
 
-        static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            string logPath = System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv";
+            string logFilePath = System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv";
             Exception excep = e.Exception;
             while (excep.InnerException != null)
             {
@@ -64,7 +60,7 @@ namespace Chashavshavon
                 MessageBox.Show(excep.Message);
             }
 
-            System.IO.File.AppendAllText(logPath,
+            System.IO.File.AppendAllText(logFilePath,
                 "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"" + 
                 excep.Message + "\",\"" + excep.Source + "\",\"" + excep.TargetSite + 
                 "\"" + Environment.NewLine,
@@ -73,38 +69,14 @@ namespace Chashavshavon
             {
                 if ((Utils.RemoteFunctions.IsConnectedToInternet() || Properties.Settings.Default.UseLocalURL) &&
                         !string.IsNullOrEmpty(Properties.Settings.Default.ErrorGetterAddress) &&
-                        MessageBox.Show("ארעה שגיעה.\nהאם אתם מסקימים לשלוח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.",
+                        MessageBox.Show("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.",
                                         "חשבשבון",
                                         MessageBoxButtons.YesNo,
                                         MessageBoxIcon.Exclamation,
                                         MessageBoxDefaultButton.Button1,
                                         MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)            
                 {
-                    var mm = new MailMessage(Properties.Settings.Default.ErrorGetterAddress, Properties.Settings.Default.ErrorGetterAddress);
-                    mm.Subject = "Chashavshavon Version: " +
-                            System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + " Exception";
-                    mm.IsBodyHtml = true;
-                    mm.BodyEncoding = System.Text.Encoding.UTF8;
-                    mm.Attachments.Add(new System.Net.Mail.Attachment(logPath));
-                    if (MainForm is Form)
-                    {
-                        mm.Attachments.Add(new System.Net.Mail.Attachment(MainForm.GetTempXmlFile()));
-                    }
-                    mm.Body = "Exception: " + excep.Message +
-                        "<br />Source: " + excep.Source +
-                        "<br />Target Site: " + excep.TargetSite +
-                        "<br />Stack Trace: " + excep.StackTrace.Replace(Environment.NewLine, "<br />");
-                    var mailClient = new SmtpClient()
-                    {
-                        Port = 997,
-                        Host = "smtp.gmail.com",
-                        EnableSsl = true,
-                        Credentials = new NetworkCredential(Properties.Settings.Default.ErrorGetterAddress,
-                            runtimeArgumentHandle)
-                    };
-                    mailClient.SendAsync(mm, null);
-                    mailClient.Dispose();
-                    mm.Dispose();
+                    Utils.RemoteFunctions.ProcessRemoteException(excep, logFilePath);
                 }
             }
             catch (Exception ex)
