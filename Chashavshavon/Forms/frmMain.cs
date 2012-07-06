@@ -311,6 +311,7 @@ namespace Chashavshavon
             CurrentFile = openFileDialog1.FileName;
             CurrentFileIsRemote = false;
             LoadXmlFile();
+            this.CalculateProblemOnahs();
             DisplayMonth();
         }
 
@@ -509,13 +510,13 @@ namespace Chashavshavon
         #region Calculate Problem Onahs
         private void CalculateProblemOnahs()
         {
-            if (Entry.EntryList.Count == 0)
-            {
-                return;
-            }
             //Clears the list and gets it ready to accept new problems
-            this.ProblemOnas = new List<Onah>();
-
+            if (this.ProblemOnas == null)
+            {
+                this.ProblemOnas = new List<Onah>();
+            }
+            this.ProblemOnas.Clear();
+             
             //A list of 8 Onahs starting from yesterday until 2 days from now. Will be used to display 
             //in the problem days list.
             var onahs = GetCalendarOnahs();
@@ -1585,6 +1586,14 @@ namespace Chashavshavon
                         MessageBoxIcon.Exclamation,
                         MessageBoxDefaultButton.Button1,
                         MessageBoxOptions.RightAlign);
+                    //Clear previous list data
+                    Entry.EntryList.Clear();
+                    //Clear previous Kavuahs
+                    if (Kavuah.KavuahsList != null)
+                    {
+                        Kavuah.KavuahsList.Clear();
+                    }
+                    this.CalculateProblemOnahs();                    
                 }
             }
 
@@ -1643,6 +1652,11 @@ namespace Chashavshavon
                         MessageBoxIcon.Exclamation,
                         MessageBoxDefaultButton.Button1,
                         MessageBoxOptions.RightAlign);
+                        //Clear previous Kavuahs
+                        if (Kavuah.KavuahsList != null)
+                        {
+                            Kavuah.KavuahsList.Clear();
+                        }
                     }
                 }
             }
@@ -1655,7 +1669,7 @@ namespace Chashavshavon
             this.SetCaptionText();
             this.SortEntriesAndSetInterval();
             this.CalculateProblemOnahs();
-            this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
+            this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);            
         }
 
         public void SetCaptionText()

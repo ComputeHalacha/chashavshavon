@@ -11,7 +11,7 @@ namespace Chashavshavon
         private static readonly string runtimeArgumentHandle = Utils.GeneralUtils.Decrypt(Properties.Settings.Default.ApplicationSetId,
                                 Properties.Settings.Default.ApplicationRuntime);
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
-        public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);        
+        public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
         //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
         public static DateTime Today { get; set; }
         public static Onah NowOnah { get; set; }
@@ -53,16 +53,32 @@ namespace Chashavshavon
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             string logPath = System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv";
-            var excep = e.Exception.InnerException ?? e.Exception;
+            Exception excep = e.Exception;
+            while (excep.InnerException != null)
+            {
+                excep = excep.InnerException;
+            }
+
+            if (Properties.Settings.Default.UseLocalURL)
+            {
+                MessageBox.Show(excep.Message);
+            }
+
             System.IO.File.AppendAllText(logPath,
-                "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"" +
-                excep.Message +
+                "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"" + 
+                excep.Message + "\",\"" + excep.Source + "\",\"" + excep.TargetSite + 
                 "\"" + Environment.NewLine,
                 System.Text.Encoding.UTF8);
             try
             {
-                if (Utils.RemoteFunctions.IsConnectedToInternet() && 
-                        !string.IsNullOrEmpty(Properties.Settings.Default.ErrorGetterAddress))
+                if ((Utils.RemoteFunctions.IsConnectedToInternet() || Properties.Settings.Default.UseLocalURL) &&
+                        !string.IsNullOrEmpty(Properties.Settings.Default.ErrorGetterAddress) &&
+                        MessageBox.Show("ארעה שגיעה.\nהאם אתם מסקימים לשלוח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.",
+                                        "חשבשבון",
+                                        MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Exclamation,
+                                        MessageBoxDefaultButton.Button1,
+                                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)            
                 {
                     var mm = new MailMessage(Properties.Settings.Default.ErrorGetterAddress, Properties.Settings.Default.ErrorGetterAddress);
                     mm.Subject = "Chashavshavon Version: " +
@@ -76,13 +92,14 @@ namespace Chashavshavon
                     }
                     mm.Body = "Exception: " + excep.Message +
                         "<br />Source: " + excep.Source +
+                        "<br />Target Site: " + excep.TargetSite +
                         "<br />Stack Trace: " + excep.StackTrace.Replace(Environment.NewLine, "<br />");
                     var mailClient = new SmtpClient()
                     {
                         Port = 997,
                         Host = "smtp.gmail.com",
                         EnableSsl = true,
-                        Credentials = new NetworkCredential(Properties.Settings.Default.ErrorGetterAddress, 
+                        Credentials = new NetworkCredential(Properties.Settings.Default.ErrorGetterAddress,
                             runtimeArgumentHandle)
                     };
                     mailClient.SendAsync(mm, null);
@@ -90,18 +107,18 @@ namespace Chashavshavon
                     mm.Dispose();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (Properties.Settings.Default.UseLocalURL)
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }
+            }            
         }
 
         internal static string GetCurrentPlaceName()
         {
-            return String.IsNullOrWhiteSpace(CurrentPlace.NameHebrew) ? 
+            return String.IsNullOrWhiteSpace(CurrentPlace.NameHebrew) ?
                 CurrentPlace.Name : CurrentPlace.NameHebrew;
         }
 
@@ -133,6 +150,6 @@ namespace Chashavshavon
                 HebrewCalendar.GetMonth(firstDate) == HebrewCalendar.GetMonth(secondDate) &&
                 HebrewCalendar.GetDayOfMonth(firstDate) == HebrewCalendar.GetDayOfMonth(secondDate));
         }
-        #endregion      
+        #endregion
     }
 }
