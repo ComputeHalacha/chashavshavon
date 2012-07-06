@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.lblNumber = new System.Windows.Forms.Label();
             this.cmbNumber = new System.Windows.Forms.ComboBox();
             this.rbDayOfMonth = new System.Windows.Forms.RadioButton();
@@ -49,14 +48,12 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmbSettingEntry = new System.Windows.Forms.ComboBox();
-            this.entryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.entryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -195,7 +192,7 @@
             this.rbDay.Checked = true;
             this.rbDay.Location = new System.Drawing.Point(299, 18);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(41, 17);
+            this.rbDay.Size = new System.Drawing.Size(42, 17);
             this.rbDay.TabIndex = 7;
             this.rbDay.TabStop = true;
             this.rbDay.Text = "יום";
@@ -206,7 +203,7 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Location = new System.Drawing.Point(195, 18);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(48, 17);
+            this.rbNight.Size = new System.Drawing.Size(51, 17);
             this.rbNight.TabIndex = 6;
             this.rbNight.Text = "לילה";
             this.rbNight.UseVisualStyleBackColor = true;
@@ -277,8 +274,6 @@
             // 
             // cmbSettingEntry
             // 
-            this.cmbSettingEntry.DataSource = this.entryBindingSource;
-            this.cmbSettingEntry.DisplayMember = "DateTime";
             this.cmbSettingEntry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSettingEntry.FormatString = "dddd dd MMM yyyy";
             this.cmbSettingEntry.FormattingEnabled = true;
@@ -288,10 +283,6 @@
             this.cmbSettingEntry.TabIndex = 15;
             this.cmbSettingEntry.ValueMember = "DateTime";
             this.cmbSettingEntry.SelectedIndexChanged += new System.EventHandler(this.cmbSettingEntry_SelectedIndexChanged);
-            // 
-            // entryBindingSource
-            // 
-            this.entryBindingSource.DataSource = typeof(Chashavshavon.Entry);
             // 
             // label1
             // 
@@ -352,7 +343,6 @@
             this.groupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.entryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -380,7 +370,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmbSettingEntry;
-        private System.Windows.Forms.BindingSource entryBindingSource;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cbMaayanPasuach;
         private System.Windows.Forms.RadioButton rbdayOfWeek;

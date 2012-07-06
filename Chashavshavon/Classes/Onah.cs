@@ -12,11 +12,12 @@ namespace Chashavshavon
 
     public class Onah
     {
+        private string _name;
+
         public int Day { get; set; }
         public MonthObject Month { get; set; }
         public int Year { get; set; }
         public DayNight DayNight { get; set; }
-        public string Name { get; set; }
         public bool IsIgnored { get; set; }
         public bool IsChumrah { get; set; }
 
@@ -47,6 +48,12 @@ namespace Chashavshavon
             : this(dateTime)
         {
             this.DayNight = dayNight;
+        }
+
+        public override string ToString()
+        {
+            return this.DateTime.ToString("dddd dd MMM yyyy", Program.CultureInfo) +
+                " <עונת " + this.HebrewDayNight + ">";
         }
 
         public Onah Clone()
@@ -181,6 +188,18 @@ namespace Chashavshavon
             get
             {
                 return Zmanim.DaysOfWeekHebrew[(int)this.DayOfWeek];
+            }
+        }
+
+        public string Name
+        {
+            get 
+            {
+                return this._name ?? this.ToString();
+            }
+            set 
+            {
+                this._name = value;
             }
         }
     }

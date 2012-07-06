@@ -21,14 +21,24 @@ namespace Chashavshavon
         {
             this.LoadIntervalNumbers();
 
-            this.cmbSettingEntry.DataSource = Entry.EntryList;
+            foreach (Entry entry in Entry.EntryList)
+            {
+                this.cmbSettingEntry.Items.Add(entry);
+            }
             if (Entry.EntryList.Count > 0)
             {
+                this.cmbSettingEntry.Items.Add("ראייה אחרת לא רשומה");
+
                 Entry last = Entry.EntryList.Last();
                 //Select the last entry as it is probably the setting entry
                 this.cmbSettingEntry.SelectedItem = last;
                 if (last.Interval > 0)
                     this.cmbNumber.SelectedItem = last.Interval;
+            }
+            else
+            {
+                this.cmbSettingEntry.Items.Add("ראייה לא רשומה");
+                this.cmbSettingEntry.SelectedIndex = 0;
             }
         }
 
@@ -36,26 +46,42 @@ namespace Chashavshavon
         {
             if (this.rbDayOfMonth.Checked)
             {
-                this.lblNumber.Text = "";
-                this.cmbNumber.Visible = false;
+                LoadHebrewNumbers();
+                this.lblNumber.Text = "תבחר יום בחדש";
             }
             else if (this.rbInterval.Checked || this.rbdayOfWeek.Checked)
             {
-                this.cmbNumber.Visible = true;
                 LoadIntervalNumbers();
                 this.lblNumber.Text = "תבחר מספר הימים בין הראיות";
             }
             else if (rbDilugHaflagah.Checked)
             {
-                this.cmbNumber.Visible = true;
                 LoadDilugNumbers();
                 this.lblNumber.Text = "תבחר מספר ימי דילוג של ההפלגה";
             }
             else if (this.rbDilugDayOfMonth.Checked)
             {
-                this.cmbNumber.Visible = true;
                 LoadDilugNumbers();
                 this.lblNumber.Text = "תבחר מספר ימי דילוג של יום החודש";
+            }
+        }
+
+        private void LoadHebrewNumbers()
+        {
+            this.cmbNumber.DataSource = null;
+            this.cmbNumber.Items.Clear();
+            string[] a = Zmanim.DaysOfMonthHebrew;
+            for (int i = 1; i < a.Length; i++)
+            {
+                this.cmbNumber.Items.Add(a[i]);
+            }
+            if (this.cmbSettingEntry.SelectedItem is Entry)
+            {
+                this.cmbNumber.SelectedIndex = ((Entry)this.cmbSettingEntry.SelectedItem).Day - 1;
+            }
+            else
+            {
+                this.cmbNumber.SelectedIndex = 0;
             }
         }
 
@@ -69,7 +95,14 @@ namespace Chashavshavon
                 a[i] = i + 1;
             }
             this.cmbNumber.DataSource = a.Where(i => i != 0).ToList();
-            this.cmbNumber.SelectedIndex = 25;
+            if (this.cmbSettingEntry.SelectedItem is Entry && ((Entry)this.cmbSettingEntry.SelectedItem).Interval > 0)
+            {
+                this.cmbNumber.SelectedItem = ((Entry)this.cmbSettingEntry.SelectedItem).Interval;
+            }
+            else
+            {
+                this.cmbNumber.SelectedItem = 25;
+            }
         }
 
         private void LoadDilugNumbers()
@@ -111,39 +144,29 @@ namespace Chashavshavon
             {
                 this.AddedKavuah.KavuahType = KavuahType.DilugDayOfMonth;
             }
-            if (this.AddedKavuah.KavuahType.In(KavuahType.DayOfMonth, KavuahType.DayOfMonthMaayanPasuach))
-            {
-                if (this.cmbSettingEntry.Items.Count == 0)
-                {
-                    MessageBox.Show("כדי להוסיף קבוע של יום החודש, צריכים לבחור ראייה הקובע." + 
-                        "\nאנא תחזרו למסך העיקרית ותוסיפו הראייה שע\"פ נקבעה הקבוע הזאת לרשימת הראיות.",
-                    "חשבשבון",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign);
-                    return;
-                }
-                this.AddedKavuah.Number = Program.HebrewCalendar.GetDayOfMonth(((DateTime)this.cmbSettingEntry.SelectedValue));
-            }
-            else
-            {
-                this.AddedKavuah.Number = this.cmbNumber.SelectedIndex + 1;
-            }
+            this.AddedKavuah.Number = this.cmbNumber.SelectedIndex + 1;
+
+
             this.AddedKavuah.Active = this.cbActive.Checked;
             this.AddedKavuah.IsMaayanPasuach = this.cbMaayanPasuach.Checked;
-            if (this.cmbSettingEntry.Items.Count > 0)
+
+            if (this.cmbSettingEntry.SelectedItem is Entry)
             {
-                if (AddedKavuah.DayNight != ((Entry)this.cmbSettingEntry.SelectedItem).DayNight)
+                Entry entry = (Entry)this.cmbSettingEntry.SelectedItem;
+                this.AddedKavuah.SettingEntry = entry;
+                this.AddedKavuah.SettingEntryDate = entry.DateTime;
+                this.AddedKavuah.SettingEntryInterval = entry.Interval;
+
+                if (AddedKavuah.DayNight != entry.DayNight)
                 {
                     if (MessageBox.Show("העונה של הראייה הקובעת הוא <עונת " +
-                            ((Entry)this.cmbSettingEntry.SelectedItem).HebrewDayNight + 
-                            ">, אבל העונה שנבחרה להקבוע החדש הוא " + 
-                            this.AddedKavuah.ToString() + 
-                            ".\nהאם להוסיף בכל זאת?",
+                            entry.HebrewDayNight +
+                            ">,\nאבל העונה שנבחרה להקבוע החדש הוא " +
+                            this.AddedKavuah.ToString() +
+                            ".\nהאם להמשיך בכל זאת?",
                         "חשבשבון",
                         MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question,
+                        MessageBoxIcon.Exclamation,
                         MessageBoxDefaultButton.Button1,
                         MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
                     {
@@ -151,8 +174,61 @@ namespace Chashavshavon
                     }
                 }
 
-                this.AddedKavuah.SettingEntryDate = (DateTime)this.cmbSettingEntry.SelectedValue;
+                if (this.AddedKavuah.KavuahType.In(KavuahType.Haflagah, KavuahType.HaflagaMaayanPasuach) &&
+                    this.AddedKavuah.Number != entry.Interval)
+                {
+                    if (MessageBox.Show("ההפלגה של הראייה הקובעת הוא " +
+                           entry.Interval.ToString() +
+                            " ימים,\nאבל ההפלגה שנבחרה להקבוע החדש הוא " +
+                            this.cmbNumber.Text +
+                            " ימים.\nהאם להמשיך בכל זאת?",
+                        "חשבשבון",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
+
+                if (this.AddedKavuah.KavuahType.In(KavuahType.DayOfMonth, KavuahType.DayOfMonthMaayanPasuach) &&
+                    this.AddedKavuah.Number != entry.Day)
+                {
+                    if (MessageBox.Show("היום החודש של הראייה הקובעת הוא יום " +
+                           Zmanim.DaysOfMonthHebrew[entry.Day] +
+                            " בחודש,\nאבל היום החודש שנבחרה להקבוע החדש הוא יום " +
+                            this.cmbNumber.Text +
+                            " בחודש.\nהאם להמשיך בכל זאת?",
+                        "חשבשבון",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        this.AddedKavuah.SettingEntryDate = new DateTime(entry.Year,
+                            entry.Month.MonthInYear,
+                            this.AddedKavuah.Number,
+                            Program.HebrewCalendar);
+                    }
+                }
             }
+            else if (this.AddedKavuah.KavuahType.In(KavuahType.DayOfMonth, KavuahType.DayOfMonthMaayanPasuach))
+            {
+                //The list generation mechanism of problem Onahs in frmMain uses the SettingEntryDate 
+                //for Yom Hachodesh based Kavuahs to determine the problematic dates. So we need to set it.
+                //If it was not set by the user, we set it to about a year ago.
+                DateTime lastYear = Program.HebrewCalendar.AddYears(DateTime.Now, -1);
+                this.AddedKavuah.SettingEntryDate = new DateTime(Program.HebrewCalendar.GetYear(lastYear),
+                    Program.HebrewCalendar.GetMonth(lastYear),
+                    this.AddedKavuah.Number,
+                    Program.HebrewCalendar);
+            }
+
             this.AddedKavuah.Notes = this.tbNotes.Text;
 
             Kavuah.KavuahsList.Add(this.AddedKavuah);
@@ -161,8 +237,22 @@ namespace Chashavshavon
 
         private void cmbSettingEntry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Set the default day/night to the selected entries Day/Night
-            this.rbDay.Checked = ((Entry)this.cmbSettingEntry.SelectedItem).DayNight == DayNight.Day;
+            if (this.cmbSettingEntry.SelectedItem is Entry)
+            {
+                Entry entry = (Entry)this.cmbSettingEntry.SelectedItem;
+
+                //Set the default day/night to the selected entries Day/Night
+                this.rbDay.Checked = entry.DayNight == DayNight.Day;
+
+                if (this.rbDayOfMonth.Checked)
+                {
+                    this.cmbNumber.SelectedIndex = entry.Day - 1;
+                }
+                else if ((this.rbInterval.Checked || this.rbdayOfWeek.Checked) && entry.Interval != 0)
+                {
+                    this.cmbNumber.SelectedItem = entry.Interval;
+                }
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)

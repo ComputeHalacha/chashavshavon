@@ -14,8 +14,7 @@ namespace Chashavshavon
         public frmKavuahs()
         {
             InitializeComponent();
-            this.kavuahBindingSource.DataSource = Kavuah.KavuahsList;
-            this.entryBindingSource.DataSource = Entry.EntryList;
+            this.kavuahBindingSource.DataSource = Kavuah.KavuahsList;            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -49,6 +48,18 @@ namespace Chashavshavon
             {
                 this.kavuahBindingSource.Remove(this.dgvKavuahList.Rows[e.RowIndex].DataBoundItem);
                 this.kavuahBindingSource.EndEdit();
+            }
+        }
+
+        private void dgvKavuahList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.Value is DateTime)
+            {
+                DateTime dt = (DateTime)e.Value;
+                if (Program.HebrewCalendar.MinSupportedDateTime <= dt)
+                {
+                    e.Value = dt.ToString("dddd dd MMM yyyy", Program.CultureInfo);
+                }
             }
         }       
     }
