@@ -17,7 +17,7 @@ namespace Chashavshavon
 
         #region Private Variables
         private DateTime _monthToDisplay;
-
+        private string _tempXMLFileName = Path.GetTempPath() + "ChashavshavonTempFile.xml";
         #endregion
 
         #region Constructors
@@ -56,13 +56,15 @@ namespace Chashavshavon
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.SaveCurrentFile();
+            this.SaveCurrentFile();            
             if (!Properties.Settings.Default.OpenLastFile)
             {
                 Properties.Settings.Default.CurrentFile = null;
                 Properties.Settings.Default.IsCurrentFileRemote = false;
             }
             Properties.Settings.Default.Save();
+
+            File.Delete(this._tempXMLFileName);
         }
 
         private void frmMain_ResizeBegin(object sender, EventArgs e)
@@ -383,18 +385,9 @@ namespace Chashavshavon
 
         private void SourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveCurrentFile();
-            string fileName;
-            if (CurrentFileIsRemote)
-            {
-                fileName = Path.GetTempFileName();
-                File.WriteAllText(fileName, CurrentFileXML);
-            }
-            else
-            {
-                fileName = CurrentFile;
-            }
-            System.Diagnostics.Process.Start("notepad.exe", fileName);
+            SaveCurrentFile();            
+            File.WriteAllText(this._tempXMLFileName, CurrentFileXML);
+            System.Diagnostics.Process.Start(this._tempXMLFileName);            
         }
 
         private void btnToday_Click(object sender, EventArgs e)
