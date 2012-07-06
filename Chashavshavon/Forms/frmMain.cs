@@ -56,7 +56,7 @@ namespace Chashavshavon
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.SaveCurrentFile();            
+            this.SaveCurrentFile();
             if (!Properties.Settings.Default.OpenLastFile)
             {
                 Properties.Settings.Default.CurrentFile = null;
@@ -385,10 +385,22 @@ namespace Chashavshavon
 
         private void SourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveCurrentFile();            
-            File.WriteAllText(this._tempXMLFileName, CurrentFileXML);
-            System.Diagnostics.Process.Start(this._tempXMLFileName);            
-        }
+            if (!string.IsNullOrWhiteSpace(this.CurrentFile))
+            {
+                SaveCurrentFile();
+                this.GetTempXmlFile();
+                System.Diagnostics.Process.Start(this._tempXMLFileName);
+            }
+            else
+            {
+                MessageBox.Show(".הצגת מקור מצריך קובץ",
+                        "חשבשבון",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.RightAlign);
+            }
+        }        
 
         private void btnToday_Click(object sender, EventArgs e)
         {
@@ -1666,6 +1678,12 @@ namespace Chashavshavon
             this.SetCaptionText();
             this.DisplayMonth();
         }
+
+        public string GetTempXmlFile()
+        {
+            File.WriteAllText(this._tempXMLFileName, CurrentFileXML ?? "");
+            return this._tempXMLFileName;
+        }
         #endregion
 
         #region Properties
@@ -1714,12 +1732,12 @@ namespace Chashavshavon
                         MessageBox.Show(e.Message, "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
+                else if(!String.IsNullOrWhiteSpace(this.CurrentFile))
                 {
                     xml = File.ReadAllText(this.CurrentFile);
                 }
 
-                return (string.IsNullOrEmpty(xml) ? "<Entries />" : xml);
+                return (string.IsNullOrWhiteSpace(xml) ? "<Entries />" : xml);
             }
         }
         public string CurrentFileName

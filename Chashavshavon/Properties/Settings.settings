@@ -53,5 +53,14 @@
     <Setting Name="CheshbonKavuahByCheshbon" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="ApplicationSetId" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">jtYImtASk0QrjEsz2JIXR8BiiuhG98C+eJfCSqQusJRYLTnK5Q7VNfaXAdSVeGjnjbYdYu9X3zSSimtopglL6g==</Value>
+    </Setting>
+    <Setting Name="ApplicationRuntime" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Q7iVDhfZVa8h2bR+zEV/EiSrDiCMe3iaJTaXIwsbSoLqgBTdnf7KzHmJ4dDSYOTfeb7eIe5uAm7Lz+ToBOumcw==</Value>
+    </Setting>
+    <Setting Name="ErrorGetterAddress" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">chashavshavon@compute.co.il</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

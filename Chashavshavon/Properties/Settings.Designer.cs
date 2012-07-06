@@ -217,5 +217,34 @@ namespace Chashavshavon.Properties {
                 this["CheshbonKavuahByCheshbon"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("jtYImtASk0QrjEsz2JIXR8BiiuhG98C+eJfCSqQusJRYLTnK5Q7VNfaXAdSVeGjnjbYdYu9X3zSSimtop" +
+            "glL6g==")]
+        public string ApplicationSetId {
+            get {
+                return ((string)(this["ApplicationSetId"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Q7iVDhfZVa8h2bR+zEV/EiSrDiCMe3iaJTaXIwsbSoLqgBTdnf7KzHmJ4dDSYOTfeb7eIe5uAm7Lz+ToB" +
+            "Oumcw==")]
+        public string ApplicationRuntime {
+            get {
+                return ((string)(this["ApplicationRuntime"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("chashavshavon@compute.co.il")]
+        public string ErrorGetterAddress {
+            get {
+                return ((string)(this["ErrorGetterAddress"]));
+            }
+        }
     }
 }

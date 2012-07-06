@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
+using System.Net.Mail;
+using System.Net;
 
 namespace Chashavshavon
 {
     static class Program
     {
-
+        private static readonly string runtimeArgumentHandle = Utils.GeneralUtils.Decrypt(Properties.Settings.Default.ApplicationSetId,
+                                Properties.Settings.Default.ApplicationRuntime);
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
         public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);        
         //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
@@ -49,17 +52,51 @@ namespace Chashavshavon
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            System.IO.File.AppendAllText(System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv",
+            string logPath = System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv";
+            var excep = e.Exception.InnerException ?? e.Exception;
+            System.IO.File.AppendAllText(logPath,
                 "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"" +
-                (e.Exception.InnerException != null ? e.Exception.InnerException.Message : e.Exception.Message) +
+                excep.Message +
                 "\"" + Environment.NewLine,
                 System.Text.Encoding.UTF8);
-            MessageBox.Show("ארעה שגיאה" + "\n\n" + (e.Exception.InnerException != null ? e.Exception.InnerException.Message : e.Exception.Message),
-                            "חשבשבון",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            try
+            {
+                if (Utils.RemoteFunctions.IsConnectedToInternet() && 
+                        !string.IsNullOrEmpty(Properties.Settings.Default.ErrorGetterAddress))
+                {
+                    var mm = new MailMessage(Properties.Settings.Default.ErrorGetterAddress, Properties.Settings.Default.ErrorGetterAddress);
+                    mm.Subject = "Chashavshavon Version: " +
+                            System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + " Exception";
+                    mm.IsBodyHtml = true;
+                    mm.BodyEncoding = System.Text.Encoding.UTF8;
+                    mm.Attachments.Add(new System.Net.Mail.Attachment(logPath));
+                    if (MainForm is Form)
+                    {
+                        mm.Attachments.Add(new System.Net.Mail.Attachment(MainForm.GetTempXmlFile()));
+                    }
+                    mm.Body = "Exception: " + excep.Message +
+                        "<br />Source: " + excep.Source +
+                        "<br />Stack Trace: " + excep.StackTrace.Replace(Environment.NewLine, "<br />");
+                    var mailClient = new SmtpClient()
+                    {
+                        Port = 997,
+                        Host = "smtp.gmail.com",
+                        EnableSsl = true,
+                        Credentials = new NetworkCredential(Properties.Settings.Default.ErrorGetterAddress, 
+                            runtimeArgumentHandle)
+                    };
+                    mailClient.SendAsync(mm, null);
+                    mailClient.Dispose();
+                    mm.Dispose();
+                }
+            }
+            catch(Exception ex)
+            {
+                if (Properties.Settings.Default.UseLocalURL)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         internal static string GetCurrentPlaceName()
