@@ -127,15 +127,22 @@ namespace Chashavshavon.Utils
                         " Exception";
                 mailMessage.IsBodyHtml = true;
                 mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
-                mailMessage.Attachments.Add(new System.Net.Mail.Attachment(logFilePath));
+                if (File.Exists(logFilePath))
+                {
+                    mailMessage.Attachments.Add(new System.Net.Mail.Attachment(logFilePath));
+                }
                 if (Program.MainForm is Form)
                 {
-                    mailMessage.Attachments.Add(new System.Net.Mail.Attachment(Program.MainForm.GetTempXmlFile()));
+                    string currentFileTextPath = Program.MainForm.GetTempXmlFile();
+                    if ((!string.IsNullOrEmpty(currentFileTextPath)) && File.Exists(currentFileTextPath))
+                    {
+                        mailMessage.Attachments.Add(new System.Net.Mail.Attachment(currentFileTextPath));
+                    }
                 }
                 mailMessage.Body = "Exception: " + excep.Message +
                     "<br />Source: " + excep.Source +
                     "<br />Target Site: " + excep.TargetSite +
-                    "<br />Stack Trace: " + excep.StackTrace.Replace(Environment.NewLine, "<br />");
+                    "<br />Stack Trace: <pre>" + excep.StackTrace + "</pre>";
                 
                 var mailClient = new SmtpClient()
                 {

@@ -48,44 +48,78 @@ namespace Chashavshavon
 
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            string logFilePath = System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv";
-            Exception excep = e.Exception;
-            while (excep.InnerException != null)
-            {
-                excep = excep.InnerException;
-            }
 
-            if (Properties.Settings.Default.UseLocalURL)
+            var bgw = new System.ComponentModel.BackgroundWorker();
+            bgw.DoWork += delegate
             {
-                MessageBox.Show(excep.Message);
-            }
-
-            System.IO.File.AppendAllText(logFilePath,
-                "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"" + 
-                excep.Message + "\",\"" + excep.Source + "\",\"" + excep.TargetSite + 
-                "\"" + Environment.NewLine,
-                System.Text.Encoding.UTF8);
-            try
-            {
-                if ((Utils.RemoteFunctions.IsConnectedToInternet() || Properties.Settings.Default.UseLocalURL) &&
-                        !string.IsNullOrEmpty(Properties.Settings.Default.ErrorGetterAddress) &&
-                        MessageBox.Show("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.",
-                                        "חשבשבון",
-                                        MessageBoxButtons.YesNo,
-                                        MessageBoxIcon.Exclamation,
-                                        MessageBoxDefaultButton.Button1,
-                                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)            
+                string logFilePath = System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv";
+                Exception excep = e.Exception;
+                while (excep.InnerException != null)
                 {
-                    Utils.RemoteFunctions.ProcessRemoteException(excep, logFilePath);
+                    excep = excep.InnerException;
                 }
-            }
-            catch (Exception ex)
-            {
+
                 if (Properties.Settings.Default.UseLocalURL)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(excep.Message);
                 }
-            }            
+
+                try
+                {
+                    System.IO.File.AppendAllText(logFilePath,
+                        "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"" +
+                        excep.Message + "\",\"" + excep.Source + "\",\"" + excep.TargetSite +
+                        "\"" + Environment.NewLine);
+                }
+                catch (Exception ex)
+                {
+                    if (Properties.Settings.Default.UseLocalURL)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+                if ((Utils.RemoteFunctions.IsConnectedToInternet() || Properties.Settings.Default.UseLocalURL) &&
+                           !string.IsNullOrEmpty(Properties.Settings.Default.ErrorGetterAddress) &&
+                           MessageBox.Show("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.",
+                                           "חשבשבון",
+                                           MessageBoxButtons.YesNo,
+                                           MessageBoxIcon.Exclamation,
+                                           MessageBoxDefaultButton.Button1,
+                                           MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        Utils.RemoteFunctions.ProcessRemoteException(excep, logFilePath);
+                        MessageBox.Show("פרטי השגיאה נשלחו בהצלחה.",
+                                "חשבשבון",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.None,
+                                MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    }
+                    catch(Exception ex)
+                    {
+                        try
+                        {
+                            System.IO.File.AppendAllText(logFilePath,
+                                "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"While sending error info message - " +
+                                ex.Message + "\",\"" + ex.Source + "\",\"" + ex.TargetSite +
+                                "\"" + Environment.NewLine);
+                        }
+                        catch { }
+                        
+                        MessageBox.Show("נכשלה שליחת פרטי השגיאה",
+                                "חשבשבון",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation,
+                                MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                    }
+                }
+
+            };
+            bgw.RunWorkerAsync();
         }
 
         internal static string GetCurrentPlaceName()
