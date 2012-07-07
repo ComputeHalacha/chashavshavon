@@ -139,14 +139,14 @@ namespace Chashavshavon.Utils
                 
                 var mailClient = new SmtpClient()
                 {
-                    Port = 997,
+                    Port = 587,
                     Host = "smtp.gmail.com",
                     EnableSsl = true,
                     Credentials = new NetworkCredential(Properties.Settings.Default.ErrorGetterAddress,
                         Utils.GeneralUtils.Decrypt(Properties.Settings.Default.ApplicationSetId,
                                     Properties.Settings.Default.ApplicationRuntime))
                 };
-                mailClient.SendAsync(mailMessage, null);
+                mailClient.Send(mailMessage);
                 mailClient.Dispose();
             }
         }

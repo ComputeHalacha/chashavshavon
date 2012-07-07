@@ -401,7 +401,7 @@ namespace Chashavshavon
                         MessageBoxDefaultButton.Button1,
                         MessageBoxOptions.RightAlign);
             }
-        }        
+        }
 
         private void btnToday_Click(object sender, EventArgs e)
         {
@@ -516,7 +516,7 @@ namespace Chashavshavon
                 this.ProblemOnas = new List<Onah>();
             }
             this.ProblemOnas.Clear();
-             
+
             //A list of 8 Onahs starting from yesterday until 2 days from now. Will be used to display 
             //in the problem days list.
             var onahs = GetCalendarOnahs();
@@ -1593,7 +1593,7 @@ namespace Chashavshavon
                     {
                         Kavuah.KavuahsList.Clear();
                     }
-                    this.CalculateProblemOnahs();                    
+                    this.CalculateProblemOnahs();
                 }
             }
 
@@ -1669,7 +1669,7 @@ namespace Chashavshavon
             this.SetCaptionText();
             this.SortEntriesAndSetInterval();
             this.CalculateProblemOnahs();
-            this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);            
+            this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
         }
 
         public void SetCaptionText()
@@ -1746,7 +1746,7 @@ namespace Chashavshavon
                         MessageBox.Show(e.Message, "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else if(!String.IsNullOrWhiteSpace(this.CurrentFile))
+                else if (!String.IsNullOrWhiteSpace(this.CurrentFile))
                 {
                     xml = File.ReadAllText(this.CurrentFile);
                 }
