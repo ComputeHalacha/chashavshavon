@@ -242,6 +242,13 @@ namespace Chashavshavon
             }
         }
 
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this.TestInternet();
+            this.LoadXmlFile();
+            this.DisplayMonth();
+        }
+
         private void btnAddEntry_Click(object sender, EventArgs e)
         {
             frmAddNewEntry f = new frmAddNewEntry(Program.Today);
@@ -1762,8 +1769,7 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion
-
+        #endregion        
 
     }
 }
