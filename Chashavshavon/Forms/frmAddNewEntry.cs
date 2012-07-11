@@ -210,7 +210,7 @@ namespace Chashavshavon
             this.rbDay.Checked = !isNightTime;
             this.rbNight.Checked = isNightTime;
             
-            string todayString = this._date.ToString("dddd dd MMM yyyy");
+            string todayString = Program.Today.ToString("dddd dd MMM yyyy");
             foreach (string holiday in JewishHolidays.GetHebrewHolidays(this._date, Program.CurrentPlace.IsInIsrael))
             {
                 todayString += " - " + holiday;
