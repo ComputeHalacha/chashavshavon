@@ -244,9 +244,7 @@ namespace Chashavshavon
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            this.TestInternet();
-            this.LoadXmlFile();
-            this.DisplayMonth();
+            RefreshData();
         }
 
         private void btnAddEntry_Click(object sender, EventArgs e)
@@ -355,8 +353,7 @@ namespace Chashavshavon
 
         private void RefreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.TestInternet();
-            this.LoadXmlFile();
+            this.RefreshData();
         }
 
         private void toolStripMenuItemRemote_Click(object sender, EventArgs e)
@@ -398,6 +395,31 @@ namespace Chashavshavon
                 SaveCurrentFile();
                 this.GetTempXmlFile();
                 System.Diagnostics.Process.Start(this._tempXMLFileName);
+            }
+            else
+            {
+                MessageBox.Show(".הצגת מקור מצריך קובץ",
+                        "חשבשבון",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.RightAlign);
+            }
+        }
+
+        private void SourceTextMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(this.CurrentFile) && File.Exists(CurrentFile))
+            {
+                SaveCurrentFile();
+                var notepad = new System.Diagnostics.Process();
+                notepad.StartInfo.FileName = "notepad.exe";
+                notepad.StartInfo.Arguments = this.CurrentFile;
+                notepad.EnableRaisingEvents = true;
+                notepad.Exited += delegate { this.RefreshData(); };
+                notepad.Start();                
+                notepad.WaitForExit();
+                notepad.Dispose();
             }
             else
             {
@@ -1268,6 +1290,13 @@ namespace Chashavshavon
             return password;
         }
 
+        private void RefreshData()
+        {
+            this.TestInternet();
+            this.LoadXmlFile();
+            this.DisplayMonth();
+        }
+
         private void DisplayMonth()
         {
             int year = Program.HebrewCalendar.GetYear(this._monthToDisplay);
@@ -1531,9 +1560,7 @@ namespace Chashavshavon
                 if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
                 {
                     this.SaveCurrentFile();
-                    this.TestInternet();
-                    this.LoadXmlFile();
-                    this.DisplayMonth();
+                    this.RefreshData();
                     return true;
                 }
             }
@@ -1769,7 +1796,6 @@ namespace Chashavshavon
                 return cf[cf.Length - 1];
             }
         }
-        #endregion        
-
+        #endregion
     }
 }
