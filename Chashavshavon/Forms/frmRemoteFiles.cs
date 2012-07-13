@@ -184,7 +184,7 @@ namespace Chashavshavon
 
         private void llSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(Properties.Settings.Default.UseLocalURL ? Properties.Settings.Default.LocalURL : Properties.Settings.Default.URL);
+            Process.Start(Properties.Settings.Default.UseLocalURL ? Properties.Resources.LocalAppURL : Properties.Resources.AppURL);
         }
 
         private void btnPreview_Click(object sender, EventArgs e)

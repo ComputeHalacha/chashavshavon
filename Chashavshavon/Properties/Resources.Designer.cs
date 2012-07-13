@@ -67,6 +67,33 @@ namespace Chashavshavon.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Q7iVDhfZVa8h2bR+zEV/EiSrDiCMe3iaJTaXIwsbSoLqgBTdnf7KzHmJ4dDSYOTfeb7eIe5uAm7Lz+ToBOumcw==.
+        /// </summary>
+        internal static string ApplicationRuntime {
+            get {
+                return ResourceManager.GetString("ApplicationRuntime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to jtYImtASk0QrjEsz2JIXR8BiiuhG98C+eJfCSqQusJRYLTnK5Q7VNfaXAdSVeGjnjbYdYu9X3zSSimtopglL6g==.
+        /// </summary>
+        internal static string ApplicationSetId {
+            get {
+                return ResourceManager.GetString("ApplicationSetId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://chashavshavon.appspot.com.
+        /// </summary>
+        internal static string AppURL {
+            get {
+                return ResourceManager.GetString("AppURL", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap ButtonBackground {
             get {
                 object obj = ResourceManager.GetObject("ButtonBackground", resourceCulture);
@@ -92,6 +119,24 @@ namespace Chashavshavon.Properties {
             get {
                 object obj = ResourceManager.GetObject("ChashFile", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to www.compute.co.il.
+        /// </summary>
+        internal static string ComputeURLHost {
+            get {
+                return ResourceManager.GetString("ComputeURLHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to localhost:84.
+        /// </summary>
+        internal static string ComputeURLLocalHost {
+            get {
+                return ResourceManager.GetString("ComputeURLLocalHost", resourceCulture);
             }
         }
         
@@ -141,6 +186,42 @@ namespace Chashavshavon.Properties {
             get {
                 object obj = ResourceManager.GetObject("down", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Products/Chashavshavon/Chashavshavon_Installer.exe.
+        /// </summary>
+        internal static string DownloadApplicationURL {
+            get {
+                return ResourceManager.GetString("DownloadApplicationURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to chashavshavon@compute.co.il.
+        /// </summary>
+        internal static string ErrorGetterAddress {
+            get {
+                return ResourceManager.GetString("ErrorGetterAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Products/Chashavshavon/Default.aspx/GetLatestVersion.
+        /// </summary>
+        internal static string GetLatestVersionURL {
+            get {
+                return ResourceManager.GetString("GetLatestVersionURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://localhost:8080.
+        /// </summary>
+        internal static string LocalAppURL {
+            get {
+                return ResourceManager.GetString("LocalAppURL", resourceCulture);
             }
         }
         

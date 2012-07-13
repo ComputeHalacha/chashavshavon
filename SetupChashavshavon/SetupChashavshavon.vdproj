@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_F35B0C2893EF4C12917A08666B9D100A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
         "MsmSig" = "8:_UNDEFINED"
@@ -90,7 +96,7 @@
             {
             "Enabled" = "11:TRUE"
             "PromptEnabled" = "11:TRUE"
-            "PrerequisitesLocation" = "2:2"
+            "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
                 "Items"
@@ -127,7 +133,7 @@
             {
             "Enabled" = "11:TRUE"
             "PromptEnabled" = "11:TRUE"
-            "PrerequisitesLocation" = "2:1"
+            "PrerequisitesLocation" = "2:2"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
                 "Items"
@@ -193,6 +199,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F35B0C2893EF4C12917A08666B9D100A"
+            {
+            "SourcePath" = "8:..\\Chashavshavon\\chash.ico"
+            "TargetName" = "8:chash.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -202,8 +228,8 @@
             "Description" = "8:Chashavshavon File"
             "Extensions" = "8:pm"
             "MIME" = "8:"
-            "Icon" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
-            "IconIndex" = "3:32512"
+            "Icon" = "8:_F35B0C2893EF4C12917A08666B9D100A"
+            "IconIndex" = "3:0"
                 "Command"
                 {
                 "Command" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
@@ -305,15 +331,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
-        "ProductCode" = "8:{5B6A8BD2-3789-4951-8956-EDCAFAB2F165}"
-        "PackageCode" = "8:{F6090FB0-ADE6-4633-BFEA-9486E094A5E9}"
+        "ProductCode" = "8:{B824BEA4-304C-4B07-BA6B-5944FCF94E2D}"
+        "PackageCode" = "8:{28CEA9B0-D0D4-42B3-9DD6-FF17B2321DDE}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:3.1.5"
+        "ProductVersion" = "8:3.1.7"
         "Manufacturer" = "8:Compute Software Solutions"
         "ARPHELPTELEPHONE" = "8:052-732-3138"
         "ARPHELPLINK" = "8:https://www.compute.co.il/contact"
@@ -329,7 +355,7 @@
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
-        "PostBuildEvent" = "8:"
+        "PostBuildEvent" = "8:\"C:\\Program Files\\7-Zip\\7z.exe \" a \"$(ProjectDir)Chashavshavon_Installer.zip\" \"$(ProjectDir)$(Configuration)\\*\""
         "RunPostBuildEvent" = "3:0"
         }
         "Registry"

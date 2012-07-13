@@ -17,7 +17,7 @@ namespace Chashavshavon
 
         #region Private Variables
         private DateTime _monthToDisplay;
-        private string _tempXMLFileName = Path.GetTempPath() + "ChashavshavonTempFile.xml";
+        private string _tempXMLFileName = Program.TempFolderPath + @"\ChashavshavonTempFile.xml";
         #endregion
 
         #region Constructors

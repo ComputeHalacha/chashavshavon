@@ -8,6 +8,7 @@ namespace Chashavshavon
     {
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
         public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
+        public static readonly string TempFolderPath = System.IO.Path.GetTempPath() + "%temp%";
         //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
         public static DateTime Today { get; set; }
         public static Onah NowOnah { get; set; }
@@ -35,6 +36,14 @@ namespace Chashavshavon
                 Properties.Settings.Default.ChashFilesPath = path;
                 Properties.Settings.Default.Save();
             }
+            
+            if (System.IO.Directory.Exists(TempFolderPath))
+            {
+                System.IO.Directory.Delete(TempFolderPath, true);
+            }
+
+            System.IO.Directory.CreateDirectory(TempFolderPath);
+
             if (args.Length > 0)
             {
                 MainForm = new frmMain(args[0]);
@@ -48,12 +57,15 @@ namespace Chashavshavon
 
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
+            HandleException(e.Exception);
+        }
 
+        public static void HandleException(Exception excep, bool silent = false)
+        {
             var bgw = new System.ComponentModel.BackgroundWorker();
             bgw.DoWork += delegate
             {
-                string logFilePath = System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv";
-                Exception excep = e.Exception;
+                string logFilePath = System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv";                
                 while (excep.InnerException != null)
                 {
                     excep = excep.InnerException;
@@ -80,25 +92,29 @@ namespace Chashavshavon
                 }
 
                 if ((Utils.RemoteFunctions.IsConnectedToInternet() || Properties.Settings.Default.UseLocalURL) &&
-                           !string.IsNullOrEmpty(Properties.Settings.Default.ErrorGetterAddress) &&
+                           !string.IsNullOrEmpty(Properties.Resources.ErrorGetterAddress) && 
+                           (silent ||
                            MessageBox.Show("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.",
                                            "חשבשבון",
                                            MessageBoxButtons.YesNo,
                                            MessageBoxIcon.Exclamation,
                                            MessageBoxDefaultButton.Button1,
-                                           MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                                           MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes))
                 {
                     try
                     {
                         Utils.RemoteFunctions.ProcessRemoteException(excep, logFilePath);
-                        MessageBox.Show("פרטי השגיאה נשלחו בהצלחה.",
-                                "חשבשבון",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.None,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                        if (!silent)
+                        {
+                            MessageBox.Show("פרטי השגיאה נשלחו בהצלחה.",
+                                    "חשבשבון",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.None,
+                                    MessageBoxDefaultButton.Button1,
+                                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                        }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         try
                         {
@@ -108,13 +124,16 @@ namespace Chashavshavon
                                 "\"" + Environment.NewLine);
                         }
                         catch { }
-                        
-                        MessageBox.Show("נכשלה שליחת פרטי השגיאה",
-                                "חשבשבון",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+
+                        if (!silent)
+                        {
+                            MessageBox.Show("נכשלה שליחת פרטי השגיאה",
+                                    "חשבשבון",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Exclamation,
+                                    MessageBoxDefaultButton.Button1,
+                                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                        }
                     }
                 }
 

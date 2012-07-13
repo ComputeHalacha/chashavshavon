@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Chashavshavon
 {
@@ -32,6 +33,7 @@ namespace Chashavshavon
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblVersion = new System.Windows.Forms.Label();
+            this.llGetLatestVersion = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -132,12 +134,25 @@ namespace Chashavshavon
             this.lblVersion.Text = "גירסה";
             this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // llGetLatestVersion
+            // 
+            this.llGetLatestVersion.AutoSize = true;
+            this.llGetLatestVersion.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llGetLatestVersion.Location = new System.Drawing.Point(349, 30);
+            this.llGetLatestVersion.Name = "llGetLatestVersion";
+            this.llGetLatestVersion.Size = new System.Drawing.Size(92, 14);
+            this.llGetLatestVersion.TabIndex = 7;
+            this.llGetLatestVersion.TabStop = true;
+            this.llGetLatestVersion.Text = "חפש גירסה חדשה";
+            this.llGetLatestVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llGetLatestVersion_LinkClicked);
+            // 
             // AboutBox
             // 
             this.AcceptButton = this.button1;
             this.BackColor = System.Drawing.Color.Lavender;
             this.CancelButton = this.button1;
             this.ClientSize = new System.Drawing.Size(453, 293);
+            this.Controls.Add(this.llGetLatestVersion);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -169,12 +184,45 @@ namespace Chashavshavon
         private void AboutBox_Load(object sender, EventArgs e)
         {
             this.lblVersion.Text += " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            this.llContact.Visible = Properties.Settings.Default.UseLocalURL || Utils.RemoteFunctions.IsConnectedToInternet();
+            this.llContact.Visible = this.llGetLatestVersion.Visible =
+                Properties.Settings.Default.UseLocalURL || Utils.RemoteFunctions.IsConnectedToInternet();
         }
 
         private void llContact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.compute.co.il/contact/?heb=y");
+        }
+
+        private void llGetLatestVersion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Version lVersion = Utils.RemoteFunctions.GetLatestVersion(),
+                tVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+            if (lVersion == null || lVersion <= tVersion)
+            {
+                MessageBox.Show("You have the latest version: " + tVersion.ToString());
+            }
+            else
+            {
+                if (MessageBox.Show("New version available. Version: " + lVersion.ToString() + 
+                    "\nDo you want to download and install it?", "Chash", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                {
+                    using (BackgroundWorker bgw = new BackgroundWorker())
+                    {
+                        bgw.DoWork += delegate
+                        {
+                            string installer = Utils.RemoteFunctions.DownloadLatestVersion();
+                            if (!string.IsNullOrEmpty(installer) && File.Exists(installer))
+                            {
+                                System.Diagnostics.Process p = new System.Diagnostics.Process();
+                                p.StartInfo.FileName = installer;
+                                p.Start();
+                            }
+                        };
+                        bgw.RunWorkerAsync();
+                    }
+                }
+            }
         }
     }
 }

@@ -84,8 +84,8 @@ namespace Chashavshavon.Utils
         {
             string responseText = null;
             WebRequest request = WebRequest.Create(
-                                (Properties.Settings.Default.UseLocalURL ? 
-                                    Properties.Settings.Default.LocalURL : Properties.Settings.Default.URL) +
+                                (Properties.Settings.Default.UseLocalURL ?
+                                    Properties.Resources.LocalAppURL : Properties.Resources.AppURL) +
                                 "/" + function);
             request.Method = "POST";
 
@@ -113,14 +113,15 @@ namespace Chashavshavon.Utils
                 reader.Close();
                 dataStream.Close();
             }
+            dataStream.Dispose();
             response.Close();
             return responseText;
         }
 
         public static void ProcessRemoteException(Exception excep, string logFilePath)
         {
-            using (MailMessage mailMessage = new MailMessage(Properties.Settings.Default.ErrorGetterAddress,
-                    Properties.Settings.Default.ErrorGetterAddress))
+            using (MailMessage mailMessage = new MailMessage(Properties.Resources.ErrorGetterAddress,
+                    Properties.Resources.ErrorGetterAddress))
             {
                 mailMessage.Subject = "Chashavshavon Version: " +
                         System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +
@@ -143,20 +144,120 @@ namespace Chashavshavon.Utils
                     "<br />Source: " + excep.Source +
                     "<br />Target Site: " + excep.TargetSite +
                     "<br />Stack Trace: <pre>" + excep.StackTrace + "</pre>";
-                
+
                 var mailClient = new SmtpClient()
                 {
                     Port = 587,
                     Host = "smtp.gmail.com",
                     EnableSsl = true,
-                    Credentials = new NetworkCredential(Properties.Settings.Default.ErrorGetterAddress,
-                        Utils.GeneralUtils.Decrypt(Properties.Settings.Default.ApplicationSetId,
-                                    Properties.Settings.Default.ApplicationRuntime))
+                    Credentials = new NetworkCredential(Properties.Resources.ErrorGetterAddress,
+                        Utils.GeneralUtils.Decrypt(Properties.Resources.ApplicationSetId,
+                                    Properties.Resources.ApplicationRuntime))
                 };
                 mailClient.Send(mailMessage);
                 mailClient.Dispose();
             }
         }
+
+        public static Version GetLatestVersion()
+        {
+            Version version = null;
+            string versionString = null;
+
+            try
+            {
+                string url = "http://" +
+                    (Properties.Settings.Default.UseLocalURL ?
+                        Properties.Resources.ComputeURLLocalHost : Properties.Resources.ComputeURLHost) +
+                    Properties.Resources.GetLatestVersionURL;
+                WebRequest request = WebRequest.Create(url);
+                request.Method = "POST";
+                request.ContentType = "application/json; charset=utf-8";
+                byte[] byteArray = Encoding.UTF8.GetBytes("{}");
+                request.ContentLength = byteArray.Length;
+                Stream dataStream = request.GetRequestStream();
+                dataStream.Write(byteArray, 0, byteArray.Length);
+                dataStream.Close();
+                WebResponse response = request.GetResponse();
+                if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+                {
+                    dataStream = response.GetResponseStream();
+                    StreamReader reader = new StreamReader(dataStream);
+                    var jse = new System.Web.Script.Serialization.JavaScriptSerializer();
+                    //The web method returns: "{'d': '0.0.0.0'}"
+                    versionString = jse.Deserialize<Dictionary<string, string>>(reader.ReadToEnd())["d"];
+                    reader.Close();
+                    dataStream.Close();
+                }
+                dataStream.Dispose();
+                response.Close();
+            }
+            catch (Exception ex)
+            {
+                Program.HandleException(ex, true);
+            }
+
+            if (!string.IsNullOrEmpty(versionString))
+            {
+                version = new Version(versionString);
+            }
+            return version;
+        }
+
+        public static String DownloadLatestVersion()
+        {
+            string installerPath = null;            
+            string path = Program.TempFolderPath +  @"\InstallChashavshavon.exe";
+
+            try
+            {
+                WebRequest request = WebRequest.Create("http://" +
+                    (Properties.Settings.Default.UseLocalURL ?
+                        Properties.Resources.ComputeURLLocalHost : Properties.Resources.ComputeURLHost) +
+                    Properties.Resources.DownloadApplicationURL);
+                request.Method = "GET";
+                WebResponse response = request.GetResponse();
+                if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+                {
+                    if (response.ContentType == "application/octet-stream")
+                    {
+                       if (File.Exists(path))
+                        {
+                            File.Delete(path);
+                        }                       
+
+                        var dataStream = response.GetResponseStream();
+                        Byte[] buffer = new Byte[256];
+                        FileStream fs = new FileStream(path, FileMode.Create);                
+                        int numBytesRead = 0;
+                        while(true)
+                        {
+                            numBytesRead = dataStream.Read(buffer, 0, buffer.Length);
+                            if (numBytesRead == 0)
+                            {
+                                break;
+                            }                            
+                            fs.Write(buffer, 0, numBytesRead);                              
+                        }
+                        
+                        dataStream.Close();
+                        dataStream.Dispose();
+
+                        fs.Close();
+                        fs.Dispose();
+                        installerPath = path;
+                    }
+                }
+                response.Close();
+            }
+            catch (Exception ex)
+            {
+                Program.HandleException(ex, true);
+            }
+
+            return installerPath;
+        }
+
 
         private static XmlDocument ExecuteRemoteCall(string function, params KeyValuePair<string, string>[] fields)
         {

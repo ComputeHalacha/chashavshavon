@@ -29,5 +29,6 @@ namespace Chashavshavon
         private Label label2;
         private Label lblVersion;
         private LinkLabel llContact;
+        private LinkLabel llGetLatestVersion;
     }
 }
