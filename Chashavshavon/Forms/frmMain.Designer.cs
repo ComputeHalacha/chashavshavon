@@ -63,6 +63,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.RefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SourceTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.PrintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TextListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,11 +95,6 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pbWeb = new System.Windows.Forms.PictureBox();
-            this.btnLastMonth = new System.Windows.Forms.Button();
-            this.btnNextMonth = new System.Windows.Forms.Button();
-            this.lblMonthName = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.luachTableLayout = new Chashavshavon.DoubleBufferedLayoutTable();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -107,7 +103,14 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.SourceTextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pbWeb = new System.Windows.Forms.PictureBox();
+            this.btnLastMonth = new System.Windows.Forms.Button();
+            this.btnNextMonth = new System.Windows.Forms.Button();
+            this.lblMonthName = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearRecentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
@@ -118,9 +121,9 @@
             this.splitContainerMain.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.luachTableLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).BeginInit();
             this.panel2.SuspendLayout();
-            this.luachTableLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -384,6 +387,9 @@
             this.SaveAsToolStripMenuItem,
             this.NewToolStripMenuItem,
             this.OpenToolStripMenuItem,
+            this.toolStripSeparator7,
+            this.recentFilesToolStripMenuItem,
+            this.clearRecentFilesToolStripMenuItem,
             this.toolStripSeparator2,
             this.RefreshToolStripMenuItem,
             this.SourceToolStripMenuItem,
@@ -451,6 +457,14 @@
             this.SourceToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.SourceToolStripMenuItem.Text = "&מקןר";
             this.SourceToolStripMenuItem.Click += new System.EventHandler(this.SourceToolStripMenuItem_Click);
+            // 
+            // SourceTextMenuItem
+            // 
+            this.SourceTextMenuItem.Name = "SourceTextMenuItem";
+            this.SourceTextMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.SourceTextMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.SourceTextMenuItem.Text = "מקור &טקסט";
+            this.SourceTextMenuItem.Click += new System.EventHandler(this.SourceTextMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -804,90 +818,6 @@
             this.panel1.Size = new System.Drawing.Size(939, 348);
             this.panel1.TabIndex = 35;
             // 
-            // pbWeb
-            // 
-            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
-            this.pbWeb.Location = new System.Drawing.Point(-509, -3);
-            this.pbWeb.Name = "pbWeb";
-            this.pbWeb.Size = new System.Drawing.Size(53, 51);
-            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbWeb.TabIndex = 15;
-            this.pbWeb.TabStop = false;
-            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
-            // 
-            // btnLastMonth
-            // 
-            this.btnLastMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLastMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
-            this.btnLastMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnLastMonth.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLastMonth.FlatAppearance.BorderSize = 0;
-            this.btnLastMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnLastMonth.ForeColor = System.Drawing.Color.Lavender;
-            this.btnLastMonth.Image = global::Chashavshavon.Properties.Resources.next;
-            this.btnLastMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLastMonth.Location = new System.Drawing.Point(795, 1);
-            this.btnLastMonth.Name = "btnLastMonth";
-            this.btnLastMonth.Size = new System.Drawing.Size(126, 35);
-            this.btnLastMonth.TabIndex = 29;
-            this.btnLastMonth.Text = "button2";
-            this.btnLastMonth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLastMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnLastMonth.UseVisualStyleBackColor = false;
-            this.btnLastMonth.Click += new System.EventHandler(this.btnLastMonth_Click);
-            // 
-            // btnNextMonth
-            // 
-            this.btnNextMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
-            this.btnNextMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnNextMonth.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNextMonth.FlatAppearance.BorderSize = 0;
-            this.btnNextMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnNextMonth.ForeColor = System.Drawing.Color.Lavender;
-            this.btnNextMonth.Image = global::Chashavshavon.Properties.Resources.previous;
-            this.btnNextMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNextMonth.Location = new System.Drawing.Point(1, 1);
-            this.btnNextMonth.Name = "btnNextMonth";
-            this.btnNextMonth.Size = new System.Drawing.Size(126, 35);
-            this.btnNextMonth.TabIndex = 28;
-            this.btnNextMonth.Text = "button1";
-            this.btnNextMonth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNextMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btnNextMonth.UseVisualStyleBackColor = false;
-            this.btnNextMonth.Click += new System.EventHandler(this.btnNextMonth_Click);
-            // 
-            // lblMonthName
-            // 
-            this.lblMonthName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblMonthName.AutoSize = true;
-            this.lblMonthName.BackColor = System.Drawing.Color.Transparent;
-            this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 25F);
-            this.lblMonthName.ForeColor = System.Drawing.Color.Lavender;
-            this.lblMonthName.Location = new System.Drawing.Point(391, 2);
-            this.lblMonthName.Name = "lblMonthName";
-            this.lblMonthName.Size = new System.Drawing.Size(141, 34);
-            this.lblMonthName.TabIndex = 30;
-            this.lblMonthName.Text = "חודש שנה";
-            this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel2.Controls.Add(this.btnNextMonth);
-            this.panel2.Controls.Add(this.btnLastMonth);
-            this.panel2.Controls.Add(this.btnToday);
-            this.panel2.Controls.Add(this.lblMonthName);
-            this.panel2.Location = new System.Drawing.Point(0, 24);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(922, 38);
-            this.panel2.TabIndex = 37;
-            // 
             // luachTableLayout
             // 
             this.luachTableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1030,13 +960,108 @@
             this.label12.Text = "ראשון";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // SourceTextMenuItem
+            // pbWeb
             // 
-            this.SourceTextMenuItem.Name = "SourceTextMenuItem";
-            this.SourceTextMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.SourceTextMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.SourceTextMenuItem.Text = "מקור &טקסט";
-            this.SourceTextMenuItem.Click += new System.EventHandler(this.SourceTextMenuItem_Click);
+            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
+            this.pbWeb.Location = new System.Drawing.Point(-509, -3);
+            this.pbWeb.Name = "pbWeb";
+            this.pbWeb.Size = new System.Drawing.Size(53, 51);
+            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbWeb.TabIndex = 15;
+            this.pbWeb.TabStop = false;
+            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
+            // 
+            // btnLastMonth
+            // 
+            this.btnLastMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLastMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
+            this.btnLastMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLastMonth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLastMonth.FlatAppearance.BorderSize = 0;
+            this.btnLastMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnLastMonth.ForeColor = System.Drawing.Color.Lavender;
+            this.btnLastMonth.Image = global::Chashavshavon.Properties.Resources.next;
+            this.btnLastMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLastMonth.Location = new System.Drawing.Point(795, 1);
+            this.btnLastMonth.Name = "btnLastMonth";
+            this.btnLastMonth.Size = new System.Drawing.Size(126, 35);
+            this.btnLastMonth.TabIndex = 29;
+            this.btnLastMonth.Text = "button2";
+            this.btnLastMonth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLastMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnLastMonth.UseVisualStyleBackColor = false;
+            this.btnLastMonth.Click += new System.EventHandler(this.btnLastMonth_Click);
+            // 
+            // btnNextMonth
+            // 
+            this.btnNextMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
+            this.btnNextMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnNextMonth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNextMonth.FlatAppearance.BorderSize = 0;
+            this.btnNextMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnNextMonth.ForeColor = System.Drawing.Color.Lavender;
+            this.btnNextMonth.Image = global::Chashavshavon.Properties.Resources.previous;
+            this.btnNextMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNextMonth.Location = new System.Drawing.Point(1, 1);
+            this.btnNextMonth.Name = "btnNextMonth";
+            this.btnNextMonth.Size = new System.Drawing.Size(126, 35);
+            this.btnNextMonth.TabIndex = 28;
+            this.btnNextMonth.Text = "button1";
+            this.btnNextMonth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNextMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnNextMonth.UseVisualStyleBackColor = false;
+            this.btnNextMonth.Click += new System.EventHandler(this.btnNextMonth_Click);
+            // 
+            // lblMonthName
+            // 
+            this.lblMonthName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblMonthName.AutoSize = true;
+            this.lblMonthName.BackColor = System.Drawing.Color.Transparent;
+            this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 25F);
+            this.lblMonthName.ForeColor = System.Drawing.Color.Lavender;
+            this.lblMonthName.Location = new System.Drawing.Point(391, 2);
+            this.lblMonthName.Name = "lblMonthName";
+            this.lblMonthName.Size = new System.Drawing.Size(141, 34);
+            this.lblMonthName.TabIndex = 30;
+            this.lblMonthName.Text = "חודש שנה";
+            this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Controls.Add(this.btnNextMonth);
+            this.panel2.Controls.Add(this.btnLastMonth);
+            this.panel2.Controls.Add(this.btnToday);
+            this.panel2.Controls.Add(this.lblMonthName);
+            this.panel2.Location = new System.Drawing.Point(0, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(922, 38);
+            this.panel2.TabIndex = 37;
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(226, 6);
+            // 
+            // recentFilesToolStripMenuItem
+            // 
+            this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
+            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.recentFilesToolStripMenuItem.Text = "&קבצים אחרונים";
+            this.recentFilesToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.recentFilesToolStripMenuItem_DropDownItemClicked);
+            // 
+            // clearRecentFilesToolStripMenuItem
+            // 
+            this.clearRecentFilesToolStripMenuItem.Name = "clearRecentFilesToolStripMenuItem";
+            this.clearRecentFilesToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.clearRecentFilesToolStripMenuItem.Text = "&נקה רשימת קבצים אחרונים";
+            this.clearRecentFilesToolStripMenuItem.Click += new System.EventHandler(this.clearRecentFilesToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -1073,11 +1098,11 @@
             this.splitContainerMain.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.luachTableLayout.ResumeLayout(false);
+            this.luachTableLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.luachTableLayout.ResumeLayout(false);
-            this.luachTableLayout.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1157,6 +1182,9 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.ToolStripMenuItem SourceTextMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem recentFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearRecentFilesToolStripMenuItem;
 
 
 

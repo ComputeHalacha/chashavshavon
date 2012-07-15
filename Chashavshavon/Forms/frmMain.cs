@@ -52,6 +52,12 @@ namespace Chashavshavon
             this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
             this._monthToDisplay = Program.Today;
             this.DisplayMonth();
+
+            foreach (string f in Properties.Settings.Default.RecentFiles)
+            {
+                recentFilesToolStripMenuItem.DropDownItems.Add(f);
+            }
+            this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = recentFilesToolStripMenuItem.HasDropDownItems;
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -62,7 +68,7 @@ namespace Chashavshavon
                 Properties.Settings.Default.CurrentFile = null;
                 Properties.Settings.Default.IsCurrentFileRemote = false;
             }
-            Properties.Settings.Default.Save();            
+            Properties.Settings.Default.Save();
         }
 
         private void frmMain_ResizeBegin(object sender, EventArgs e)
@@ -415,7 +421,7 @@ namespace Chashavshavon
                 notepad.StartInfo.Arguments = this.CurrentFile;
                 notepad.EnableRaisingEvents = true;
                 notepad.Exited += delegate { this.RefreshData(); };
-                notepad.Start();                
+                notepad.Start();
                 notepad.WaitForExit();
                 notepad.Dispose();
             }
@@ -1698,6 +1704,13 @@ namespace Chashavshavon
                 Kavuah.KavuahsList = new List<Kavuah>();
             }
 
+            if (File.Exists(CurrentFile) && !Properties.Settings.Default.RecentFiles.Contains(CurrentFile))
+            {
+                Properties.Settings.Default.RecentFiles.Insert(0, CurrentFile);
+                this.recentFilesToolStripMenuItem.DropDownItems.Insert(0, new ToolStripMenuItem(CurrentFile));
+                this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = true;
+            }
+
             this.SetCaptionText();
             this.SortEntriesAndSetInterval();
             this.CalculateProblemOnahs();
@@ -1795,5 +1808,41 @@ namespace Chashavshavon
             }
         }
         #endregion
+
+        private void clearRecentFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.RecentFiles.Clear();
+            this.recentFilesToolStripMenuItem.DropDownItems.Clear();
+            this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = false;
+        }
+
+        private void recentFilesToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (File.Exists(e.ClickedItem.Text))
+            {
+                this.SaveCurrentFile();
+                CurrentFile = e.ClickedItem.Text;
+                CurrentFileIsRemote = false;
+                LoadXmlFile();
+                this.CalculateProblemOnahs();
+                DisplayMonth();
+            }
+            else
+            {
+                this.recentFilesToolStripMenuItem.HideDropDown(); // was blocking message box
+                if (MessageBox.Show("הקובץ \"" + e.ClickedItem.Text +
+                        "\" לא נמצא.\nלהסירה מרשימת קבצים אחרונים?",
+                     "חשבשבון",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.RightAlign ) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Properties.Settings.Default.RecentFiles.Remove(e.ClickedItem.Text);
+                    recentFilesToolStripMenuItem.DropDownItems.Remove(e.ClickedItem);
+                    this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = recentFilesToolStripMenuItem.HasDropDownItems;
+                }
+            }
+        }
     }
 }

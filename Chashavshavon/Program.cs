@@ -29,6 +29,7 @@ namespace Chashavshavon
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
             Application.ApplicationExit += delegate 
             {
+                Properties.Settings.Default.Save();
                 if (System.IO.Directory.Exists(Program.TempFolderPath))
                 {
                     System.IO.Directory.Delete(Program.TempFolderPath, true);
@@ -49,6 +50,11 @@ namespace Chashavshavon
                 }
                 Properties.Settings.Default.ChashFilesPath = path;
                 Properties.Settings.Default.Save();
+            }
+
+            if (Properties.Settings.Default.RecentFiles == null)
+            {
+                Properties.Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
             }
             
             if (args.Length > 0)
