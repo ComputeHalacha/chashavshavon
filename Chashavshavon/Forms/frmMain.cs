@@ -68,7 +68,10 @@ namespace Chashavshavon
                 Properties.Settings.Default.CurrentFile = null;
                 Properties.Settings.Default.IsCurrentFileRemote = false;
             }
-            Properties.Settings.Default.Save();
+            
+            //the temp folder is only deleted if the user manually closed the app.
+            //Otherwise we may be in an installer run and do not want to delete the installation files.
+            Program.BeforeExit(e.CloseReason == CloseReason.UserClosing);
         }
 
         private void frmMain_ResizeBegin(object sender, EventArgs e)
@@ -155,6 +158,42 @@ namespace Chashavshavon
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateNewFile();
+        }
+
+        private void clearRecentFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.RecentFiles.Clear();
+            this.recentFilesToolStripMenuItem.DropDownItems.Clear();
+            this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = false;
+        }
+
+        private void recentFilesToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (File.Exists(e.ClickedItem.Text))
+            {
+                this.SaveCurrentFile();
+                CurrentFile = e.ClickedItem.Text;
+                CurrentFileIsRemote = false;
+                LoadXmlFile();
+                this.CalculateProblemOnahs();
+                DisplayMonth();
+            }
+            else
+            {
+                this.recentFilesToolStripMenuItem.HideDropDown(); // was blocking message box
+                if (MessageBox.Show("הקובץ \"" + e.ClickedItem.Text +
+                        "\" לא נמצא.\nלהסירה מרשימת קבצים אחרונים?",
+                     "חשבשבון",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Properties.Settings.Default.RecentFiles.Remove(e.ClickedItem.Text);
+                    recentFilesToolStripMenuItem.DropDownItems.Remove(e.ClickedItem);
+                    this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = recentFilesToolStripMenuItem.HasDropDownItems;
+                }
+            }
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1064,98 +1103,6 @@ namespace Chashavshavon
                 lbl.BackColor = Color.Lavender;
             }
         }
-        #endregion
-
-        /// <summary>
-        /// Saves all changes back to the source file. 
-        /// </summary>
-        /// <remarks>
-        /// This function is run whenever a change is made to the list and when closing the app.
-        /// </remarks>
-        private void SaveCurrentFile(Form sourceForm = null)
-        {
-            //If no file was originally loaded, CurrentFile will be null. 
-            //In this case, if there are entries in the list
-            //we prompt the user to create a file to save to.
-            while (string.IsNullOrEmpty(this.CurrentFile))
-            {
-                if (((Entry.EntryList.Count + Kavuah.KavuahsList.Count) > 0) &&
-                    MessageBox.Show("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש",
-                        "חשבשבון",
-                        MessageBoxButtons.YesNoCancel,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    this.SaveAs(sourceForm);
-                }
-                else
-                {
-                    return;
-                }
-            }
-
-            XmlTextWriter xtw;
-            Stream stream = null;
-
-            if (this.CurrentFileIsRemote)
-            {
-                stream = new MemoryStream();
-            }
-            else
-            {
-                stream = File.CreateText(this.CurrentFile).BaseStream;
-            }
-            xtw = new XmlTextWriter(stream, Encoding.UTF8);
-            xtw.WriteStartDocument();
-            xtw.WriteStartElement("Entries");
-            foreach (Entry entry in Entry.EntryList)
-            {
-                xtw.WriteStartElement("Entry");
-                xtw.WriteElementString("IsInvisible", entry.IsInvisible.ToString());
-                xtw.WriteElementString("Date", entry.DateTime.ToString("dd MMMM yyyy") + " " + entry.HebrewDayNight);
-                xtw.WriteElementString("Day", entry.Day.ToString());
-                xtw.WriteElementString("Month", entry.Month.MonthInYear.ToString());
-                xtw.WriteElementString("Year", entry.Year.ToString());
-                xtw.WriteElementString("DN", ((int)entry.DayNight).ToString());
-                xtw.WriteElementString("Notes", entry.Notes);
-                foreach (Kavuah k in entry.NoKavuahList)
-                {
-                    xtw.WriteStartElement("NoKavuah");
-                    xtw.WriteAttributeString("KavuahType", k.KavuahType.ToString());
-                    xtw.WriteAttributeString("Number", k.Number.ToString());
-                    xtw.WriteEndElement();
-                }
-                xtw.WriteEndElement();
-            }
-
-            var ser = new XmlSerializer(typeof(List<Kavuah>));
-            ser.Serialize(xtw, Kavuah.KavuahsList);
-
-            xtw.WriteEndDocument();
-            xtw.Flush();
-            if (this.CurrentFileIsRemote)
-            {
-                stream.Position = 0;
-                StreamReader sr = new StreamReader(stream);
-                try
-                {
-                    Utils.RemoteFunctions.SaveCurrentFile(this.CurrentFile, sr.ReadToEnd());
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message, "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                sr.Close();
-                sr.Dispose();
-            }
-            xtw.Close();
-            stream.Dispose();
-            Properties.Settings.Default.IsCurrentFileRemote = CurrentFileIsRemote;
-            Properties.Settings.Default.CurrentFile = this.CurrentFile;
-            Properties.Settings.Default.Save();
-            this.SetCaptionText();
-        }
 
         /// <summary>
         /// Sorts the list of entries in order of occurrence, then sets the Interval for each Entry - 
@@ -1502,8 +1449,100 @@ namespace Chashavshavon
         }
 
         #endregion
+        #endregion
 
         #region Public Functions
+        /// <summary>
+        /// Saves all changes back to the source file. 
+        /// </summary>
+        /// <remarks>
+        /// This function is run whenever a change is made to the list and when closing the app.
+        /// </remarks>
+        public void SaveCurrentFile(Form sourceForm = null)
+        {
+            //If no file was originally loaded, CurrentFile will be null. 
+            //In this case, if there are entries in the list
+            //we prompt the user to create a file to save to.
+            while (string.IsNullOrEmpty(this.CurrentFile))
+            {
+                if (((Entry.EntryList.Count + Kavuah.KavuahsList.Count) > 0) &&
+                    MessageBox.Show("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש",
+                        "חשבשבון",
+                        MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    this.SaveAs(sourceForm);
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            XmlTextWriter xtw;
+            Stream stream = null;
+
+            if (this.CurrentFileIsRemote)
+            {
+                stream = new MemoryStream();
+            }
+            else
+            {
+                stream = File.CreateText(this.CurrentFile).BaseStream;
+            }
+            xtw = new XmlTextWriter(stream, Encoding.UTF8);
+            xtw.WriteStartDocument();
+            xtw.WriteStartElement("Entries");
+            foreach (Entry entry in Entry.EntryList)
+            {
+                xtw.WriteStartElement("Entry");
+                xtw.WriteElementString("IsInvisible", entry.IsInvisible.ToString());
+                xtw.WriteElementString("Date", entry.DateTime.ToString("dd MMMM yyyy") + " " + entry.HebrewDayNight);
+                xtw.WriteElementString("Day", entry.Day.ToString());
+                xtw.WriteElementString("Month", entry.Month.MonthInYear.ToString());
+                xtw.WriteElementString("Year", entry.Year.ToString());
+                xtw.WriteElementString("DN", ((int)entry.DayNight).ToString());
+                xtw.WriteElementString("Notes", entry.Notes);
+                foreach (Kavuah k in entry.NoKavuahList)
+                {
+                    xtw.WriteStartElement("NoKavuah");
+                    xtw.WriteAttributeString("KavuahType", k.KavuahType.ToString());
+                    xtw.WriteAttributeString("Number", k.Number.ToString());
+                    xtw.WriteEndElement();
+                }
+                xtw.WriteEndElement();
+            }
+
+            var ser = new XmlSerializer(typeof(List<Kavuah>));
+            ser.Serialize(xtw, Kavuah.KavuahsList);
+
+            xtw.WriteEndDocument();
+            xtw.Flush();
+            if (this.CurrentFileIsRemote)
+            {
+                stream.Position = 0;
+                StreamReader sr = new StreamReader(stream);
+                try
+                {
+                    Utils.RemoteFunctions.SaveCurrentFile(this.CurrentFile, sr.ReadToEnd());
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                sr.Close();
+                sr.Dispose();
+            }
+            xtw.Close();
+            stream.Dispose();
+            Properties.Settings.Default.IsCurrentFileRemote = CurrentFileIsRemote;
+            Properties.Settings.Default.CurrentFile = this.CurrentFile;
+            Properties.Settings.Default.Save();
+            this.SetCaptionText();
+        }
+
         public void AddNewEntry(Entry newEntry, Form sourceForm = null)
         {
             Entry.EntryList.Add(newEntry);
@@ -1809,40 +1848,5 @@ namespace Chashavshavon
         }
         #endregion
 
-        private void clearRecentFilesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.RecentFiles.Clear();
-            this.recentFilesToolStripMenuItem.DropDownItems.Clear();
-            this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = false;
-        }
-
-        private void recentFilesToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (File.Exists(e.ClickedItem.Text))
-            {
-                this.SaveCurrentFile();
-                CurrentFile = e.ClickedItem.Text;
-                CurrentFileIsRemote = false;
-                LoadXmlFile();
-                this.CalculateProblemOnahs();
-                DisplayMonth();
-            }
-            else
-            {
-                this.recentFilesToolStripMenuItem.HideDropDown(); // was blocking message box
-                if (MessageBox.Show("הקובץ \"" + e.ClickedItem.Text +
-                        "\" לא נמצא.\nלהסירה מרשימת קבצים אחרונים?",
-                     "חשבשבון",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Exclamation,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    Properties.Settings.Default.RecentFiles.Remove(e.ClickedItem.Text);
-                    recentFilesToolStripMenuItem.DropDownItems.Remove(e.ClickedItem);
-                    this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = recentFilesToolStripMenuItem.HasDropDownItems;
-                }
-            }
-        }
     }
 }

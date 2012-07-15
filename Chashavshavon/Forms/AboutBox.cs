@@ -224,13 +224,16 @@ namespace Chashavshavon
                             string installer = Utils.RemoteFunctions.DownloadLatestVersion();
                             if (!string.IsNullOrEmpty(installer) && File.Exists(installer))
                             {
-                                System.Diagnostics.Process p = new System.Diagnostics.Process();
-                                p.StartInfo.FileName = installer;
-                                p.Start();
+                                System.Diagnostics.Process.Start(installer);                                
                             }
                         };
+                        bgw.RunWorkerCompleted += delegate
+                        {
+                            //We are installing a new version....
+                            Application.Exit();
+                        };
                         bgw.RunWorkerAsync();
-                    }
+                    }                    
                 }
             }
         }

@@ -9,8 +9,8 @@ namespace Chashavshavon
     {
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
         public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
-        public static readonly string TempFolderPath = System.IO.Path.GetTempPath() + @"\ChashInstall";       
-        
+        public static readonly string TempFolderPath = System.IO.Path.GetTempPath() + @"\ChashInstall";
+
         //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
         public static DateTime Today { get; set; }
         public static Onah NowOnah { get; set; }
@@ -26,21 +26,13 @@ namespace Chashavshavon
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
-            Application.ApplicationExit += delegate 
-            {
-                Properties.Settings.Default.Save();
-                if (System.IO.Directory.Exists(Program.TempFolderPath))
-                {
-                    System.IO.Directory.Delete(Program.TempFolderPath, true);
-                }
-            };
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);            
 
             if (!System.IO.Directory.Exists(Program.TempFolderPath))
             {
                 System.IO.Directory.CreateDirectory(Program.TempFolderPath);
             }
-            
+
             if (string.IsNullOrEmpty(Properties.Settings.Default.ChashFilesPath))
             {
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Chashavshavon Files";
@@ -56,7 +48,7 @@ namespace Chashavshavon
             {
                 Properties.Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
             }
-            
+
             if (args.Length > 0)
             {
                 MainForm = new frmMain(args[0]);
@@ -66,6 +58,19 @@ namespace Chashavshavon
                 MainForm = new frmMain();
             }
             Application.Run(MainForm);
+        }
+
+        public static void BeforeExit(bool keepTemp)
+        {
+            Properties.Settings.Default.Save();
+            if (!keepTemp && System.IO.Directory.Exists(Program.TempFolderPath))
+            {
+                try
+                {
+                    System.IO.Directory.Delete(Program.TempFolderPath, true);
+                }
+                catch { }
+            }
         }
 
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
@@ -78,7 +83,7 @@ namespace Chashavshavon
             var bgw = new System.ComponentModel.BackgroundWorker();
             bgw.DoWork += delegate
             {
-                string logFilePath = System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv";                
+                string logFilePath = System.IO.Directory.GetCurrentDirectory() + "\\ErrorLog.csv";
                 while (excep.InnerException != null)
                 {
                     excep = excep.InnerException;
@@ -105,7 +110,7 @@ namespace Chashavshavon
                 }
 
                 if ((Utils.RemoteFunctions.IsConnectedToInternet() || Properties.Settings.Default.UseLocalURL) &&
-                           !string.IsNullOrEmpty(Properties.Resources.ErrorGetterAddress) && 
+                           !string.IsNullOrEmpty(Properties.Resources.ErrorGetterAddress) &&
                            (silent ||
                            MessageBox.Show("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.",
                                            "חשבשבון",
@@ -152,7 +157,7 @@ namespace Chashavshavon
 
             };
             bgw.RunWorkerAsync();
-        }        
+        }
 
         internal static string GetCurrentPlaceName()
         {

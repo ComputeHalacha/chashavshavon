@@ -39,6 +39,19 @@ namespace ChashInstall
             base.Uninstall(savedState);
         }
 
+        protected override void OnBeforeInstall(IDictionary savedState)
+        {
+            foreach (var p in Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName))
+            {
+                if (p.Id != Process.GetCurrentProcess().Id)
+                {
+                    p.CloseMainWindow();
+                }
+            }
+
+            base.OnBeforeInstall(savedState);            
+        }
+
         protected override void OnCommitted(IDictionary savedState)
         {
             base.OnCommitted(savedState);
