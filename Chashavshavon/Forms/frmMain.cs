@@ -217,7 +217,7 @@ namespace Chashavshavon
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Exclamation,
                                 MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign);
+                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                         }
                     }
                     else
@@ -228,7 +228,7 @@ namespace Chashavshavon
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information,
                             MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.RightAlign);
+                            MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     }
                 }
                 catch (Exception ex)
@@ -407,7 +407,7 @@ namespace Chashavshavon
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation,
                         MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign);
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
         }
 
@@ -432,7 +432,7 @@ namespace Chashavshavon
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation,
                         MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign);
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
         }
 
@@ -1085,7 +1085,7 @@ namespace Chashavshavon
                         MessageBoxButtons.YesNoCancel,
                         MessageBoxIcon.Exclamation,
                         MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign) == System.Windows.Forms.DialogResult.Yes)
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
                 {
                     this.SaveAs(sourceForm);
                 }
@@ -1588,7 +1588,7 @@ namespace Chashavshavon
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation,
                     MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign);
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 CurrentFileIsRemote = false;
                 CurrentFile = Program.Today.ToString("ddMMMyyyy_hhmm").Replace("\"", "").Replace("'", "") + ".pm";
             }
@@ -1623,7 +1623,7 @@ namespace Chashavshavon
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation,
                         MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign);
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     //Clear previous list data
                     Entry.EntryList.Clear();
                     //Clear previous Kavuahs
@@ -1689,7 +1689,7 @@ namespace Chashavshavon
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation,
                         MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign);
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                         //Clear previous Kavuahs
                         if (Kavuah.KavuahsList != null)
                         {
@@ -1836,7 +1836,7 @@ namespace Chashavshavon
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Exclamation,
                     MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign ) == System.Windows.Forms.DialogResult.Yes)
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
                 {
                     Properties.Settings.Default.RecentFiles.Remove(e.ClickedItem.Text);
                     recentFilesToolStripMenuItem.DropDownItems.Remove(e.ClickedItem);

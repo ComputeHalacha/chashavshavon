@@ -60,7 +60,7 @@ namespace Chashavshavon.Utils
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation,
                         MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign);
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     return null;
                 }
                 else
@@ -75,7 +75,7 @@ namespace Chashavshavon.Utils
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error,
                     MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign);
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 return null;
             }
         }

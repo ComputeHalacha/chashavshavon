@@ -29,7 +29,7 @@ namespace Chashavshavon
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation,
                     MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign);
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 this.Close();
                 return;
             }
@@ -80,7 +80,7 @@ namespace Chashavshavon
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question,
                     MessageBoxDefaultButton.Button2,
-                    MessageBoxOptions.RightAlign) == DialogResult.Yes)
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
                     if (!this.SaveCurrentFile(this.txtCurrentFileName.Text, this._mainForm.CurrentFileXML))
                     {
@@ -99,7 +99,7 @@ namespace Chashavshavon
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information,
                             MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.RightAlign);
+                            MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             this.LogIn();
         }
 
@@ -120,7 +120,7 @@ namespace Chashavshavon
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Question,
                                     MessageBoxDefaultButton.Button2,
-                                    MessageBoxOptions.RightAlign) != DialogResult.Yes)
+                                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
             {
                 return;
             }
@@ -151,7 +151,7 @@ namespace Chashavshavon
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Question,
                                     MessageBoxDefaultButton.Button2,
-                                    MessageBoxOptions.RightAlign) == DialogResult.Yes
+                                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes
                     &&
                     Utils.RemoteFunctions.GetRemoteResponse("DeleteFile",
                                       Utils.RemoteFunctions.NewParam("fileName",
@@ -162,7 +162,7 @@ namespace Chashavshavon
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Information,
                                     MessageBoxDefaultButton.Button1,
-                                    MessageBoxOptions.RightAlign);
+                                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     if (this._mainForm.CurrentFileIsRemote && this._mainForm.CurrentFileName == this.lbFileNames.SelectedItem.ToString())
                     {
                         this._mainForm.CurrentFileIsRemote = false;
@@ -178,7 +178,7 @@ namespace Chashavshavon
                                MessageBoxButtons.OK,
                                MessageBoxIcon.Exclamation,
                                MessageBoxDefaultButton.Button1,
-                               MessageBoxOptions.RightAlign);
+                               MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
         }
 
@@ -206,7 +206,7 @@ namespace Chashavshavon
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Exclamation,
                                 MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign);
+                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
         }
 
@@ -239,7 +239,7 @@ namespace Chashavshavon
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Exclamation,
                                 MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign);
+                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
         }
 
@@ -283,7 +283,7 @@ namespace Chashavshavon
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information,
                                 MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign);
+                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                 return false;
             }
             else

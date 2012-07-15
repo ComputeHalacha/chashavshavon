@@ -200,12 +200,22 @@ namespace Chashavshavon
 
             if (lVersion == null || lVersion <= tVersion)
             {
-                MessageBox.Show("You have the latest version: " + tVersion.ToString());
+                MessageBox.Show("יש לכם גירסה האחרונה: " + tVersion.ToString(), 
+                    "חשבשבון",
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information, 
+                    MessageBoxDefaultButton.Button1, 
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
             else
             {
-                if (MessageBox.Show("New version available. Version: " + lVersion.ToString() + 
-                    "\nDo you want to download and install it?", "Chash", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                if (MessageBox.Show("יש גירסה חדשה. גירסה: " + lVersion.ToString() + 
+                    "\nהאם אתם רוצים להורידו ולהתקינו?", 
+                    "חשבשבון", 
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question, 
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
                     using (BackgroundWorker bgw = new BackgroundWorker())
                     {
