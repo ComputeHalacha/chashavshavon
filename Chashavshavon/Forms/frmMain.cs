@@ -62,9 +62,7 @@ namespace Chashavshavon
                 Properties.Settings.Default.CurrentFile = null;
                 Properties.Settings.Default.IsCurrentFileRemote = false;
             }
-            Properties.Settings.Default.Save();
-
-            File.Delete(this._tempXMLFileName);
+            Properties.Settings.Default.Save();            
         }
 
         private void frmMain_ResizeBegin(object sender, EventArgs e)

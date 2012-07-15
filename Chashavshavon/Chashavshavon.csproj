@@ -142,6 +142,12 @@
     <Compile Include="Classes\DoubleBufferedLayoutTable.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Classes\Installer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\Installer.Designer.cs">
+      <DependentUpon>Installer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Place.cs" />
     <Compile Include="Classes\Kavuah.cs" />
     <Compile Include="Forms\AboutBox.cs">

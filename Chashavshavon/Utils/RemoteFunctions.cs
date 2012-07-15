@@ -211,11 +211,6 @@ namespace Chashavshavon.Utils
 
             try
             {
-                if (!System.IO.Directory.Exists(Program.TempFolderPath))
-                {
-                    System.IO.Directory.CreateDirectory(Program.TempFolderPath);
-                }
-
                 WebRequest request = WebRequest.Create("http://" +
                     (Properties.Settings.Default.UseLocalURL ?
                         Properties.Resources.ComputeURLLocalHost : Properties.Resources.ComputeURLHost) +

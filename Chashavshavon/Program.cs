@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Chashavshavon
 {
@@ -8,7 +9,8 @@ namespace Chashavshavon
     {
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
         public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
-        public static readonly string TempFolderPath = System.IO.Path.GetTempPath() + @"\ChashInstall";
+        public static readonly string TempFolderPath = System.IO.Path.GetTempPath() + @"\ChashInstall";       
+        
         //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
         public static DateTime Today { get; set; }
         public static Onah NowOnah { get; set; }
@@ -25,7 +27,19 @@ namespace Chashavshavon
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+            Application.ApplicationExit += delegate 
+            {
+                if (System.IO.Directory.Exists(Program.TempFolderPath))
+                {
+                    System.IO.Directory.Delete(Program.TempFolderPath, true);
+                }
+            };
 
+            if (!System.IO.Directory.Exists(Program.TempFolderPath))
+            {
+                System.IO.Directory.CreateDirectory(Program.TempFolderPath);
+            }
+            
             if (string.IsNullOrEmpty(Properties.Settings.Default.ChashFilesPath))
             {
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Chashavshavon Files";
@@ -132,7 +146,7 @@ namespace Chashavshavon
 
             };
             bgw.RunWorkerAsync();
-        }
+        }        
 
         internal static string GetCurrentPlaceName()
         {

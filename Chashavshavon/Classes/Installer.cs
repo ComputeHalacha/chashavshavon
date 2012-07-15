@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using System.ComponentModel;
+using System.IO;
+using System.Reflection;
+using System.Diagnostics;
 
 
 namespace ChashInstall
@@ -16,26 +19,18 @@ namespace ChashInstall
         public override void Install(IDictionary stateSaver)
         {
             base.Install(stateSaver);
-        }        
+        }
 
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand)]
         public override void Commit(IDictionary savedState)
         {
             base.Commit(savedState);
-            DeleteTempFolder();
-            try
-            {
-                System.Diagnostics.Process.Start("Chashavshavon.exe");
-            }
-            catch { }
-
         }
 
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand)]
         public override void Rollback(IDictionary savedState)
         {
             base.Rollback(savedState);
-            DeleteTempFolder();
         }
 
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand)]
@@ -43,15 +38,12 @@ namespace ChashInstall
         {
             base.Uninstall(savedState);
         }
-      
 
-        private static void DeleteTempFolder()
+        protected override void OnCommitted(IDictionary savedState)
         {
-            string tempFolderPath = System.IO.Path.GetTempPath() + @"\ChashInstall";
-            if (System.IO.Directory.Exists(tempFolderPath))
-            {
-                System.IO.Directory.Delete(tempFolderPath);
-            }
+            base.OnCommitted(savedState);
+            Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            Process.Start(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Chashavshavon.exe");
         }
     }
 }

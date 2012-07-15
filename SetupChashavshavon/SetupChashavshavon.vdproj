@@ -27,12 +27,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D46D60D553D14246A2D609BAED5CCAB5"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_F35B0C2893EF4C12917A08666B9D100A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -41,12 +35,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D46D60D553D14246A2D609BAED5CCAB5"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -168,59 +156,59 @@
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_771B55583D6E4D89A485635DF67945EE"
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_162A8FD43F904414982DFA32C86420E0"
             {
-            "Name" = "8:Primary output from ChashInstall (Active)"
+            "Name" = "8:Primary output from Chashavshavon (Active)"
             "Condition" = "8:"
-            "Object" = "8:_D46D60D553D14246A2D609BAED5CCAB5"
-            "FileType" = "3:1"
-            "InstallAction" = "3:4"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:1"
-            "Identifier" = "8:_8AC11FED_886F_4A83_9181_BA1F7468ACB4"
-            "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
-            }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_7DB39A21321B41CEA6CBEB06B0E525FE"
-            {
-            "Name" = "8:Primary output from ChashInstall (Active)"
-            "Condition" = "8:"
-            "Object" = "8:_D46D60D553D14246A2D609BAED5CCAB5"
-            "FileType" = "3:1"
-            "InstallAction" = "3:2"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:1"
-            "Identifier" = "8:_24851EBD_ABC8_48E2_84C0_2DD5C1EAC95D"
-            "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
-            }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_B6D4F3AF3FC144E4BADB3D1AFE2F7384"
-            {
-            "Name" = "8:Primary output from ChashInstall (Active)"
-            "Condition" = "8:"
-            "Object" = "8:_D46D60D553D14246A2D609BAED5CCAB5"
-            "FileType" = "3:1"
-            "InstallAction" = "3:3"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:1"
-            "Identifier" = "8:_832EC997_57CC_4FC0_9A86_71652385EF18"
-            "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
-            }
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_CEF13ED828E34A86BC057D16C443A213"
-            {
-            "Name" = "8:Primary output from ChashInstall (Active)"
-            "Condition" = "8:"
-            "Object" = "8:_D46D60D553D14246A2D609BAED5CCAB5"
-            "FileType" = "3:1"
+            "Object" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
+            "FileType" = "3:2"
             "InstallAction" = "3:1"
             "Arguments" = "8:"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
-            "Identifier" = "8:_A52A75E0_69A4_4A39_A90A_D061FB54BC39"
+            "Identifier" = "8:_04E30C0A_0C2D_43C3_AAC5_FACEA56DA5A2"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_5E205F6479C44352A4093A62A077D080"
+            {
+            "Name" = "8:Primary output from Chashavshavon (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
+            "FileType" = "3:2"
+            "InstallAction" = "3:3"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_C70D1423_4617_421D_8C98_FBA25BA8E83B"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_6D5420385FDF4DA8BA04391514A0E876"
+            {
+            "Name" = "8:Primary output from Chashavshavon (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
+            "FileType" = "3:2"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_F41AFD7C_D180_4033_B0CB_F7D0824E662A"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_7915075091D64E72A968C9E2BA8362F6"
+            {
+            "Name" = "8:Primary output from Chashavshavon (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
+            "FileType" = "3:2"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_9F1AE0B5_8102_4F7D_A66A_C6E5598D8065"
             "InstallerClass" = "11:TRUE"
             "CustomActionData" = "8:"
             }
@@ -239,7 +227,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:ANY"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.0"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=9832"
                 }
@@ -399,15 +387,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
-        "ProductCode" = "8:{8D00732C-10BC-4E62-BC2B-AAD9B3EEC234}"
-        "PackageCode" = "8:{3340AD8A-A46E-4FE9-9AB6-F4249C5DEC4C}"
+        "ProductCode" = "8:{54AB175B-2743-4F51-B1E3-3D1774171882}"
+        "PackageCode" = "8:{BABB04E9-13BA-46F0-B545-DD8BBD2815CF}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:3.1.8"
+        "ProductVersion" = "8:3.1.9"
         "Manufacturer" = "8:Compute Software Solutions"
         "ARPHELPTELEPHONE" = "8:052-732-3138"
         "ARPHELPLINK" = "8:https://www.compute.co.il/contact"
@@ -423,7 +411,7 @@
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
-        "PostBuildEvent" = "8:\"C:\\Program Files\\7-Zip\\7z.exe \" a \"$(ProjectDir)CreateInstaller\\Chashavshavon_Installer.zip\" \"$(ProjectDir)$(Configuration)\\*\"\r\n\"D:\\Program Files\\ZipGenius 6\\zg.exe \" -sfx \"$(ProjectDir)CreateInstaller\\Chashavshavon_Installer.zip\" A1 D\"%temp%\" U\"ChashInstall\" I\"$(ProjectDir)CreateInstaller\\scroll.ico\" C\"Setup.exe\" S0\r\nDEL \"$(ProjectDir)CreateInstaller\\Chashavshavon_Installer.zip\"\r\nMOVE \"$(ProjectDir)CreateInstaller\\Chashavshavon_Installer.exe\" \"D:\\Repositories\\Compute\\WebSite\\Products\\Chashavshavon\\Chashavshavon_Installer.exe\"\r\n\"C:\\Program Files\\7-Zip\\7z.exe \" a \"D:\\Repositories\\Compute\\WebSite\\Products\\Chashavshavon\\Chashavshavon_Installer.zip\" \"D:\\Repositories\\Compute\\WebSite\\Products\\Chashavshavon\\Chashavshavon_Installer.exe\""
+        "PostBuildEvent" = "8:\"C:\\Program Files\\7-Zip\\7z.exe \" a \"$(ProjectDir)CreateInstaller\\Chashavshavon_Installer.zip\" \"$(ProjectDir)$(Configuration)\\*\"\r\n\"C:\\Program Files\\ZipGenius 6\\zg.exe\" -sfx \"$(ProjectDir)CreateInstaller\\Chashavshavon_Installer.zip\" A1 D\"%temp%\" U\"ChashInstall\" I\"$(ProjectDir)CreateInstaller\\scroll.ico\" C\"Setup.exe\" S0\r\nDEL \"$(ProjectDir)CreateInstaller\\Chashavshavon_Installer.zip\"\r\nMOVE \"$(ProjectDir)CreateInstaller\\Chashavshavon_Installer.exe\" \"D:\\Insync\\cb@compute.co.il\\Repositories\\Compute\\WebSite\\Products\\Chashavshavon\\Chashavshavon_Installer.exe\"\r\n\"C:\\Program Files\\7-Zip\\7z.exe \" a \"D:\\Insync\\cb@compute.co.il\\Repositories\\Compute\\WebSite\\Products\\Chashavshavon\\Chashavshavon_Installer.zip\" \"D:\\Insync\\cb@compute.co.il\\Repositories\\Compute\\WebSite\\Products\\Chashavshavon\\Chashavshavon_Installer.exe\""
         "RunPostBuildEvent" = "3:0"
         }
         "Registry"
@@ -1028,34 +1016,6 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:ContentFiles"
             "OutputProjectGuid" = "8:{F40F0A07-A1A7-4E4A-8C4F-18B5B4BFBC3A}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D46D60D553D14246A2D609BAED5CCAB5"
-            {
-            "SourcePath" = "8:..\\ChashInstall\\obj\\Release\\ChashInstall.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{2A730A3A-FF37-433D-87B3-457B86AC6B27}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
