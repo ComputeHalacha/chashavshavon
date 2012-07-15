@@ -1,0 +1,5 @@
+"C:\Program Files\7-Zip\7z.exe " a "$(ProjectDir)CreateInstaller\Chashavshavon_Installer.zip" "$(ProjectDir)$(Configuration)\*"
+"D:\Program Files\ZipGenius 6\zg.exe" -sfx "$(ProjectDir)CreateInstaller\Chashavshavon_Installer.zip" A1 D"%temp%" U"ChashInstall" I"$(ProjectDir)CreateInstaller\scroll.ico" C"Setup.exe" S0
+DEL "$(ProjectDir)CreateInstaller\Chashavshavon_Installer.zip"
+MOVE "$(ProjectDir)CreateInstaller\Chashavshavon_Installer.exe" "D:\Repositories\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.exe"
+"C:\Program Files\7-Zip\7z.exe " a "D:\Repositories\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.zip" "D:\Repositories\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.exe"
