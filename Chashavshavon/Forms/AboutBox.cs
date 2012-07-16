@@ -23,7 +23,7 @@ namespace Chashavshavon
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(AboutBox));
             this.panel1 = new System.Windows.Forms.Panel();
             this.llContact = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
@@ -35,7 +35,7 @@ namespace Chashavshavon
             this.lblVersion = new System.Windows.Forms.Label();
             this.llGetLatestVersion = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -170,7 +170,7 @@ namespace Chashavshavon
             this.Load += new System.EventHandler(this.AboutBox_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -200,40 +200,66 @@ namespace Chashavshavon
 
             if (lVersion == null || lVersion <= tVersion)
             {
-                MessageBox.Show("יש לכם גירסה האחרונה: " + tVersion.ToString(), 
+                MessageBox.Show("יש לכם גירסה האחרונה: " + tVersion.ToString(),
                     "חשבשבון",
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Information, 
-                    MessageBoxDefaultButton.Button1, 
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1,
                     MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
             else
             {
-                if (MessageBox.Show("יש גירסה חדשה. גירסה: " + lVersion.ToString() + 
-                    "\nהאם אתם רוצים להורידו ולהתקינו?", 
-                    "חשבשבון", 
+                if (MessageBox.Show("יש גירסה חדשה. גירסה: " + lVersion.ToString() +
+                    "\nהאם אתם רוצים להורידו ולהתקינו?",
+                    "חשבשבון",
                     MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question, 
+                    MessageBoxIcon.Question,
                     MessageBoxDefaultButton.Button1,
                     MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
                     using (BackgroundWorker bgw = new BackgroundWorker())
                     {
-                        bgw.DoWork += delegate
+                        bgw.DoWork += delegate(object sndr, DoWorkEventArgs dwea)
                         {
-                            string installer = Utils.RemoteFunctions.DownloadLatestVersion();
+                            string installer = null;
+                            try
+                            {
+                                installer = Utils.RemoteFunctions.DownloadLatestVersion();
+                            }
+                            catch (Exception ex)
+                            {
+                                Program.HandleException(ex, true);
+                            }
+                            
                             if (!string.IsNullOrEmpty(installer) && File.Exists(installer))
                             {
-                                System.Diagnostics.Process.Start(installer);                                
+                                System.Diagnostics.Process.Start(installer);
+                                dwea.Result = true;
+                            }
+                            else 
+                            {
+                                dwea.Result = false;
                             }
                         };
-                        bgw.RunWorkerCompleted += delegate
+                        bgw.RunWorkerCompleted += delegate(object sndr, RunWorkerCompletedEventArgs rwcea)
                         {
-                            //We are installing a new version....
-                            Application.Exit();
+                            if ((bool)rwcea.Result)
+                            {
+                                //We are installing a new version....
+                                Application.Exit();
+                            }
+                            else
+                            {
+                                MessageBox.Show("נכשלה התקנת גירסה החדשה.",
+                                    "חשבשבון",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning,
+                                    MessageBoxDefaultButton.Button1,
+                                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                            }
                         };
                         bgw.RunWorkerAsync();
-                    }                    
+                    }
                 }
             }
         }

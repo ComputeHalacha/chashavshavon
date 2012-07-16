@@ -169,27 +169,22 @@ namespace Chashavshavon.Utils
                 string url = "http://" +
                     (Properties.Settings.Default.UseLocalURL ?
                         Properties.Resources.ComputeURLLocalHost : Properties.Resources.ComputeURLHost) +
-                    Properties.Resources.GetLatestVersionURL;
+                        Properties.Resources.GetLatestVersionURL;
                 WebRequest request = WebRequest.Create(url);
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=utf-8";
-                byte[] byteArray = Encoding.UTF8.GetBytes("{}");
-                request.ContentLength = byteArray.Length;
-                Stream dataStream = request.GetRequestStream();
-                dataStream.Write(byteArray, 0, byteArray.Length);
-                dataStream.Close();
+                request.Method = "GET";
+                
                 WebResponse response = request.GetResponse();
                 if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
                 {
-                    dataStream = response.GetResponseStream();
-                    StreamReader reader = new StreamReader(dataStream);
-                    var jse = new System.Web.Script.Serialization.JavaScriptSerializer();
-                    //The web method returns: "{'d': '0.0.0.0'}"
-                    versionString = jse.Deserialize<Dictionary<string, string>>(reader.ReadToEnd())["d"];
+                    var dataStream = response.GetResponseStream();
+                    var reader = new StreamReader(dataStream);
+                    versionString = reader.ReadToEnd();
                     reader.Close();
+                    reader.Dispose();
                     dataStream.Close();
+                    dataStream.Dispose();
+                
                 }
-                dataStream.Dispose();
                 response.Close();
             }
             catch (Exception ex)

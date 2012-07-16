@@ -208,7 +208,7 @@ namespace Chashavshavon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Products/Chashavshavon/Default.aspx/GetLatestVersion.
+        ///   Looks up a localized string similar to /Products/Chashavshavon/VERSION.txt.
         /// </summary>
         internal static string GetLatestVersionURL {
             get {

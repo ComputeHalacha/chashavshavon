@@ -200,7 +200,7 @@
     <value>chashavshavon@compute.co.il</value>
   </data>
   <data name="GetLatestVersionURL" xml:space="preserve">
-    <value>/Products/Chashavshavon/Default.aspx/GetLatestVersion</value>
+    <value>/Products/Chashavshavon/VERSION.txt</value>
   </data>
   <data name="LocalAppURL" xml:space="preserve">
     <value>http://localhost:8080</value>
