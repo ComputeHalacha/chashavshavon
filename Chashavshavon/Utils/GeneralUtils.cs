@@ -47,27 +47,6 @@ namespace Chashavshavon.Utils
         }
 
         /// <summary>
-        /// Decrypts a byte array using the Rijndael algorithm
-        /// </summary>
-        /// <param name="cipherData">The byte array to decrypt</param>
-        /// <param name="Key">A byte array containg the "password"</param>
-        /// <param name="IV">A byte array containing the "salt" for the initialization vector</param>
-        /// <returns>The decrypted data as a byte array</returns>
-        public static byte[] Decrypt(byte[] cipherData, byte[] Key, byte[] IV)
-        {
-            MemoryStream ms = new MemoryStream();
-            Rijndael alg = Rijndael.Create();
-
-            alg.Key = Key;
-            alg.IV = IV;
-            CryptoStream cs = new CryptoStream(ms, alg.CreateDecryptor(), CryptoStreamMode.Write);
-            cs.Write(cipherData, 0, cipherData.Length);
-            cs.Close();
-            byte[] decryptedData = ms.ToArray();
-            return decryptedData;
-        }
-
-        /// <summary>
         /// Decrypts a string using the Rijndael algorithm
         /// </summary>
         /// <param name="cipherText">The text to decrypt</param>
@@ -76,9 +55,17 @@ namespace Chashavshavon.Utils
         public static string Decrypt(string cipherText, string Password)
         {
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
-            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-            byte[] decryptedData = Decrypt(cipherBytes, pdb.GetBytes(32), pdb.GetBytes(16));
-            return System.Text.Encoding.Unicode.GetString(decryptedData);
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password,
+                new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+            MemoryStream ms = new MemoryStream();
+            Rijndael alg = Rijndael.Create();
+            alg.Key = pdb.GetBytes(32);
+            alg.IV = pdb.GetBytes(16);
+            CryptoStream cs = new CryptoStream(ms, alg.CreateDecryptor(), CryptoStreamMode.Write);
+            cs.Write(cipherBytes, 0, cipherBytes.Length);
+            cs.Close();
+            cs.Dispose();
+            return System.Text.Encoding.Unicode.GetString(ms.ToArray());
         }
 
         #endregion

@@ -88,7 +88,8 @@ namespace Chashavshavon
             {
                 bgw.DoWork += delegate
                 {
-                    string logFilePath = Directory.GetCurrentDirectory() + "\\ErrorLog.csv";
+                    string logFilePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) +
+                        "\\ErrorLog.csv";
                     while (excep.InnerException != null)
                     {
                         excep = excep.InnerException;
