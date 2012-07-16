@@ -27,7 +27,14 @@ namespace Chashavshavon
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);            
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+
+            //If first run after an upgrade
+            if (Properties.Settings.Default.NeedsSettingsUpgrade)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.NeedsSettingsUpgrade = false;
+            }
 
             if (!Directory.Exists(Program.TempFolderPath))
             {

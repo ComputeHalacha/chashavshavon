@@ -41,20 +41,12 @@ namespace ChashInstall
 
         protected override void OnBeforeInstall(IDictionary savedState)
         {
-            foreach (var p in Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName))
-            {
-                if (p.Id != Process.GetCurrentProcess().Id)
-                {
-                    p.CloseMainWindow();
-                }
-            }
-
-            base.OnBeforeInstall(savedState);            
+            base.OnBeforeInstall(savedState);
         }
 
         protected override void OnCommitted(IDictionary savedState)
         {
-            base.OnCommitted(savedState);
+            base.OnCommitted(savedState);            
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
             Process.Start(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Chashavshavon.exe");
         }
