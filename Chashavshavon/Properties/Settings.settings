@@ -23,7 +23,7 @@
     <Setting Name="ShowOhrZeruah" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="UseLocalURL" Type="System.Boolean" Scope="User">
+    <Setting Name="DevMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ChashFilesPath" Type="System.String" Scope="User">

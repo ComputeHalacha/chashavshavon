@@ -102,7 +102,7 @@ namespace Chashavshavon
                         excep = excep.InnerException;
                     }
 
-                    if (Properties.Settings.Default.UseLocalURL)
+                    if (Properties.Settings.Default.DevMode)
                     {
                         MessageBox.Show(excep.Message);
                     }
@@ -116,14 +116,13 @@ namespace Chashavshavon
                     }
                     catch (Exception ex)
                     {
-                        if (Properties.Settings.Default.UseLocalURL)
+                        if (Properties.Settings.Default.DevMode)
                         {
                             MessageBox.Show(ex.Message);
                         }
                     }
 
-                    if ((Utils.RemoteFunctions.IsConnectedToInternet() || Properties.Settings.Default.UseLocalURL) &&
-                               !string.IsNullOrEmpty(Properties.Resources.ErrorGetterAddress) &&
+                    if ((Utils.RemoteFunctions.IsConnectedToInternet() || Properties.Settings.Default.DevMode) &&                               
                                (silent ||
                                MessageBox.Show("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.",
                                                "חשבשבון",

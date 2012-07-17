@@ -1617,7 +1617,7 @@ namespace Chashavshavon
         /// <returns></returns>
         public bool TestInternet()
         {
-            bool hasInternet = Properties.Settings.Default.UseLocalURL || Utils.RemoteFunctions.IsConnectedToInternet();
+            bool hasInternet = Properties.Settings.Default.DevMode || Utils.RemoteFunctions.IsConnectedToInternet();
             RemoteToolStripMenuItem.Visible = hasInternet;
             if (CurrentFileIsRemote && !hasInternet)
             {

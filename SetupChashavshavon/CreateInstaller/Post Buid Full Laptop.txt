@@ -3,4 +3,4 @@
 DEL "$(ProjectDir)CreateInstaller\Chashavshavon_Installer_Full.zip"
 "C:\Program Files\7-Zip\7z.exe " a "D:\Repositories\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer_Full.zip" "$(ProjectDir)CreateInstaller\Chashavshavon_Installer_Full.exe"
 DEL "$(ProjectDir)CreateInstaller\Chashavshavon_Installer_Full.exe"
-"$(ProjectDir)CreateInstaller\SetVersionApp.exe " "$(TargetPath)" "D:\Repositories\Compute\WebSite\Products\Chashavshavon"
+"$(ProjectDir)CreateInstaller\SetVersionApp.exe " "D:\Repositories\Chashavshavon\Chashavshavon\bin\$(Configuration)\Chashavshavon.exe" "D:\Repositories\Compute\WebSite\Products\Chashavshavon"

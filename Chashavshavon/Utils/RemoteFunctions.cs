@@ -84,7 +84,7 @@ namespace Chashavshavon.Utils
         {
             string responseText = null;
             WebRequest request = WebRequest.Create(
-                                (Properties.Settings.Default.UseLocalURL ?
+                                (Properties.Settings.Default.DevMode ?
                                     Properties.Resources.LocalAppURL : Properties.Resources.AppURL) +
                                 "/" + function);
             request.Method = "POST";
@@ -120,43 +120,39 @@ namespace Chashavshavon.Utils
 
         public static void ProcessRemoteException(Exception excep, string logFilePath)
         {
-            using (MailMessage mailMessage = new MailMessage(Properties.Resources.ErrorGetterAddress,
-                    Properties.Resources.ErrorGetterAddress))
+            string currentFileText = Program.MainForm is Form ? Program.MainForm.CurrentFileXML : "";
+            string errorLogText = File.Exists(logFilePath) ? File.ReadAllText(logFilePath) : "";
+            string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string url = GetComputeURL(Properties.Resources.SendErrorReportURL);
+            WebRequest request = WebRequest.Create(url);
+            var jse = new System.Web.Script.Serialization.JavaScriptSerializer();
+            string jsonString = jse.Serialize(new
             {
-                mailMessage.Subject = "Chashavshavon Version: " +
-                        System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() +
-                        " Exception";
-                mailMessage.IsBodyHtml = true;
-                mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
-                if (File.Exists(logFilePath))
-                {
-                    mailMessage.Attachments.Add(new System.Net.Mail.Attachment(logFilePath));
-                }
-                if (Program.MainForm is Form)
-                {
-                    string currentFileTextPath = Program.MainForm.GetTempXmlFile();
-                    if ((!string.IsNullOrEmpty(currentFileTextPath)) && File.Exists(currentFileTextPath))
-                    {
-                        mailMessage.Attachments.Add(new System.Net.Mail.Attachment(currentFileTextPath));
-                    }
-                }
-                mailMessage.Body = "Exception: " + excep.Message +
-                    "<br />Source: " + excep.Source +
-                    "<br />Target Site: " + excep.TargetSite +
-                    "<br />Stack Trace: <pre>" + excep.StackTrace + "</pre>";
+                App = "Chashavshavon",
+                Version = version,
+                Message = excep.Message,
+                Source = excep.Source,
+                TargetSite = excep.TargetSite.ToString(),
+                StackTrace = excep.StackTrace,
+                CurrentFile = currentFileText,
+                CurrentFileExt = "xml",
+                ErrorLog = errorLogText,
+                ErrorLogExt = "csv"
+            });
+            byte[] byteArray = Encoding.UTF8.GetBytes(jsonString);
 
-                var mailClient = new SmtpClient()
-                {
-                    Port = 587,
-                    Host = "smtp.gmail.com",
-                    EnableSsl = true,
-                    Credentials = new NetworkCredential(Properties.Resources.ErrorGetterAddress,
-                        Utils.GeneralUtils.Decrypt(Properties.Resources.ApplicationSetId,
-                                    Properties.Resources.ApplicationRuntime))
-                };
-                mailClient.Send(mailMessage);
-                mailClient.Dispose();
+            request.Method = "POST";
+            request.ContentType = "application/json; charset=utf-8";
+            request.ContentLength = byteArray.Length;
+            request.Timeout = 30000;
+            using (Stream dataStream = request.GetRequestStream())
+            {
+                dataStream.Write(byteArray, 0, byteArray.Length);
+                dataStream.Close();
+                request.GetResponse();
             }
+            //Once sent off, we can delete the log file
+            File.Delete(logFilePath);
         }
 
         public static Version GetLatestVersion()
@@ -166,13 +162,10 @@ namespace Chashavshavon.Utils
 
             try
             {
-                string url = "http://" +
-                    (Properties.Settings.Default.UseLocalURL ?
-                        Properties.Resources.ComputeURLLocalHost : Properties.Resources.ComputeURLHost) +
-                        Properties.Resources.GetLatestVersionURL;
+                string url = GetComputeURL(Properties.Resources.GetLatestVersionURL);
                 WebRequest request = WebRequest.Create(url);
                 request.Method = "GET";
-                
+
                 WebResponse response = request.GetResponse();
                 if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
                 {
@@ -183,7 +176,7 @@ namespace Chashavshavon.Utils
                     reader.Dispose();
                     dataStream.Close();
                     dataStream.Dispose();
-                
+
                 }
                 response.Close();
             }
@@ -201,40 +194,37 @@ namespace Chashavshavon.Utils
 
         public static String DownloadLatestVersion()
         {
-            string installerPath = null;            
-            string path = Program.TempFolderPath +  @"\InstallChashavshavon.exe";
+            string installerPath = null;
+            string path = Program.TempFolderPath + @"\InstallChashavshavon.exe";
 
             try
             {
-                WebRequest request = WebRequest.Create("http://" +
-                    (Properties.Settings.Default.UseLocalURL ?
-                        Properties.Resources.ComputeURLLocalHost : Properties.Resources.ComputeURLHost) +
-                    Properties.Resources.DownloadApplicationURL);
+                WebRequest request = WebRequest.Create(GetComputeURL(Properties.Resources.DownloadApplicationURL));
                 request.Method = "GET";
                 WebResponse response = request.GetResponse();
                 if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
                 {
                     if (response.ContentType == "application/octet-stream")
                     {
-                       if (File.Exists(path))
+                        if (File.Exists(path))
                         {
                             File.Delete(path);
-                        }                       
+                        }
 
                         var dataStream = response.GetResponseStream();
                         Byte[] buffer = new Byte[256];
-                        FileStream fs = new FileStream(path, FileMode.Create);                
+                        FileStream fs = new FileStream(path, FileMode.Create);
                         int numBytesRead = 0;
-                        while(true)
+                        while (true)
                         {
                             numBytesRead = dataStream.Read(buffer, 0, buffer.Length);
                             if (numBytesRead == 0)
                             {
                                 break;
-                            }                            
-                            fs.Write(buffer, 0, numBytesRead);                              
+                            }
+                            fs.Write(buffer, 0, numBytesRead);
                         }
-                        
+
                         dataStream.Close();
                         dataStream.Dispose();
 
@@ -253,6 +243,12 @@ namespace Chashavshavon.Utils
             return installerPath;
         }
 
+        private static string GetComputeURL(string relativeURL)
+        {
+            return "http://" + (Properties.Settings.Default.DevMode ?
+                Properties.Resources.ComputeURLLocalHost : Properties.Resources.ComputeURLHost) +
+                relativeURL;
+        }
 
         private static XmlDocument ExecuteRemoteCall(string function, params KeyValuePair<string, string>[] fields)
         {

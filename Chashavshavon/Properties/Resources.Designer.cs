@@ -68,24 +68,6 @@ namespace Chashavshavon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Q7iVDhfZVa8h2bR+zEV/EiSrDiCMe3iaJTaXIwsbSoLqgBTdnf7KzHmJ4dDSYOTfeb7eIe5uAm7Lz+ToBOumcw==.
-        /// </summary>
-        internal static string ApplicationRuntime {
-            get {
-                return ResourceManager.GetString("ApplicationRuntime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to jtYImtASk0QrjEsz2JIXR8BiiuhG98C+eJfCSqQusJRYLTnK5Q7VNfaXAdSVeGjnjbYdYu9X3zSSimtopglL6g==.
-        /// </summary>
-        internal static string ApplicationSetId {
-            get {
-                return ResourceManager.GetString("ApplicationSetId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to http://chashavshavon.appspot.com.
         /// </summary>
         internal static string AppURL {
@@ -199,15 +181,6 @@ namespace Chashavshavon.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to chashavshavon@compute.co.il.
-        /// </summary>
-        internal static string ErrorGetterAddress {
-            get {
-                return ResourceManager.GetString("ErrorGetterAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to /Products/Chashavshavon/VERSION.txt.
         /// </summary>
         internal static string GetLatestVersionURL {
@@ -278,6 +251,15 @@ namespace Chashavshavon.Properties {
             get {
                 object obj = ResourceManager.GetObject("scroll", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Services/SendAppErrReport.svc/SendReport.
+        /// </summary>
+        internal static string SendErrorReportURL {
+            get {
+                return ResourceManager.GetString("SendErrorReportURL", resourceCulture);
             }
         }
     }

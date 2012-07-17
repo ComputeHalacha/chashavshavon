@@ -178,12 +178,6 @@
   <data name="refresh1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refresh1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ApplicationRuntime" xml:space="preserve">
-    <value>Q7iVDhfZVa8h2bR+zEV/EiSrDiCMe3iaJTaXIwsbSoLqgBTdnf7KzHmJ4dDSYOTfeb7eIe5uAm7Lz+ToBOumcw==</value>
-  </data>
-  <data name="ApplicationSetId" xml:space="preserve">
-    <value>jtYImtASk0QrjEsz2JIXR8BiiuhG98C+eJfCSqQusJRYLTnK5Q7VNfaXAdSVeGjnjbYdYu9X3zSSimtopglL6g==</value>
-  </data>
   <data name="AppURL" xml:space="preserve">
     <value>http://chashavshavon.appspot.com</value>
   </data>
@@ -196,13 +190,13 @@
   <data name="DownloadApplicationURL" xml:space="preserve">
     <value>/Products/Chashavshavon/Chashavshavon_Installer.exe</value>
   </data>
-  <data name="ErrorGetterAddress" xml:space="preserve">
-    <value>chashavshavon@compute.co.il</value>
-  </data>
   <data name="GetLatestVersionURL" xml:space="preserve">
     <value>/Products/Chashavshavon/VERSION.txt</value>
   </data>
   <data name="LocalAppURL" xml:space="preserve">
     <value>http://localhost:8080</value>
+  </data>
+  <data name="SendErrorReportURL" xml:space="preserve">
+    <value>/Services/SendAppErrReport.svc/SendReport</value>
   </data>
 </root>
