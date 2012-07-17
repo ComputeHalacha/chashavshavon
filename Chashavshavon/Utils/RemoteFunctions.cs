@@ -149,7 +149,19 @@ namespace Chashavshavon.Utils
             {
                 dataStream.Write(byteArray, 0, byteArray.Length);
                 dataStream.Close();
-                request.GetResponse();
+                var response = request.GetResponse();
+                var resStream = response.GetResponseStream();
+                var streamReader = new StreamReader(resStream);
+                string responseText =
+                    jse.Deserialize<System.Collections.Generic.Dictionary<String, String>>(streamReader.ReadToEnd())["d"];
+                streamReader.Close();
+                streamReader.Dispose();
+                resStream.Close();
+                resStream.Dispose();
+                if (responseText != "OK")
+                {
+                    throw new Exception(responseText);
+                }
             }
             //Once sent off, we can delete the log file
             File.Delete(logFilePath);

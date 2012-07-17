@@ -274,6 +274,7 @@
     </Compile>
     <Compile Include="Utils\RemoteFunctions.cs" />
     <Compile Include="Utils\Zmanim.cs" />
+    <None Include="uninstall.bat" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\chash.png" />
