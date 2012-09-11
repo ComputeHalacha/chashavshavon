@@ -29,7 +29,7 @@ namespace Chashavshavon
         public frmMain(string filePath)
         {
             this.CurrentFileIsRemote = false;
-            this.CurrentFile = filePath;
+            this.CurrentFile = filePath;            
             this.StartUp();
         }
 
@@ -1128,6 +1128,25 @@ namespace Chashavshavon
             }
         }
 
+        private void CreateLocalBackup()
+        {
+            if (File.Exists(this.CurrentFile))
+            {
+                string direc = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + 
+                    "\\Backups";
+                string path = direc + "\\" +
+                    Path.GetFileNameWithoutExtension(this.CurrentFile) +
+                    "_" +
+                    DateTime.Now.ToString("d-MMM-yy_HH-mm-ss", System.Globalization.CultureInfo.GetCultureInfo("en-us").DateTimeFormat) + 
+                    ".pm";
+                if (!Directory.Exists(direc))
+                {
+                    Directory.CreateDirectory(direc);
+                }                
+                File.Copy(this.CurrentFile, path, false);                
+            }
+        }
+
         private frmBrowser ShowCalendarTextList(bool print = false)
         {
             var fb = new frmBrowser(print);
@@ -1636,6 +1655,7 @@ namespace Chashavshavon
 
         public void LoadXmlFile()
         {
+            this.CreateLocalBackup();
             //Clear previous list data
             Entry.EntryList.Clear();
             //Clear previous Kavuahs
