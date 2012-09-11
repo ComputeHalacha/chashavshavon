@@ -11,6 +11,7 @@ namespace Chashavshavon
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
         public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
         public static readonly string TempFolderPath = Path.GetTempPath() + @"\ChashInstall";
+        public static readonly string BackupFolderPath = Directory.GetCurrentDirectory() + @"\Backups";
 
         //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
         public static DateTime Today { get; set; }
@@ -40,6 +41,11 @@ namespace Chashavshavon
             {
                 Directory.CreateDirectory(Program.TempFolderPath);
             }
+
+            if (!Directory.Exists(Program.BackupFolderPath))
+            {
+                Directory.CreateDirectory(Program.BackupFolderPath);
+            }                
 
             if (string.IsNullOrEmpty(Properties.Settings.Default.ChashFilesPath))
             {

@@ -29,7 +29,7 @@ namespace Chashavshavon
         public frmMain(string filePath)
         {
             this.CurrentFileIsRemote = false;
-            this.CurrentFile = filePath;            
+            this.CurrentFile = filePath;
             this.StartUp();
         }
 
@@ -68,7 +68,7 @@ namespace Chashavshavon
                 Properties.Settings.Default.CurrentFile = null;
                 Properties.Settings.Default.IsCurrentFileRemote = false;
             }
-            
+
             //the temp folder is only deleted if the user manually closed the app.
             //Otherwise we may be in an installer run and do not want to delete the installation files.
             Program.BeforeExit(e.CloseReason == CloseReason.UserClosing);
@@ -284,6 +284,13 @@ namespace Chashavshavon
                 ab.ShowDialog(this);
             }
         }
+
+
+        private void OpenBackupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Program.BackupFolderPath);
+        }
+
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -1130,21 +1137,21 @@ namespace Chashavshavon
 
         private void CreateLocalBackup()
         {
-            if (File.Exists(this.CurrentFile))
+            var bgw = new System.ComponentModel.BackgroundWorker();
+            bgw.DoWork += delegate
             {
-                string direc = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + 
-                    "\\Backups";
-                string path = direc + "\\" +
-                    Path.GetFileNameWithoutExtension(this.CurrentFile) +
-                    "_" +
-                    DateTime.Now.ToString("d-MMM-yy_HH-mm-ss", System.Globalization.CultureInfo.GetCultureInfo("en-us").DateTimeFormat) + 
-                    ".pm";
-                if (!Directory.Exists(direc))
+                if (File.Exists(this.CurrentFile))
                 {
-                    Directory.CreateDirectory(direc);
-                }                
-                File.Copy(this.CurrentFile, path, false);                
-            }
+                    string path = Program.BackupFolderPath + "\\" +
+                        Path.GetFileNameWithoutExtension(this.CurrentFile) +
+                        "_" +
+                        DateTime.Now.ToString("d-MMM-yy_HH-mm-ss", System.Globalization.CultureInfo.GetCultureInfo("en-us").DateTimeFormat) +
+                        ".pm";
+                    File.Copy(this.CurrentFile, path, false);
+                    File.SetAttributes(path, FileAttributes.ReadOnly);
+                }
+            };
+            bgw.RunWorkerAsync();
         }
 
         private frmBrowser ShowCalendarTextList(bool print = false)
@@ -1821,6 +1828,7 @@ namespace Chashavshavon
                 this.SetCaptionText();
             }
         }
+
         public bool CurrentFileIsRemote
         {
             get
@@ -1858,6 +1866,7 @@ namespace Chashavshavon
                 return (string.IsNullOrWhiteSpace(xml) ? "<Entries />" : xml);
             }
         }
+
         public string CurrentFileName
         {
             get
