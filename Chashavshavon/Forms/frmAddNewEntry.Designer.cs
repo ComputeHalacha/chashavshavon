@@ -30,13 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblLocation = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.lblToday = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblWarning = new System.Windows.Forms.Label();
             this.lblZmanim = new System.Windows.Forms.Label();
-            this.lblLocation = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cmbMonth = new System.Windows.Forms.ComboBox();
@@ -55,19 +56,19 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.Lavender;
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.BackgroundImage = global::Chashavshavon.Properties.Resources.BlueMarble;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.label16);
@@ -80,6 +81,28 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(425, 101);
             this.panel1.TabIndex = 25;
+            // 
+            // panel3
+            // 
+            this.panel3.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkMarbleBar;
+            this.panel3.Controls.Add(this.lblLocation);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(423, 35);
+            this.panel3.TabIndex = 18;
+            // 
+            // lblLocation
+            // 
+            this.lblLocation.BackColor = System.Drawing.Color.Transparent;
+            this.lblLocation.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblLocation.ForeColor = System.Drawing.Color.Lavender;
+            this.lblLocation.Location = new System.Drawing.Point(3, 3);
+            this.lblLocation.Name = "lblLocation";
+            this.lblLocation.Size = new System.Drawing.Size(418, 26);
+            this.lblLocation.TabIndex = 11;
+            this.lblLocation.Text = "זמנים לקרית ספר";
+            this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label16
             // 
@@ -122,7 +145,7 @@
             // lblWarning
             // 
             this.lblWarning.AutoSize = true;
-            this.lblWarning.BackColor = System.Drawing.Color.Lavender;
+            this.lblWarning.BackColor = System.Drawing.Color.Transparent;
             this.lblWarning.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblWarning.ForeColor = System.Drawing.Color.SlateGray;
             this.lblWarning.Location = new System.Drawing.Point(5, 38);
@@ -142,18 +165,6 @@
             this.lblZmanim.Size = new System.Drawing.Size(94, 36);
             this.lblZmanim.TabIndex = 12;
             this.lblZmanim.Text = "שקיעה: 13:44\r\nנץ: 14:54";
-            // 
-            // lblLocation
-            // 
-            this.lblLocation.BackColor = System.Drawing.Color.Transparent;
-            this.lblLocation.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.lblLocation.ForeColor = System.Drawing.Color.Lavender;
-            this.lblLocation.Location = new System.Drawing.Point(3, 3);
-            this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(418, 26);
-            this.lblLocation.TabIndex = 11;
-            this.lblLocation.Text = "זמנים לקרית ספר";
-            this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
@@ -370,17 +381,6 @@
             this.panel2.Size = new System.Drawing.Size(682, 350);
             this.panel2.TabIndex = 30;
             // 
-            // panel3
-            // 
-            this.panel3.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
-            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel3.Controls.Add(this.lblLocation);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(423, 35);
-            this.panel3.TabIndex = 18;
-            // 
             // frmAddNewEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -410,12 +410,12 @@
             this.TopMost = true;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

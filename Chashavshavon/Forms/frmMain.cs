@@ -1318,8 +1318,8 @@ namespace Chashavshavon
             {
                 Panel dow = new Panel()
                 {
-                    BackgroundImage = Properties.Resources.ButtonBackground,
-                    BackgroundImageLayout = ImageLayout.Stretch,
+                    BackgroundImage = Properties.Resources.DarkMarbleBar,
+                    BackgroundImageLayout = ImageLayout.Tile,
                     Margin = new Padding(0),
                     Height = 20,
                     Padding = new Padding(0),
@@ -1347,7 +1347,9 @@ namespace Chashavshavon
                 {
                     Dock = DockStyle.Fill,
                     Margin = new Padding(0),
-                    BackColor = Color.White,
+                    BackColor = Color.Transparent,
+                    BackgroundImage = Properties.Resources.WhiteMarble,
+                    BackgroundImageLayout = ImageLayout.Stretch,
                     Tag = date
                 };
 
@@ -1357,7 +1359,7 @@ namespace Chashavshavon
                     Dock = DockStyle.Top,
                     Height = 40,
                     Font = new Font("Verdana", 18f, FontStyle.Bold),
-                    ForeColor = Color.LightSlateGray,
+                    ForeColor = Color.Maroon,
                     Text = Zmanim.DaysOfMonthHebrew[i].Replace("\"", "").Replace("\'", ""),
                     TextAlign = ContentAlignment.MiddleCenter,
                     RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -1370,7 +1372,8 @@ namespace Chashavshavon
                 }
                 if (daySpecialText.Length > 0)
                 {
-                    pnl.BackColor = Color.Lavender;
+                    pnl.BackgroundImage = Properties.Resources.BlueMarble;
+                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
@@ -1404,7 +1407,9 @@ namespace Chashavshavon
                     en.DateTime == date);
                 if (entry != null)
                 {
-                    pnl.BackColor = Color.FromArgb(255, 230, 230);
+                    pnl.BackgroundImage = Properties.Resources.PinkMarbleTile;
+                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
+                    pnl.BackColor = Color.Transparent;
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
@@ -1417,7 +1422,9 @@ namespace Chashavshavon
                 }
                 else if (!string.IsNullOrEmpty(onahText))
                 {
-                    pnl.BackColor = Color.FromArgb(255, 255, 195);
+                    pnl.BackgroundImage = Properties.Resources.ParchmentMarbleTile;
+                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
+                    pnl.BackColor = Color.Transparent;
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
@@ -1430,7 +1437,8 @@ namespace Chashavshavon
                 }
                 else if (currentColumn == luachTableLayout.ColumnCount - 1)
                 {
-                    pnl.BackColor = Color.Lavender;
+                    pnl.BackgroundImage = Properties.Resources.BlueMarble;
+                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
                 }
 
                 foreach (Label lbl in pnl.Controls.OfType<Label>())
