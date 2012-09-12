@@ -745,7 +745,7 @@
             // 
             this.btnToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnToday.BackColor = System.Drawing.Color.Transparent;
-            this.btnToday.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkMarbleTile;
+            this.btnToday.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
             this.btnToday.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnToday.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnToday.FlatAppearance.BorderSize = 0;
@@ -871,7 +871,7 @@
             // 
             // pnlNextProblem
             // 
-            this.pnlNextProblem.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkMarbleBar;
+            this.pnlNextProblem.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
             this.pnlNextProblem.Controls.Add(this.lblNextProblem);
             this.pnlNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlNextProblem.Location = new System.Drawing.Point(0, 117);
@@ -883,7 +883,7 @@
             // 
             this.btnLastMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLastMonth.BackColor = System.Drawing.Color.Transparent;
-            this.btnLastMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkMarbleTile;
+            this.btnLastMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
             this.btnLastMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnLastMonth.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLastMonth.FlatAppearance.BorderSize = 0;
@@ -905,7 +905,7 @@
             // btnNextMonth
             // 
             this.btnNextMonth.BackColor = System.Drawing.Color.Transparent;
-            this.btnNextMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkMarbleTile;
+            this.btnNextMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
             this.btnNextMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnNextMonth.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNextMonth.FlatAppearance.BorderSize = 0;
@@ -942,7 +942,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkMarbleBar;
+            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
             this.panel2.Controls.Add(this.btnNextMonth);
             this.panel2.Controls.Add(this.btnLastMonth);
             this.panel2.Controls.Add(this.btnToday);

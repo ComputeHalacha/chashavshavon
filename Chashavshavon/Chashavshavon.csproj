@@ -299,12 +299,8 @@
     <None Include="Resources\ButtonBackgroundDark.gif" />
     <None Include="Resources\refresh.png" />
     <None Include="Resources\refresh1.png" />
-    <None Include="Resources\Marble\PinkMarble.png" />
-    <None Include="Resources\Marble\PinkMarbleBar.png" />
     <None Include="Resources\Marble\PinkMarbleTile.png" />
     <None Include="Resources\Marble\WhiteMarble.png" />
-    <None Include="Resources\Marble\WhiteMarbleBar.png" />
-    <None Include="Resources\Marble\WhiteMarbleTile.png" />
     <None Include="Resources\Marble\BlueMarble.png" />
     <None Include="Resources\Marble\DarkMarble.png" />
     <None Include="Resources\Marble\DarkMarbleBar.png" />
@@ -353,12 +349,12 @@
   <ItemGroup>
     <PublishFile Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

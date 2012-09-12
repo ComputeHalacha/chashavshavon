@@ -84,7 +84,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkMarbleBar;
+            this.panel3.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
             this.panel3.Controls.Add(this.lblLocation);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);

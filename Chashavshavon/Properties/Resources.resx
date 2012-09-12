@@ -205,25 +205,19 @@
   <data name="WhiteMarble" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Marble\WhiteMarble.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WhiteMarbleTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Marble\WhiteMarbleTile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="BlueMarble" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Marble\BlueMarble.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DarkMarble" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Marble\DarkMarble.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DarkMarbleBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="DarkBlueMarbleBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Marble\DarkMarbleBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DarkMarbleTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Marble\DarkMarbleTile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ParchmentMarbleTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Marble\ParchmentMarbleTile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PinkMarbleBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Marble\PinkMarbleBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="DarkBlueMarbleTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Marble\DarkMarbleTile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

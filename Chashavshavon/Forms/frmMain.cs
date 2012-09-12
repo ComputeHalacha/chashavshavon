@@ -1318,7 +1318,7 @@ namespace Chashavshavon
             {
                 Panel dow = new Panel()
                 {
-                    BackgroundImage = Properties.Resources.DarkMarbleBar,
+                    BackgroundImage = Properties.Resources.DarkBlueMarbleBar,
                     BackgroundImageLayout = ImageLayout.Tile,
                     Margin = new Padding(0),
                     Height = 20,
