@@ -100,12 +100,6 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pbWeb = new System.Windows.Forms.PictureBox();
-            this.pnlNextProblem = new System.Windows.Forms.Panel();
-            this.btnLastMonth = new System.Windows.Forms.Button();
-            this.btnNextMonth = new System.Windows.Forms.Button();
-            this.lblMonthName = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.luachTableLayout = new Chashavshavon.DoubleBufferedLayoutTable();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -114,6 +108,12 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.pbWeb = new System.Windows.Forms.PictureBox();
+            this.pnlNextProblem = new System.Windows.Forms.Panel();
+            this.btnLastMonth = new System.Windows.Forms.Button();
+            this.btnNextMonth = new System.Windows.Forms.Button();
+            this.lblMonthName = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
@@ -124,10 +124,10 @@
             this.splitContainerMain.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.luachTableLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).BeginInit();
             this.pnlNextProblem.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.luachTableLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -737,7 +737,7 @@
             this.btnAddKavuah.TabIndex = 34;
             this.btnAddKavuah.Text = "הוסף קבוע";
             this.btnAddKavuah.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolTip1.SetToolTip(this.btnAddKavuah, "העדפות ואופציות כולל גדרים הלכתיים");
+            this.toolTip1.SetToolTip(this.btnAddKavuah, "הוסף ווסת קבוע באופן ידני");
             this.btnAddKavuah.UseVisualStyleBackColor = true;
             this.btnAddKavuah.Click += new System.EventHandler(this.btnAddKavuah_Click);
             // 
@@ -856,101 +856,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(939, 348);
             this.panel1.TabIndex = 35;
-            // 
-            // pbWeb
-            // 
-            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
-            this.pbWeb.Location = new System.Drawing.Point(-509, -3);
-            this.pbWeb.Name = "pbWeb";
-            this.pbWeb.Size = new System.Drawing.Size(53, 51);
-            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbWeb.TabIndex = 15;
-            this.pbWeb.TabStop = false;
-            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
-            // 
-            // pnlNextProblem
-            // 
-            this.pnlNextProblem.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
-            this.pnlNextProblem.Controls.Add(this.lblNextProblem);
-            this.pnlNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlNextProblem.Location = new System.Drawing.Point(0, 117);
-            this.pnlNextProblem.Name = "pnlNextProblem";
-            this.pnlNextProblem.Size = new System.Drawing.Size(1006, 25);
-            this.pnlNextProblem.TabIndex = 17;
-            // 
-            // btnLastMonth
-            // 
-            this.btnLastMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLastMonth.BackColor = System.Drawing.Color.Transparent;
-            this.btnLastMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
-            this.btnLastMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnLastMonth.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLastMonth.FlatAppearance.BorderSize = 0;
-            this.btnLastMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnLastMonth.ForeColor = System.Drawing.Color.Lavender;
-            this.btnLastMonth.Image = global::Chashavshavon.Properties.Resources.next;
-            this.btnLastMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLastMonth.Location = new System.Drawing.Point(795, 1);
-            this.btnLastMonth.Name = "btnLastMonth";
-            this.btnLastMonth.Size = new System.Drawing.Size(126, 35);
-            this.btnLastMonth.TabIndex = 29;
-            this.btnLastMonth.Text = "button2";
-            this.btnLastMonth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLastMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnLastMonth.UseVisualStyleBackColor = false;
-            this.btnLastMonth.Click += new System.EventHandler(this.btnLastMonth_Click);
-            // 
-            // btnNextMonth
-            // 
-            this.btnNextMonth.BackColor = System.Drawing.Color.Transparent;
-            this.btnNextMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
-            this.btnNextMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnNextMonth.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNextMonth.FlatAppearance.BorderSize = 0;
-            this.btnNextMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnNextMonth.ForeColor = System.Drawing.Color.Lavender;
-            this.btnNextMonth.Image = global::Chashavshavon.Properties.Resources.previous;
-            this.btnNextMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNextMonth.Location = new System.Drawing.Point(1, 1);
-            this.btnNextMonth.Name = "btnNextMonth";
-            this.btnNextMonth.Size = new System.Drawing.Size(126, 35);
-            this.btnNextMonth.TabIndex = 28;
-            this.btnNextMonth.Text = "button1";
-            this.btnNextMonth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNextMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btnNextMonth.UseVisualStyleBackColor = false;
-            this.btnNextMonth.Click += new System.EventHandler(this.btnNextMonth_Click);
-            // 
-            // lblMonthName
-            // 
-            this.lblMonthName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblMonthName.AutoSize = true;
-            this.lblMonthName.BackColor = System.Drawing.Color.Transparent;
-            this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 25F);
-            this.lblMonthName.ForeColor = System.Drawing.Color.Lavender;
-            this.lblMonthName.Location = new System.Drawing.Point(391, 2);
-            this.lblMonthName.Name = "lblMonthName";
-            this.lblMonthName.Size = new System.Drawing.Size(141, 34);
-            this.lblMonthName.TabIndex = 30;
-            this.lblMonthName.Text = "חודש שנה";
-            this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
-            this.panel2.Controls.Add(this.btnNextMonth);
-            this.panel2.Controls.Add(this.btnLastMonth);
-            this.panel2.Controls.Add(this.btnToday);
-            this.panel2.Controls.Add(this.lblMonthName);
-            this.panel2.Location = new System.Drawing.Point(0, 24);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(922, 38);
-            this.panel2.TabIndex = 37;
             // 
             // luachTableLayout
             // 
@@ -1095,6 +1000,101 @@
             this.label12.Text = "ראשון";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // pbWeb
+            // 
+            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
+            this.pbWeb.Location = new System.Drawing.Point(-509, -3);
+            this.pbWeb.Name = "pbWeb";
+            this.pbWeb.Size = new System.Drawing.Size(53, 51);
+            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbWeb.TabIndex = 15;
+            this.pbWeb.TabStop = false;
+            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
+            // 
+            // pnlNextProblem
+            // 
+            this.pnlNextProblem.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
+            this.pnlNextProblem.Controls.Add(this.lblNextProblem);
+            this.pnlNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlNextProblem.Location = new System.Drawing.Point(0, 117);
+            this.pnlNextProblem.Name = "pnlNextProblem";
+            this.pnlNextProblem.Size = new System.Drawing.Size(1006, 25);
+            this.pnlNextProblem.TabIndex = 17;
+            // 
+            // btnLastMonth
+            // 
+            this.btnLastMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLastMonth.BackColor = System.Drawing.Color.Transparent;
+            this.btnLastMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
+            this.btnLastMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLastMonth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLastMonth.FlatAppearance.BorderSize = 0;
+            this.btnLastMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnLastMonth.ForeColor = System.Drawing.Color.Lavender;
+            this.btnLastMonth.Image = global::Chashavshavon.Properties.Resources.next;
+            this.btnLastMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLastMonth.Location = new System.Drawing.Point(795, 1);
+            this.btnLastMonth.Name = "btnLastMonth";
+            this.btnLastMonth.Size = new System.Drawing.Size(126, 35);
+            this.btnLastMonth.TabIndex = 29;
+            this.btnLastMonth.Text = "button2";
+            this.btnLastMonth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLastMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnLastMonth.UseVisualStyleBackColor = false;
+            this.btnLastMonth.Click += new System.EventHandler(this.btnLastMonth_Click);
+            // 
+            // btnNextMonth
+            // 
+            this.btnNextMonth.BackColor = System.Drawing.Color.Transparent;
+            this.btnNextMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
+            this.btnNextMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnNextMonth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNextMonth.FlatAppearance.BorderSize = 0;
+            this.btnNextMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnNextMonth.ForeColor = System.Drawing.Color.Lavender;
+            this.btnNextMonth.Image = global::Chashavshavon.Properties.Resources.previous;
+            this.btnNextMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNextMonth.Location = new System.Drawing.Point(1, 1);
+            this.btnNextMonth.Name = "btnNextMonth";
+            this.btnNextMonth.Size = new System.Drawing.Size(126, 35);
+            this.btnNextMonth.TabIndex = 28;
+            this.btnNextMonth.Text = "button1";
+            this.btnNextMonth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNextMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnNextMonth.UseVisualStyleBackColor = false;
+            this.btnNextMonth.Click += new System.EventHandler(this.btnNextMonth_Click);
+            // 
+            // lblMonthName
+            // 
+            this.lblMonthName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblMonthName.AutoSize = true;
+            this.lblMonthName.BackColor = System.Drawing.Color.Transparent;
+            this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 25F);
+            this.lblMonthName.ForeColor = System.Drawing.Color.Lavender;
+            this.lblMonthName.Location = new System.Drawing.Point(391, 2);
+            this.lblMonthName.Name = "lblMonthName";
+            this.lblMonthName.Size = new System.Drawing.Size(141, 34);
+            this.lblMonthName.TabIndex = 30;
+            this.lblMonthName.Text = "חודש שנה";
+            this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
+            this.panel2.Controls.Add(this.btnNextMonth);
+            this.panel2.Controls.Add(this.btnLastMonth);
+            this.panel2.Controls.Add(this.btnToday);
+            this.panel2.Controls.Add(this.lblMonthName);
+            this.panel2.Location = new System.Drawing.Point(0, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(922, 38);
+            this.panel2.TabIndex = 37;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1130,12 +1130,12 @@
             this.splitContainerMain.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.luachTableLayout.ResumeLayout(false);
+            this.luachTableLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).EndInit();
             this.pnlNextProblem.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.luachTableLayout.ResumeLayout(false);
-            this.luachTableLayout.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
