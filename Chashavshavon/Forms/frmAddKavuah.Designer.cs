@@ -84,7 +84,7 @@
             this.rbDayOfMonth.AutoSize = true;
             this.rbDayOfMonth.Location = new System.Drawing.Point(277, 49);
             this.rbDayOfMonth.Name = "rbDayOfMonth";
-            this.rbDayOfMonth.Size = new System.Drawing.Size(73, 17);
+            this.rbDayOfMonth.Size = new System.Drawing.Size(75, 17);
             this.rbDayOfMonth.TabIndex = 2;
             this.rbDayOfMonth.Text = "יום החדש";
             this.rbDayOfMonth.UseVisualStyleBackColor = true;
@@ -115,7 +115,7 @@
             this.rbInterval.Checked = true;
             this.rbInterval.Location = new System.Drawing.Point(294, 19);
             this.rbInterval.Name = "rbInterval";
-            this.rbInterval.Size = new System.Drawing.Size(55, 17);
+            this.rbInterval.Size = new System.Drawing.Size(59, 17);
             this.rbInterval.TabIndex = 3;
             this.rbInterval.TabStop = true;
             this.rbInterval.Text = "הפלגה";
@@ -141,7 +141,7 @@
             this.cbMaayanPasuach.AutoSize = true;
             this.cbMaayanPasuach.Location = new System.Drawing.Point(242, 86);
             this.cbMaayanPasuach.Name = "cbMaayanPasuach";
-            this.cbMaayanPasuach.Size = new System.Drawing.Size(106, 17);
+            this.cbMaayanPasuach.Size = new System.Drawing.Size(112, 17);
             this.cbMaayanPasuach.TabIndex = 7;
             this.cbMaayanPasuach.Text = "ע\"פ מעיין פתוח?";
             this.cbMaayanPasuach.UseVisualStyleBackColor = true;
@@ -151,7 +151,7 @@
             this.rbdayOfWeek.AutoSize = true;
             this.rbdayOfWeek.Location = new System.Drawing.Point(184, 19);
             this.rbdayOfWeek.Name = "rbdayOfWeek";
-            this.rbdayOfWeek.Size = new System.Drawing.Size(76, 17);
+            this.rbdayOfWeek.Size = new System.Drawing.Size(80, 17);
             this.rbdayOfWeek.TabIndex = 6;
             this.rbdayOfWeek.Text = "יום השבוע";
             this.rbdayOfWeek.UseVisualStyleBackColor = true;
@@ -161,7 +161,7 @@
             this.rbDilugDayOfMonth.AutoSize = true;
             this.rbDilugDayOfMonth.Location = new System.Drawing.Point(25, 19);
             this.rbDilugDayOfMonth.Name = "rbDilugDayOfMonth";
-            this.rbDilugDayOfMonth.Size = new System.Drawing.Size(119, 17);
+            this.rbDilugDayOfMonth.Size = new System.Drawing.Size(127, 17);
             this.rbDilugDayOfMonth.TabIndex = 4;
             this.rbDilugDayOfMonth.Text = "דילוג של יום החדש";
             this.rbDilugDayOfMonth.UseVisualStyleBackColor = true;
@@ -172,7 +172,7 @@
             this.rbDilugHaflagah.AutoSize = true;
             this.rbDilugHaflagah.Location = new System.Drawing.Point(159, 49);
             this.rbDilugHaflagah.Name = "rbDilugHaflagah";
-            this.rbDilugHaflagah.Size = new System.Drawing.Size(101, 17);
+            this.rbDilugHaflagah.Size = new System.Drawing.Size(111, 17);
             this.rbDilugHaflagah.TabIndex = 5;
             this.rbDilugHaflagah.Text = "דילוג של הפלגה";
             this.rbDilugHaflagah.UseVisualStyleBackColor = true;
@@ -195,7 +195,7 @@
             this.rbDay.Checked = true;
             this.rbDay.Location = new System.Drawing.Point(299, 18);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(41, 17);
+            this.rbDay.Size = new System.Drawing.Size(42, 17);
             this.rbDay.TabIndex = 7;
             this.rbDay.TabStop = true;
             this.rbDay.Text = "יום";
@@ -206,7 +206,7 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Location = new System.Drawing.Point(195, 18);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(48, 17);
+            this.rbNight.Size = new System.Drawing.Size(51, 17);
             this.rbNight.TabIndex = 6;
             this.rbNight.Text = "לילה";
             this.rbNight.UseVisualStyleBackColor = true;
@@ -359,9 +359,12 @@
             this.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmAddKavuah";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "הוסף וסת קבוע";
             this.Load += new System.EventHandler(this.frmAddKavuah_Load);
