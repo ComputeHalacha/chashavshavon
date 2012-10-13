@@ -49,7 +49,8 @@ namespace Chashavshavon
 
             if (string.IsNullOrEmpty(Properties.Settings.Default.ChashFilesPath))
             {
-                string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Chashavshavon Files";
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                    @"\Chashavshavon Files";
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -118,7 +119,7 @@ namespace Chashavshavon
                         File.AppendAllText(logFilePath,
                             "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"" +
                             excep.Message + "\",\"" + excep.Source + "\",\"" + excep.TargetSite +
-                            "\"" + Environment.NewLine);
+                            "\",\"" + excep.StackTrace + "\"" + Environment.NewLine);
                     }
                     catch (Exception ex)
                     {

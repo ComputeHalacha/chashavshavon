@@ -1428,7 +1428,8 @@ namespace Chashavshavon
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
-                        Text = onahText.Substring(0, 17).PadRight(20, '.'),
+                        Text = (onahText.Length >= 18 ? 
+                            onahText.Substring(0, 17) : onahText).PadRight(20, '.'),
                         TextAlign = ContentAlignment.TopCenter,
                         Font = new Font(Font.FontFamily, 7f),
                         ForeColor = Color.Black,
