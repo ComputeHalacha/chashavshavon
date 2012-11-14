@@ -342,7 +342,9 @@ namespace Chashavshavon
         {
             //We check the three entries if their interval "Dilug"s are the same.
             //If the "Dilug" is 0 it will be a regular Kavuah of Haflagah but not a Dilug one
-            if ((entries[2].Interval - entries[1].Interval) == (entries[1].Interval - entries[0].Interval) &&
+            if ((entries[0].DayNight == entries[1].DayNight) && 
+                (entries[1].DayNight == entries[2].DayNight) && 
+                ((entries[2].Interval - entries[1].Interval) == (entries[1].Interval - entries[0].Interval)) &&
                 ((entries[2].Interval - entries[1].Interval) != 0))
             {
                 //If the "NoKavuah" list for the 3rd entry does not include this "find", 
