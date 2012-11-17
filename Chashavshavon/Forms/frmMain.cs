@@ -596,10 +596,6 @@ namespace Chashavshavon
             }
             this.ProblemOnas.Clear();
 
-            //A list of 8 Onahs starting from yesterday until 2 days from now. Will be used to display 
-            //in the problem days list.
-            var onahs = GetCalendarOnahs();
-
             //A list of Onahs that need to be kept. This first list is worked out from the list of Entries.
             //Problem Onahs are searched for from the date of each entry until the number of months specified in the 
             //Property Setting "numberMonthsAheadToWarn"
@@ -608,7 +604,7 @@ namespace Chashavshavon
             //Get the onahs that need to be kept for Kavuahs of yom hachodesh, sirug, 
             //dilug (from projected day - not actual entry)
             //and other Kavuahs that are not dependent on the actual entry list
-            this.SetIndependentKavuahProblemOnahs(onahs);
+            this.SetIndependentKavuahProblemOnahs();
 
             //Clean out doubles
             //TODO:Figure out why more than just doubles are getting deleted from the following
@@ -626,28 +622,6 @@ namespace Chashavshavon
                 this.SetOnahBeinenisProblemOnahs(entry);
                 this.SetEntryDependentKavuahProblemOnahs(entry);
             }
-        }
-
-        private List<Onah> GetCalendarOnahs()
-        {
-            var onahs = new List<Onah>();
-            var days = new DateTime[4];
-            DateTime yesterday = Program.Today.AddDays(-1),
-                     tomorrow = Program.Today.AddDays(1),
-                     dayAfterTomorrow = Program.Today.AddDays(2);
-
-            days[0] = yesterday;
-            days[1] = Program.Today;
-            days[2] = tomorrow;
-            days[3] = dayAfterTomorrow;
-
-            foreach (DateTime date in days)
-            {
-                onahs.Add(new Onah(date, DayNight.Night));
-                onahs.Add(new Onah(date, DayNight.Day));
-            }
-
-            return onahs;
         }
 
         private void SetOnahBeinenisProblemOnahs(Entry entry)
@@ -845,7 +819,7 @@ namespace Chashavshavon
         /// </summary>
         /// <param name="onahs"></param>
         /// <returns></returns>
-        private void SetIndependentKavuahProblemOnahs(List<Onah> onahs)
+        private void SetIndependentKavuahProblemOnahs()
         {
             //Kavuahs of Yom Hachodesh and Sirug
             foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
@@ -1147,6 +1121,10 @@ namespace Chashavshavon
                         "_" +
                         DateTime.Now.ToString("d-MMM-yy_HH-mm-ss", System.Globalization.CultureInfo.GetCultureInfo("en-us").DateTimeFormat) +
                         ".pm";
+                    if (File.Exists(path))
+                    {
+                        path = path.Replace(".pm", "_Version_1" + DateTime.Now.Millisecond.ToString() + ".pm");
+                    }
                     File.Copy(this.CurrentFile, path, false);
                     File.SetAttributes(path, FileAttributes.ReadOnly);
                 }
