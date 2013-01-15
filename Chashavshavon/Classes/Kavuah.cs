@@ -106,12 +106,14 @@ namespace Chashavshavon
         #region Public Static Functions
         /// <summary>
         /// Gets a list of proposed Kavuahs according to the entries in the Entry list 
-        /// and prompts the user to either add them or "NoKavuah" them 
+        /// and prompts the user to either add them, ignore them for now, or "NoKavuah" them 
         /// </summary>
         /// <returns></returns>
         public static bool FindAndPromptKavuahs()
         {
-            List<Kavuah> kavuahList = GetProposedKavuahList();
+            //The following function does all the hard work - 
+            //cheshboning out all the prospective Kavuahs from the current entry list. 
+            List<Kavuah> kavuahList = Kavuah.GetProposedKavuahList();
 
             if (kavuahList.Count > 0)
             {
@@ -122,17 +124,17 @@ namespace Chashavshavon
                     {
                         //For each found Kavuah, either we add it to the main list 
                         //or we set it as a "NoKavuah" for the third entry so it shouldn't pop up again
-                        foreach (Kavuah k in kavuahList)
+                        foreach (Kavuah kv in kavuahList)
                         {
                             //The ListToAdd property contains the ones the user decided to add
-                            if (fkp.ListToAdd.Contains(k))
+                            if (fkp.ListToAdd.Contains(kv))
                             {
-                                Kavuah.KavuahsList.Add(k);
+                                Kavuah.KavuahsList.Add(kv);
                             }
                             else
                             {
                                 //The SettingEtry is set when the Kavuah was added to the proposed list
-                                k.SettingEntry.NoKavuahList.Add(k);
+                                kv.SettingEntry.NoKavuahList.Add(kv);
                             }
                         }
                     }
@@ -175,40 +177,47 @@ namespace Chashavshavon
             return KavuahsList.Exists(k => IsSimilarKavuah(k, kavuah) && k.Active);
         }
 
+        /// <summary>
+        /// Works out all possible Kavuahs from the current list of entries.         
+        /// </summary>
+        /// <returns></returns>
         private static List<Kavuah> GetProposedKavuahList()
         {
             List<Kavuah> foundKavuahList = new List<Kavuah>();
-            Queue<Entry> lastThree = new Queue<Entry>();
+            Queue<Entry> qSetOfThree = new Queue<Entry>();
 
             foreach (Entry entry in Entry.EntryList.Where(en => !en.IsInvisible))
             {
-                //First get those Kavuahs that are not dependent on their Entries being 3 in a row
-                FindDayOfMonthKavuah(entry, foundKavuahList);
-                FindDilugDayOfMonthKavuah(entry, foundKavuahList);
-                FindDayOfWeekKavuah(entry, foundKavuahList);
+                //First we work out those Kavuahs that are not dependent on their Entries being 3 in a row
+                Kavuah.FindDayOfMonthKavuah(entry, foundKavuahList);
+                Kavuah.FindDilugDayOfMonthKavuah(entry, foundKavuahList);
+                Kavuah.FindDayOfWeekKavuah(entry, foundKavuahList);
 
                 //For cheshboning out the other Kavuahs we need the last 3 entries
-                //First, add this entry.
-                lastThree.Enqueue(entry);
-                if (lastThree.Count > 3)
+                //First, add the current entry of the loop.
+                qSetOfThree.Enqueue(entry);
+                //if the queue is too "full"
+                if (qSetOfThree.Count > 3)
                 {
-                    //pop out the earliest one - leaves us with this entry and the previous 2.
-                    lastThree.Dequeue();
+                    //pop out the earliest one - leaves us with just this entry and the previous 2.
+                    qSetOfThree.Dequeue();
                 }
 
-                if (lastThree.Count == 3)
+                //We can't stat cheshboning until we have 3 entries to compare to each other
+                if (qSetOfThree.Count == 3)
                 {
-                    Entry[] last3Array = lastThree.ToArray<Entry>();
+                    Entry[] last3Array = qSetOfThree.ToArray<Entry>();
 
-                    //The Kavuahs that need all to be the same DayNight                    
-                    if (last3Array[0].DayNight.In(last3Array[1].DayNight, last3Array[2].DayNight))
+                    //Work out the Kavuah types that need all the entries to be of the same DayNight onah                    
+                    if ((last3Array[0].DayNight == last3Array[1].DayNight) &&
+                        (last3Array[1].DayNight == last3Array[2].DayNight))
                     {
-                        FindHaflagahKavuah(last3Array, foundKavuahList);
-                        FindSirugKavuah(last3Array, foundKavuahList);
-                        FindDilugHaflagahKavuah(last3Array, foundKavuahList);
+                        Kavuah.FindHaflagahKavuah(last3Array, foundKavuahList);
+                        Kavuah.FindSirugKavuah(last3Array, foundKavuahList);
+                        Kavuah.FindDilugHaflagahKavuah(last3Array, foundKavuahList);
                     }
-                    //Now the Kavuah that needs 3 in-a-row and doesn't need to be the same DayNight
-                    FindMaayanPasuachHaflagahKavuah(last3Array, foundKavuahList);
+                    //The Maayan-Pasuach Haflagah needs 3 in-a-row but doesn't need to be the same DayNight
+                    Kavuah.FindMaayanPasuachHaflagahKavuah(last3Array, foundKavuahList);
                 }
             }
 
@@ -342,7 +351,7 @@ namespace Chashavshavon
         {
             //We check the three entries if their interval "Dilug"s are the same.
             //If the "Dilug" is 0 it will be a regular Kavuah of Haflagah but not a Dilug one
-            if ((entries[2].Interval - entries[1].Interval) == (entries[1].Interval - entries[0].Interval) &&
+            if (((entries[2].Interval - entries[1].Interval) == (entries[1].Interval - entries[0].Interval)) &&
                 ((entries[2].Interval - entries[1].Interval) != 0))
             {
                 //If the "NoKavuah" list for the 3rd entry does not include this "find", 
@@ -461,7 +470,7 @@ namespace Chashavshavon
         }
 
         /// <summary>
-        /// Cheshbon out Kavuah of same day-of-month - inlcuding Ma'ayan Pasuach for the third Entry
+        /// Cheshbon out Kavuah of same day-of-month - including Ma'ayan Pasuach for the third Entry
         /// </summary>
         /// <param name="entry"></param>
         /// <param name="kavuahs"></param>

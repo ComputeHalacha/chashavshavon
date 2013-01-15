@@ -45,8 +45,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKavuahList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvKavuahList
@@ -54,6 +56,7 @@
             this.dgvKavuahList.AllowUserToAddRows = false;
             this.dgvKavuahList.AutoGenerateColumns = false;
             this.dgvKavuahList.BackgroundColor = System.Drawing.Color.White;
+            this.dgvKavuahList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvKavuahList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgvKavuahList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvKavuahList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -76,7 +79,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvKavuahList.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvKavuahList.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgvKavuahList.Location = new System.Drawing.Point(-3, 71);
+            this.dgvKavuahList.Location = new System.Drawing.Point(-1, 84);
             this.dgvKavuahList.Margin = new System.Windows.Forms.Padding(4);
             this.dgvKavuahList.Name = "dgvKavuahList";
             this.dgvKavuahList.RowHeadersVisible = false;
@@ -153,7 +156,7 @@
             // 
             this.btnAdd.BackColor = System.Drawing.Color.YellowGreen;
             this.btnAdd.Font = new System.Drawing.Font("Narkisim", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnAdd.Location = new System.Drawing.Point(13, 296);
+            this.btnAdd.Location = new System.Drawing.Point(531, 309);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(4);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(218, 89);
@@ -166,7 +169,7 @@
             // 
             this.btnClose.BackColor = System.Drawing.Color.Tomato;
             this.btnClose.Font = new System.Drawing.Font("Narkisim", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnClose.Location = new System.Drawing.Point(553, 296);
+            this.btnClose.Location = new System.Drawing.Point(37, 309);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(218, 89);
@@ -178,9 +181,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Narkisim", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(13, 11);
+            this.label4.Location = new System.Drawing.Point(596, 21);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(178, 27);
@@ -191,7 +195,7 @@
             // 
             this.btnCancel.BackColor = System.Drawing.Color.Gold;
             this.btnCancel.Font = new System.Drawing.Font("Narkisim", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnCancel.Location = new System.Drawing.Point(283, 296);
+            this.btnCancel.Location = new System.Drawing.Point(284, 309);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(218, 89);
@@ -202,8 +206,9 @@
             // 
             // label1
             // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label1.Location = new System.Drawing.Point(213, 11);
+            this.label1.Location = new System.Drawing.Point(16, 21);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(558, 51);
@@ -211,23 +216,35 @@
             this.label1.Text = "על פי הנתונים ברשימה, נראה שיש סיבה לרשום וסת קבוע.\r\n להלן רשימת הפרטים. ניתן למח" +
     "וק או לשנות הפרטים.\r\n מומלץ לפנות למורה הוראה.";
             // 
+            // panel1
+            // 
+            this.panel1.BackgroundImage = global::Chashavshavon.Properties.Resources.BlueMarble;
+            this.panel1.Controls.Add(this.btnClose);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.dgvKavuahList);
+            this.panel1.Controls.Add(this.btnCancel);
+            this.panel1.Controls.Add(this.btnAdd);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(787, 424);
+            this.panel1.TabIndex = 8;
+            // 
             // frmKavuahPrompt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Lavender;
-            this.ClientSize = new System.Drawing.Size(784, 424);
+            this.ClientSize = new System.Drawing.Size(787, 424);
             this.ControlBox = false;
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.dgvKavuahList);
+            this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Narkisim", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmKavuahPrompt";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
@@ -237,8 +254,9 @@
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.dgvKavuahList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -259,5 +277,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dayNightDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn kavuahTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Panel panel1;
     }
 }

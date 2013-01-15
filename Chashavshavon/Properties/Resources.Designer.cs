@@ -76,6 +76,13 @@ namespace Chashavshavon.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap BlueMarble {
+            get {
+                object obj = ResourceManager.GetObject("BlueMarble", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap ButtonBackground {
             get {
                 object obj = ResourceManager.GetObject("ButtonBackground", resourceCulture);
@@ -119,6 +126,27 @@ namespace Chashavshavon.Properties {
         internal static string ComputeURLLocalHost {
             get {
                 return ResourceManager.GetString("ComputeURLLocalHost", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap DarkBlueMarbleBar {
+            get {
+                object obj = ResourceManager.GetObject("DarkBlueMarbleBar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap DarkBlueMarbleTile {
+            get {
+                object obj = ResourceManager.GetObject("DarkBlueMarbleTile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap DarkMarble {
+            get {
+                object obj = ResourceManager.GetObject("DarkMarble", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -212,6 +240,20 @@ namespace Chashavshavon.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap ParchmentMarbleTile {
+            get {
+                object obj = ResourceManager.GetObject("ParchmentMarbleTile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap PinkMarbleTile {
+            get {
+                object obj = ResourceManager.GetObject("PinkMarbleTile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap previous {
             get {
                 object obj = ResourceManager.GetObject("previous", resourceCulture);
@@ -260,6 +302,13 @@ namespace Chashavshavon.Properties {
         internal static string SendErrorReportURL {
             get {
                 return ResourceManager.GetString("SendErrorReportURL", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap WhiteMarble {
+            get {
+                object obj = ResourceManager.GetObject("WhiteMarble", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -60,6 +60,9 @@
             this.SaveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearRecentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.RefreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,6 +73,8 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemPrintEntryList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemEntryList = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.OpenBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.KavuahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openKavuaListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -104,13 +109,11 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.pbWeb = new System.Windows.Forms.PictureBox();
+            this.pnlNextProblem = new System.Windows.Forms.Panel();
             this.btnLastMonth = new System.Windows.Forms.Button();
             this.btnNextMonth = new System.Windows.Forms.Button();
             this.lblMonthName = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearRecentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
@@ -123,6 +126,7 @@
             this.panel1.SuspendLayout();
             this.luachTableLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).BeginInit();
+            this.pnlNextProblem.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -168,11 +172,11 @@
             this.dgEntries.AllowUserToAddRows = false;
             this.dgEntries.AllowUserToDeleteRows = false;
             this.dgEntries.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -180,14 +184,14 @@
             this.dgEntries.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgEntries.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Lavender;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgEntries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgEntries.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.btnDeleteColumn,
@@ -198,34 +202,34 @@
             this.NotesColumn});
             this.dgEntries.DataSource = this.bindingSourceEntries;
             this.dgEntries.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dgEntries.Location = new System.Drawing.Point(55, 23);
+            this.dgEntries.Location = new System.Drawing.Point(52, 23);
             this.dgEntries.Name = "dgEntries";
             this.dgEntries.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dgEntries.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgEntries.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgEntries.RowHeadersVisible = false;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle12;
-            this.dgEntries.Size = new System.Drawing.Size(945, 92);
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgEntries.Size = new System.Drawing.Size(951, 87);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             this.dgEntries.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgEntries_CellFormatting);
             // 
             // btnDeleteColumn
             // 
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Blue;
-            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
+            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
             this.btnDeleteColumn.HeaderText = "";
             this.btnDeleteColumn.LinkColor = System.Drawing.Color.SlateGray;
             this.btnDeleteColumn.Name = "btnDeleteColumn";
@@ -238,9 +242,9 @@
             // DateColumn
             // 
             this.DateColumn.DataPropertyName = "DateTime";
-            dataGridViewCellStyle10.Format = "dd MMM yyyy";
-            dataGridViewCellStyle10.NullValue = null;
-            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Format = "dd MMM yyyy";
+            dataGridViewCellStyle4.NullValue = null;
+            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle4;
             this.DateColumn.HeaderText = "תאריך";
             this.DateColumn.Name = "DateColumn";
             this.DateColumn.ReadOnly = true;
@@ -281,6 +285,7 @@
             // 
             // gbCalendar
             // 
+            this.gbCalendar.BackColor = System.Drawing.SystemColors.Control;
             this.gbCalendar.Controls.Add(this.btnAddEntry2);
             this.gbCalendar.Controls.Add(this.dgEntries);
             this.gbCalendar.Controls.Add(this.btnViewTextEntryList);
@@ -288,7 +293,7 @@
             this.gbCalendar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbCalendar.Location = new System.Drawing.Point(0, 0);
             this.gbCalendar.Name = "gbCalendar";
-            this.gbCalendar.Size = new System.Drawing.Size(1006, 122);
+            this.gbCalendar.Size = new System.Drawing.Size(1006, 142);
             this.gbCalendar.TabIndex = 13;
             this.gbCalendar.TabStop = false;
             this.gbCalendar.Text = "רשומות";
@@ -399,7 +404,9 @@
             this.TextListToolStripMenuItem,
             this.toolStripSeparator4,
             this.toolStripMenuItemPrintEntryList,
-            this.toolStripMenuItemEntryList});
+            this.toolStripMenuItemEntryList,
+            this.toolStripSeparator8,
+            this.OpenBackupToolStripMenuItem});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
             this.FileToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.FileToolStripMenuItem.Text = "&קובץ";
@@ -436,6 +443,25 @@
             this.OpenToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.OpenToolStripMenuItem.Text = "&פתח";
             this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(226, 6);
+            // 
+            // recentFilesToolStripMenuItem
+            // 
+            this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
+            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.recentFilesToolStripMenuItem.Text = "&קבצים אחרונים";
+            this.recentFilesToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.recentFilesToolStripMenuItem_DropDownItemClicked);
+            // 
+            // clearRecentFilesToolStripMenuItem
+            // 
+            this.clearRecentFilesToolStripMenuItem.Name = "clearRecentFilesToolStripMenuItem";
+            this.clearRecentFilesToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.clearRecentFilesToolStripMenuItem.Text = "&נקה רשימת קבצים אחרונים";
+            this.clearRecentFilesToolStripMenuItem.Click += new System.EventHandler(this.clearRecentFilesToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -504,6 +530,19 @@
             this.toolStripMenuItemEntryList.Size = new System.Drawing.Size(229, 22);
             this.toolStripMenuItemEntryList.Text = "רשימה - וסתות";
             this.toolStripMenuItemEntryList.Click += new System.EventHandler(this.toolStripMenuItemEntryList_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(226, 6);
+            // 
+            // OpenBackupToolStripMenuItem
+            // 
+            this.OpenBackupToolStripMenuItem.Name = "OpenBackupToolStripMenuItem";
+            this.OpenBackupToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.OpenBackupToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.OpenBackupToolStripMenuItem.Text = "פתח תיקית &גיבויים";
+            this.OpenBackupToolStripMenuItem.Click += new System.EventHandler(this.OpenBackupToolStripMenuItem_Click);
             // 
             // KavuahToolStripMenuItem
             // 
@@ -698,15 +737,15 @@
             this.btnAddKavuah.TabIndex = 34;
             this.btnAddKavuah.Text = "הוסף קבוע";
             this.btnAddKavuah.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolTip1.SetToolTip(this.btnAddKavuah, "העדפות ואופציות כולל גדרים הלכתיים");
+            this.toolTip1.SetToolTip(this.btnAddKavuah, "הוסף ווסת קבוע באופן ידני");
             this.btnAddKavuah.UseVisualStyleBackColor = true;
             this.btnAddKavuah.Click += new System.EventHandler(this.btnAddKavuah_Click);
             // 
             // btnToday
             // 
             this.btnToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToday.BackColor = System.Drawing.Color.Lavender;
-            this.btnToday.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
+            this.btnToday.BackColor = System.Drawing.Color.Transparent;
+            this.btnToday.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
             this.btnToday.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnToday.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnToday.FlatAppearance.BorderSize = 0;
@@ -728,13 +767,13 @@
             // lblNextProblem
             // 
             this.lblNextProblem.AutoEllipsis = true;
-            this.lblNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblNextProblem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.lblNextProblem.ForeColor = System.Drawing.Color.Brown;
-            this.lblNextProblem.Location = new System.Drawing.Point(0, 122);
+            this.lblNextProblem.ForeColor = System.Drawing.Color.White;
+            this.lblNextProblem.Location = new System.Drawing.Point(0, 0);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lblNextProblem.Size = new System.Drawing.Size(1006, 20);
+            this.lblNextProblem.Size = new System.Drawing.Size(1006, 25);
             this.lblNextProblem.TabIndex = 16;
             this.lblNextProblem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -760,9 +799,9 @@
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.AutoScroll = true;
-            this.splitContainerMain.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerMain.Panel2.BackColor = System.Drawing.Color.Transparent;
+            this.splitContainerMain.Panel2.Controls.Add(this.pnlNextProblem);
             this.splitContainerMain.Panel2.Controls.Add(this.gbCalendar);
-            this.splitContainerMain.Panel2.Controls.Add(this.lblNextProblem);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainerMain.Panel2MinSize = 133;
             this.splitContainerMain.Size = new System.Drawing.Size(1008, 538);
@@ -823,7 +862,8 @@
             this.luachTableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.luachTableLayout.BackColor = System.Drawing.SystemColors.Control;
+            this.luachTableLayout.BackColor = System.Drawing.Color.Transparent;
+            this.luachTableLayout.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkMarble;
             this.luachTableLayout.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             this.luachTableLayout.ColumnCount = 7;
             this.luachTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
@@ -972,10 +1012,21 @@
             this.pbWeb.TabStop = false;
             this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
             // 
+            // pnlNextProblem
+            // 
+            this.pnlNextProblem.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
+            this.pnlNextProblem.Controls.Add(this.lblNextProblem);
+            this.pnlNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlNextProblem.Location = new System.Drawing.Point(0, 117);
+            this.pnlNextProblem.Name = "pnlNextProblem";
+            this.pnlNextProblem.Size = new System.Drawing.Size(1006, 25);
+            this.pnlNextProblem.TabIndex = 17;
+            // 
             // btnLastMonth
             // 
             this.btnLastMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLastMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
+            this.btnLastMonth.BackColor = System.Drawing.Color.Transparent;
+            this.btnLastMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
             this.btnLastMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnLastMonth.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLastMonth.FlatAppearance.BorderSize = 0;
@@ -996,7 +1047,8 @@
             // 
             // btnNextMonth
             // 
-            this.btnNextMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
+            this.btnNextMonth.BackColor = System.Drawing.Color.Transparent;
+            this.btnNextMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
             this.btnNextMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnNextMonth.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNextMonth.FlatAppearance.BorderSize = 0;
@@ -1033,8 +1085,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
             this.panel2.Controls.Add(this.btnNextMonth);
             this.panel2.Controls.Add(this.btnLastMonth);
             this.panel2.Controls.Add(this.btnToday);
@@ -1043,25 +1094,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(922, 38);
             this.panel2.TabIndex = 37;
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(226, 6);
-            // 
-            // recentFilesToolStripMenuItem
-            // 
-            this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
-            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.recentFilesToolStripMenuItem.Text = "&קבצים אחרונים";
-            this.recentFilesToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.recentFilesToolStripMenuItem_DropDownItemClicked);
-            // 
-            // clearRecentFilesToolStripMenuItem
-            // 
-            this.clearRecentFilesToolStripMenuItem.Name = "clearRecentFilesToolStripMenuItem";
-            this.clearRecentFilesToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.clearRecentFilesToolStripMenuItem.Text = "&נקה רשימת קבצים אחרונים";
-            this.clearRecentFilesToolStripMenuItem.Click += new System.EventHandler(this.clearRecentFilesToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -1101,6 +1133,7 @@
             this.luachTableLayout.ResumeLayout(false);
             this.luachTableLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).EndInit();
+            this.pnlNextProblem.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -1185,6 +1218,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem recentFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearRecentFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem OpenBackupToolStripMenuItem;
+        private System.Windows.Forms.Panel pnlNextProblem;
 
 
 

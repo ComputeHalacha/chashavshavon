@@ -30,13 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblLocation = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.lblToday = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblWarning = new System.Windows.Forms.Label();
             this.lblZmanim = new System.Windows.Forms.Label();
-            this.lblLocation = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cmbMonth = new System.Windows.Forms.ComboBox();
@@ -55,19 +56,20 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.Lavender;
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.BackgroundImage = global::Chashavshavon.Properties.Resources.BlueMarble;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.label16);
@@ -76,16 +78,39 @@
             this.panel1.Controls.Add(this.lblTime);
             this.panel1.Controls.Add(this.lblWarning);
             this.panel1.Controls.Add(this.lblZmanim);
-            this.panel1.Location = new System.Drawing.Point(242, 5);
+            this.panel1.Location = new System.Drawing.Point(10, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(425, 101);
+            this.panel1.Size = new System.Drawing.Size(437, 101);
             this.panel1.TabIndex = 25;
+            // 
+            // panel3
+            // 
+            this.panel3.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
+            this.panel3.Controls.Add(this.lblLocation);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(435, 35);
+            this.panel3.TabIndex = 18;
+            // 
+            // lblLocation
+            // 
+            this.lblLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblLocation.BackColor = System.Drawing.Color.Transparent;
+            this.lblLocation.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblLocation.ForeColor = System.Drawing.Color.Lavender;
+            this.lblLocation.Location = new System.Drawing.Point(-106, 3);
+            this.lblLocation.Name = "lblLocation";
+            this.lblLocation.Size = new System.Drawing.Size(540, 26);
+            this.lblLocation.TabIndex = 11;
+            this.lblLocation.Text = "זמנים לקרית ספר";
+            this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label16
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(382, 79);
+            this.label16.Location = new System.Drawing.Point(394, 79);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(37, 15);
             this.label16.TabIndex = 17;
@@ -94,7 +119,7 @@
             // lblToday
             // 
             this.lblToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblToday.Location = new System.Drawing.Point(141, 79);
+            this.lblToday.Location = new System.Drawing.Point(153, 79);
             this.lblToday.Name = "lblToday";
             this.lblToday.Size = new System.Drawing.Size(241, 15);
             this.lblToday.TabIndex = 16;
@@ -104,7 +129,7 @@
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(60, 79);
+            this.label15.Location = new System.Drawing.Point(76, 79);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(81, 15);
             this.label15.TabIndex = 15;
@@ -113,7 +138,7 @@
             // lblTime
             // 
             this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTime.Location = new System.Drawing.Point(4, 79);
+            this.lblTime.Location = new System.Drawing.Point(20, 79);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(56, 15);
             this.lblTime.TabIndex = 14;
@@ -122,7 +147,7 @@
             // lblWarning
             // 
             this.lblWarning.AutoSize = true;
-            this.lblWarning.BackColor = System.Drawing.Color.Lavender;
+            this.lblWarning.BackColor = System.Drawing.Color.Transparent;
             this.lblWarning.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblWarning.ForeColor = System.Drawing.Color.SlateGray;
             this.lblWarning.Location = new System.Drawing.Point(5, 38);
@@ -137,28 +162,18 @@
             this.lblZmanim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZmanim.AutoSize = true;
             this.lblZmanim.Font = new System.Drawing.Font("Narkisim", 13F);
-            this.lblZmanim.Location = new System.Drawing.Point(321, 39);
+            this.lblZmanim.Location = new System.Drawing.Point(333, 39);
             this.lblZmanim.Name = "lblZmanim";
             this.lblZmanim.Size = new System.Drawing.Size(94, 36);
             this.lblZmanim.TabIndex = 12;
             this.lblZmanim.Text = "שקיעה: 13:44\r\nנץ: 14:54";
             // 
-            // lblLocation
-            // 
-            this.lblLocation.BackColor = System.Drawing.Color.Transparent;
-            this.lblLocation.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.lblLocation.ForeColor = System.Drawing.Color.Lavender;
-            this.lblLocation.Location = new System.Drawing.Point(3, 3);
-            this.lblLocation.Name = "lblLocation";
-            this.lblLocation.Size = new System.Drawing.Size(418, 26);
-            this.lblLocation.TabIndex = 11;
-            this.lblLocation.Text = "זמנים לקרית ספר";
-            this.lblLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 9);
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Location = new System.Drawing.Point(659, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(25, 15);
             this.label3.TabIndex = 22;
@@ -176,6 +191,7 @@
             // 
             // cmbMonth
             // 
+            this.cmbMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbMonth.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cmbMonth.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbMonth.DisplayMember = "MonthName";
@@ -183,7 +199,7 @@
             this.cmbMonth.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbMonth.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbMonth.FormattingEnabled = true;
-            this.cmbMonth.Location = new System.Drawing.Point(72, 27);
+            this.cmbMonth.Location = new System.Drawing.Point(545, 30);
             this.cmbMonth.Name = "cmbMonth";
             this.cmbMonth.Size = new System.Drawing.Size(80, 23);
             this.cmbMonth.TabIndex = 15;
@@ -192,6 +208,7 @@
             // 
             // cmbDay
             // 
+            this.cmbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbDay.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cmbDay.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbDay.DisplayMember = "Value";
@@ -199,7 +216,7 @@
             this.cmbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbDay.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbDay.FormattingEnabled = true;
-            this.cmbDay.Location = new System.Drawing.Point(13, 27);
+            this.cmbDay.Location = new System.Drawing.Point(631, 30);
             this.cmbDay.Name = "cmbDay";
             this.cmbDay.Size = new System.Drawing.Size(53, 23);
             this.cmbDay.TabIndex = 14;
@@ -208,13 +225,14 @@
             // 
             // cmbYear
             // 
+            this.cmbYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbYear.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cmbYear.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbYear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbYear.ForeColor = System.Drawing.Color.SaddleBrown;
             this.cmbYear.FormattingEnabled = true;
-            this.cmbYear.Location = new System.Drawing.Point(158, 27);
+            this.cmbYear.Location = new System.Drawing.Point(469, 30);
             this.cmbYear.Name = "cmbYear";
             this.cmbYear.Size = new System.Drawing.Size(71, 23);
             this.cmbYear.TabIndex = 16;
@@ -226,9 +244,9 @@
             this.rbDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbDay.Location = new System.Drawing.Point(579, 50);
+            this.rbDay.Location = new System.Drawing.Point(580, 50);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(49, 20);
+            this.rbDay.Size = new System.Drawing.Size(48, 18);
             this.rbDay.TabIndex = 19;
             this.rbDay.Text = "יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -236,8 +254,10 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(155, 9);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(510, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 15);
             this.label1.TabIndex = 17;
@@ -251,7 +271,7 @@
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbNight.Location = new System.Drawing.Point(571, 30);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(57, 20);
+            this.rbNight.Size = new System.Drawing.Size(57, 18);
             this.rbNight.TabIndex = 18;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "לילה";
@@ -259,8 +279,10 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(71, 9);
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Location = new System.Drawing.Point(588, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 15);
             this.label2.TabIndex = 20;
@@ -281,6 +303,12 @@
             // 
             this.btnEnter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEnter.BackColor = System.Drawing.Color.Lavender;
+            this.btnEnter.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
+            this.btnEnter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnEnter.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEnter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEnter.Font = new System.Drawing.Font("Narkisim", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnEnter.ForeColor = System.Drawing.Color.Lavender;
             this.btnEnter.Location = new System.Drawing.Point(524, 145);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(104, 28);
@@ -301,7 +329,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.rbNight);
             this.groupBox1.Controls.Add(this.rbDay);
-            this.groupBox1.Location = new System.Drawing.Point(18, 154);
+            this.groupBox1.Location = new System.Drawing.Point(21, 266);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.groupBox1.Size = new System.Drawing.Size(645, 182);
@@ -312,7 +340,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox2.Location = new System.Drawing.Point(18, 18);
+            this.groupBox2.Location = new System.Drawing.Point(21, 134);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(645, 113);
             this.groupBox2.TabIndex = 27;
@@ -339,8 +367,14 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.BackColor = System.Drawing.Color.Lavender;
+            this.btnClose.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
+            this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point(560, 477);
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Narkisim", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnClose.ForeColor = System.Drawing.Color.Lavender;
+            this.btnClose.Location = new System.Drawing.Point(11, 13);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(104, 28);
             this.btnClose.TabIndex = 28;
@@ -352,7 +386,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Narkisim", 9F);
-            this.label5.Location = new System.Drawing.Point(184, 132);
+            this.label5.Location = new System.Drawing.Point(158, 248);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(370, 12);
             this.label5.TabIndex = 29;
@@ -360,47 +394,48 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.BlueMarble;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.groupBox2);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.groupBox1);
-            this.panel2.Location = new System.Drawing.Point(-4, 112);
+            this.panel2.Controls.Add(this.cmbYear);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.cmbMonth);
+            this.panel2.Controls.Add(this.cmbDay);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.panel1);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Location = new System.Drawing.Point(-1, -1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(682, 350);
+            this.panel2.Size = new System.Drawing.Size(694, 129);
             this.panel2.TabIndex = 30;
             // 
-            // panel3
+            // panel4
             // 
-            this.panel3.BackgroundImage = global::Chashavshavon.Properties.Resources.ButtonBackground;
-            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel3.Controls.Add(this.lblLocation);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(423, 35);
-            this.panel3.TabIndex = 18;
+            this.panel4.BackgroundImage = global::Chashavshavon.Properties.Resources.BlueMarble;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.btnClose);
+            this.panel4.Location = new System.Drawing.Point(-1, 456);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(694, 59);
+            this.panel4.TabIndex = 31;
             // 
             // frmAddNewEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Lavender;
+            this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(672, 510);
+            this.ClientSize = new System.Drawing.Size(687, 510);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.cmbYear);
-            this.Controls.Add(this.cmbDay);
-            this.Controls.Add(this.cmbMonth);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmAddNewEntry";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
@@ -410,12 +445,13 @@
             this.TopMost = true;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,8 +484,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel4;
 
 
     }

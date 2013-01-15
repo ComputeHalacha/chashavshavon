@@ -68,7 +68,7 @@ namespace Chashavshavon
                 Properties.Settings.Default.CurrentFile = null;
                 Properties.Settings.Default.IsCurrentFileRemote = false;
             }
-            
+
             //the temp folder is only deleted if the user manually closed the app.
             //Otherwise we may be in an installer run and do not want to delete the installation files.
             Program.BeforeExit(e.CloseReason == CloseReason.UserClosing);
@@ -284,6 +284,13 @@ namespace Chashavshavon
                 ab.ShowDialog(this);
             }
         }
+
+
+        private void OpenBackupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Program.BackupFolderPath);
+        }
+
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -589,10 +596,6 @@ namespace Chashavshavon
             }
             this.ProblemOnas.Clear();
 
-            //A list of 8 Onahs starting from yesterday until 2 days from now. Will be used to display 
-            //in the problem days list.
-            var onahs = GetCalendarOnahs();
-
             //A list of Onahs that need to be kept. This first list is worked out from the list of Entries.
             //Problem Onahs are searched for from the date of each entry until the number of months specified in the 
             //Property Setting "numberMonthsAheadToWarn"
@@ -601,7 +604,7 @@ namespace Chashavshavon
             //Get the onahs that need to be kept for Kavuahs of yom hachodesh, sirug, 
             //dilug (from projected day - not actual entry)
             //and other Kavuahs that are not dependent on the actual entry list
-            this.SetIndependentKavuahProblemOnahs(onahs);
+            this.SetIndependentKavuahProblemOnahs();
 
             //Clean out doubles
             //TODO:Figure out why more than just doubles are getting deleted from the following
@@ -619,28 +622,6 @@ namespace Chashavshavon
                 this.SetOnahBeinenisProblemOnahs(entry);
                 this.SetEntryDependentKavuahProblemOnahs(entry);
             }
-        }
-
-        private List<Onah> GetCalendarOnahs()
-        {
-            var onahs = new List<Onah>();
-            var days = new DateTime[4];
-            DateTime yesterday = Program.Today.AddDays(-1),
-                     tomorrow = Program.Today.AddDays(1),
-                     dayAfterTomorrow = Program.Today.AddDays(2);
-
-            days[0] = yesterday;
-            days[1] = Program.Today;
-            days[2] = tomorrow;
-            days[3] = dayAfterTomorrow;
-
-            foreach (DateTime date in days)
-            {
-                onahs.Add(new Onah(date, DayNight.Night));
-                onahs.Add(new Onah(date, DayNight.Day));
-            }
-
-            return onahs;
         }
 
         private void SetOnahBeinenisProblemOnahs(Entry entry)
@@ -838,7 +819,7 @@ namespace Chashavshavon
         /// </summary>
         /// <param name="onahs"></param>
         /// <returns></returns>
-        private void SetIndependentKavuahProblemOnahs(List<Onah> onahs)
+        private void SetIndependentKavuahProblemOnahs()
         {
             //Kavuahs of Yom Hachodesh and Sirug
             foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
@@ -1128,6 +1109,29 @@ namespace Chashavshavon
             }
         }
 
+        private void CreateLocalBackup()
+        {
+            var bgw = new System.ComponentModel.BackgroundWorker();
+            bgw.DoWork += delegate
+            {
+                if (File.Exists(this.CurrentFile))
+                {
+                    string path = Program.BackupFolderPath + "\\" +
+                        Path.GetFileNameWithoutExtension(this.CurrentFile) +
+                        "_" +
+                        DateTime.Now.ToString("d-MMM-yy_HH-mm-ss", System.Globalization.CultureInfo.GetCultureInfo("en-us").DateTimeFormat) +
+                        ".pm";
+                    if (File.Exists(path))
+                    {
+                        path = path.Replace(".pm", "_Version_1" + DateTime.Now.Millisecond.ToString() + ".pm");
+                    }
+                    File.Copy(this.CurrentFile, path, false);
+                    File.SetAttributes(path, FileAttributes.ReadOnly);
+                }
+            };
+            bgw.RunWorkerAsync();
+        }
+
         private frmBrowser ShowCalendarTextList(bool print = false)
         {
             var fb = new frmBrowser(print);
@@ -1292,8 +1296,8 @@ namespace Chashavshavon
             {
                 Panel dow = new Panel()
                 {
-                    BackgroundImage = Properties.Resources.ButtonBackground,
-                    BackgroundImageLayout = ImageLayout.Stretch,
+                    BackgroundImage = Properties.Resources.DarkBlueMarbleBar,
+                    BackgroundImageLayout = ImageLayout.Tile,
                     Margin = new Padding(0),
                     Height = 20,
                     Padding = new Padding(0),
@@ -1321,7 +1325,9 @@ namespace Chashavshavon
                 {
                     Dock = DockStyle.Fill,
                     Margin = new Padding(0),
-                    BackColor = Color.White,
+                    BackColor = Color.Transparent,
+                    BackgroundImage = Properties.Resources.WhiteMarble,
+                    BackgroundImageLayout = ImageLayout.Stretch,
                     Tag = date
                 };
 
@@ -1331,7 +1337,7 @@ namespace Chashavshavon
                     Dock = DockStyle.Top,
                     Height = 40,
                     Font = new Font("Verdana", 18f, FontStyle.Bold),
-                    ForeColor = Color.LightSlateGray,
+                    ForeColor = Color.Maroon,
                     Text = Zmanim.DaysOfMonthHebrew[i].Replace("\"", "").Replace("\'", ""),
                     TextAlign = ContentAlignment.MiddleCenter,
                     RightToLeft = System.Windows.Forms.RightToLeft.Yes
@@ -1344,7 +1350,8 @@ namespace Chashavshavon
                 }
                 if (daySpecialText.Length > 0)
                 {
-                    pnl.BackColor = Color.Lavender;
+                    pnl.BackgroundImage = Properties.Resources.BlueMarble;
+                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
@@ -1378,7 +1385,9 @@ namespace Chashavshavon
                     en.DateTime == date);
                 if (entry != null)
                 {
-                    pnl.BackColor = Color.FromArgb(255, 230, 230);
+                    pnl.BackgroundImage = Properties.Resources.PinkMarbleTile;
+                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
+                    pnl.BackColor = Color.Transparent;
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
@@ -1391,11 +1400,14 @@ namespace Chashavshavon
                 }
                 else if (!string.IsNullOrEmpty(onahText))
                 {
-                    pnl.BackColor = Color.FromArgb(255, 255, 195);
+                    pnl.BackgroundImage = Properties.Resources.ParchmentMarbleTile;
+                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
+                    pnl.BackColor = Color.Transparent;
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
-                        Text = onahText.Substring(0, 17).PadRight(20, '.'),
+                        Text = (onahText.Length >= 18 ? 
+                            onahText.Substring(0, 17) : onahText).PadRight(20, '.'),
                         TextAlign = ContentAlignment.TopCenter,
                         Font = new Font(Font.FontFamily, 7f),
                         ForeColor = Color.Black,
@@ -1404,7 +1416,8 @@ namespace Chashavshavon
                 }
                 else if (currentColumn == luachTableLayout.ColumnCount - 1)
                 {
-                    pnl.BackColor = Color.Lavender;
+                    pnl.BackgroundImage = Properties.Resources.BlueMarble;
+                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
                 }
 
                 foreach (Label lbl in pnl.Controls.OfType<Label>())
@@ -1636,6 +1649,7 @@ namespace Chashavshavon
 
         public void LoadXmlFile()
         {
+            this.CreateLocalBackup();
             //Clear previous list data
             Entry.EntryList.Clear();
             //Clear previous Kavuahs
@@ -1801,6 +1815,7 @@ namespace Chashavshavon
                 this.SetCaptionText();
             }
         }
+
         public bool CurrentFileIsRemote
         {
             get
@@ -1838,6 +1853,7 @@ namespace Chashavshavon
                 return (string.IsNullOrWhiteSpace(xml) ? "<Entries />" : xml);
             }
         }
+
         public string CurrentFileName
         {
             get

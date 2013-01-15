@@ -30,5 +30,6 @@ namespace Chashavshavon
         private Label lblVersion;
         private LinkLabel llContact;
         private LinkLabel llGetLatestVersion;
+        private Panel panel2;
     }
 }

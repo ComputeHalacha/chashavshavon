@@ -299,6 +299,13 @@
     <None Include="Resources\ButtonBackgroundDark.gif" />
     <None Include="Resources\refresh.png" />
     <None Include="Resources\refresh1.png" />
+    <None Include="Resources\Marble\BlueMarble.jpg" />
+    <None Include="Resources\Marble\DarkMarble.jpg" />
+    <None Include="Resources\Marble\DarkMarbleBar.jpg" />
+    <None Include="Resources\Marble\DarkMarbleTile.jpg" />
+    <None Include="Resources\Marble\ParchmentMarbleTile.jpg" />
+    <None Include="Resources\Marble\PinkMarbleTile.jpg" />
+    <None Include="Resources\Marble\WhiteMarble.jpg" />
     <Content Include="scroll.ico" />
     <Content Include="Places.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -359,6 +366,7 @@
       <DefaultIcon>chash.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

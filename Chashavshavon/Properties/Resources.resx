@@ -199,4 +199,25 @@
   <data name="SendErrorReportURL" xml:space="preserve">
     <value>/Services/SendAppErrReport.svc/SendReport</value>
   </data>
+  <data name="BlueMarble" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Marble\BlueMarble.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DarkBlueMarbleBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Marble\DarkMarbleBar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DarkBlueMarbleTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Marble\DarkMarbleTile.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DarkMarble" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Marble\DarkMarble.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ParchmentMarbleTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Marble\ParchmentMarbleTile.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PinkMarbleTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Marble\PinkMarbleTile.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WhiteMarble" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Marble\WhiteMarble.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

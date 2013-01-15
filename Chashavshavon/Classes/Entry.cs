@@ -40,13 +40,14 @@ namespace Chashavshavon
         public bool IsInvisible { get; set; }
         
         /// <summary>
-        /// If during the addition of a new Entry the program finds 
-        /// a set of 3 entries that might have been considered a Kavuah;
+        /// If during a search for Kavuahs 
+        /// (I.E. after the addition of a new Entry or during a "search for Kavuah" button click event)
+        /// the program finds a set of 3 entries that might have been considered a Kavuah;
         /// such as if there are 3 of the same haflagas in a row,
         /// the user is prompted to create a new kavuah. If they choose not to,
         /// a NoKavuah element is added to the 3rd entry so the user 
-        /// won't be prompted again each time the list is reloaded.
-        /// The reason this is a list, is because there can be different types of Kavuahs on a single day. 
+        /// won't be prompted again when the list is searched again for possible Kavuahs.
+        /// The reason this is a collection, is because there can be different types of Kavuahs on a single day. 
         /// </summary>        
         public List<Kavuah> NoKavuahList { 
             get 
