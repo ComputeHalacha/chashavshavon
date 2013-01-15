@@ -44,7 +44,7 @@ namespace Chashavshavon
 
             if (!Directory.Exists(Program.BackupFolderPath))
             {
-                Directory.CreateDirectory(Program.BackupFolderPath);
+                Directory.CreateDirectory(Program.BackupFolderPath);                
             }                
 
             if (string.IsNullOrEmpty(Properties.Settings.Default.ChashFilesPath))

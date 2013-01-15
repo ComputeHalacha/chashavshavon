@@ -1125,8 +1125,7 @@ namespace Chashavshavon
                     {
                         path = path.Replace(".pm", "_Version_1" + DateTime.Now.Millisecond.ToString() + ".pm");
                     }
-                    File.Copy(this.CurrentFile, path, false);
-                    File.SetAttributes(path, FileAttributes.ReadOnly);
+                    File.Copy(this.CurrentFile, path);                    
                 }
             };
             bgw.RunWorkerAsync();
