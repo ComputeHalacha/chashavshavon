@@ -53,7 +53,7 @@ namespace Chashavshavon
         public override string ToString()
         {
             return this.DateTime.ToString("dddd dd MMM yyyy", Program.CultureInfo) +
-                " <עונת " + this.HebrewDayNight + ">";
+                " [עונת " + this.HebrewDayNight + "]";
         }
 
         public Onah Clone()

@@ -98,7 +98,7 @@ namespace Chashavshavon
             {
                 sb.Append(" - ע\"פ מעיין פתוח ");
             }
-            sb.AppendFormat("<עונת {0}> {1}", (this.DayNight == DayNight.Day ? "יום" : "לילה"), this.Notes);
+            sb.AppendFormat("[עונת {0}] {1}", (this.DayNight == DayNight.Day ? "יום" : "לילה"), this.Notes);
             return sb.ToString();
         }
         #endregion

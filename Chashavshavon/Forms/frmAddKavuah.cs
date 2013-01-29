@@ -159,9 +159,9 @@ namespace Chashavshavon
 
                 if (AddedKavuah.DayNight != entry.DayNight)
                 {
-                    if (MessageBox.Show("העונה של הראייה הקובעת הוא <עונת " +
+                    if (MessageBox.Show("העונה של הראייה הקובעת הוא [עונת " +
                             entry.HebrewDayNight +
-                            ">,\nאבל העונה שנבחרה להקבוע החדש הוא " +
+                            "[,\nאבל העונה שנבחרה להקבוע החדש הוא " +
                             this.AddedKavuah.ToString() +
                             ".\nהאם להמשיך בכל זאת?",
                         "חשבשבון",

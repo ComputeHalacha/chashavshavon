@@ -155,8 +155,8 @@ namespace Chashavshavon
                 {
                     foreach (var o in pOnahs)
                     {
-                        string name = "● " + (o.IsIgnored ? "[" : "") + o.HebrewDayNight + 
-                            " - " + o.Name + (o.IsIgnored ? "]" : "");
+                        string name = "♦ " + (o.IsIgnored ? "[" : "") + o.HebrewDayNight + 
+                            ": " + o.Name + (o.IsIgnored ? "]" : "");
                         this.tableLayoutPanel1.Controls.Add(new Label()
                         {
                             Text = name,

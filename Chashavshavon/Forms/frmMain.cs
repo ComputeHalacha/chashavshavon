@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Chashavshavon.Utils;
 using Microsoft.Win32;
+using System.Globalization;
 
 namespace Chashavshavon
 {
@@ -646,7 +647,7 @@ namespace Chashavshavon
             if (Properties.Settings.Default.ShowOhrZeruah)
             {
                 Onah thirtyOhrZarua = Onah.GetPreviousOnah(thirty);
-                thirtyOhrZarua.Name = "או\"ז - יום שלושים";
+                thirtyOhrZarua.Name = "או\"ז של יום שלושים";
                 thirtyOhrZarua.IsIgnored = cancelOnahBeinenis;
                 this.ProblemOnas.Add(thirtyOhrZarua);
             }
@@ -667,7 +668,7 @@ namespace Chashavshavon
             if (Properties.Settings.Default.ShowOhrZeruah)
             {
                 Onah thirtyOneOhrZarua = Onah.GetPreviousOnah(thirtyOne);
-                thirtyOneOhrZarua.Name = "או\"ז - יום ל\"א";
+                thirtyOneOhrZarua.Name = "או\"ז של יום ל\"א";
                 thirtyOneOhrZarua.IsIgnored = cancelOnahBeinenis;
                 this.ProblemOnas.Add(thirtyOneOhrZarua);
             }
@@ -685,7 +686,7 @@ namespace Chashavshavon
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         Onah intervalHaflagahOhrZarua = Onah.GetPreviousOnah(intervalHaflagah);
-                        intervalHaflagahOhrZarua.Name = "או\"ז - " + intervalHaflagah.Name;
+                        intervalHaflagahOhrZarua.Name = "או\"ז של " + intervalHaflagah.Name;
                         intervalHaflagahOhrZarua.IsIgnored = cancelOnahBeinenis;
                         this.ProblemOnas.Add(intervalHaflagahOhrZarua);
                     }
@@ -725,7 +726,7 @@ namespace Chashavshavon
                         if (Properties.Settings.Default.ShowOhrZeruah)
                         {
                             Onah ooz = Onah.GetPreviousOnah(on);
-                            ooz.Name = "או\"ז - " + on.Name;
+                            ooz.Name = "או\"ז של " + on.Name;
                             ooz.IsIgnored = cancelOnahBeinenis;
                             this.ProblemOnas.Add(ooz);
                         }
@@ -744,7 +745,7 @@ namespace Chashavshavon
                         if (Properties.Settings.Default.ShowOhrZeruah)
                         {
                             Onah ooz = Onah.GetPreviousOnah(on);
-                            ooz.Name = "או\"ז - " + on.Name;
+                            ooz.Name = "או\"ז של " + on.Name;
                             ooz.IsIgnored = cancelOnahBeinenis;
                             this.ProblemOnas.Add(ooz);
                         }
@@ -767,7 +768,7 @@ namespace Chashavshavon
                 if (Properties.Settings.Default.ShowOhrZeruah)
                 {
                     Onah kavuahHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahHaflaga);
-                    kavuahHaflagaOhrZarua.Name = " או\"ז - " + kavuahHaflaga.Name;
+                    kavuahHaflagaOhrZarua.Name = " או\"ז של " + kavuahHaflaga.Name;
                     this.ProblemOnas.Add(kavuahHaflagaOhrZarua);
                 }
             }
@@ -786,7 +787,7 @@ namespace Chashavshavon
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         Onah kavuahDilugHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahDilugHaflaga);
-                        kavuahDilugHaflagaOhrZarua.Name = " או\"ז - " + kavuahDilugHaflaga.Name;
+                        kavuahDilugHaflagaOhrZarua.Name = " או\"ז של " + kavuahDilugHaflaga.Name;
                         this.ProblemOnas.Add(kavuahDilugHaflagaOhrZarua);
                     }
                 }
@@ -806,7 +807,7 @@ namespace Chashavshavon
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         Onah kavuahDilugDayofMonthOhrZarua = Onah.GetPreviousOnah(kavuahDilugDayofMonth);
-                        kavuahDilugDayofMonthOhrZarua.Name = " או\"ז - " + kavuahDilugDayofMonth.Name;
+                        kavuahDilugDayofMonthOhrZarua.Name = " או\"ז של " + kavuahDilugDayofMonth.Name;
                         this.ProblemOnas.Add(kavuahDilugDayofMonthOhrZarua);
                     }
                 }
@@ -843,7 +844,7 @@ namespace Chashavshavon
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         var ooz = Onah.GetPreviousOnah(o);
-                        ooz.Name = " או\"ז - " + o.Name;
+                        ooz.Name = " או\"ז של " + o.Name;
                         this.ProblemOnas.Add(ooz);
                     }
                 }
@@ -865,7 +866,7 @@ namespace Chashavshavon
                     if (Properties.Settings.Default.ShowOhrZeruah)
                     {
                         var ooz = Onah.GetPreviousOnah(o);
-                        ooz.Name = " או\"ז - " + o.Name;
+                        ooz.Name = " או\"ז של " + o.Name;
                         this.ProblemOnas.Add(ooz);
                     }
                 }
@@ -898,7 +899,7 @@ namespace Chashavshavon
                         if (Properties.Settings.Default.ShowOhrZeruah)
                         {
                             var ooz = Onah.GetPreviousOnah(o);
-                            ooz.Name = " או\"ז - " + o.Name;
+                            ooz.Name = " או\"ז של " + o.Name;
                             this.ProblemOnas.Add(ooz);
                         }
                     }
@@ -933,7 +934,7 @@ namespace Chashavshavon
                         if (Properties.Settings.Default.ShowOhrZeruah)
                         {
                             var ooz = Onah.GetPreviousOnah(o);
-                            ooz.Name = " או\"ז - " + o.Name;
+                            ooz.Name = " או\"ז של " + o.Name;
                             this.ProblemOnas.Add(ooz);
                         }
                     }
@@ -987,7 +988,7 @@ namespace Chashavshavon
             {
                 if (onahsToAdd.Exists(o => Onah.IsSameOnahPeriod(o, onah) && o.IsIgnored == onah.IsIgnored))
                 {
-                    onahsToAdd.Where(o => Onah.IsSameOnahPeriod(o, onah)).First().Name += " וגם " + onah.Name;
+                    onahsToAdd.Where(o => Onah.IsSameOnahPeriod(o, onah)).First().Name += ", וגם " + onah.Name;
                 }
                 else
                 {
@@ -1119,7 +1120,7 @@ namespace Chashavshavon
                     string path = Program.BackupFolderPath + "\\" +
                         Path.GetFileNameWithoutExtension(this.CurrentFile) +
                         "_" +
-                        DateTime.Now.ToString("d-MMM-yy_HH-mm-ss", System.Globalization.CultureInfo.GetCultureInfo("en-us").DateTimeFormat) +
+                        DateTime.Now.ToString("d-MMM-yy_HH-mm-ss", CultureInfo.GetCultureInfo("en-us").DateTimeFormat) +
                         ".pm";
                     if (File.Exists(path))
                     {
@@ -1258,6 +1259,7 @@ namespace Chashavshavon
             DateTime firstDayOfMonth = this._monthToDisplay.AddDays(1 - Program.HebrewCalendar.GetDayOfMonth(this._monthToDisplay));
             int firstDayOfWeek = 1 + (int)firstDayOfMonth.DayOfWeek;
             int currentRow = 1, currentColumn = firstDayOfWeek - 1;
+            var sysCulture = CultureInfo.InstalledUICulture.DateTimeFormat;
 
             this.luachTableLayout.Visible = false;
             this.luachTableLayout.SuspendLayout();
@@ -1320,6 +1322,7 @@ namespace Chashavshavon
                     Program.HebrewCalendar.GetMonth(this._monthToDisplay),
                     i,
                     Program.HebrewCalendar);
+                
                 Panel pnl = new Panel()
                 {
                     Dock = DockStyle.Fill,
@@ -1331,17 +1334,32 @@ namespace Chashavshavon
                 };
 
                 pnl.Click += new EventHandler(AddNewEntry);
-                pnl.Controls.Add(new Label()
+                var flp = new FlowLayoutPanel()
                 {
                     Dock = DockStyle.Top,
                     Height = 40,
+                    Margin=new Padding(0),
+                    Padding = new Padding(0)
+                };
+                flp.Controls.Add(new Label()
+                {
                     Font = new Font("Verdana", 18f, FontStyle.Bold),
                     ForeColor = Color.Maroon,
                     Text = Zmanim.DaysOfMonthHebrew[i].Replace("\"", "").Replace("\'", ""),
-                    TextAlign = ContentAlignment.MiddleCenter,
+                    TextAlign = ContentAlignment.MiddleLeft,
                     RightToLeft = System.Windows.Forms.RightToLeft.Yes
                 });
 
+                flp.Controls.Add(new Label()
+                {
+                    Font = new Font("comic sans", 8f, FontStyle.Bold),
+                    ForeColor = Color.DarkSlateBlue,
+                    Text = date.ToString("%d", sysCulture),                    
+                    TextAlign = ContentAlignment.MiddleRight
+                });
+
+                pnl.Controls.Add(flp);
+                
                 string daySpecialText = "";
                 foreach (string holiday in JewishHolidays.GetHebrewHolidays(date, Program.CurrentPlace.IsInIsrael))
                 {
@@ -1372,10 +1390,9 @@ namespace Chashavshavon
                     {
                         foreach (var o in pOnahs)
                         {
-                            onahText += (o.IsIgnored ? "[" : "") + o.HebrewDayNight + " - " +
+                            onahText += "\t♦  " + (o.IsIgnored ? "[" : "") + o.HebrewDayNight + ": " +
                                 o.Name + (o.IsIgnored ? "]" : "") + Environment.NewLine;
-                        }
-                        this.toolTip1.SetToolTip(pnl, onahText);
+                        }                        
                     }
                 }
 
@@ -1411,7 +1428,7 @@ namespace Chashavshavon
                         Font = new Font(Font.FontFamily, 7f),
                         ForeColor = Color.Black,
                         RightToLeft = System.Windows.Forms.RightToLeft.Yes
-                    });
+                    });                    
                 }
                 else if (currentColumn == luachTableLayout.ColumnCount - 1)
                 {
@@ -1419,14 +1436,19 @@ namespace Chashavshavon
                     pnl.BackgroundImageLayout = ImageLayout.Stretch;
                 }
 
-                foreach (Label lbl in pnl.Controls.OfType<Label>())
+                string toolTipText = date.ToLongDateString() + 
+                    Environment.NewLine + 
+                    date.ToString("D", sysCulture) + 
+                    (!string.IsNullOrWhiteSpace(onahText) ? 
+                        Environment.NewLine + "--------------------------------" + Environment.NewLine + onahText : "");
+
+                this.toolTip1.SetToolTip(pnl, toolTipText);                
+
+                foreach (Control lbl in pnl.Controls)
                 {
                     lbl.Tag = date;
                     lbl.Click += new EventHandler(AddNewEntry);
-                    if (!string.IsNullOrEmpty(onahText))
-                    {
-                        this.toolTip1.SetToolTip(lbl, onahText);
-                    }
+                    this.toolTip1.SetToolTip(lbl, toolTipText);                    
                 }
 
                 if (Program.Today.IsSameday(date))
