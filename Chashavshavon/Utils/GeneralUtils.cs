@@ -68,6 +68,18 @@ namespace Chashavshavon.Utils
             return System.Text.Encoding.Unicode.GetString(ms.ToArray());
         }
 
+        //Recursively gets all controls contained in the given control or any of it's descendants
+        public static System.Collections.Generic.IEnumerable<System.Windows.Forms.Control> GetAllControls(System.Windows.Forms.Control control)
+        {
+            var l = new System.Collections.Generic.List<System.Windows.Forms.Control>();
+            l.Add(control);
+            foreach (System.Windows.Forms.Control c in control.Controls)
+            {
+                l.AddRange(GetAllControls(c));
+            }
+            return l;
+        }
+
         #endregion
 
        

@@ -1329,36 +1329,57 @@ namespace Chashavshavon
                     Margin = new Padding(0),
                     BackColor = Color.Transparent,
                     BackgroundImage = Properties.Resources.WhiteMarble,
-                    BackgroundImageLayout = ImageLayout.Stretch,
-                    Tag = date
+                    BackgroundImageLayout = ImageLayout.Stretch                    
                 };
 
-                pnl.Click += new EventHandler(AddNewEntry);
-                var flp = new FlowLayoutPanel()
+                if (Program.Today.IsSameday(date))
                 {
-                    Dock = DockStyle.Top,
-                    Height = 40,
+                    pnl.Padding = new Padding(2);
+                    Panel border = new Panel()
+                    {
+                        Dock = DockStyle.Fill,
+                        Margin = new Padding(0),
+                        Padding = new Padding(3),
+                        BackColor = Color.LightSlateGray
+                    };
+                    border.Controls.Add(pnl);
+                    this.luachTableLayout.Controls.Add(border, currentColumn, currentRow);
+                }
+                else
+                {
+                    this.luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);
+                }
+                
+                var itlp = new TableLayoutPanel()
+                { 
+                    ColumnCount = 2,
+                    RowCount = 1,                    
+                    Height=40,                    
+                    Dock = DockStyle.Top,                    
                     Margin=new Padding(0),
                     Padding = new Padding(0)
                 };
-                flp.Controls.Add(new Label()
-                {
+                                
+                itlp.Controls.Add(new Label()
+                {                    
+                    Dock = DockStyle.Fill,
+                    AutoSize = true,                    
                     Font = new Font("Verdana", 18f, FontStyle.Bold),
                     ForeColor = Color.Maroon,
-                    Text = Zmanim.DaysOfMonthHebrew[i].Replace("\"", "").Replace("\'", ""),
-                    TextAlign = ContentAlignment.MiddleLeft,
-                    RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                    Text = Zmanim.DaysOfMonthHebrew[i].Replace("\"", "").Replace("\'", ""),                    
                 });
 
-                flp.Controls.Add(new Label()
+                itlp.Controls.Add(new Label()
                 {
-                    Font = new Font("comic sans", 8f, FontStyle.Bold),
+                    Dock = DockStyle.Fill,
+                    AutoSize = true,                    
+                    TextAlign=ContentAlignment.TopRight,
+                    Font = new Font("Verdana", 8f, FontStyle.Bold),
                     ForeColor = Color.DarkSlateBlue,
-                    Text = date.ToString("%d", sysCulture),                    
-                    TextAlign = ContentAlignment.MiddleRight
+                    Text = date.ToString("%d", sysCulture)                    
                 });
 
-                pnl.Controls.Add(flp);
+                pnl.Controls.Add(itlp);
                 
                 string daySpecialText = "";
                 foreach (string holiday in JewishHolidays.GetHebrewHolidays(date, Program.CurrentPlace.IsInIsrael))
@@ -1442,31 +1463,13 @@ namespace Chashavshavon
                     (!string.IsNullOrWhiteSpace(onahText) ? 
                         Environment.NewLine + "--------------------------------" + Environment.NewLine + onahText : "");
 
-                this.toolTip1.SetToolTip(pnl, toolTipText);                
-
-                foreach (Control lbl in pnl.Controls)
+                //Sets the tag, tooltip and click function for all controls of the day
+                foreach (Control cntrl in Utils.GeneralUtils.GetAllControls(this.luachTableLayout.GetControlFromPosition(currentColumn, currentRow)))
                 {
-                    lbl.Tag = date;
-                    lbl.Click += new EventHandler(AddNewEntry);
-                    this.toolTip1.SetToolTip(lbl, toolTipText);                    
-                }
-
-                if (Program.Today.IsSameday(date))
-                {
-                    Panel border = new Panel()
-                    {
-                        Dock = DockStyle.Fill,
-                        Margin = new Padding(0),
-                        Padding = new Padding(2),
-                        BackColor = Color.LightSlateGray
-                    };
-                    border.Controls.Add(pnl);
-                    this.luachTableLayout.Controls.Add(border, currentColumn, currentRow);
-                }
-                else
-                {
-                    this.luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);
-                }
+                    cntrl.Tag = date;
+                    cntrl.Click += new EventHandler(AddNewEntry);
+                    this.toolTip1.SetToolTip(cntrl, toolTipText);                   
+                }               
 
                 if (currentColumn == luachTableLayout.ColumnCount - 1)
                 {

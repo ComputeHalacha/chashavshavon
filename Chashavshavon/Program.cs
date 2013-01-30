@@ -44,8 +44,8 @@ namespace Chashavshavon
 
             if (!Directory.Exists(Program.BackupFolderPath))
             {
-                Directory.CreateDirectory(Program.BackupFolderPath);                
-            }                
+                Directory.CreateDirectory(Program.BackupFolderPath);
+            }
 
             if (string.IsNullOrEmpty(Properties.Settings.Default.ChashFilesPath))
             {
@@ -89,7 +89,7 @@ namespace Chashavshavon
                 {
                     Directory.Delete(Program.TempFolderPath, true);
                 }
-                catch(Exception ex) 
+                catch (Exception ex)
                 {
                     HandleException(ex, true);
                 }
@@ -129,7 +129,7 @@ namespace Chashavshavon
                         }
                     }
 
-                    if ((Utils.RemoteFunctions.IsConnectedToInternet() || Properties.Settings.Default.DevMode) &&                               
+                    if ((Utils.RemoteFunctions.IsConnectedToInternet() || Properties.Settings.Default.DevMode) &&
                                (silent ||
                                MessageBox.Show("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.",
                                                "חשבשבון",
@@ -156,7 +156,7 @@ namespace Chashavshavon
                             try
                             {
                                 File.AppendAllText(logFilePath,
-                                    "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + 
+                                    "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") +
                                     "\",\"While sending error info message - " +
                                     ex.Message + "\",\"" + ex.Source + "\",\"" + ex.TargetSite +
                                     "\"" + Environment.NewLine);
@@ -184,7 +184,7 @@ namespace Chashavshavon
         {
             return String.IsNullOrWhiteSpace(CurrentPlace.NameHebrew) ?
                 CurrentPlace.Name : CurrentPlace.NameHebrew;
-        }
+        }       
 
         #region Extention Methods
         /// <summary>
@@ -214,6 +214,6 @@ namespace Chashavshavon
                 HebrewCalendar.GetMonth(firstDate) == HebrewCalendar.GetMonth(secondDate) &&
                 HebrewCalendar.GetDayOfMonth(firstDate) == HebrewCalendar.GetDayOfMonth(secondDate));
         }
-        #endregion
+        #endregion        
     }
 }
