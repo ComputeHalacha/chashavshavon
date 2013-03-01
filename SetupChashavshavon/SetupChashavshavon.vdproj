@@ -174,7 +174,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_04E30C0A_0C2D_43C3_AAC5_FACEA56DA5A2"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
+            "CustomActionData" = "8:/Args=\"[TARGETDIR]Chashavshavon.exe\""
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_5E205F6479C44352A4093A62A077D080"
             {
@@ -188,7 +188,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_C70D1423_4617_421D_8C98_FBA25BA8E83B"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
+            "CustomActionData" = "8:/Args=\"[TARGETDIR]Chashavshavon.exe\""
             }
             "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_6D5420385FDF4DA8BA04391514A0E876"
             {
@@ -216,7 +216,7 @@
             "Sequence" = "3:1"
             "Identifier" = "8:_9F1AE0B5_8102_4F7D_A66A_C6E5598D8065"
             "InstallerClass" = "11:TRUE"
-            "CustomActionData" = "8:"
+            "CustomActionData" = "8:/Args=\"[TARGETDIR]Chashavshavon.exe\""
             }
         }
         "DefaultFeature"
