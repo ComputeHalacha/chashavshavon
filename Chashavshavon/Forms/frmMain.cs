@@ -463,13 +463,22 @@ namespace Chashavshavon
             if (!string.IsNullOrWhiteSpace(this.CurrentFile) && File.Exists(CurrentFile))
             {
                 SaveCurrentFile();
+
                 var notepad = new System.Diagnostics.Process();
+                int progThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;                 
+                
                 notepad.StartInfo.FileName = "notepad.exe";
                 notepad.StartInfo.Arguments = this.CurrentFile;
                 notepad.EnableRaisingEvents = true;
-                notepad.Exited += delegate { this.RefreshData(); };
+                notepad.Exited += delegate {                    
+                    //sometimes this is called twice - once in a different thread...
+                    if (progThreadId == System.Threading.Thread.CurrentThread.ManagedThreadId)
+                    {
+                        this.RefreshData();
+                    }
+                };
                 notepad.Start();
-                notepad.WaitForExit();
+                notepad.WaitForExit();                
                 notepad.Dispose();
             }
             else
