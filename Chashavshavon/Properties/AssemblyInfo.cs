@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("Chashavshavon")]
 [assembly: AssemblyCompany("Compute Software Solutions")]
 [assembly: AssemblyProduct("Chashavshavon")]
-[assembly: AssemblyCopyright("Compute Software Solutions 5772")]
+[assembly: AssemblyCopyright("Compute Software Solutions 5773")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,6 +30,6 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("4.1.8.0")]
-[assembly: AssemblyFileVersion("4.1.8.0")]
+[assembly: AssemblyVersion("4.1.9.0")]
+[assembly: AssemblyFileVersion("4.1.9.0")]
 [assembly: NeutralResourcesLanguageAttribute("he")]
