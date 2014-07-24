@@ -15,41 +15,45 @@ Name=static
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node0]
 ClassName=TProjectFileNode
-FileName=D:\Documents\Python Stuff\chash\static\adminlogin.html
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\static\adminlogin.html
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node1]
 ClassName=TProjectFileNode
-FileName=D:\Documents\Python Stuff\chash\static\chash.ico
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\static\chash.png
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node2]
 ClassName=TProjectFileNode
-FileName=D:\Documents\Python Stuff\chash\static\chash.png
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\static\chash.ico
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node3]
 ClassName=TProjectFileNode
-FileName=D:\Documents\Python Stuff\chash\static\userconsole.html
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\static\userconsole.html
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes]
 Count=4
 
 [Project\ChildNodes\Node0\ChildNodes\Node1]
 ClassName=TProjectFileNode
-FileName=D:\Documents\Python Stuff\chash\admin.py
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\admin.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node2]
 ClassName=TProjectFileNode
-FileName=D:\Documents\Python Stuff\chash\datamodule.py
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\datamodule.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node3]
 ClassName=TProjectFileNode
-FileName=D:\Documents\Python Stuff\chash\main.py
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\entries.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node4]
 ClassName=TProjectFileNode
-FileName=D:\Documents\Python Stuff\chash\tolowercase.py
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\main.py
+
+[Project\ChildNodes\Node0\ChildNodes\Node5]
+ClassName=TProjectFileNode
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\tolowercase.py
 
 [Project\ChildNodes\Node0\ChildNodes]
-Count=5
+Count=6
 
 [Project\ChildNodes\Node1]
 ClassName=TProjectRunConfiguationsNode
