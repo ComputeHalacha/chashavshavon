@@ -1,7 +1,8 @@
 application: remotechashavshavon
 version: 1
-runtime: python
+runtime: python27
 api_version: 1
+threadsafe: true
 
 handlers:
 - url: /
@@ -13,11 +14,11 @@ handlers:
   upload: static/.*
   secure: optional
 - url: /static/.*
-  script: tolowercase.py
+  script: tolowercase.application
   secure: optional
 - url: /[A|a]dmin
-  script: admin.py
+  script: admin.application
   secure: optional
 - url: /.*
-  script: main.py
+  script: main.application
   secure: optional

@@ -1,5 +1,5 @@
 ﻿[PyScripter]
-Version=2.4.1.0
+Version=2.5.3.0
 
 [Project]
 ClassName=TProjectRootNode
@@ -19,11 +19,11 @@ FileName=D:\Repositories\Chashavshavon\chashavshavon.org\static\adminlogin.html
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node1]
 ClassName=TProjectFileNode
-FileName=D:\Repositories\Chashavshavon\chashavshavon.org\static\chash.png
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\static\chash.ico
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node2]
 ClassName=TProjectFileNode
-FileName=D:\Repositories\Chashavshavon\chashavshavon.org\static\chash.ico
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\static\chash.png
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node3]
 ClassName=TProjectFileNode
@@ -46,14 +46,18 @@ FileName=D:\Repositories\Chashavshavon\chashavshavon.org\entries.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node4]
 ClassName=TProjectFileNode
-FileName=D:\Repositories\Chashavshavon\chashavshavon.org\main.py
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\htmlHelper.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node5]
+ClassName=TProjectFileNode
+FileName=D:\Repositories\Chashavshavon\chashavshavon.org\main.py
+
+[Project\ChildNodes\Node0\ChildNodes\Node6]
 ClassName=TProjectFileNode
 FileName=D:\Repositories\Chashavshavon\chashavshavon.org\tolowercase.py
 
 [Project\ChildNodes\Node0\ChildNodes]
-Count=6
+Count=7
 
 [Project\ChildNodes\Node1]
 ClassName=TProjectRunConfiguationsNode

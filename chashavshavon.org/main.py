@@ -1,203 +1,184 @@
-import cgi
-from datamodule import Users, Files, GetUser
-from entries import Entry, Kavuah, EntryLists
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
+import webapp2
 from google.appengine.ext import db
 from google.appengine.ext.db import GqlQuery
+import datamodule
+import htmlHelper
 
-XmlDeclaration = '<?xml version="1.0" encoding="utf-8"?>'
+class NewUser(webapp2.RequestHandler):
+    def get(self):
+        self.newUser()
 
-def SetContentTypeToXml(handler):
-    handler.response.headers['Content-Type'] = 'text/xml'
-
-def getHtmlFrame():
-    return '''<html><head>
-                   <style type="text/css">
-                       body{
-                            font-family: arial;
-                            padding:0;
-                            margin:0;
-                       }
-                       td{
-                           border:solid 1px #d4d4d4;
-                           font-size: 9pt;
-                       }
-                       tr.headrow{
-                           color: #008800;
-                           font-weight: bold;
-                       }
-                       tr.headRow td{
-                           border:0;
-                        }
-                       .header{
-                           color: maroon;
-                           font-weight: bold;
-                           font-size: 11pt;
-                        }
-                       .link{
-                           color: Blue;
-                           cursor: pointer;
-                       }
-                       .link:hover{
-                           text-decoration: underline;
-                       }
-                       </style></head><body>'''
-
-def GetEntriesHTML(fileName, filexml):
-    html = getHtmlFrame()
-    html += '<span class="header">List of Entries in File: ' + fileName + '</span>'
-    html += '<table cellspacing="0" cellpadding="5"><tr><td>&nbsp;</td><td>Date</td><td>Day/Night</td><td>Notes</td></tr>'
-    lists = EntryLists(filexml)
-    count = 0
-    for entry in [e for e in lists.entryList if not e.isInvisible]:
-       count += 1
-       html += '<tr style="background-color:' + ('#ffffff;' if count % 2 else '#f1f1f1;') + '">'
-       html += '<td width="20">%s</td><td>%s</td><td>%s</td><td width="460">%s</td></tr>' % (count, entry.date, entry.dn, entry.notes or '&nbsp;')
-    html += '</table>'
-    kavuahs = lists.kavuahList
-    if kavuahs.length:
-        count = 0
-        html += '''<br /><span class="header">List of Kavuahs in File: %s</span>
-            <table cellspacing="0" cellpadding="5"><tr><td>&nbsp;</td><td>Active?</td><td>Type</td>
-            <td>Number</td><td>Day/Night</td><td>Cancels?</td><td>Notes</td></tr>''' % (fileName)
-        for kavuah in kavuahs:
-            count += 1
-            html += '<tr style="background-color:' + ('#ffffff;' if count % 2 else '#f1f1f1;') + '">'
-            html += '''<td width="20">%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>
-                <td>%s</td><td width="460">%s</td>
-                </tr>''' % (count, 'Yes' if kavuah.active else 'No', kavuah.type, kavuah.number, kavuah.dn, 'Yes' if kavuah.cancels else 'No', kavuah.notes or '&nbsp;')
-        html += '</table>'
-    html += '</body></html>'
-    return html;
-
-class NewUser(webapp.RequestHandler):
     def post(self):
-        SetContentTypeToXml(self)
+        self.newUser()
+
+    def newUser(self):
+        htmlHelper.SetContentTypeToXml(self)
         userName = self.request.get('userName').strip()
         password = self.request.get('password').strip()
         isAdminUser = self.request.get('isAdmin')
 
         if(len(userName) < 2):
-           self.response.out.write(XmlDeclaration + '<error errorId="1">Invalid username</error>')
+           self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="1">Invalid username</error>')
            return
         if(len(password) < 4):
-           self.response.out.write(XmlDeclaration + '<error errorId="2">Invalid password</error>')
+           self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="2">Invalid password</error>')
            return
-        if(GetUser(userName, password)):
-           self.response.out.write(XmlDeclaration + '<error errorId="3">Username and password already taken</error>')
+        if(datamodule.GetUser(userName, password)):
+           self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="3">Username and password already taken</error>')
            return
 
-        user = Users(userName = userName, password = password, isAdmin = (True if isAdminUser else False))
+        user = datamodule.Users(userName = userName, password = password, isAdmin = (True if isAdminUser else False))
         user.put()
-        self.response.out.write(XmlDeclaration + '<OK>User Created</OK>')
+        self.response.out.write(htmlHelper.XmlDeclaration + '<OK>User Created</OK>')
 
-class DeleteUser(webapp.RequestHandler):
+class DeleteUser(webapp2.RequestHandler):
+  def get(self):
+      self.deleteUser()
+
   def post(self):
-      SetContentTypeToXml(self)
-      user = GetUser(self.request.get('userName'),
+      self.deleteUser()
+
+  def deleteUser(self):
+      htmlHelper.SetContentTypeToXml(self)
+      user = datamodule.GetUser(self.request.get('userName'),
                      self.request.get('password'))
       if(not user):
-          self.response.out.write(XmlDeclaration + '<error errorId="4">User not found</error>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="4">User not found</error>')
           return
 
       files = GqlQuery('SELECT __key__ FROM Files WHERE user = :1', user)
       db.delete(files.fetch(1000, 0))
       user.delete()
-      self.response.out.write(XmlDeclaration + '<OK>User Deleted</OK>')
+      self.response.out.write(htmlHelper.XmlDeclaration + '<OK>User Deleted</OK>')
 
-class GetFileList(webapp.RequestHandler):
+class GetFileList(webapp2.RequestHandler):
+  def get(self):
+      self.getFileList()
+
   def post(self):
-      SetContentTypeToXml(self)
-      user = GetUser(self.request.get('userName'),
+      self.getFileList()
+
+  def getFileList(self):
+      htmlHelper.SetContentTypeToXml(self)
+      user = datamodule.GetUser(self.request.get('userName'),
                      self.request.get('password'))
       if(not user):
-          self.response.out.write(XmlDeclaration + '<error errorId="4">User not found</error>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="4">User not found</error>')
           return
 
-      files = Files.gql('WHERE user = :1', user).fetch(1000, 0)
-      self.response.out.write(XmlDeclaration + '<files>')
+      files = datamodule.Files.gql('WHERE user = :1', user).fetch(1000, 0)
+      self.response.out.write(htmlHelper.XmlDeclaration + '<files>')
       for file in files:
           self.response.out.write('<file fileName="%s" />' % file.fileName)
       self.response.out.write('</files>')
 
-class AddFile(webapp.RequestHandler):
+class AddFile(webapp2.RequestHandler):
+  def get(self):
+      self.addFile()
+
   def post(self):
-      SetContentTypeToXml(self)
-      currUser = GetUser(self.request.get('userName'),
+      self.addFile()
+
+  def addFile(self):
+      htmlHelper.SetContentTypeToXml(self)
+      currUser = datamodule.GetUser(self.request.get('userName'),
                      self.request.get('password'))
       if(not currUser):
-          self.response.out.write(XmlDeclaration + '<error errorId="4">User not found</error>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="4">User not found</error>')
           return
 
       filename = self.request.get('fileName').strip()
 
       if len(filename) == 0:
-          self.response.out.write(XmlDeclaration + '<error errorId="5">File name required</error>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="5">File name required</error>')
           return
 
       existingFile = GqlQuery('SELECT __key__ FROM Files WHERE user = :1 AND fileName = :2',
                        currUser,
                        filename).get()
       if existingFile:
-          self.response.out.write(XmlDeclaration + '<error errorId="6">File name not unique</error>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="6">File name not unique</error>')
           return
 
-      file = Files(user = currUser,
+      file = datamodule.Files(user = currUser,
                    fileName = filename,
                    fileText = self.request.get('fileText'))
       file.put()
-      self.response.out.write(XmlDeclaration + '<OK>File Added</OK>')
+      self.response.out.write(htmlHelper.XmlDeclaration + '<OK>File Added</OK>')
 
-class DeleteFile(webapp.RequestHandler):
+class DeleteFile(webapp2.RequestHandler):
+  def get(self):
+      self.deleteFile()
+
   def post(self):
-      SetContentTypeToXml(self)
-      user = GetUser(self.request.get('userName'),
+      self.deleteFile()
+
+  def deleteFile(self):
+      htmlHelper.SetContentTypeToXml(self)
+      user = datamodule.GetUser(self.request.get('userName'),
                      self.request.get('password'))
       if(not user):
-          self.response.out.write(XmlDeclaration + '<error errorId="4">User not found</error>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="4">User not found</error>')
           return
-      file = Files.gql('WHERE fileName = :1', self.request.get('fileName')).get()
+      file = datamodule.Files.gql('WHERE fileName = :1', self.request.get('fileName')).get()
       if(not file):
-          self.response.out.write(XmlDeclaration + '<error errorId="7">File not found</error>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="7">File not found</error>')
       else:
           file.delete()
-          self.response.out.write(XmlDeclaration + '<OK>File Deleted</OK>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<OK>File Deleted</OK>')
 
-class GetFileText(webapp.RequestHandler):
+class GetFileText(webapp2.RequestHandler):
+  def get(self):
+      self.getFileText()
+
   def post(self):
-      SetContentTypeToXml(self)
-      user = GetUser(self.request.get('userName'),
+      self.getFileText()
+
+  def getFileText(self):
+      htmlHelper.SetContentTypeToXml(self)
+      user = datamodule.GetUser(self.request.get('userName'),
                      self.request.get('password'))
       if(not user):
-          self.response.out.write(XmlDeclaration + '<error errorId="4">User not found</error>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="4">User not found</error>')
           return
-      file = Files.gql('WHERE user = :1 AND fileName = :2',
+      file = datamodule.Files.gql('WHERE user = :1 AND fileName = :2',
                        user,
                        self.request.get('fileName')).get()
       if(not file):
-          self.response.out.write(XmlDeclaration + '<error errorId="7">File not found</error>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="7">File not found</error>')
       else:
           self.response.out.write(file.fileText)
 
-class GetFileAsHTML(webapp.RequestHandler):
+class GetFileAsHTML(webapp2.RequestHandler):
+  def get(self):
+      self.getFileAsHTML()
+
   def post(self):
-      user = GetUser(self.request.get('userName'),
+      self.getFileAsHTML()
+
+  def getFileAsHTML(self):
+      user = datamodule.GetUser(self.request.get('userName'),
                      self.request.get('password'))
       if(not user):
           self.response.out.write('<strong style="color:red;">Error: User not found</strong>')
           return
-      file = Files.gql('WHERE user = :1 AND fileName = :2',
+      file = datamodule.Files.gql('WHERE user = :1 AND fileName = :2',
                        user,
                        self.request.get('fileName')).get()
       if(not file):
           self.response.out.write('<strong style="color:red;">Error: File not found</strong>')
       else:
-          self.response.out.write(GetEntriesHTML(file.fileName, file.fileText))
+          self.response.out.write(htmlHelper.GetEntriesHTML(file.fileName, file.fileText))
 
-class GetFileListLinks(webapp.RequestHandler):
+class GetFileListLinks(webapp2.RequestHandler):
+  def get(self):
+      self.getFileListLinks()
+
   def post(self):
-      self.response.out.write(getHtmlFrame() + '''<script type="text/javascript" language="javascript">
+      self.getFileListLinks()
+
+  def getFileListLinks(self):
+      self.response.out.write(htmlHelper.getHtmlFrame() + '''<script type="text/javascript" language="javascript">
                                                function go(funcName, fileName){
                                                    document.forms[0].action='/' + funcName;
                                                    document.forms[0].fileName.value = fileName;
@@ -211,13 +192,13 @@ class GetFileListLinks(webapp.RequestHandler):
                                                }
                                        </script>
                                  ''')
-      user = GetUser(self.request.get('userName'),
+      user = datamodule.GetUser(self.request.get('userName'),
                      self.request.get('password'))
       if(not user):
           self.response.out.write('<strong style="color:red;">User not found</strong> - Please check your User Name and Password.</body></html>')
           return
 
-      files = Files.gql('WHERE user = :1', user).fetch(1000, 0)
+      files = datamodule.Files.gql('WHERE user = :1', user).fetch(1000, 0)
 
       if(not len(files)):
           self.response.out.write('<span class="header">There are no files on record for this user</span></body></html>')
@@ -240,9 +221,15 @@ class GetFileListLinks(webapp.RequestHandler):
                                      </tr>''' % ('#ffffff' if count % 2 else '#f1f1f1', count, file.fileName, file.fileName, file.fileName, file.fileName))
       self.response.out.write('</table></body></html>')
 
-class GetUsersListLinks(webapp.RequestHandler):
+class GetUsersListLinks(webapp2.RequestHandler):
+    def get(self):
+        self.getUsersListLinks()
+
     def post(self):
-          self.response.out.write(getHtmlFrame() + '''<script type="text/javascript" language="javascript">
+        self.getUsersListLinks()
+
+    def getUsersListLinks(self):
+          self.response.out.write(htmlHelper.getHtmlFrame() + '''<script type="text/javascript" language="javascript">
                                                function go(funcName, userName, password){
                                                    document.forms[0].action='/' + funcName;
                                                    document.forms[0].userName.value = userName;
@@ -257,13 +244,13 @@ class GetUsersListLinks(webapp.RequestHandler):
                                                }
                                        </script>
                                  ''')
-          user = GetUser(self.request.get('userName'),
+          user = datamodule.GetUser(self.request.get('userName'),
                          self.request.get('password'))
           if(not user):
               self.response.out.write('<strong style="color:red;">User not found</strong> - Please check your User Name and Password.</body></html>')
               return
 
-          users = Users.all().fetch(1000, 0)
+          users = datamodule.Users.all().fetch(1000, 0)
 
           self.response.out.write('''<span class="header">List of Users</span>
                                      <form method="post" target="_self">
@@ -289,49 +276,65 @@ class GetUsersListLinks(webapp.RequestHandler):
           self.response.out.write('</table></body></html>')
 
 
-class SetFileText(webapp.RequestHandler):
+class SetFileText(webapp2.RequestHandler):
+  def get(self):
+      self.setFileText()
+
   def post(self):
-      SetContentTypeToXml(self)
-      user = GetUser(self.request.get('userName'),
+      self.setFileText()
+
+  def setFileText(self):
+      htmlHelper.SetContentTypeToXml(self)
+      user = datamodule.GetUser(self.request.get('userName'),
                      self.request.get('password'))
       if(not user):
-          self.response.out.write(XmlDeclaration + '<error errorId="4">User not found</error>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="4">User not found</error>')
           return
-      file = Files.gql('WHERE user = :1 AND fileName = :2',
+      file = datamodule.Files.gql('WHERE user = :1 AND fileName = :2',
                        user,
                        self.request.get('fileName')).get()
       if(not file):
-          self.response.out.write(XmlDeclaration + '<error errorId="7">File not found</error>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="7">File not found</error>')
       else:
           file.fileText = self.request.get('fileText')
           file.put()
-          self.response.out.write(XmlDeclaration + '<OK>File Updated</OK>')
+          self.response.out.write(htmlHelper.XmlDeclaration + '<OK>File Updated</OK>')
 
-class GetUsers(webapp.RequestHandler):
+class GetUsers(webapp2.RequestHandler):
+    def get(self):
+        self.getUsers()
+
     def post(self):
-        SetContentTypeToXml(self)
-        users = Users.all().fetch(1000, 0)
-        self.response.out.write(XmlDeclaration + '<users>')
+        self.getUsers()
+
+    def getUsers(self):
+        htmlHelper.SetContentTypeToXml(self)
+        users = datamodule.Users.all().fetch(1000, 0)
+        self.response.out.write(htmlHelper.XmlDeclaration + '<users>')
         for user in users:
             self.response.out.write('<user userName="' + user.userName + '" password="' + user.password + '" isAdmin="' + str(user.isAdmin) + '" />')
         self.response.out.write('</users>')
 
-class Test(webapp.RequestHandler):
-    def post(self):
-       SetContentTypeToXml(self)
-       self.response.out.write(XmlDeclaration + '<NothingHere />')
+class Test(webapp2.RequestHandler):
+    def get(self):
+        self.test()
 
-if __name__ == "__main__":
-  run_wsgi_app(webapp.WSGIApplication([('/NewUser', NewUser),
-                                       ('/DeleteUser', DeleteUser),
-                                       ('/GetFileList', GetFileList),
-                                       ('/AddFile', AddFile),
-                                       ('/DeleteFile', DeleteFile),
-                                       ('/GetFileText', GetFileText),
-                                       ('/SetFileText', SetFileText),
-                                       ('/GetUsers', GetUsers),
-                                       ('/GetFileAsHTML', GetFileAsHTML),
-                                       ('/GetFileListLinks', GetFileListLinks),
-                                       ('/GetUsersListLinks', GetUsersListLinks),
-                                       ('/Test', Test)],
-                                     debug=True))
+    def post(self):
+        self.test()
+
+    def test(self):
+       htmlHelper.SetContentTypeToXml(self)
+       self.response.out.write(htmlHelper.XmlDeclaration + '<NothingHere />')
+
+application = webapp2.WSGIApplication ([('/NewUser', NewUser),
+                               ('/DeleteUser', DeleteUser),
+                               ('/GetFileList', GetFileList),
+                               ('/AddFile', AddFile),
+                               ('/DeleteFile', DeleteFile),
+                               ('/GetFileText', GetFileText),
+                               ('/SetFileText', SetFileText),
+                               ('/GetUsers', GetUsers),
+                               ('/GetFileAsHTML', GetFileAsHTML),
+                               ('/GetFileListLinks', GetFileListLinks),
+                               ('/GetUsersListLinks', GetUsersListLinks),
+                               ('/Test', Test)], debug = True)

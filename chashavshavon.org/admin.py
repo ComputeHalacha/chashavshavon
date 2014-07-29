@@ -1,8 +1,7 @@
+import webapp2
 from datamodule import GetAdminUserKey, GetAdminUser
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
 
-class DisplayAdmin(webapp.RequestHandler):
+class DisplayAdmin(webapp2.RequestHandler):
     adminPageHtml='''<html>
             <head>
                 <title>Chash - Admin Console</title>
@@ -207,5 +206,5 @@ class DisplayAdmin(webapp.RequestHandler):
                expiresDate = datetime.datetime.utcnow() + datetime.timedelta(365)
                self.response.headers.add_header('Set-Cookie', 'ekey=%s; expires=%s' % (user, expiresDate.strftime('%d %b %Y %H:%M:%S GMT')))
            self.response.out.write(self.adminPageHtml)
-if __name__ == "__main__":
-    run_wsgi_app(webapp.WSGIApplication([('/[A|a]dmin', DisplayAdmin)]))
+
+application = webapp2.WSGIApplication ([('/[A|a]dmin', DisplayAdmin)])

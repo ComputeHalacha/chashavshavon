@@ -1,14 +1,15 @@
 import xml.dom.minidom
 
 class EntryLists():
-    def __init__(xmlString):
+    def __init__(self, xmlString):
         self.entryList = []
         self.kavuahList = []
 
         docNode = xml.dom.minidom.parseString(xmlString.encode( "utf-8" ))
-        kavuahs = docNode.getElementsByTagName('Kavuah')
+
         for entry in docNode.getElementsByTagName('Entry'):
             self.entryList.append(Entry(entry))
+
         for kavuah in docNode.getElementsByTagName('Kavuah'):
             self.kavuahList.append(Kavuah(kavuah))
 
