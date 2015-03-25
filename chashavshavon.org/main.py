@@ -120,7 +120,9 @@ class DeleteFile(webapp2.RequestHandler):
       if(not user):
           self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="4">User not found</error>')
           return
-      file = datamodule.Files.gql('WHERE fileName = :1', self.request.get('fileName')).get()
+      file = datamodule.Files.gql('WHERE user = :1 AND fileName = :2',
+                       user,
+                       self.request.get('fileName')).get()
       if(not file):
           self.response.out.write(htmlHelper.XmlDeclaration + '<error errorId="7">File not found</error>')
       else:
