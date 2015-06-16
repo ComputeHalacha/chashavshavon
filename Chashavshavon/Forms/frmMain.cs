@@ -1412,12 +1412,13 @@ namespace Chashavshavon
                 }
 
                 string onahText = "";
-
+                bool hasNotIgnored = false;
                 if (this.ProblemOnas != null)
-                {
-                    var pOnahs = this.ProblemOnas.Where(o => o.DateTime == date);
+                {                    
+                    var pOnahs = this.ProblemOnas.Where(o => o.DateTime == date);                    
                     if (pOnahs.Count() > 0)
                     {
+                        hasNotIgnored = pOnahs.Any(o => !o.IsIgnored);
                         foreach (var o in pOnahs)
                         {
                             onahText += "\t♦  " + (o.IsIgnored ? "[" : "") + o.HebrewDayNight + ": " +
@@ -1446,9 +1447,12 @@ namespace Chashavshavon
                 }
                 else if (!string.IsNullOrEmpty(onahText))
                 {
-                    pnl.BackgroundImage = Properties.Resources.ParchmentMarbleTile;
-                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
-                    pnl.BackColor = Color.Transparent;
+                    if (hasNotIgnored)
+                    {
+                        pnl.BackgroundImage = Properties.Resources.ParchmentMarbleTile;
+                        pnl.BackgroundImageLayout = ImageLayout.Stretch;
+                        pnl.BackColor = Color.Transparent;
+                    }
                     pnl.Controls.Add(new Label()
                     {
                         Dock = DockStyle.Bottom,
