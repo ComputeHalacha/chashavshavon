@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Chashavshavon.Utils;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using Chashavshavon.Utils;
-using Microsoft.Win32;
-using System.Globalization;
 
 namespace Chashavshavon
 {
@@ -1393,9 +1393,13 @@ namespace Chashavshavon
                 string daySpecialText = "";
                 foreach (string holiday in JewishHolidays.GetHebrewHolidays(date, Program.CurrentPlace.IsInIsrael))
                 {
-                    daySpecialText += holiday + " ";
+                    if(!string.IsNullOrWhiteSpace(daySpecialText))
+                    {
+                        daySpecialText += " - ";
+                    }
+                    daySpecialText += holiday;
                 }
-                if (daySpecialText.Length > 0)
+                if (!string.IsNullOrWhiteSpace(daySpecialText))
                 {
                     pnl.BackgroundImage = Properties.Resources.BlueMarble;
                     pnl.BackgroundImageLayout = ImageLayout.Stretch;

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using Chashavshavon.Utils;
+using System;
 using System.Linq;
-using System.Text;
-using Chashavshavon.Utils;
 using System.Windows.Forms;
 
 namespace Chashavshavon
@@ -64,6 +59,8 @@ namespace Chashavshavon
                 LoadDilugNumbers();
                 this.lblNumber.Text = "תבחר מספר ימי דילוג של יום החודש";
             }
+
+            this.SetCancelOnaBeinanis();
         }
 
         private void LoadHebrewNumbers()
@@ -148,6 +145,7 @@ namespace Chashavshavon
 
 
             this.AddedKavuah.Active = this.cbActive.Checked;
+            this.AddedKavuah.CancelsOnahBeinanis = this.cbCancelsOnahBeinenis.Checked;
             this.AddedKavuah.IsMaayanPasuach = this.cbMaayanPasuach.Checked;
 
             if (this.cmbSettingEntry.SelectedItem is Entry)
@@ -252,6 +250,20 @@ namespace Chashavshavon
                 {
                     this.cmbNumber.SelectedItem = entry.Interval;
                 }
+
+                this.SetCancelOnaBeinanis();
+            }
+        }
+
+        private void SetCancelOnaBeinanis()
+        {
+            if ((!cbMaayanPasuach.Checked) && (rbDay.Checked || rbInterval.Checked))
+            {
+                this.cbCancelsOnahBeinenis.Checked = true;
+            }
+            else
+            {
+                this.cbCancelsOnahBeinenis.Checked = false;
             }
         }
 

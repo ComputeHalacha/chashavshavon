@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Chashavshavon.Utils;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Chashavshavon.Utils;
 
 namespace Chashavshavon
 {
@@ -102,7 +102,7 @@ namespace Chashavshavon
             string sHoliday = null;
             foreach (string holiday in JewishHolidays.GetHebrewHolidays(this._date, Program.CurrentPlace.IsInIsrael))
             {
-                sHoliday += holiday + " ";
+                sHoliday += holiday + " - ";
             }
 
             if (sHoliday != null)

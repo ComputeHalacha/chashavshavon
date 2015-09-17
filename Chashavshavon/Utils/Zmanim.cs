@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Chashavshavon.Utils
 {
@@ -68,6 +69,7 @@ namespace Chashavshavon.Utils
               Occurrence.Sunrise, place);
             return sunrise;
         }
+
         public AstronomicalTime GetSunset(DateTime currentDate, Place place)
         {
             AstronomicalTime sunset;
@@ -87,6 +89,7 @@ namespace Chashavshavon.Utils
               DegreesBelowHorizon, place);
             return sunrise - db;
         }
+
         public AstronomicalTime GetSunsetDegreesBelowHorizon(DateTime currentDate,
                                                              double DegreesBelowHorizon,
                                                              Place place)
@@ -283,6 +286,8 @@ namespace Chashavshavon.Utils
             List<Holiday> holidays = GetHolidaysForDate(dt, Program.HebrewCalendar, diasporaOrIsrael);
             List<string> hebs = new List<string>();
 
+            SetShabbosSedra(dt, inIsrael, hebs);
+
             for (int i = 0; i < holidays.Count; i++)
             {
                 hebs.Add(HolidaysInHebrew[(int)holidays[i]]);
@@ -302,6 +307,23 @@ namespace Chashavshavon.Utils
             }
 
             return hebs;
+        }
+
+        private static void SetShabbosSedra(DateTime dt, bool inIsrael, List<string> hebs)
+        {
+            if (dt.DayOfWeek != DayOfWeek.Saturday)
+            {
+                return;
+            }
+
+            JewishCalendar.JewishDate jd = new JewishCalendar.JewishDate(dt);
+            if (!((jd.Month == 7 && jd.Day.In(1, 2, 10, 15, 16, 17, 18, 19, 20, 21, 22, (inIsrael ? 0 : 23))) ||
+                (jd.Month == 1 && jd.Day.In(15, 16, 17, 18, 19, 20, 21, (inIsrael ? 0 : 22)) ||
+                (jd.Month == 3 && jd.Day.In(6, (inIsrael ? 0 : 7))))))
+            {
+                var parshas = JewishCalendar.Sedra.GetSedra(jd, inIsrael);
+                hebs.Add("שבת פרשת " + string.Join(" - ", parshas.Select(i => i.nameHebrew)));
+            }
         }
 
         public static List<Holiday> GetHolidaysForDate(DateTime dt, HebrewCalendar hcal, DiasporaOrIsrael diasporaOrIsrael)

@@ -46,7 +46,7 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.cbActive = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cbCancelsOnahBeinenis = new System.Windows.Forms.CheckBox();
             this.cmbSettingEntry = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -76,7 +76,7 @@
             this.cmbNumber.FormattingEnabled = true;
             this.cmbNumber.Location = new System.Drawing.Point(13, 190);
             this.cmbNumber.Name = "cmbNumber";
-            this.cmbNumber.Size = new System.Drawing.Size(112, 21);
+            this.cmbNumber.Size = new System.Drawing.Size(112, 24);
             this.cmbNumber.TabIndex = 1;
             // 
             // rbDayOfMonth
@@ -84,7 +84,7 @@
             this.rbDayOfMonth.AutoSize = true;
             this.rbDayOfMonth.Location = new System.Drawing.Point(277, 49);
             this.rbDayOfMonth.Name = "rbDayOfMonth";
-            this.rbDayOfMonth.Size = new System.Drawing.Size(75, 17);
+            this.rbDayOfMonth.Size = new System.Drawing.Size(91, 20);
             this.rbDayOfMonth.TabIndex = 2;
             this.rbDayOfMonth.Text = "יום החדש";
             this.rbDayOfMonth.UseVisualStyleBackColor = true;
@@ -105,7 +105,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 279);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(48, 16);
             this.label2.TabIndex = 7;
             this.label2.Text = "הערות";
             // 
@@ -115,11 +115,12 @@
             this.rbInterval.Checked = true;
             this.rbInterval.Location = new System.Drawing.Point(294, 19);
             this.rbInterval.Name = "rbInterval";
-            this.rbInterval.Size = new System.Drawing.Size(59, 17);
+            this.rbInterval.Size = new System.Drawing.Size(69, 20);
             this.rbInterval.TabIndex = 3;
             this.rbInterval.TabStop = true;
             this.rbInterval.Text = "הפלגה";
             this.rbInterval.UseVisualStyleBackColor = true;
+            this.rbInterval.CheckedChanged += new System.EventHandler(this.HaflagahTypeChanged);
             // 
             // groupBox1
             // 
@@ -141,7 +142,7 @@
             this.cbMaayanPasuach.AutoSize = true;
             this.cbMaayanPasuach.Location = new System.Drawing.Point(242, 86);
             this.cbMaayanPasuach.Name = "cbMaayanPasuach";
-            this.cbMaayanPasuach.Size = new System.Drawing.Size(112, 17);
+            this.cbMaayanPasuach.Size = new System.Drawing.Size(134, 20);
             this.cbMaayanPasuach.TabIndex = 7;
             this.cbMaayanPasuach.Text = "ע\"פ מעיין פתוח?";
             this.cbMaayanPasuach.UseVisualStyleBackColor = true;
@@ -149,19 +150,20 @@
             // rbdayOfWeek
             // 
             this.rbdayOfWeek.AutoSize = true;
-            this.rbdayOfWeek.Location = new System.Drawing.Point(184, 19);
+            this.rbdayOfWeek.Location = new System.Drawing.Point(171, 23);
             this.rbdayOfWeek.Name = "rbdayOfWeek";
-            this.rbdayOfWeek.Size = new System.Drawing.Size(80, 17);
+            this.rbdayOfWeek.Size = new System.Drawing.Size(95, 20);
             this.rbdayOfWeek.TabIndex = 6;
             this.rbdayOfWeek.Text = "יום השבוע";
             this.rbdayOfWeek.UseVisualStyleBackColor = true;
+            this.rbdayOfWeek.CheckedChanged += new System.EventHandler(this.HaflagahTypeChanged);
             // 
             // rbDilugDayOfMonth
             // 
             this.rbDilugDayOfMonth.AutoSize = true;
             this.rbDilugDayOfMonth.Location = new System.Drawing.Point(25, 19);
             this.rbDilugDayOfMonth.Name = "rbDilugDayOfMonth";
-            this.rbDilugDayOfMonth.Size = new System.Drawing.Size(127, 17);
+            this.rbDilugDayOfMonth.Size = new System.Drawing.Size(152, 20);
             this.rbDilugDayOfMonth.TabIndex = 4;
             this.rbDilugDayOfMonth.Text = "דילוג של יום החדש";
             this.rbDilugDayOfMonth.UseVisualStyleBackColor = true;
@@ -172,7 +174,7 @@
             this.rbDilugHaflagah.AutoSize = true;
             this.rbDilugHaflagah.Location = new System.Drawing.Point(159, 49);
             this.rbDilugHaflagah.Name = "rbDilugHaflagah";
-            this.rbDilugHaflagah.Size = new System.Drawing.Size(111, 17);
+            this.rbDilugHaflagah.Size = new System.Drawing.Size(130, 20);
             this.rbDilugHaflagah.TabIndex = 5;
             this.rbDilugHaflagah.Text = "דילוג של הפלגה";
             this.rbDilugHaflagah.UseVisualStyleBackColor = true;
@@ -195,7 +197,7 @@
             this.rbDay.Checked = true;
             this.rbDay.Location = new System.Drawing.Point(299, 18);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(42, 17);
+            this.rbDay.Size = new System.Drawing.Size(49, 20);
             this.rbDay.TabIndex = 7;
             this.rbDay.TabStop = true;
             this.rbDay.Text = "יום";
@@ -206,7 +208,7 @@
             this.rbNight.AutoSize = true;
             this.rbNight.Location = new System.Drawing.Point(195, 18);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(51, 17);
+            this.rbNight.Size = new System.Drawing.Size(59, 20);
             this.rbNight.TabIndex = 6;
             this.rbNight.Text = "לילה";
             this.rbNight.UseVisualStyleBackColor = true;
@@ -253,20 +255,20 @@
             this.cbActive.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbActive.Location = new System.Drawing.Point(13, 359);
             this.cbActive.Name = "cbActive";
-            this.cbActive.Size = new System.Drawing.Size(54, 17);
+            this.cbActive.Size = new System.Drawing.Size(67, 20);
             this.cbActive.TabIndex = 12;
             this.cbActive.Text = "פעיל?";
             this.cbActive.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // cbCancelsOnahBeinenis
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(13, 382);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(205, 17);
-            this.checkBox1.TabIndex = 13;
-            this.checkBox1.Text = "האם קבוע זאת מבטלת עונה בינונית?";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbCancelsOnahBeinenis.AutoSize = true;
+            this.cbCancelsOnahBeinenis.Location = new System.Drawing.Point(13, 382);
+            this.cbCancelsOnahBeinenis.Name = "cbCancelsOnahBeinenis";
+            this.cbCancelsOnahBeinenis.Size = new System.Drawing.Size(262, 20);
+            this.cbCancelsOnahBeinenis.TabIndex = 13;
+            this.cbCancelsOnahBeinenis.Text = "האם קבוע זאת מבטלת עונה בינונית?";
+            this.cbCancelsOnahBeinenis.UseVisualStyleBackColor = true;
             // 
             // cmbSettingEntry
             // 
@@ -276,7 +278,7 @@
             this.cmbSettingEntry.FormattingEnabled = true;
             this.cmbSettingEntry.Location = new System.Drawing.Point(146, 189);
             this.cmbSettingEntry.Name = "cmbSettingEntry";
-            this.cmbSettingEntry.Size = new System.Drawing.Size(169, 21);
+            this.cmbSettingEntry.Size = new System.Drawing.Size(169, 24);
             this.cmbSettingEntry.TabIndex = 15;
             this.cmbSettingEntry.ValueMember = "DateTime";
             this.cmbSettingEntry.SelectedIndexChanged += new System.EventHandler(this.cmbSettingEntry_SelectedIndexChanged);
@@ -286,7 +288,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(146, 173);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.Size = new System.Drawing.Size(83, 16);
             this.label1.TabIndex = 14;
             this.label1.Text = "ראיה הקובע";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -299,7 +301,7 @@
             this.label4.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.label4.Location = new System.Drawing.Point(231, 16);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(129, 19);
+            this.label4.Size = new System.Drawing.Size(158, 24);
             this.label4.TabIndex = 15;
             this.label4.Text = "הוסף וסת קבוע";
             // 
@@ -339,7 +341,7 @@
             // frmAddKavuah
             // 
             this.AcceptButton = this.btnAdd;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnClose;
@@ -349,7 +351,7 @@
             this.Controls.Add(this.cmbSettingEntry);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.cbCancelsOnahBeinenis);
             this.Controls.Add(this.tbNotes);
             this.Controls.Add(this.cbActive);
             this.Controls.Add(this.label2);
@@ -398,7 +400,7 @@
         private System.Windows.Forms.RadioButton rbDilugDayOfMonth;
         private System.Windows.Forms.RadioButton rbDilugHaflagah;
         private System.Windows.Forms.CheckBox cbActive;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbCancelsOnahBeinenis;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmbSettingEntry;
         private System.Windows.Forms.Label label1;

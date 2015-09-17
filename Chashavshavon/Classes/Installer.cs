@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Diagnostics;
-
 
 namespace ChashInstall
 {

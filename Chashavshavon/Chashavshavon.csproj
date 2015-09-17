@@ -122,6 +122,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JewishDate">
+      <HintPath>..\..\Apps\HebrewDate\JewishDate\bin\Release\JewishDate.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
