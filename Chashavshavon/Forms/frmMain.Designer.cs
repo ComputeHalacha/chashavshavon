@@ -220,7 +220,7 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgEntries.Size = new System.Drawing.Size(951, 87);
+            this.dgEntries.Size = new System.Drawing.Size(951, 86);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             this.dgEntries.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgEntries_CellFormatting);
@@ -293,7 +293,7 @@
             this.gbCalendar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbCalendar.Location = new System.Drawing.Point(0, 0);
             this.gbCalendar.Name = "gbCalendar";
-            this.gbCalendar.Size = new System.Drawing.Size(1006, 142);
+            this.gbCalendar.Size = new System.Drawing.Size(1006, 141);
             this.gbCalendar.TabIndex = 13;
             this.gbCalendar.TabStop = false;
             this.gbCalendar.Text = "רשומות";
@@ -309,7 +309,7 @@
             this.btnAddEntry2.Image = global::Chashavshavon.Properties.Resources.add;
             this.btnAddEntry2.Location = new System.Drawing.Point(0, 116);
             this.btnAddEntry2.Name = "btnAddEntry2";
-            this.btnAddEntry2.Size = new System.Drawing.Size(51, 48);
+            this.btnAddEntry2.Size = new System.Drawing.Size(52, 51);
             this.btnAddEntry2.TabIndex = 34;
             this.btnAddEntry2.Text = "הוסף";
             this.btnAddEntry2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -373,6 +373,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileToolStripMenuItem,
             this.KavuahToolStripMenuItem,
@@ -381,7 +382,7 @@
             this.AboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 28);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -408,14 +409,14 @@
             this.toolStripSeparator8,
             this.OpenBackupToolStripMenuItem});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
-            this.FileToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(52, 24);
             this.FileToolStripMenuItem.Text = "&קובץ";
             // 
             // SaveToolStripMenuItem
             // 
             this.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem";
             this.SaveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.SaveToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.SaveToolStripMenuItem.Text = "&שמור";
             this.SaveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
@@ -424,7 +425,7 @@
             this.SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem";
             this.SaveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.SaveAsToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.SaveAsToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.SaveAsToolStripMenuItem.Text = "שמיר&ה בשם";
             this.SaveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
@@ -432,7 +433,7 @@
             // 
             this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
             this.NewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.NewToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.NewToolStripMenuItem.Text = "&חדש";
             this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
@@ -440,39 +441,39 @@
             // 
             this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
             this.OpenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.OpenToolStripMenuItem.Text = "&פתח";
             this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(226, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(260, 6);
             // 
             // recentFilesToolStripMenuItem
             // 
             this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
-            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.recentFilesToolStripMenuItem.Text = "&קבצים אחרונים";
             this.recentFilesToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.recentFilesToolStripMenuItem_DropDownItemClicked);
             // 
             // clearRecentFilesToolStripMenuItem
             // 
             this.clearRecentFilesToolStripMenuItem.Name = "clearRecentFilesToolStripMenuItem";
-            this.clearRecentFilesToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.clearRecentFilesToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.clearRecentFilesToolStripMenuItem.Text = "&נקה רשימת קבצים אחרונים";
             this.clearRecentFilesToolStripMenuItem.Click += new System.EventHandler(this.clearRecentFilesToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(226, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(260, 6);
             // 
             // RefreshToolStripMenuItem
             // 
             this.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem";
             this.RefreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.RefreshToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.RefreshToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.RefreshToolStripMenuItem.Text = "&רענן";
             this.RefreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
             // 
@@ -480,7 +481,7 @@
             // 
             this.SourceToolStripMenuItem.Name = "SourceToolStripMenuItem";
             this.SourceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.SourceToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.SourceToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.SourceToolStripMenuItem.Text = "&מקןר";
             this.SourceToolStripMenuItem.Click += new System.EventHandler(this.SourceToolStripMenuItem_Click);
             // 
@@ -488,59 +489,59 @@
             // 
             this.SourceTextMenuItem.Name = "SourceTextMenuItem";
             this.SourceTextMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.SourceTextMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.SourceTextMenuItem.Size = new System.Drawing.Size(263, 26);
             this.SourceTextMenuItem.Text = "מקור &טקסט";
             this.SourceTextMenuItem.Click += new System.EventHandler(this.SourceTextMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(226, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(260, 6);
             // 
             // PrintToolStripMenuItem
             // 
             this.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem";
-            this.PrintToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.PrintToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.PrintToolStripMenuItem.Text = "הדפס לוח שבועי";
             this.PrintToolStripMenuItem.Click += new System.EventHandler(this.PrintToolStripMenuItem_Click);
             // 
             // TextListToolStripMenuItem
             // 
             this.TextListToolStripMenuItem.Name = "TextListToolStripMenuItem";
-            this.TextListToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.TextListToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.TextListToolStripMenuItem.Text = "רשימה - לוח שבועי";
             this.TextListToolStripMenuItem.Click += new System.EventHandler(this.TextListToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(226, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(260, 6);
             // 
             // toolStripMenuItemPrintEntryList
             // 
             this.toolStripMenuItemPrintEntryList.Name = "toolStripMenuItemPrintEntryList";
             this.toolStripMenuItemPrintEntryList.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.toolStripMenuItemPrintEntryList.Size = new System.Drawing.Size(229, 22);
+            this.toolStripMenuItemPrintEntryList.Size = new System.Drawing.Size(263, 26);
             this.toolStripMenuItemPrintEntryList.Text = "הדפס רשימת וסתות";
             this.toolStripMenuItemPrintEntryList.Click += new System.EventHandler(this.toolStripMenuItemPrintEntryList_Click);
             // 
             // toolStripMenuItemEntryList
             // 
             this.toolStripMenuItemEntryList.Name = "toolStripMenuItemEntryList";
-            this.toolStripMenuItemEntryList.Size = new System.Drawing.Size(229, 22);
+            this.toolStripMenuItemEntryList.Size = new System.Drawing.Size(263, 26);
             this.toolStripMenuItemEntryList.Text = "רשימה - וסתות";
             this.toolStripMenuItemEntryList.Click += new System.EventHandler(this.toolStripMenuItemEntryList_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(226, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(260, 6);
             // 
             // OpenBackupToolStripMenuItem
             // 
             this.OpenBackupToolStripMenuItem.Name = "OpenBackupToolStripMenuItem";
             this.OpenBackupToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.OpenBackupToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.OpenBackupToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.OpenBackupToolStripMenuItem.Text = "פתח תיקית &גיבויים";
             this.OpenBackupToolStripMenuItem.Click += new System.EventHandler(this.OpenBackupToolStripMenuItem_Click);
             // 
@@ -555,63 +556,63 @@
             this.toolStripSeparator1,
             this.importToolStripMenuItem});
             this.KavuahToolStripMenuItem.Name = "KavuahToolStripMenuItem";
-            this.KavuahToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.KavuahToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.KavuahToolStripMenuItem.Text = "ק&בוע";
             // 
             // openKavuaListToolStripMenuItem
             // 
             this.openKavuaListToolStripMenuItem.Name = "openKavuaListToolStripMenuItem";
-            this.openKavuaListToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
+            this.openKavuaListToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
             this.openKavuaListToolStripMenuItem.Text = "&פתח רשימת וסת קבוע";
             this.openKavuaListToolStripMenuItem.Click += new System.EventHandler(this.openKavuaListToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(260, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(299, 6);
             // 
             // AddKavuahToolStripMenuItem
             // 
             this.AddKavuahToolStripMenuItem.Name = "AddKavuahToolStripMenuItem";
-            this.AddKavuahToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
+            this.AddKavuahToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
             this.AddKavuahToolStripMenuItem.Text = "&הוסף חדש";
             this.AddKavuahToolStripMenuItem.Click += new System.EventHandler(this.AddKavuahToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(260, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(299, 6);
             // 
             // SearchForKavuahsToolStripMenuItem
             // 
             this.SearchForKavuahsToolStripMenuItem.Name = "SearchForKavuahsToolStripMenuItem";
-            this.SearchForKavuahsToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
+            this.SearchForKavuahsToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
             this.SearchForKavuahsToolStripMenuItem.Text = "&חשבן וסתי קבוע";
             this.SearchForKavuahsToolStripMenuItem.Click += new System.EventHandler(this.SearchForKavuahsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(260, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(299, 6);
             // 
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(302, 26);
             this.importToolStripMenuItem.Text = "ייבא רשימת וסת קבוע מקובץ אחר";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // RemoteToolStripMenuItem
             // 
             this.RemoteToolStripMenuItem.Name = "RemoteToolStripMenuItem";
-            this.RemoteToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.RemoteToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.RemoteToolStripMenuItem.Text = "&מקוון";
             this.RemoteToolStripMenuItem.Click += new System.EventHandler(this.toolStripMenuItemRemote_Click);
             // 
             // PreferencesToolStripMenuItem
             // 
             this.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem";
-            this.PreferencesToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.PreferencesToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
             this.PreferencesToolStripMenuItem.Text = "&העדפות";
             this.PreferencesToolStripMenuItem.Click += new System.EventHandler(this.PreferencesToolStripMenuItem_Click);
             // 
@@ -619,7 +620,7 @@
             // 
             this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
             this.AboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
             this.AboutToolStripMenuItem.Text = "&אודות";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AbouToolStripMenuItem_Click);
             // 
@@ -655,7 +656,7 @@
             this.btnCheshbonKavuahs.Name = "btnCheshbonKavuahs";
             this.btnCheshbonKavuahs.Size = new System.Drawing.Size(86, 50);
             this.btnCheshbonKavuahs.TabIndex = 26;
-            this.btnCheshbonKavuahs.Text = "חשבן קבוע";
+            this.btnCheshbonKavuahs.Text = "חשב קבוע";
             this.btnCheshbonKavuahs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolTip1.SetToolTip(this.btnCheshbonKavuahs, "חשבן וסתי קבוע ע\"י סריקת רשימת הראיות");
             this.btnCheshbonKavuahs.UseVisualStyleBackColor = true;
@@ -781,7 +782,7 @@
             // 
             this.splitContainerMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerMain.Location = new System.Drawing.Point(0, 24);
+            this.splitContainerMain.Location = new System.Drawing.Point(0, 28);
             this.splitContainerMain.Name = "splitContainerMain";
             this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -804,8 +805,8 @@
             this.splitContainerMain.Panel2.Controls.Add(this.gbCalendar);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainerMain.Panel2MinSize = 133;
-            this.splitContainerMain.Size = new System.Drawing.Size(1008, 538);
-            this.splitContainerMain.SplitterDistance = 391;
+            this.splitContainerMain.Size = new System.Drawing.Size(1008, 534);
+            this.splitContainerMain.SplitterDistance = 388;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 23;
             // 
@@ -854,7 +855,7 @@
             this.panel1.Controls.Add(this.luachTableLayout);
             this.panel1.Location = new System.Drawing.Point(85, 38);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(939, 348);
+            this.panel1.Size = new System.Drawing.Size(939, 345);
             this.panel1.TabIndex = 35;
             // 
             // luachTableLayout
@@ -892,7 +893,7 @@
             this.luachTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.luachTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.12766F));
             this.luachTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.14894F));
-            this.luachTableLayout.Size = new System.Drawing.Size(922, 350);
+            this.luachTableLayout.Size = new System.Drawing.Size(922, 347);
             this.luachTableLayout.TabIndex = 27;
             // 
             // label7
@@ -1017,7 +1018,7 @@
             this.pnlNextProblem.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
             this.pnlNextProblem.Controls.Add(this.lblNextProblem);
             this.pnlNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlNextProblem.Location = new System.Drawing.Point(0, 117);
+            this.pnlNextProblem.Location = new System.Drawing.Point(0, 116);
             this.pnlNextProblem.Name = "pnlNextProblem";
             this.pnlNextProblem.Size = new System.Drawing.Size(1006, 25);
             this.pnlNextProblem.TabIndex = 17;
@@ -1076,7 +1077,7 @@
             this.lblMonthName.ForeColor = System.Drawing.Color.Lavender;
             this.lblMonthName.Location = new System.Drawing.Point(391, 2);
             this.lblMonthName.Name = "lblMonthName";
-            this.lblMonthName.Size = new System.Drawing.Size(141, 34);
+            this.lblMonthName.Size = new System.Drawing.Size(175, 42);
             this.lblMonthName.TabIndex = 30;
             this.lblMonthName.Text = "חודש שנה";
             this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1097,7 +1098,7 @@
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1008, 562);

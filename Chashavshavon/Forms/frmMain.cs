@@ -592,7 +592,7 @@ namespace Chashavshavon
             {
                 CurrentFile = saveFileDialog1.FileName;
                 CurrentFileIsRemote = false;
-                LoadXmlFile();
+                this.RefreshData();                
             }
         }
 
