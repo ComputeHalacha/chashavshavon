@@ -9,7 +9,7 @@
       <Value Profile="(Default)">151</Value>
     </Setting>
     <Setting Name="IsSummerTime" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="RemoteUserName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -33,13 +33,13 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="OnahBenIs24Hours" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="NumberMonthsAheadToWarn" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">12</Value>
     </Setting>
     <Setting Name="KeepLongerHaflagah" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="CheshbonKavuahByActualEntry" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
