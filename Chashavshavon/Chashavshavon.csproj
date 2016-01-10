@@ -123,7 +123,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JewishDate">
-      <HintPath>..\..\Apps\HebrewDate\JewishDate\bin\Release\JewishDate.dll</HintPath>
+      <HintPath>.\JewishDate.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />

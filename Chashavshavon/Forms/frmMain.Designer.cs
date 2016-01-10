@@ -33,21 +33,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.dgEntries = new System.Windows.Forms.DataGridView();
-            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingSourceEntries = new System.Windows.Forms.BindingSource(this.components);
             this.gbCalendar = new System.Windows.Forms.GroupBox();
             this.btnAddEntry2 = new System.Windows.Forms.Button();
@@ -100,6 +94,12 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pbWeb = new System.Windows.Forms.PictureBox();
+            this.pnlNextProblem = new System.Windows.Forms.Panel();
+            this.btnLastMonth = new System.Windows.Forms.Button();
+            this.btnNextMonth = new System.Windows.Forms.Button();
+            this.lblMonthName = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.luachTableLayout = new Chashavshavon.DoubleBufferedLayoutTable();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -108,12 +108,12 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.pbWeb = new System.Windows.Forms.PictureBox();
-            this.pnlNextProblem = new System.Windows.Forms.Panel();
-            this.btnLastMonth = new System.Windows.Forms.Button();
-            this.btnNextMonth = new System.Windows.Forms.Button();
-            this.lblMonthName = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
@@ -124,10 +124,10 @@
             this.splitContainerMain.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.luachTableLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).BeginInit();
             this.pnlNextProblem.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.luachTableLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -186,7 +186,7 @@
             this.dgEntries.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -208,7 +208,7 @@
             this.dgEntries.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -224,64 +224,6 @@
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             this.dgEntries.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgEntries_CellFormatting);
-            // 
-            // btnDeleteColumn
-            // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
-            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.btnDeleteColumn.HeaderText = "";
-            this.btnDeleteColumn.LinkColor = System.Drawing.Color.SlateGray;
-            this.btnDeleteColumn.Name = "btnDeleteColumn";
-            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.btnDeleteColumn.Text = "מחק";
-            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
-            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
-            this.btnDeleteColumn.Width = 40;
-            // 
-            // DateColumn
-            // 
-            this.DateColumn.DataPropertyName = "DateTime";
-            dataGridViewCellStyle4.Format = "dd MMM yyyy";
-            dataGridViewCellStyle4.NullValue = null;
-            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.DateColumn.HeaderText = "תאריך";
-            this.DateColumn.Name = "DateColumn";
-            this.DateColumn.ReadOnly = true;
-            this.DateColumn.Width = 90;
-            // 
-            // DayNightColumn
-            // 
-            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
-            this.DayNightColumn.HeaderText = "יום/לילה";
-            this.DayNightColumn.Name = "DayNightColumn";
-            this.DayNightColumn.ReadOnly = true;
-            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DayNightColumn.Width = 67;
-            // 
-            // IntervalColumn
-            // 
-            this.IntervalColumn.DataPropertyName = "Interval";
-            this.IntervalColumn.HeaderText = "הפלגה";
-            this.IntervalColumn.Name = "IntervalColumn";
-            this.IntervalColumn.ReadOnly = true;
-            this.IntervalColumn.Width = 57;
-            // 
-            // DayOfWeekColumn
-            // 
-            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
-            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
-            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
-            this.DayOfWeekColumn.ReadOnly = true;
-            this.DayOfWeekColumn.Width = 77;
-            // 
-            // NotesColumn
-            // 
-            this.NotesColumn.DataPropertyName = "Notes";
-            this.NotesColumn.HeaderText = "הערות";
-            this.NotesColumn.Name = "NotesColumn";
-            this.NotesColumn.ReadOnly = true;
-            this.NotesColumn.Width = 415;
             // 
             // gbCalendar
             // 
@@ -751,8 +693,8 @@
             this.btnToday.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnToday.FlatAppearance.BorderSize = 0;
             this.btnToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnToday.Font = new System.Drawing.Font("Narkisim", 9.25F, System.Drawing.FontStyle.Bold);
-            this.btnToday.ForeColor = System.Drawing.Color.Lavender;
+            this.btnToday.Font = new System.Drawing.Font("Tahoma", 9.25F, System.Drawing.FontStyle.Bold);
+            this.btnToday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
             this.btnToday.Image = global::Chashavshavon.Properties.Resources.down;
             this.btnToday.Location = new System.Drawing.Point(717, 1);
             this.btnToday.Name = "btnToday";
@@ -769,7 +711,7 @@
             // 
             this.lblNextProblem.AutoEllipsis = true;
             this.lblNextProblem.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblNextProblem.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblNextProblem.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.lblNextProblem.ForeColor = System.Drawing.Color.White;
             this.lblNextProblem.Location = new System.Drawing.Point(0, 0);
             this.lblNextProblem.Name = "lblNextProblem";
@@ -858,6 +800,101 @@
             this.panel1.Size = new System.Drawing.Size(939, 345);
             this.panel1.TabIndex = 35;
             // 
+            // pbWeb
+            // 
+            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
+            this.pbWeb.Location = new System.Drawing.Point(-509, -3);
+            this.pbWeb.Name = "pbWeb";
+            this.pbWeb.Size = new System.Drawing.Size(53, 51);
+            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbWeb.TabIndex = 15;
+            this.pbWeb.TabStop = false;
+            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
+            // 
+            // pnlNextProblem
+            // 
+            this.pnlNextProblem.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
+            this.pnlNextProblem.Controls.Add(this.lblNextProblem);
+            this.pnlNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlNextProblem.Location = new System.Drawing.Point(0, 116);
+            this.pnlNextProblem.Name = "pnlNextProblem";
+            this.pnlNextProblem.Size = new System.Drawing.Size(1006, 25);
+            this.pnlNextProblem.TabIndex = 17;
+            // 
+            // btnLastMonth
+            // 
+            this.btnLastMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLastMonth.BackColor = System.Drawing.Color.Transparent;
+            this.btnLastMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
+            this.btnLastMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLastMonth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLastMonth.FlatAppearance.BorderSize = 0;
+            this.btnLastMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLastMonth.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnLastMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
+            this.btnLastMonth.Image = global::Chashavshavon.Properties.Resources.next;
+            this.btnLastMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLastMonth.Location = new System.Drawing.Point(795, 1);
+            this.btnLastMonth.Name = "btnLastMonth";
+            this.btnLastMonth.Size = new System.Drawing.Size(126, 35);
+            this.btnLastMonth.TabIndex = 29;
+            this.btnLastMonth.Text = "button2";
+            this.btnLastMonth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLastMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnLastMonth.UseVisualStyleBackColor = false;
+            this.btnLastMonth.Click += new System.EventHandler(this.btnLastMonth_Click);
+            // 
+            // btnNextMonth
+            // 
+            this.btnNextMonth.BackColor = System.Drawing.Color.Transparent;
+            this.btnNextMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
+            this.btnNextMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnNextMonth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNextMonth.FlatAppearance.BorderSize = 0;
+            this.btnNextMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNextMonth.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnNextMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
+            this.btnNextMonth.Image = global::Chashavshavon.Properties.Resources.previous;
+            this.btnNextMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNextMonth.Location = new System.Drawing.Point(1, 1);
+            this.btnNextMonth.Name = "btnNextMonth";
+            this.btnNextMonth.Size = new System.Drawing.Size(126, 35);
+            this.btnNextMonth.TabIndex = 28;
+            this.btnNextMonth.Text = "button1";
+            this.btnNextMonth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNextMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnNextMonth.UseVisualStyleBackColor = false;
+            this.btnNextMonth.Click += new System.EventHandler(this.btnNextMonth_Click);
+            // 
+            // lblMonthName
+            // 
+            this.lblMonthName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblMonthName.AutoSize = true;
+            this.lblMonthName.BackColor = System.Drawing.Color.Transparent;
+            this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 25F);
+            this.lblMonthName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
+            this.lblMonthName.Location = new System.Drawing.Point(391, 2);
+            this.lblMonthName.Name = "lblMonthName";
+            this.lblMonthName.Size = new System.Drawing.Size(175, 42);
+            this.lblMonthName.TabIndex = 30;
+            this.lblMonthName.Text = "חודש שנה";
+            this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
+            this.panel2.Controls.Add(this.btnNextMonth);
+            this.panel2.Controls.Add(this.btnLastMonth);
+            this.panel2.Controls.Add(this.btnToday);
+            this.panel2.Controls.Add(this.lblMonthName);
+            this.panel2.Location = new System.Drawing.Point(0, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(922, 38);
+            this.panel2.TabIndex = 37;
+            // 
             // luachTableLayout
             // 
             this.luachTableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -902,7 +939,7 @@
             this.label7.BackColor = System.Drawing.Color.LightSlateGray;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("Narkisim", 12F);
-            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
             this.label7.Location = new System.Drawing.Point(2, 2);
             this.label7.Margin = new System.Windows.Forms.Padding(0);
             this.label7.Name = "label7";
@@ -917,7 +954,7 @@
             this.label6.BackColor = System.Drawing.Color.LightSlateGray;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Narkisim", 12F);
-            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
             this.label6.Location = new System.Drawing.Point(136, 2);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
@@ -932,7 +969,7 @@
             this.label5.BackColor = System.Drawing.Color.LightSlateGray;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Narkisim", 12F);
-            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
             this.label5.Location = new System.Drawing.Point(267, 2);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
@@ -947,7 +984,7 @@
             this.label9.BackColor = System.Drawing.Color.LightSlateGray;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Font = new System.Drawing.Font("Narkisim", 12F);
-            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
             this.label9.Location = new System.Drawing.Point(398, 2);
             this.label9.Margin = new System.Windows.Forms.Padding(0);
             this.label9.Name = "label9";
@@ -962,7 +999,7 @@
             this.label10.BackColor = System.Drawing.Color.LightSlateGray;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label10.Font = new System.Drawing.Font("Narkisim", 12F);
-            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
             this.label10.Location = new System.Drawing.Point(529, 2);
             this.label10.Margin = new System.Windows.Forms.Padding(0);
             this.label10.Name = "label10";
@@ -977,7 +1014,7 @@
             this.label11.BackColor = System.Drawing.Color.LightSlateGray;
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label11.Font = new System.Drawing.Font("Narkisim", 12F);
-            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
             this.label11.Location = new System.Drawing.Point(660, 2);
             this.label11.Margin = new System.Windows.Forms.Padding(0);
             this.label11.Name = "label11";
@@ -992,7 +1029,7 @@
             this.label12.BackColor = System.Drawing.Color.LightSlateGray;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Font = new System.Drawing.Font("Narkisim", 12F);
-            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
             this.label12.Location = new System.Drawing.Point(791, 2);
             this.label12.Margin = new System.Windows.Forms.Padding(0);
             this.label12.Name = "label12";
@@ -1001,111 +1038,74 @@
             this.label12.Text = "ראשון";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pbWeb
+            // btnDeleteColumn
             // 
-            this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
-            this.pbWeb.Location = new System.Drawing.Point(-509, -3);
-            this.pbWeb.Name = "pbWeb";
-            this.pbWeb.Size = new System.Drawing.Size(53, 51);
-            this.pbWeb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbWeb.TabIndex = 15;
-            this.pbWeb.TabStop = false;
-            this.pbWeb.Click += new System.EventHandler(this.pbWeb_Click);
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
+            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.btnDeleteColumn.HeaderText = "";
+            this.btnDeleteColumn.LinkColor = System.Drawing.Color.SlateGray;
+            this.btnDeleteColumn.Name = "btnDeleteColumn";
+            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.btnDeleteColumn.Text = "מחק";
+            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
+            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
+            this.btnDeleteColumn.Width = 40;
             // 
-            // pnlNextProblem
+            // DateColumn
             // 
-            this.pnlNextProblem.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
-            this.pnlNextProblem.Controls.Add(this.lblNextProblem);
-            this.pnlNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlNextProblem.Location = new System.Drawing.Point(0, 116);
-            this.pnlNextProblem.Name = "pnlNextProblem";
-            this.pnlNextProblem.Size = new System.Drawing.Size(1006, 25);
-            this.pnlNextProblem.TabIndex = 17;
+            this.DateColumn.DataPropertyName = "DateTime";
+            dataGridViewCellStyle4.Format = "dd MMM yyyy";
+            dataGridViewCellStyle4.NullValue = null;
+            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.DateColumn.HeaderText = "תאריך";
+            this.DateColumn.Name = "DateColumn";
+            this.DateColumn.ReadOnly = true;
+            this.DateColumn.Width = 90;
             // 
-            // btnLastMonth
+            // DayNightColumn
             // 
-            this.btnLastMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLastMonth.BackColor = System.Drawing.Color.Transparent;
-            this.btnLastMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
-            this.btnLastMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnLastMonth.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLastMonth.FlatAppearance.BorderSize = 0;
-            this.btnLastMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnLastMonth.ForeColor = System.Drawing.Color.Lavender;
-            this.btnLastMonth.Image = global::Chashavshavon.Properties.Resources.next;
-            this.btnLastMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLastMonth.Location = new System.Drawing.Point(795, 1);
-            this.btnLastMonth.Name = "btnLastMonth";
-            this.btnLastMonth.Size = new System.Drawing.Size(126, 35);
-            this.btnLastMonth.TabIndex = 29;
-            this.btnLastMonth.Text = "button2";
-            this.btnLastMonth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLastMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnLastMonth.UseVisualStyleBackColor = false;
-            this.btnLastMonth.Click += new System.EventHandler(this.btnLastMonth_Click);
+            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
+            this.DayNightColumn.HeaderText = "יום/לילה";
+            this.DayNightColumn.Name = "DayNightColumn";
+            this.DayNightColumn.ReadOnly = true;
+            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DayNightColumn.Width = 67;
             // 
-            // btnNextMonth
+            // IntervalColumn
             // 
-            this.btnNextMonth.BackColor = System.Drawing.Color.Transparent;
-            this.btnNextMonth.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
-            this.btnNextMonth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnNextMonth.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNextMonth.FlatAppearance.BorderSize = 0;
-            this.btnNextMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.btnNextMonth.ForeColor = System.Drawing.Color.Lavender;
-            this.btnNextMonth.Image = global::Chashavshavon.Properties.Resources.previous;
-            this.btnNextMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNextMonth.Location = new System.Drawing.Point(1, 1);
-            this.btnNextMonth.Name = "btnNextMonth";
-            this.btnNextMonth.Size = new System.Drawing.Size(126, 35);
-            this.btnNextMonth.TabIndex = 28;
-            this.btnNextMonth.Text = "button1";
-            this.btnNextMonth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNextMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btnNextMonth.UseVisualStyleBackColor = false;
-            this.btnNextMonth.Click += new System.EventHandler(this.btnNextMonth_Click);
+            this.IntervalColumn.DataPropertyName = "Interval";
+            this.IntervalColumn.HeaderText = "הפלגה";
+            this.IntervalColumn.Name = "IntervalColumn";
+            this.IntervalColumn.ReadOnly = true;
+            this.IntervalColumn.Width = 57;
             // 
-            // lblMonthName
+            // DayOfWeekColumn
             // 
-            this.lblMonthName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblMonthName.AutoSize = true;
-            this.lblMonthName.BackColor = System.Drawing.Color.Transparent;
-            this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 25F);
-            this.lblMonthName.ForeColor = System.Drawing.Color.Lavender;
-            this.lblMonthName.Location = new System.Drawing.Point(391, 2);
-            this.lblMonthName.Name = "lblMonthName";
-            this.lblMonthName.Size = new System.Drawing.Size(175, 42);
-            this.lblMonthName.TabIndex = 30;
-            this.lblMonthName.Text = "חודש שנה";
-            this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
+            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
+            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
+            this.DayOfWeekColumn.ReadOnly = true;
+            this.DayOfWeekColumn.Width = 120;
             // 
-            // panel2
+            // NotesColumn
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
-            this.panel2.Controls.Add(this.btnNextMonth);
-            this.panel2.Controls.Add(this.btnLastMonth);
-            this.panel2.Controls.Add(this.btnToday);
-            this.panel2.Controls.Add(this.lblMonthName);
-            this.panel2.Location = new System.Drawing.Point(0, 24);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(922, 38);
-            this.panel2.TabIndex = 37;
+            this.NotesColumn.DataPropertyName = "Notes";
+            this.NotesColumn.HeaderText = "הערות";
+            this.NotesColumn.Name = "NotesColumn";
+            this.NotesColumn.ReadOnly = true;
+            this.NotesColumn.Width = 415;
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1008, 562);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("Narkisim", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -1131,12 +1131,12 @@
             this.splitContainerMain.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.luachTableLayout.ResumeLayout(false);
-            this.luachTableLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWeb)).EndInit();
             this.pnlNextProblem.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.luachTableLayout.ResumeLayout(false);
+            this.luachTableLayout.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1189,12 +1189,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.DataGridViewLinkColumn btnDeleteColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DayNightColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IntervalColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DayOfWeekColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NotesColumn;
         private System.Windows.Forms.Button btnPrefs;
         private System.Windows.Forms.Label lblMonthName;
         private System.Windows.Forms.Button btnLastMonth;
@@ -1222,9 +1216,12 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem OpenBackupToolStripMenuItem;
         private System.Windows.Forms.Panel pnlNextProblem;
-
-
-
+        private System.Windows.Forms.DataGridViewLinkColumn btnDeleteColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DayNightColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IntervalColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DayOfWeekColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NotesColumn;
     }
 }
 
