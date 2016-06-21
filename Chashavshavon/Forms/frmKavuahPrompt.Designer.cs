@@ -71,7 +71,7 @@
             this.dgvKavuahList.DataSource = this.bindingSource1;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Narkisim", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Narkisim", 11F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(5);
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
@@ -184,12 +184,12 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Narkisim", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(596, 21);
+            this.label4.Location = new System.Drawing.Point(551, 21);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(178, 27);
+            this.label4.Size = new System.Drawing.Size(219, 34);
             this.label4.TabIndex = 5;
-            this.label4.Text = "נמצא וסת קבוע";
+            this.label4.Text = "ייתכן וסת קבוע";
             // 
             // btnCancel
             // 
@@ -208,10 +208,10 @@
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label1.Location = new System.Drawing.Point(16, 21);
+            this.label1.Location = new System.Drawing.Point(13, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(558, 51);
+            this.label1.Size = new System.Drawing.Size(518, 71);
             this.label1.TabIndex = 7;
             this.label1.Text = "על פי הנתונים ברשימה, נראה שיש סיבה לרשום וסת קבוע.\r\n להלן רשימת הפרטים. ניתן למח" +
     "וק או לשנות הפרטים.\r\n מומלץ לפנות למורה הוראה.";
@@ -233,7 +233,7 @@
             // 
             // frmKavuahPrompt
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Lavender;
             this.ClientSize = new System.Drawing.Size(787, 424);

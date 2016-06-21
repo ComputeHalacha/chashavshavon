@@ -33,15 +33,21 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.dgEntries = new System.Windows.Forms.DataGridView();
+            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingSourceEntries = new System.Windows.Forms.BindingSource(this.components);
             this.gbCalendar = new System.Windows.Forms.GroupBox();
             this.btnAddEntry2 = new System.Windows.Forms.Button();
@@ -108,12 +114,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.btnDeleteColumn = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayNightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IntervalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DayOfWeekColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NotesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).BeginInit();
             this.gbCalendar.SuspendLayout();
@@ -220,10 +220,68 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
             this.dgEntries.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgEntries.Size = new System.Drawing.Size(951, 86);
+            this.dgEntries.Size = new System.Drawing.Size(1193, 129);
             this.dgEntries.TabIndex = 12;
             this.dgEntries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgEntries_CellContentClick);
             this.dgEntries.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgEntries_CellFormatting);
+            // 
+            // btnDeleteColumn
+            // 
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
+            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.btnDeleteColumn.HeaderText = "";
+            this.btnDeleteColumn.LinkColor = System.Drawing.Color.SlateGray;
+            this.btnDeleteColumn.Name = "btnDeleteColumn";
+            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.btnDeleteColumn.Text = "מחק";
+            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
+            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
+            this.btnDeleteColumn.Width = 40;
+            // 
+            // DateColumn
+            // 
+            this.DateColumn.DataPropertyName = "DateTime";
+            dataGridViewCellStyle4.Format = "dd MMM yyyy";
+            dataGridViewCellStyle4.NullValue = null;
+            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.DateColumn.HeaderText = "תאריך";
+            this.DateColumn.Name = "DateColumn";
+            this.DateColumn.ReadOnly = true;
+            this.DateColumn.Width = 90;
+            // 
+            // DayNightColumn
+            // 
+            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
+            this.DayNightColumn.HeaderText = "יום/לילה";
+            this.DayNightColumn.Name = "DayNightColumn";
+            this.DayNightColumn.ReadOnly = true;
+            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DayNightColumn.Width = 67;
+            // 
+            // IntervalColumn
+            // 
+            this.IntervalColumn.DataPropertyName = "Interval";
+            this.IntervalColumn.HeaderText = "הפלגה";
+            this.IntervalColumn.Name = "IntervalColumn";
+            this.IntervalColumn.ReadOnly = true;
+            this.IntervalColumn.Width = 57;
+            // 
+            // DayOfWeekColumn
+            // 
+            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
+            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
+            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
+            this.DayOfWeekColumn.ReadOnly = true;
+            this.DayOfWeekColumn.Width = 120;
+            // 
+            // NotesColumn
+            // 
+            this.NotesColumn.DataPropertyName = "Notes";
+            this.NotesColumn.HeaderText = "הערות";
+            this.NotesColumn.Name = "NotesColumn";
+            this.NotesColumn.ReadOnly = true;
+            this.NotesColumn.Width = 415;
             // 
             // gbCalendar
             // 
@@ -235,7 +293,7 @@
             this.gbCalendar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbCalendar.Location = new System.Drawing.Point(0, 0);
             this.gbCalendar.Name = "gbCalendar";
-            this.gbCalendar.Size = new System.Drawing.Size(1006, 141);
+            this.gbCalendar.Size = new System.Drawing.Size(1248, 184);
             this.gbCalendar.TabIndex = 13;
             this.gbCalendar.TabStop = false;
             this.gbCalendar.Text = "רשומות";
@@ -246,7 +304,7 @@
             this.btnAddEntry2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnAddEntry2.FlatAppearance.BorderSize = 0;
             this.btnAddEntry2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddEntry2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnAddEntry2.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnAddEntry2.ForeColor = System.Drawing.Color.Blue;
             this.btnAddEntry2.Image = global::Chashavshavon.Properties.Resources.add;
             this.btnAddEntry2.Location = new System.Drawing.Point(0, 116);
@@ -263,7 +321,7 @@
             // 
             this.btnViewTextEntryList.FlatAppearance.BorderSize = 0;
             this.btnViewTextEntryList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnViewTextEntryList.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnViewTextEntryList.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnViewTextEntryList.ForeColor = System.Drawing.Color.Blue;
             this.btnViewTextEntryList.Image = global::Chashavshavon.Properties.Resources.page_previous;
             this.btnViewTextEntryList.Location = new System.Drawing.Point(0, 8);
@@ -280,7 +338,7 @@
             // 
             this.btnPrintEntryList.FlatAppearance.BorderSize = 0;
             this.btnPrintEntryList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrintEntryList.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPrintEntryList.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnPrintEntryList.ForeColor = System.Drawing.Color.Blue;
             this.btnPrintEntryList.Image = global::Chashavshavon.Properties.Resources.printer;
             this.btnPrintEntryList.Location = new System.Drawing.Point(0, 62);
@@ -299,13 +357,13 @@
             this.btnViewTextCalendar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnViewTextCalendar.FlatAppearance.BorderSize = 0;
             this.btnViewTextCalendar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnViewTextCalendar.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnViewTextCalendar.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnViewTextCalendar.ForeColor = System.Drawing.Color.Blue;
             this.btnViewTextCalendar.Image = global::Chashavshavon.Properties.Resources.page_previous;
-            this.btnViewTextCalendar.Location = new System.Drawing.Point(0, 100);
+            this.btnViewTextCalendar.Location = new System.Drawing.Point(4, 140);
             this.btnViewTextCalendar.Margin = new System.Windows.Forms.Padding(0);
             this.btnViewTextCalendar.Name = "btnViewTextCalendar";
-            this.btnViewTextCalendar.Size = new System.Drawing.Size(86, 50);
+            this.btnViewTextCalendar.Size = new System.Drawing.Size(82, 70);
             this.btnViewTextCalendar.TabIndex = 19;
             this.btnViewTextCalendar.Text = "רשימת עונות";
             this.btnViewTextCalendar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -324,7 +382,7 @@
             this.AboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1250, 28);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -590,13 +648,13 @@
             this.btnCheshbonKavuahs.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnCheshbonKavuahs.FlatAppearance.BorderSize = 0;
             this.btnCheshbonKavuahs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCheshbonKavuahs.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnCheshbonKavuahs.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnCheshbonKavuahs.ForeColor = System.Drawing.Color.Blue;
             this.btnCheshbonKavuahs.Image = global::Chashavshavon.Properties.Resources.database_process;
-            this.btnCheshbonKavuahs.Location = new System.Drawing.Point(0, 200);
+            this.btnCheshbonKavuahs.Location = new System.Drawing.Point(4, 280);
             this.btnCheshbonKavuahs.Margin = new System.Windows.Forms.Padding(0);
             this.btnCheshbonKavuahs.Name = "btnCheshbonKavuahs";
-            this.btnCheshbonKavuahs.Size = new System.Drawing.Size(86, 50);
+            this.btnCheshbonKavuahs.Size = new System.Drawing.Size(82, 70);
             this.btnCheshbonKavuahs.TabIndex = 26;
             this.btnCheshbonKavuahs.Text = "חשב קבוע";
             this.btnCheshbonKavuahs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -610,13 +668,13 @@
             this.btnOpenKavuahs.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnOpenKavuahs.FlatAppearance.BorderSize = 0;
             this.btnOpenKavuahs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenKavuahs.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnOpenKavuahs.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnOpenKavuahs.ForeColor = System.Drawing.Color.Blue;
             this.btnOpenKavuahs.Image = global::Chashavshavon.Properties.Resources.database_search;
-            this.btnOpenKavuahs.Location = new System.Drawing.Point(0, 150);
+            this.btnOpenKavuahs.Location = new System.Drawing.Point(4, 210);
             this.btnOpenKavuahs.Margin = new System.Windows.Forms.Padding(0);
             this.btnOpenKavuahs.Name = "btnOpenKavuahs";
-            this.btnOpenKavuahs.Size = new System.Drawing.Size(86, 50);
+            this.btnOpenKavuahs.Size = new System.Drawing.Size(82, 70);
             this.btnOpenKavuahs.TabIndex = 24;
             this.btnOpenKavuahs.Text = "רשימת קבוע";
             this.btnOpenKavuahs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -630,13 +688,13 @@
             this.btnPrefs.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnPrefs.FlatAppearance.BorderSize = 0;
             this.btnPrefs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrefs.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnPrefs.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnPrefs.ForeColor = System.Drawing.Color.Blue;
             this.btnPrefs.Image = global::Chashavshavon.Properties.Resources.process;
-            this.btnPrefs.Location = new System.Drawing.Point(0, 300);
+            this.btnPrefs.Location = new System.Drawing.Point(4, 420);
             this.btnPrefs.Margin = new System.Windows.Forms.Padding(0);
             this.btnPrefs.Name = "btnPrefs";
-            this.btnPrefs.Size = new System.Drawing.Size(86, 50);
+            this.btnPrefs.Size = new System.Drawing.Size(82, 70);
             this.btnPrefs.TabIndex = 32;
             this.btnPrefs.Text = "העדפות";
             this.btnPrefs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -650,13 +708,13 @@
             this.btnAddEntry.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnAddEntry.FlatAppearance.BorderSize = 0;
             this.btnAddEntry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddEntry.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnAddEntry.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnAddEntry.ForeColor = System.Drawing.Color.Blue;
             this.btnAddEntry.Image = global::Chashavshavon.Properties.Resources.add;
-            this.btnAddEntry.Location = new System.Drawing.Point(0, 50);
+            this.btnAddEntry.Location = new System.Drawing.Point(4, 70);
             this.btnAddEntry.Margin = new System.Windows.Forms.Padding(0);
             this.btnAddEntry.Name = "btnAddEntry";
-            this.btnAddEntry.Size = new System.Drawing.Size(86, 50);
+            this.btnAddEntry.Size = new System.Drawing.Size(82, 70);
             this.btnAddEntry.TabIndex = 33;
             this.btnAddEntry.Text = "הוסף רשומה";
             this.btnAddEntry.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -670,13 +728,13 @@
             this.btnAddKavuah.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnAddKavuah.FlatAppearance.BorderSize = 0;
             this.btnAddKavuah.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddKavuah.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnAddKavuah.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnAddKavuah.ForeColor = System.Drawing.Color.Blue;
             this.btnAddKavuah.Image = global::Chashavshavon.Properties.Resources.database_add_small;
-            this.btnAddKavuah.Location = new System.Drawing.Point(0, 250);
+            this.btnAddKavuah.Location = new System.Drawing.Point(4, 350);
             this.btnAddKavuah.Margin = new System.Windows.Forms.Padding(0);
             this.btnAddKavuah.Name = "btnAddKavuah";
-            this.btnAddKavuah.Size = new System.Drawing.Size(86, 50);
+            this.btnAddKavuah.Size = new System.Drawing.Size(82, 70);
             this.btnAddKavuah.TabIndex = 34;
             this.btnAddKavuah.Text = "הוסף קבוע";
             this.btnAddKavuah.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -693,10 +751,10 @@
             this.btnToday.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnToday.FlatAppearance.BorderSize = 0;
             this.btnToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnToday.Font = new System.Drawing.Font("Tahoma", 9.25F, System.Drawing.FontStyle.Bold);
+            this.btnToday.Font = new System.Drawing.Font("Narkisim", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnToday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
             this.btnToday.Image = global::Chashavshavon.Properties.Resources.down;
-            this.btnToday.Location = new System.Drawing.Point(717, 1);
+            this.btnToday.Location = new System.Drawing.Point(953, 1);
             this.btnToday.Name = "btnToday";
             this.btnToday.Size = new System.Drawing.Size(77, 35);
             this.btnToday.TabIndex = 36;
@@ -716,7 +774,7 @@
             this.lblNextProblem.Location = new System.Drawing.Point(0, 0);
             this.lblNextProblem.Name = "lblNextProblem";
             this.lblNextProblem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lblNextProblem.Size = new System.Drawing.Size(1006, 25);
+            this.lblNextProblem.Size = new System.Drawing.Size(1248, 25);
             this.lblNextProblem.TabIndex = 16;
             this.lblNextProblem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -747,14 +805,13 @@
             this.splitContainerMain.Panel2.Controls.Add(this.gbCalendar);
             this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainerMain.Panel2MinSize = 133;
-            this.splitContainerMain.Size = new System.Drawing.Size(1008, 534);
-            this.splitContainerMain.SplitterDistance = 388;
+            this.splitContainerMain.Size = new System.Drawing.Size(1250, 688);
+            this.splitContainerMain.SplitterDistance = 499;
             this.splitContainerMain.SplitterWidth = 3;
             this.splitContainerMain.TabIndex = 23;
             // 
             // flowLayoutPanel3
             // 
-            this.flowLayoutPanel3.AutoSize = true;
             this.flowLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel3.Controls.Add(this.btnRefresh);
             this.flowLayoutPanel3.Controls.Add(this.btnAddEntry);
@@ -763,11 +820,12 @@
             this.flowLayoutPanel3.Controls.Add(this.btnCheshbonKavuahs);
             this.flowLayoutPanel3.Controls.Add(this.btnAddKavuah);
             this.flowLayoutPanel3.Controls.Add(this.btnPrefs);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(-2, 0);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(86, 350);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(86, 497);
             this.flowLayoutPanel3.TabIndex = 38;
             // 
             // btnRefresh
@@ -776,13 +834,13 @@
             this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnRefresh.FlatAppearance.BorderSize = 0;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnRefresh.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnRefresh.ForeColor = System.Drawing.Color.Blue;
             this.btnRefresh.Image = global::Chashavshavon.Properties.Resources.refresh1;
-            this.btnRefresh.Location = new System.Drawing.Point(0, 0);
+            this.btnRefresh.Location = new System.Drawing.Point(4, 0);
             this.btnRefresh.Margin = new System.Windows.Forms.Padding(0);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(86, 50);
+            this.btnRefresh.Size = new System.Drawing.Size(82, 70);
             this.btnRefresh.TabIndex = 37;
             this.btnRefresh.Text = "רענן הכל";
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -797,7 +855,7 @@
             this.panel1.Controls.Add(this.luachTableLayout);
             this.panel1.Location = new System.Drawing.Point(85, 38);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(939, 345);
+            this.panel1.Size = new System.Drawing.Size(1181, 456);
             this.panel1.TabIndex = 35;
             // 
             // pbWeb
@@ -817,9 +875,9 @@
             this.pnlNextProblem.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleBar;
             this.pnlNextProblem.Controls.Add(this.lblNextProblem);
             this.pnlNextProblem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlNextProblem.Location = new System.Drawing.Point(0, 116);
+            this.pnlNextProblem.Location = new System.Drawing.Point(0, 159);
             this.pnlNextProblem.Name = "pnlNextProblem";
-            this.pnlNextProblem.Size = new System.Drawing.Size(1006, 25);
+            this.pnlNextProblem.Size = new System.Drawing.Size(1248, 25);
             this.pnlNextProblem.TabIndex = 17;
             // 
             // btnLastMonth
@@ -831,11 +889,11 @@
             this.btnLastMonth.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLastMonth.FlatAppearance.BorderSize = 0;
             this.btnLastMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLastMonth.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnLastMonth.Font = new System.Drawing.Font("Narkisim", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnLastMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
             this.btnLastMonth.Image = global::Chashavshavon.Properties.Resources.next;
             this.btnLastMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLastMonth.Location = new System.Drawing.Point(795, 1);
+            this.btnLastMonth.Location = new System.Drawing.Point(1031, 1);
             this.btnLastMonth.Name = "btnLastMonth";
             this.btnLastMonth.Size = new System.Drawing.Size(126, 35);
             this.btnLastMonth.TabIndex = 29;
@@ -853,11 +911,11 @@
             this.btnNextMonth.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNextMonth.FlatAppearance.BorderSize = 0;
             this.btnNextMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNextMonth.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnNextMonth.Font = new System.Drawing.Font("Narkisim", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnNextMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
             this.btnNextMonth.Image = global::Chashavshavon.Properties.Resources.previous;
             this.btnNextMonth.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNextMonth.Location = new System.Drawing.Point(1, 1);
+            this.btnNextMonth.Location = new System.Drawing.Point(7, 1);
             this.btnNextMonth.Name = "btnNextMonth";
             this.btnNextMonth.Size = new System.Drawing.Size(126, 35);
             this.btnNextMonth.TabIndex = 28;
@@ -874,7 +932,7 @@
             this.lblMonthName.BackColor = System.Drawing.Color.Transparent;
             this.lblMonthName.Font = new System.Drawing.Font("Narkisim", 25F);
             this.lblMonthName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
-            this.lblMonthName.Location = new System.Drawing.Point(391, 2);
+            this.lblMonthName.Location = new System.Drawing.Point(509, 2);
             this.lblMonthName.Name = "lblMonthName";
             this.lblMonthName.Size = new System.Drawing.Size(175, 42);
             this.lblMonthName.TabIndex = 30;
@@ -890,9 +948,9 @@
             this.panel2.Controls.Add(this.btnLastMonth);
             this.panel2.Controls.Add(this.btnToday);
             this.panel2.Controls.Add(this.lblMonthName);
-            this.panel2.Location = new System.Drawing.Point(0, 24);
+            this.panel2.Location = new System.Drawing.Point(0, 28);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(922, 38);
+            this.panel2.Size = new System.Drawing.Size(1158, 38);
             this.panel2.TabIndex = 37;
             // 
             // luachTableLayout
@@ -919,7 +977,7 @@
             this.luachTableLayout.Controls.Add(this.label11, 1, 0);
             this.luachTableLayout.Controls.Add(this.label12, 0, 0);
             this.luachTableLayout.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.luachTableLayout.Location = new System.Drawing.Point(0, 0);
+            this.luachTableLayout.Location = new System.Drawing.Point(6, 0);
             this.luachTableLayout.Margin = new System.Windows.Forms.Padding(0);
             this.luachTableLayout.Name = "luachTableLayout";
             this.luachTableLayout.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -930,7 +988,7 @@
             this.luachTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.luachTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.12766F));
             this.luachTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.14894F));
-            this.luachTableLayout.Size = new System.Drawing.Size(922, 347);
+            this.luachTableLayout.Size = new System.Drawing.Size(1158, 458);
             this.luachTableLayout.TabIndex = 27;
             // 
             // label7
@@ -943,7 +1001,7 @@
             this.label7.Location = new System.Drawing.Point(2, 2);
             this.label7.Margin = new System.Windows.Forms.Padding(0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 20);
+            this.label7.Size = new System.Drawing.Size(164, 20);
             this.label7.TabIndex = 6;
             this.label7.Text = "שבת קודש";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -955,10 +1013,10 @@
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Narkisim", 12F);
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
-            this.label6.Location = new System.Drawing.Point(136, 2);
+            this.label6.Location = new System.Drawing.Point(168, 2);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(129, 20);
+            this.label6.Size = new System.Drawing.Size(163, 20);
             this.label6.TabIndex = 5;
             this.label6.Text = "שישי";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -970,10 +1028,10 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Narkisim", 12F);
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
-            this.label5.Location = new System.Drawing.Point(267, 2);
+            this.label5.Location = new System.Drawing.Point(333, 2);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(129, 20);
+            this.label5.Size = new System.Drawing.Size(163, 20);
             this.label5.TabIndex = 4;
             this.label5.Text = "חמישי";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -985,10 +1043,10 @@
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Font = new System.Drawing.Font("Narkisim", 12F);
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
-            this.label9.Location = new System.Drawing.Point(398, 2);
+            this.label9.Location = new System.Drawing.Point(498, 2);
             this.label9.Margin = new System.Windows.Forms.Padding(0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(129, 20);
+            this.label9.Size = new System.Drawing.Size(163, 20);
             this.label9.TabIndex = 3;
             this.label9.Text = "רביעי";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1000,10 +1058,10 @@
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label10.Font = new System.Drawing.Font("Narkisim", 12F);
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
-            this.label10.Location = new System.Drawing.Point(529, 2);
+            this.label10.Location = new System.Drawing.Point(663, 2);
             this.label10.Margin = new System.Windows.Forms.Padding(0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(129, 20);
+            this.label10.Size = new System.Drawing.Size(163, 20);
             this.label10.TabIndex = 2;
             this.label10.Text = "שלישי";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1015,10 +1073,10 @@
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label11.Font = new System.Drawing.Font("Narkisim", 12F);
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
-            this.label11.Location = new System.Drawing.Point(660, 2);
+            this.label11.Location = new System.Drawing.Point(828, 2);
             this.label11.Margin = new System.Windows.Forms.Padding(0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(129, 20);
+            this.label11.Size = new System.Drawing.Size(163, 20);
             this.label11.TabIndex = 1;
             this.label11.Text = "שני";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1030,78 +1088,20 @@
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Font = new System.Drawing.Font("Narkisim", 12F);
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
-            this.label12.Location = new System.Drawing.Point(791, 2);
+            this.label12.Location = new System.Drawing.Point(993, 2);
             this.label12.Margin = new System.Windows.Forms.Padding(0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(129, 20);
+            this.label12.Size = new System.Drawing.Size(163, 20);
             this.label12.TabIndex = 0;
             this.label12.Text = "ראשון";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnDeleteColumn
-            // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Blue;
-            this.btnDeleteColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.btnDeleteColumn.HeaderText = "";
-            this.btnDeleteColumn.LinkColor = System.Drawing.Color.SlateGray;
-            this.btnDeleteColumn.Name = "btnDeleteColumn";
-            this.btnDeleteColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.btnDeleteColumn.Text = "מחק";
-            this.btnDeleteColumn.ToolTipText = "מחק שורה הזאת";
-            this.btnDeleteColumn.UseColumnTextForLinkValue = true;
-            this.btnDeleteColumn.Width = 40;
-            // 
-            // DateColumn
-            // 
-            this.DateColumn.DataPropertyName = "DateTime";
-            dataGridViewCellStyle4.Format = "dd MMM yyyy";
-            dataGridViewCellStyle4.NullValue = null;
-            this.DateColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.DateColumn.HeaderText = "תאריך";
-            this.DateColumn.Name = "DateColumn";
-            this.DateColumn.ReadOnly = true;
-            this.DateColumn.Width = 90;
-            // 
-            // DayNightColumn
-            // 
-            this.DayNightColumn.DataPropertyName = "HebrewDayNight";
-            this.DayNightColumn.HeaderText = "יום/לילה";
-            this.DayNightColumn.Name = "DayNightColumn";
-            this.DayNightColumn.ReadOnly = true;
-            this.DayNightColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DayNightColumn.Width = 67;
-            // 
-            // IntervalColumn
-            // 
-            this.IntervalColumn.DataPropertyName = "Interval";
-            this.IntervalColumn.HeaderText = "הפלגה";
-            this.IntervalColumn.Name = "IntervalColumn";
-            this.IntervalColumn.ReadOnly = true;
-            this.IntervalColumn.Width = 57;
-            // 
-            // DayOfWeekColumn
-            // 
-            this.DayOfWeekColumn.DataPropertyName = "HebrewDayOfWeek";
-            this.DayOfWeekColumn.HeaderText = "יום בשבוע";
-            this.DayOfWeekColumn.Name = "DayOfWeekColumn";
-            this.DayOfWeekColumn.ReadOnly = true;
-            this.DayOfWeekColumn.Width = 120;
-            // 
-            // NotesColumn
-            // 
-            this.NotesColumn.DataPropertyName = "Notes";
-            this.NotesColumn.HeaderText = "הערות";
-            this.NotesColumn.Name = "NotesColumn";
-            this.NotesColumn.ReadOnly = true;
-            this.NotesColumn.Width = 415;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1008, 562);
+            this.ClientSize = new System.Drawing.Size(1250, 716);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.menuStrip1);
@@ -1125,7 +1125,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainerMain.Panel1.ResumeLayout(false);
-            this.splitContainerMain.Panel1.PerformLayout();
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);

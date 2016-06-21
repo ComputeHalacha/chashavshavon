@@ -39,6 +39,9 @@ namespace Chashavshavon
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.llContact);
@@ -46,16 +49,17 @@ namespace Chashavshavon
             this.panel1.Controls.Add(this.label4);
             this.panel1.Location = new System.Drawing.Point(11, 90);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(428, 154);
+            this.panel1.Size = new System.Drawing.Size(430, 236);
             this.panel1.TabIndex = 0;
             // 
             // llContact
             // 
+            this.llContact.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.llContact.AutoSize = true;
             this.llContact.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.llContact.Location = new System.Drawing.Point(282, 130);
+            this.llContact.Location = new System.Drawing.Point(244, 198);
             this.llContact.Name = "llContact";
-            this.llContact.Size = new System.Drawing.Size(141, 14);
+            this.llContact.Size = new System.Drawing.Size(171, 16);
             this.llContact.TabIndex = 6;
             this.llContact.TabStop = true;
             this.llContact.Text = "www.compute.co.il/contact";
@@ -63,36 +67,39 @@ namespace Chashavshavon
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label5.Location = new System.Drawing.Point(324, 20);
+            this.label5.Location = new System.Drawing.Point(280, 18);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(99, 16);
+            this.label5.Size = new System.Drawing.Size(135, 21);
             this.label5.TabIndex = 6;
             this.label5.Text = "הודעה חשובה:";
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.Font = new System.Drawing.Font("Tahoma", 7F);
-            this.label4.Location = new System.Drawing.Point(20, 48);
+            this.label4.Location = new System.Drawing.Point(12, 50);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(387, 82);
+            this.label4.Size = new System.Drawing.Size(403, 131);
             this.label4.TabIndex = 5;
             this.label4.Text = resources.GetString("label4.Text");
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.BackColor = System.Drawing.Color.Lavender;
             this.button1.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.button1.Font = new System.Drawing.Font("Narkisim", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.button1.ForeColor = System.Drawing.Color.Lavender;
-            this.button1.Location = new System.Drawing.Point(15, 269);
+            this.button1.Location = new System.Drawing.Point(12, 346);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(94, 29);
             this.button1.TabIndex = 1;
             this.button1.Text = "סגור";
             this.button1.UseVisualStyleBackColor = false;
@@ -100,32 +107,35 @@ namespace Chashavshavon
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Narkisim", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label1.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.label1.Location = new System.Drawing.Point(197, 8);
+            this.label1.Location = new System.Drawing.Point(159, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(183, 47);
+            this.label1.Size = new System.Drawing.Size(225, 59);
             this.label1.TabIndex = 3;
             this.label1.Text = "חשבשבון";
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label2.Location = new System.Drawing.Point(188, 55);
+            this.label2.Location = new System.Drawing.Point(135, 63);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(192, 16);
+            this.label2.Size = new System.Drawing.Size(247, 20);
             this.label2.TabIndex = 4;
             this.label2.Text = "תוכנית לחישוב החודשי של בתי ישראל";
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::Chashavshavon.Properties.Resources.scroll;
-            this.pictureBox1.Location = new System.Drawing.Point(386, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(388, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(61, 61);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -150,7 +160,7 @@ namespace Chashavshavon
             this.llGetLatestVersion.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.llGetLatestVersion.Location = new System.Drawing.Point(7, 32);
             this.llGetLatestVersion.Name = "llGetLatestVersion";
-            this.llGetLatestVersion.Size = new System.Drawing.Size(92, 14);
+            this.llGetLatestVersion.Size = new System.Drawing.Size(107, 16);
             this.llGetLatestVersion.TabIndex = 7;
             this.llGetLatestVersion.TabStop = true;
             this.llGetLatestVersion.Text = "חפש גירסה חדשה";
@@ -166,9 +176,10 @@ namespace Chashavshavon
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(-2, -3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(450, 311);
+            this.panel2.Size = new System.Drawing.Size(448, 387);
             this.panel2.TabIndex = 8;
             // 
             // AboutBox
@@ -176,7 +187,7 @@ namespace Chashavshavon
             this.AcceptButton = this.button1;
             this.BackColor = System.Drawing.Color.Lavender;
             this.CancelButton = this.button1;
-            this.ClientSize = new System.Drawing.Size(446, 305);
+            this.ClientSize = new System.Drawing.Size(448, 387);
             this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));

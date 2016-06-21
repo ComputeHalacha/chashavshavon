@@ -57,7 +57,7 @@
             this.textBox1.Location = new System.Drawing.Point(13, 32);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(390, 20);
+            this.textBox1.Size = new System.Drawing.Size(390, 24);
             this.textBox1.TabIndex = 1;
             this.textBox1.UseSystemPasswordChar = true;
             // 
@@ -69,12 +69,12 @@
             this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnExit.Font = new System.Drawing.Font("Narkisim", 11F);
             this.btnExit.ForeColor = System.Drawing.Color.Lavender;
-            this.btnExit.Location = new System.Drawing.Point(142, 72);
+            this.btnExit.Location = new System.Drawing.Point(122, 72);
             this.btnExit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(88, 23);
+            this.btnExit.Size = new System.Drawing.Size(107, 34);
             this.btnExit.TabIndex = 2;
             this.btnExit.Text = "יציאה";
             this.btnExit.UseVisualStyleBackColor = false;
@@ -87,12 +87,12 @@
             this.btnEnter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnEnter.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEnter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEnter.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnEnter.Font = new System.Drawing.Font("Narkisim", 11F);
             this.btnEnter.ForeColor = System.Drawing.Color.Lavender;
-            this.btnEnter.Location = new System.Drawing.Point(236, 72);
+            this.btnEnter.Location = new System.Drawing.Point(237, 72);
             this.btnEnter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnEnter.Name = "btnEnter";
-            this.btnEnter.Size = new System.Drawing.Size(88, 23);
+            this.btnEnter.Size = new System.Drawing.Size(107, 34);
             this.btnEnter.TabIndex = 3;
             this.btnEnter.Text = "כנס";
             this.btnEnter.UseVisualStyleBackColor = false;
@@ -102,10 +102,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(338, 16);
+            this.label1.Location = new System.Drawing.Point(323, 10);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.Size = new System.Drawing.Size(83, 16);
             this.label1.TabIndex = 4;
             this.label1.Text = "הקש סיסמה";
             // 
@@ -126,7 +126,7 @@
             // frmEnterPassword
             // 
             this.AcceptButton = this.btnEnter;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Lavender;
             this.CancelButton = this.btnExit;

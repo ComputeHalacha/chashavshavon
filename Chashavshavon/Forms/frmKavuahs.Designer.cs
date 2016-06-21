@@ -63,11 +63,11 @@
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.button2.Font = new System.Drawing.Font("Narkisim", 11F);
             this.button2.ForeColor = System.Drawing.Color.Lavender;
-            this.button2.Location = new System.Drawing.Point(104, 8);
+            this.button2.Location = new System.Drawing.Point(139, 12);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(85, 25);
+            this.button2.Size = new System.Drawing.Size(111, 33);
             this.button2.TabIndex = 3;
             this.button2.Text = "חדש";
             this.button2.UseVisualStyleBackColor = false;
@@ -79,9 +79,9 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Narkisim", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label4.ForeColor = System.Drawing.Color.SlateGray;
-            this.label4.Location = new System.Drawing.Point(785, 14);
+            this.label4.Location = new System.Drawing.Point(722, 14);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(142, 19);
+            this.label4.Size = new System.Drawing.Size(175, 24);
             this.label4.TabIndex = 4;
             this.label4.Text = "רשימת וסת קבוע";
             // 
@@ -94,7 +94,7 @@
             this.dgvKavuahList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvKavuahList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Narkisim", 9F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.SaddleBrown;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -121,12 +121,12 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvKavuahList.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvKavuahList.GridColor = System.Drawing.Color.WhiteSmoke;
-            this.dgvKavuahList.Location = new System.Drawing.Point(13, 47);
+            this.dgvKavuahList.Location = new System.Drawing.Point(22, 58);
             this.dgvKavuahList.Name = "dgvKavuahList";
             this.dgvKavuahList.RowHeadersVisible = false;
             this.dgvKavuahList.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(5);
             this.dgvKavuahList.RowTemplate.Height = 40;
-            this.dgvKavuahList.Size = new System.Drawing.Size(949, 346);
+            this.dgvKavuahList.Size = new System.Drawing.Size(930, 335);
             this.dgvKavuahList.TabIndex = 6;
             this.dgvKavuahList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKavuahList_CellContentClick);
             this.dgvKavuahList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvKavuahList_CellFormatting);
@@ -211,11 +211,11 @@
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Narkisim", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.button1.Font = new System.Drawing.Font("Narkisim", 11F);
             this.button1.ForeColor = System.Drawing.Color.Lavender;
-            this.button1.Location = new System.Drawing.Point(13, 8);
+            this.button1.Location = new System.Drawing.Point(22, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 25);
+            this.button1.Size = new System.Drawing.Size(111, 33);
             this.button1.TabIndex = 7;
             this.button1.Text = "סגור";
             this.button1.UseVisualStyleBackColor = false;
@@ -225,7 +225,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(933, 5);
+            this.pictureBox1.Location = new System.Drawing.Point(915, 9);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(37, 36);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -264,7 +264,7 @@
             // 
             // frmKavuahs
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Lavender;
             this.CancelButton = this.button1;
