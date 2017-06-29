@@ -181,30 +181,6 @@ namespace Chashavshavon.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool CheshbonKavuahByActualEntry {
-            get {
-                return ((bool)(this["CheshbonKavuahByActualEntry"]));
-            }
-            set {
-                this["CheshbonKavuahByActualEntry"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool CheshbonKavuahByCheshbon {
-            get {
-                return ((bool)(this["CheshbonKavuahByCheshbon"]));
-            }
-            set {
-                this["CheshbonKavuahByCheshbon"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public global::System.Collections.Specialized.StringCollection RecentFiles {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["RecentFiles"]));
