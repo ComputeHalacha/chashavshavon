@@ -1,8 +1,0 @@
-syntax: glob
-Thumbs.db
-*.suo
-*.user
-Release/
-bin/
-obj/
-Debug/
