@@ -86,6 +86,13 @@ namespace Chashavshavon.Utils
         {
             return !(object1 == object2);
         }
+
+        public override string ToString()
+        {
+            return this.MonthName != null 
+                ? this.MonthName + " " + GeneralUtils.ToJNum(this.Year % 1000) 
+                : "";
+        }
     }
 
     //The following source code is Copyright © by Ulrich and Ziporah Greve (2005)

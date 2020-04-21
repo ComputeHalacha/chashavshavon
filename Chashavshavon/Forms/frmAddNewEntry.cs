@@ -297,12 +297,12 @@ namespace Chashavshavon
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
         }
 
         private void cmbYear_Format(object sender, ListControlConvertEventArgs e)
         {
-            e.Value = new DateTime((int)e.Value, 1, 1, Program.HebrewCalendar).ToString("yyyy");
+            e.Value = GeneralUtils.ToJNum((int)e.Value % 1000);
         }
     }
 }

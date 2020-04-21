@@ -1306,8 +1306,8 @@ namespace Chashavshavon
                 sb.AppendFormat("<tr class='{0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
                     (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnahPeriod(Program.NowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
                     Zmanim.GetDayOfWeekText(onah.DateTime),
-                    Zmanim.DaysOfMonthHebrew[onah.Day],
-                    onah.Month.MonthName,
+                    Zmanim.DaysOfMonthHebrew[onah.Day],                    
+                    onah.Month.ToString(),
                     onah.HebrewDayNight,
                     onah.Name);
             }
