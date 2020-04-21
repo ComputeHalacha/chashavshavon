@@ -117,8 +117,7 @@ namespace Chashavshavon
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            this.AddedKavuah = new Kavuah();
-            this.AddedKavuah.DayNight = this.rbDay.Checked ? DayNight.Day : DayNight.Night;
+            this.AddedKavuah = new Kavuah(this.rbDay.Checked ? DayNight.Day : DayNight.Night);
             if (this.rbInterval.Checked)
             {
                 this.AddedKavuah.KavuahType = this.cbMaayanPasuach.Checked ?
@@ -148,9 +147,8 @@ namespace Chashavshavon
             this.AddedKavuah.CancelsOnahBeinanis = this.cbCancelsOnahBeinenis.Checked;
             this.AddedKavuah.IsMaayanPasuach = this.cbMaayanPasuach.Checked;
 
-            if (this.cmbSettingEntry.SelectedItem is Entry)
+            if (this.cmbSettingEntry.SelectedItem is Entry entry)
             {
-                Entry entry = (Entry)this.cmbSettingEntry.SelectedItem;
                 this.AddedKavuah.SettingEntry = entry;
                 this.AddedKavuah.SettingEntryDate = entry.DateTime;
                 this.AddedKavuah.SettingEntryInterval = entry.Interval;
@@ -235,9 +233,8 @@ namespace Chashavshavon
 
         private void cmbSettingEntry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.cmbSettingEntry.SelectedItem is Entry)
+            if (this.cmbSettingEntry.SelectedItem is Entry entry)
             {
-                Entry entry = (Entry)this.cmbSettingEntry.SelectedItem;
 
                 //Set the default day/night to the selected entries Day/Night
                 this.rbDay.Checked = entry.DayNight == DayNight.Day;

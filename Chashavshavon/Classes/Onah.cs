@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Chashavshavon.Utils;
+using System;
 using System.Collections.Generic;
-using Chashavshavon.Utils;
 
 namespace Chashavshavon
 {
@@ -10,7 +10,7 @@ namespace Chashavshavon
         Night = 2
     }
 
-    public class Onah
+    public class Onah : IEquatable<Onah>
     {
         private string _name;
 
@@ -72,7 +72,12 @@ namespace Chashavshavon
 
         public Onah AddDays(int numberOfDays)
         {
-            return new Onah(this.DateTime.AddDays((int)numberOfDays), this.DayNight);
+            return new Onah(this.DateTime.AddDays(numberOfDays), this.DayNight);
+        }
+
+        public Onah AddMonths(int numberOfMonths)
+        {
+            return new Onah(Program.HebrewCalendar.AddMonths(this.DateTime, numberOfMonths), this.DayNight);
         }
 
         public int GetInterval(Onah otherOnah)
@@ -97,12 +102,14 @@ namespace Chashavshavon
 
         public static bool IsSameOnahPeriod(Onah first, Onah second)
         {
-            return (first.DateTime.IsSameday(second.DateTime) && first.DayNight == second.DayNight);
+            return first != null && second != null &&
+                (first.DateTime.IsSameday(second.DateTime) && first.DayNight == second.DayNight);
         }
 
         public static bool IsSimilarOnah(Onah first, Onah second)
         {
-            return (IsSameOnahPeriod(first, second) && (first.Name == second.Name));
+            return first != null && second != null &&
+                (IsSameOnahPeriod(first, second) && (first.Name == second.Name));
         }
 
         /// <summary>
@@ -111,9 +118,9 @@ namespace Chashavshavon
         /// <param name="list"></param>
         public static void ClearDoubleOnahs(List<Onah> list)
         {
-            for (int i = 0; i < list.Count; i++)
+            for (int i = list.Count - 1; i >= 0; i--)
             {
-                if (list.Exists(o => IsSimilarOnah(o, list[i])))
+                if (list.Exists(o => o != list[i] && IsSimilarOnah(o, list[i])))
                 {
                     list.RemoveAt(i);
                 }
@@ -128,26 +135,33 @@ namespace Chashavshavon
         /// <returns></returns>
         public static int CompareOnahs(Onah first, Onah second)
         {
-            if (first.DateTime.IsSameday(second.DateTime))
-            {
-                if (first.DayNight == DayNight.Night && second.DayNight == DayNight.Day)
-                {
-                    return -1;
-                }
-                else if (first.DayNight == DayNight.Day && second.DayNight == DayNight.Night)
-                {
-                    return 1;
-                }
-            }
-            else if (first.DateTime > second.DateTime)
+            if (first > second)
             {
                 return 1;
             }
-            else if (first.DateTime < second.DateTime)
+            else if (first < second)
             {
                 return -1;
             }
             return 0;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Onah);
+        }
+
+        public bool Equals(Onah other)
+        {
+            return other != null && Onah.IsSameOnahPeriod(this, other);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1358087247;
+            hashCode = hashCode * -1521134295 + DayNight.GetHashCode();
+            hashCode = hashCode * -1521134295 + DateTime.GetHashCode();
+            return hashCode;
         }
 
         public DateTime DateTime
@@ -159,47 +173,51 @@ namespace Chashavshavon
             }
         }
 
-        public string HebrewDayNight
-        {
-            get
-            {
-                return this.DayNight == DayNight.Day ? "יום" : "לילה";
-            }
-        }
+        public string HebrewDayNight => this.DayNight == DayNight.Day ? "יום" : "לילה";
 
-        public string MonthName
-        {
-            get
-            {
-                return this.Month.MonthName;
-            }
-        }
+        public string MonthName => this.Month.MonthName;
 
-        public DayOfWeek DayOfWeek
-        {
-            get
-            {
-                return Program.HebrewCalendar.GetDayOfWeek(this.DateTime);
-            }
-        }
+        public DayOfWeek DayOfWeek => Program.HebrewCalendar.GetDayOfWeek(this.DateTime);
 
-        public string HebrewDayOfWeek
-        {
-            get
-            {
-                return Zmanim.DaysOfWeekHebrew[(int)this.DayOfWeek];
-            }
-        }
+        public string HebrewDayOfWeek => Zmanim.DaysOfWeekHebrew[(int)this.DayOfWeek];
 
         public string Name
         {
-            get 
+            get => this._name ?? this.ToString();
+            set => this._name = value;
+        }
+
+        public static bool operator >(Onah first, Onah second)
+        {
+            if (first == null || second == null)
             {
-                return this._name ?? this.ToString();
+                return false;
             }
-            set 
+
+            if (first.DateTime.IsSameday(second.DateTime))
             {
-                this._name = value;
+                return first.DayNight == DayNight.Day && second.DayNight == DayNight.Night;
+            }
+            else
+            {
+                return first.DateTime > second.DateTime;
+            }
+        }
+
+        public static bool operator <(Onah first, Onah second)
+        {
+            if(first == null || second == null)
+            {
+                return false;
+            }
+
+            if (first.DateTime.IsSameday(second.DateTime))
+            {
+                return first.DayNight == DayNight.Night && second.DayNight == DayNight.Day;
+            }
+            else
+            {
+                return first.DateTime < second.DateTime;
             }
         }
     }

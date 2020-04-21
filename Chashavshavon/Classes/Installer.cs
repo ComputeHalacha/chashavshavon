@@ -94,8 +94,10 @@ namespace ChashInstall
 
                 string command = ngenCommand + " " + arg;
 
-                ProcessStartInfo si = new ProcessStartInfo(Path.Combine(fxPath, "ngen.exe"), command);
-                si.WindowStyle = ProcessWindowStyle.Hidden;
+                ProcessStartInfo si = new ProcessStartInfo(Path.Combine(fxPath, "ngen.exe"), command)
+                {
+                    WindowStyle = ProcessWindowStyle.Hidden
+                };
 
                 Process p;
 

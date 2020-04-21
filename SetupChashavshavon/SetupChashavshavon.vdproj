@@ -27,7 +27,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_DC8887295AC3A6AF587726711280EDD7"
+        "MsmKey" = "8:_AE146A96E8336459B0E7CAF41BC0E473"
         "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -52,7 +52,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DC8887295AC3A6AF587726711280EDD7"
+        "OwnerKey" = "8:_AE146A96E8336459B0E7CAF41BC0E473"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -82,10 +82,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
                     }
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
                     {
@@ -119,10 +119,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5.1"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.5.1 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.5.1"
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
                     }
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.4.5"
                     {
@@ -151,20 +151,15 @@
             {
             "Enabled" = "11:TRUE"
             "PromptEnabled" = "11:TRUE"
-            "PrerequisitesLocation" = "2:2"
+            "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.0"
-                    }
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
-                    {
-                    "Name" = "8:Windows Installer 3.1"
-                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
                     }
                 }
             }
@@ -245,7 +240,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.5.1"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.7.2"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=9832"
                 }
@@ -273,14 +268,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DC8887295AC3A6AF587726711280EDD7"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AE146A96E8336459B0E7CAF41BC0E473"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:JewishDate, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_DC8887295AC3A6AF587726711280EDD7"
+                    "_AE146A96E8336459B0E7CAF41BC0E473"
                     {
                     "Name" = "8:JewishDate.dll"
                     "Attributes" = "3:512"
@@ -456,15 +451,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
-        "ProductCode" = "8:{CF697069-0576-43A6-8E2A-F1B8ADD9939D}"
-        "PackageCode" = "8:{E34396CF-346F-4903-A12A-C7297CA4DC3D}"
+        "ProductCode" = "8:{9110E264-48D4-4A43-B5DF-CD73C7317BD8}"
+        "PackageCode" = "8:{7F67BD46-A441-4AF7-86CB-3ECC24F98151}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
-        "DetectNewerInstalledVersion" = "11:FALSE"
+        "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:4.1.10"
+        "ProductVersion" = "8:4.3.0"
         "Manufacturer" = "8:Compute Software Solutions"
         "ARPHELPTELEPHONE" = "8:08-974-1364"
         "ARPHELPLINK" = "8:https://www.compute.co.il/contact"
@@ -472,13 +467,13 @@
         "Subject" = "8:"
         "ARPCONTACT" = "8:CBS - Compute Software Solutions"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Install the Chashavshavon Application"
+        "ARPCOMMENTS" = "8:Install Chashavshavon"
         "ARPURLINFOABOUT" = "8:http://www.compute.co.il"
         "ARPPRODUCTICON" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
         "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:0"
+        "TargetPlatform" = "3:1"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:CD \"$(ProjectDir)CreateInstaller\"\r\nCALL \"PostBuild_%COMPUTERNAME%.bat\"  \"$(ProjectDir)\" \"$(Configuration)\""
         "RunPostBuildEvent" = "3:0"
@@ -1050,7 +1045,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_010BB34F6CCC48F5A63ADAFCA30F85D7"
             {
-            "SourcePath" = "8:..\\Chashavshavon\\obj\\Release\\Chashavshavon.exe"
+            "SourcePath" = "8:..\\Chashavshavon\\obj\\x64\\Chashavshavon.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"

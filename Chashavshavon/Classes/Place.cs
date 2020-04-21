@@ -63,7 +63,7 @@ namespace Chashavshavon.Utils
             {
                 PlaceId = Convert.ToInt32(locNode.Attributes["ID"].InnerText),
                 Name = eng.InnerText,
-                NameHebrew = (heb != null ? heb.InnerText : null),
+                NameHebrew = (heb?.InnerText),
                 IsInIsrael = (israel != null && israel.InnerText == "1"),
                 LatitudeDegrees = latDegrees,
                 LatitudeMinutes = latMinutes,

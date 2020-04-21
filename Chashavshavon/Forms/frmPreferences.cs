@@ -121,9 +121,8 @@ namespace Chashavshavon
 
         private void cbPlacess_Format(object sender, ListControlConvertEventArgs e)
         {
-            if (e.Value is Place)
+            if (e.Value is Place place)
             {
-                Place place = (Place)e.Value;
                 e.Value = (string.IsNullOrEmpty(place.NameHebrew) ? place.Name : place.NameHebrew);
             }
         }

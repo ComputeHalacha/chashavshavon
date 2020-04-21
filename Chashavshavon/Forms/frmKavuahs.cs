@@ -47,9 +47,8 @@ namespace Chashavshavon
 
         private void dgvKavuahList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.Value is DateTime)
+            if (e.Value is DateTime dt)
             {
-                DateTime dt = (DateTime)e.Value;
                 if (Program.HebrewCalendar.MinSupportedDateTime <= dt)
                 {
                     e.Value = dt.ToString("dddd dd MMM yyyy", Program.CultureInfo);

@@ -191,9 +191,11 @@ namespace Chashavshavon
             {
                 String html = Utils.RemoteFunctions.GetRemoteResponseText("GetFileAsHTML",
                                     Utils.RemoteFunctions.NewParam("fileName", lbFileNames.SelectedItem.ToString()));
-                frmBrowser fb = new frmBrowser();
-                fb.Text = "הצגת קובץ רשת - " + lbFileNames.SelectedItem.ToString();
-                fb.Html = html;
+                frmBrowser fb = new frmBrowser
+                {
+                    Text = "הצגת קובץ רשת - " + lbFileNames.SelectedItem.ToString(),
+                    Html = html
+                };
                 fb.ShowDialog(this);
             }
             else

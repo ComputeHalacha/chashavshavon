@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Chashavshavon
 {
@@ -54,6 +55,30 @@ namespace Chashavshavon
             { 
                 return this._noKavuahList;
             }
-        }        
+        }
+
+        /// <summary>
+        /// Sorts the list of entries in order of occurrence, then sets the Interval for each Entry -
+        /// which is the days elapsed since the previous Entry.
+        /// This is in order to Cheshbon out the Haflagah
+        /// </summary>
+        public static void SortEntriesAndSetInterval()
+        {
+            Entry.EntryList.Sort(Onah.CompareOnahs);
+
+            Entry previousEntry = null;
+            foreach (Entry entry in Entry.EntryList.Where(en => !en.IsInvisible))
+            {
+                if (previousEntry != null)
+                {
+                    entry.SetInterval(previousEntry);
+                }
+                else
+                {
+                    entry.Interval = 0;
+                }
+                previousEntry = entry;
+            }
+        }
     }
 }

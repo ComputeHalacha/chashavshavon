@@ -29,7 +29,7 @@ namespace Chashavshavon.Utils
         }
     }
 
-    public class MonthObject
+    public class MonthObject : IEquatable<MonthObject>
     {
         public int Year { get; private set; }
         public int MonthIndex { get; private set; }
@@ -55,6 +55,36 @@ namespace Chashavshavon.Utils
                 this.MonthIndex = monthInYear;
             }
             this.MonthName = Program.CultureInfo.DateTimeFormat.MonthNames[MonthIndex];
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as MonthObject);
+        }
+
+        public bool Equals(MonthObject other)
+        {
+            return other != null &&
+                   Year == other.Year &&
+                   MonthInYear == other.MonthInYear;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1090210929;
+            hashCode = hashCode * -1521134295 + Year.GetHashCode();
+            hashCode = hashCode * -1521134295 + MonthInYear.GetHashCode();
+            return hashCode;
+        }
+
+        public static bool operator ==(MonthObject object1, MonthObject object2)
+        {
+            return EqualityComparer<MonthObject>.Default.Equals(object1, object2);
+        }
+
+        public static bool operator !=(MonthObject object1, MonthObject object2)
+        {
+            return !(object1 == object2);
         }
     }
 
@@ -117,7 +147,7 @@ namespace Chashavshavon.Utils
         {
             int sunriseTime = sunrise.Hour * 60 + sunrise.Minute;
             int sunsetTime = sunset.Hour * 60 + sunset.Minute;
-            int result = (int)((sunsetTime - sunriseTime) / 12);
+            int result = (sunsetTime - sunriseTime) / 12;
 
             return new AstronomicalTime(result / 60, result % 60);
         }
@@ -157,12 +187,12 @@ namespace Chashavshavon.Utils
         public static AstronomicalTime operator +(AstronomicalTime t,
                             AstronomicalTime tAdd)
         {
-            return t + (int)(tAdd.Hour * 60 + tAdd.Minute);
+            return t + (tAdd.Hour * 60 + tAdd.Minute);
         }
         public static AstronomicalTime operator -(AstronomicalTime t,
                             AstronomicalTime tSub)
         {
-            return t - (int)(tSub.Hour * 60 + tSub.Minute);
+            return t - (tSub.Hour * 60 + tSub.Minute);
         }
 
         public int Hour, Minute;
@@ -226,7 +256,7 @@ namespace Chashavshavon.Utils
 
     public static class JewishHolidays
     {
-        private static string[] HolidaysInHebrew;
+        private static readonly string[] HolidaysInHebrew;
 
         static JewishHolidays()
         {
@@ -261,7 +291,7 @@ namespace Chashavshavon.Utils
                 "פורים",
                 "שושן פורים",
                 "פורים קטן",
-                "שושן פורים קטן",              
+                "שושן פורים קטן",
                 "שבת הגדול",
                 "ערב פסח",
                 "פסח יום א'",
@@ -272,10 +302,10 @@ namespace Chashavshavon.Utils
                 "ל\"ג בעומר",
                 "ערב שבועות",
                 "שבועות",
-                "שבועות יום א'",                
+                "שבועות יום א'",
                 "שבועות יום ב'",
                 "י\"ז בתמוז",
-                "תשעה באב",                
+                "תשעה באב",
                 "ט\"ו באב"
             };
         }
@@ -333,84 +363,158 @@ namespace Chashavshavon.Utils
             int hebrewYear = hcal.GetYear(dt);
 
             int hebrewMonthNisan = 7;
-            if (hcal.IsLeapYear(hebrewYear)) hebrewMonthNisan = 8;
+            if (hcal.IsLeapYear(hebrewYear))
+            {
+                hebrewMonthNisan = 8;
+            }
+
             int hebrewMonthIyar = 8;
-            if (hcal.IsLeapYear(hebrewYear)) hebrewMonthIyar = 9;
+            if (hcal.IsLeapYear(hebrewYear))
+            {
+                hebrewMonthIyar = 9;
+            }
+
             int hebrewMonthSivan = 9;
-            if (hcal.IsLeapYear(hebrewYear)) hebrewMonthSivan = 10;
+            if (hcal.IsLeapYear(hebrewYear))
+            {
+                hebrewMonthSivan = 10;
+            }
 
             int hebrewMonthTammuz = 10;
-            if (hcal.IsLeapYear(hebrewYear)) hebrewMonthTammuz = 11;
+            if (hcal.IsLeapYear(hebrewYear))
+            {
+                hebrewMonthTammuz = 11;
+            }
+
             int hebrewMonthAv = 11;
-            if (hcal.IsLeapYear(hebrewYear)) hebrewMonthAv = 12;
+            if (hcal.IsLeapYear(hebrewYear))
+            {
+                hebrewMonthAv = 12;
+            }
+
             int hebrewMonthElul = 12;
-            if (hcal.IsLeapYear(hebrewYear)) hebrewMonthElul = 13;
+            if (hcal.IsLeapYear(hebrewYear))
+            {
+                hebrewMonthElul = 13;
+            }
 
             List<Holiday> holidays = new List<Holiday>();
 
             if (hebrewDay == 30)
+            {
                 holidays.Add(Holiday.RoshHodesh);
+            }
 
             if (hebrewDay == 1 && hebrewMonth != 1)
+            {
                 holidays.Add(Holiday.RoshHodesh);
+            }
 
             //------- Tishri
             if (hebrewDay == 29 && hebrewMonth == hebrewMonthElul)
+            {
                 holidays.Add(Holiday.ErevRoshHaShana);
+            }
+
             if (hebrewDay == 1 && hebrewMonth == 1) // 1 Tishri
+            {
                 holidays.Add(Holiday.RoshHaShanaI);
+            }
+
             if (hebrewDay == 2 && hebrewMonth == 1) // 2 Tishri
+            {
                 holidays.Add(Holiday.RoshHaShanaII);
+            }
+
             if (GetWeekdayOfHebrewDate(3, 1, hebrewYear) == DayOfWeek.Saturday) // 3 Tishri
             {
                 if (hebrewDay == 4 && hebrewMonth == 1) // 4 Tishri
+                {
                     holidays.Add(Holiday.TzomGedaliah);
+                }
             }
             else
             {
                 if (hebrewDay == 3 && hebrewMonth == 1) // 3 Tishri
+                {
                     holidays.Add(Holiday.TzomGedaliah);
+                }
             }
 
             if (hebrewDay == 9 && hebrewMonth == 1)
+            {
                 holidays.Add(Holiday.ErevYomKippur);
+            }
 
             if (hebrewDay == 10 && hebrewMonth == 1) //10 Tishri
+            {
                 holidays.Add(Holiday.YomKippur);
+            }
 
             if (hebrewDay == 14 && hebrewMonth == 1)
+            {
                 holidays.Add(Holiday.ErevSuccoth);
+            }
 
             if (hebrewDay == 15 && hebrewMonth == 1) //15 Tishri
             {
                 if (diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
+                {
                     holidays.Add(Holiday.SuccothI);
+                }
                 else
+                {
                     holidays.Add(Holiday.Succoth);
+                }
             }
             if (hebrewDay == 16 && hebrewMonth == 1) //16 Tishri
             {
                 if (diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
+                {
                     holidays.Add(Holiday.SuccothII);
+                }
                 else
+                {
                     holidays.Add(Holiday.HolHamoed);
+                }
             }
             if (hebrewDay == 17 && hebrewMonth == 1) //17 Tishri
+            {
                 holidays.Add(Holiday.HolHamoed);
+            }
+
             if (hebrewDay == 18 && hebrewMonth == 1)
+            {
                 holidays.Add(Holiday.HolHamoed);
+            }
+
             if (hebrewDay == 19 && hebrewMonth == 1)
+            {
                 holidays.Add(Holiday.HolHamoed);
+            }
+
             if (hebrewDay == 20 && hebrewMonth == 1)
+            {
                 holidays.Add(Holiday.HolHamoed);
+            }
+
             if (hebrewDay == 21 && hebrewMonth == 1)
+            {
                 holidays.Add(Holiday.HoschanaRaba);
+            }
+
             if (hebrewDay == 22 && hebrewMonth == 1 &&
                diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
+            {
                 holidays.Add(Holiday.SheminiAtzeret);
+            }
+
             if (hebrewDay == 23 && hebrewMonth == 1 &&
                diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
+            {
                 holidays.Add(Holiday.SimhathTorah);
+            }
+
             if (hebrewDay == 22 && hebrewMonth == 1 &&
                diasporaOrIsrael == DiasporaOrIsrael.Israel)
             {
@@ -421,15 +525,29 @@ namespace Chashavshavon.Utils
             //------- Kislev/Tevet
 
             if (hebrewDay == 25 && hebrewMonth == 3)
+            {
                 holidays.Add(Holiday.ChanukkaI);
+            }
+
             if (hebrewDay == 26 && hebrewMonth == 3)
+            {
                 holidays.Add(Holiday.ChanukkaII);
+            }
+
             if (hebrewDay == 27 && hebrewMonth == 3)
+            {
                 holidays.Add(Holiday.ChanukkaIII);
+            }
+
             if (hebrewDay == 28 && hebrewMonth == 3)
+            {
                 holidays.Add(Holiday.ChanukkaIV);
+            }
+
             if (hebrewDay == 29 && hebrewMonth == 3)
+            {
                 holidays.Add(Holiday.ChanukkaV);
+            }
 
             int daysInKislew = hcal.GetDaysInMonth(hebrewYear, 3);
 
@@ -437,31 +555,51 @@ namespace Chashavshavon.Utils
             {
 
                 if (hebrewDay == 1 && hebrewMonth == 4)
+                {
                     holidays.Add(Holiday.ChanukkaVI);
+                }
+
                 if (hebrewDay == 2 && hebrewMonth == 4)
+                {
                     holidays.Add(Holiday.ChanukkaVII);
+                }
+
                 if (hebrewDay == 3 && hebrewMonth == 4)
+                {
                     holidays.Add(Holiday.ChanukkaVIII);
+                }
             }
 
             else
             {
 
                 if (hebrewDay == 30 && hebrewMonth == 3)
+                {
                     holidays.Add(Holiday.ChanukkaVI);
+                }
+
                 if (hebrewDay == 1 && hebrewMonth == 4)
+                {
                     holidays.Add(Holiday.ChanukkaVII);
+                }
+
                 if (hebrewDay == 2 && hebrewMonth == 4)
+                {
                     holidays.Add(Holiday.ChanukkaVIII);
+                }
             }
 
             //------- Tevet
             if (hebrewDay == 10 && hebrewMonth == 4)
+            {
                 holidays.Add(Holiday.FastofTebeth);
+            }
 
             //------- Shevat
             if (hebrewDay == 15 && hebrewMonth == 5)
+            {
                 holidays.Add(Holiday.TuBiShevat);
+            }
 
             //------- Adar
 
@@ -472,29 +610,41 @@ namespace Chashavshavon.Utils
                 {
 
                     if (hebrewDay == 11 && hebrewMonth == 7)
+                    {
                         holidays.Add(Holiday.FastOfEsther);
+                    }
                 }
                 else
                 {
 
                     if (hebrewDay == 13 && hebrewMonth == 7)
+                    {
                         holidays.Add(Holiday.FastOfEsther);
+                    }
                 }
 
 
                 if (hebrewDay == 14 && hebrewMonth == 7)
+                {
                     holidays.Add(Holiday.Purim);
+                }
 
                 if (hebrewDay == 15 && hebrewMonth == 7)
+                {
                     holidays.Add(Holiday.ShushanPurim);
+                }
 
                 // ------------------- Purim Katan ------------------------
 
                 if (hebrewDay == 14 && hebrewMonth == 6)
+                {
                     holidays.Add(Holiday.PurimKatan);
+                }
 
                 if (hebrewDay == 15 && hebrewMonth == 6)
+                {
                     holidays.Add(Holiday.ShushanPurimKatan);
+                }
 
                 // --------------------------------------------------------
 
@@ -508,21 +658,28 @@ namespace Chashavshavon.Utils
                 {
 
                     if (hebrewDay == 11 && hebrewMonth == 6)
+                    {
                         holidays.Add(Holiday.FastOfEsther);
+                    }
                 }
                 else
                 {
 
                     if (hebrewDay == 13 && hebrewMonth == 6)
+                    {
                         holidays.Add(Holiday.FastOfEsther);
+                    }
                 }
 
                 if (hebrewDay == 14 && hebrewMonth == 6)
+                {
                     holidays.Add(Holiday.Purim);
+                }
 
                 if (hebrewDay == 15 && hebrewMonth == 6)
+                {
                     holidays.Add(Holiday.ShushanPurim);
-
+                }
             }
 
             //------- Nisan
@@ -530,73 +687,115 @@ namespace Chashavshavon.Utils
             int hebrewDayOfShabbatHagadol = 14;
             while (GetWeekdayOfHebrewDate(hebrewDayOfShabbatHagadol, hebrewMonthNisan,
                                           hebrewYear) != DayOfWeek.Saturday)
+            {
                 hebrewDayOfShabbatHagadol--;
+            }
+
             if (hebrewDay == hebrewDayOfShabbatHagadol && hebrewMonth == hebrewMonthNisan)
+            {
                 holidays.Add(Holiday.ShabbatHagadol);
+            }
 
             if (hebrewDay == 14 && hebrewMonth == hebrewMonthNisan)
+            {
                 holidays.Add(Holiday.ErevPessach);
+            }
 
             if (hebrewDay == 15 && hebrewMonth == hebrewMonthNisan)
+            {
                 holidays.Add(Holiday.PessachI);
+            }
 
             if (hebrewDay == 16 && hebrewMonth == hebrewMonthNisan)
             {
                 if (diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
+                {
                     holidays.Add(Holiday.PessachII);
+                }
                 else
+                {
                     holidays.Add(Holiday.HolHamoed);
+                }
             }
 
             if (hebrewDay == 17 && hebrewMonth == hebrewMonthNisan)
+            {
                 holidays.Add(Holiday.HolHamoed);
+            }
+
             if (hebrewDay == 18 && hebrewMonth == hebrewMonthNisan)
+            {
                 holidays.Add(Holiday.HolHamoed);
+            }
+
             if (hebrewDay == 19 && hebrewMonth == hebrewMonthNisan)
+            {
                 holidays.Add(Holiday.HolHamoed);
+            }
+
             if (hebrewDay == 20 && hebrewMonth == hebrewMonthNisan)
+            {
                 holidays.Add(Holiday.HolHamoed);
+            }
+
             if (hebrewDay == 21 && hebrewMonth == hebrewMonthNisan)
+            {
                 holidays.Add(Holiday.PessachVII);
+            }
+
             if (diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
             {
 
                 if (hebrewDay == 22 && hebrewMonth == hebrewMonthNisan)
+                {
                     holidays.Add(Holiday.PessachVIII);
+                }
             }
 
 
 
 
             if (hebrewDay == 18 && hebrewMonth == hebrewMonthIyar)
+            {
                 holidays.Add(Holiday.LagBaomer);
+            }
 
             // *********** Pessach Scheni **********
 
             if (hebrewDay == 14 && hebrewMonth == hebrewMonthIyar)
+            {
                 holidays.Add(Holiday.PessachSheni);
+            }
 
             // ******** End Pessach Scheni *********
 
             //------- Sivan
 
             if (hebrewDay == 5 && hebrewMonth == hebrewMonthSivan)
+            {
                 holidays.Add(Holiday.ErevShavuoth);
+            }
 
             if (diasporaOrIsrael == DiasporaOrIsrael.Diaspora)
             {
 
                 if (hebrewDay == 6 && hebrewMonth == hebrewMonthSivan)
+                {
                     holidays.Add(Holiday.ShavuothI);
-                if (hebrewDay == 7 && hebrewMonth == hebrewMonthSivan)
-                    holidays.Add(Holiday.ShavuothII);
+                }
 
+                if (hebrewDay == 7 && hebrewMonth == hebrewMonthSivan)
+                {
+                    holidays.Add(Holiday.ShavuothII);
+                }
             }
             else
             {
 
                 if (hebrewDay == 6 && hebrewMonth == hebrewMonthSivan)
+                {
                     holidays.Add(Holiday.Shavuoth);
+                }
             }
 
             //------- Tammuz
@@ -604,32 +803,42 @@ namespace Chashavshavon.Utils
             if (GetWeekdayOfHebrewDate(17, hebrewMonthTammuz, hebrewYear) == DayOfWeek.Saturday)
             {
                 if (hebrewDay == 18 && hebrewMonth == hebrewMonthTammuz)
+                {
                     holidays.Add(Holiday.TzomTammuz);
+                }
             }
 
             else
             {
 
                 if (hebrewDay == 17 && hebrewMonth == hebrewMonthTammuz)
+                {
                     holidays.Add(Holiday.TzomTammuz);
+                }
             }
 
             //------- Av
 
             if (hebrewDay == 15 && hebrewMonth == hebrewMonthAv)
+            {
                 holidays.Add(Holiday.TuBeav);
+            }
 
             if (GetWeekdayOfHebrewDate(9, hebrewMonthAv, hebrewYear) == DayOfWeek.Saturday)
             {
                 if (hebrewDay == 10 && hebrewMonth == hebrewMonthAv)
+                {
                     holidays.Add(Holiday.FastofAv);
+                }
             }
 
             else
             {
 
                 if (hebrewDay == 9 && hebrewMonth == hebrewMonthAv)
+                {
                     holidays.Add(Holiday.FastofAv);
+                }
             }
 
 
@@ -663,11 +872,16 @@ namespace Chashavshavon.Utils
         private bool leap(int y)
         {
             if (y % 400 == 0)
+            {
                 return true;
+            }
+
             if (y % 100 != 0)
             {
                 if (y % 4 == 0)
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -677,9 +891,13 @@ namespace Chashavshavon.Utils
             int[] monCount = { 0, 1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366 };
 
             if ((m > 2) && (leap(y)))
+            {
                 return monCount[m] + d + 1;
+            }
             else
+            {
                 return monCount[m] + d;
+            }
         }
 
         private double todec(double deg, double min)
@@ -759,14 +977,24 @@ namespace Chashavshavon.Utils
             a_set = 57.29578 * Math.Atan(0.91746 * Math.Tan(0.01745 * xl_set));
 
             if (Math.Abs(a_rise + 360.0 - xl_rise) > 90.0)
+            {
                 a_rise += 180.0;
+            }
+
             if (a_rise > 360.0)
+            {
                 a_rise -= 360.0;
+            }
 
             if (Math.Abs(a_set + 360.0 - xl_set) > 90.0)
+            {
                 a_set += 180.0;
+            }
+
             if (a_set > 360.0)
+            {
                 a_set -= 360.0;
+            }
 
             ahr_rise = a_rise / 15.0;
             sindec = 0.39782 * Math.Sin(0.01745 * xl_rise);
@@ -779,14 +1007,22 @@ namespace Chashavshavon.Utils
             h_set = (cosz - sindec * sinlat) / (cosdec * coslat);
 
             if (Math.Abs(h_rise) <= 1.0)
+            {
                 h_rise = 57.29578 * Math.Acos(h_rise);
+            }
             else
+            {
                 return null; //NO_SUNRISE;
+            }
 
             if (Math.Abs(h_set) <= 1.0)
+            {
                 h_set = 57.29578 * Math.Acos(h_set);
+            }
             else
+            {
                 return null; //NO_SUNSET;
+            }
 
             ut_rise = ((360.0 - h_rise) / 15.0) + ahr_rise + adj(t_rise) + lonhr;
             ut_set = (h_rise / 15.0) + ahr_set + adj(t_set) + lonhr;
@@ -804,7 +1040,9 @@ namespace Chashavshavon.Utils
             time = t;
 
             if (time < 0)
+            {
                 time += 24.0;
+            }
 
             hour = (int)Math.Floor(time);
             min = (int)Math.Floor((time - hour) * 60.0 + 0.5);
@@ -816,7 +1054,9 @@ namespace Chashavshavon.Utils
             }
 
             if (hour > 24)
+            {
                 hour -= 24;
+            }
 
             return new AstronomicalTime(hour, min);
         }
@@ -836,18 +1076,32 @@ namespace Chashavshavon.Utils
                 AstronomicalTime sunset = timeadj(sunriseSunset[1]);
 
                 while (sunrise.Hour > 12)
+                {
                     sunrise.Hour -= 12;
+                }
+
                 while (sunset.Hour < 12)
+                {
                     sunset.Hour += 12;
+                }
 
                 AstronomicalTime result = null;
-                if (occurrence == Occurrence.Sunrise) result = sunrise;
-                if (occurrence == Occurrence.Sunset) result = sunset;
+                if (occurrence == Occurrence.Sunrise)
+                {
+                    result = sunrise;
+                }
+
+                if (occurrence == Occurrence.Sunset)
+                {
+                    result = sunset;
+                }
 
                 return result;
             }
             else
+            {
                 return null;
+            }
         }
 
         public AstronomicalTime GetDegreesBelowHorizon(DateTime currentDate,
@@ -863,7 +1117,7 @@ namespace Chashavshavon.Utils
             {
                 double db = DegreesBelowHorizon + 90.0;
                 int deghour = (int)db;
-                db = db - (double)deghour;
+                db = db - deghour;
                 db *= 60.0;
                 int degmin = (int)db;
 
@@ -878,9 +1132,14 @@ namespace Chashavshavon.Utils
                     AstronomicalTime sunset2 = timeadj(sunriseSunset2[1]);
 
                     while (sunset.Hour < 12)
+                    {
                         sunset.Hour += 12;
+                    }
+
                     while (sunset2.Hour < 12)
+                    {
                         sunset2.Hour += 12;
+                    }
 
                     int iS = sunset.Hour * 60 + sunset.Minute;
                     int iS2 = sunset2.Hour * 60 + sunset2.Minute;
@@ -889,10 +1148,14 @@ namespace Chashavshavon.Utils
                     return new AstronomicalTime(iDiff / 60, iDiff % 60);
                 }
                 else
+                {
                     return null;
+                }
             }
             else
+            {
                 return null;
+            }
         }
     }
 }

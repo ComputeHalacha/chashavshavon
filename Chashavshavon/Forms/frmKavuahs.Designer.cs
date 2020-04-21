@@ -35,6 +35,12 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvKavuahList = new System.Windows.Forms.DataGridView();
+            this.kavuahBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.btnDelete = new System.Windows.Forms.DataGridViewImageColumn();
             this.kavuahDescriptionHebrewDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SettingEntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,12 +50,6 @@
             this.dayNightDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kavuahTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.kavuahBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKavuahList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kavuahBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -94,7 +94,7 @@
             this.dgvKavuahList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvKavuahList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Narkisim", 9F);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.SaddleBrown;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -130,74 +130,6 @@
             this.dgvKavuahList.TabIndex = 6;
             this.dgvKavuahList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKavuahList_CellContentClick);
             this.dgvKavuahList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvKavuahList_CellFormatting);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Frozen = true;
-            this.btnDelete.HeaderText = "";
-            this.btnDelete.Image = global::Chashavshavon.Properties.Resources.delete;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.ReadOnly = true;
-            this.btnDelete.ToolTipText = "מחק רשומה הזאת";
-            this.btnDelete.Width = 40;
-            // 
-            // kavuahDescriptionHebrewDataGridViewTextBoxColumn
-            // 
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.DataPropertyName = "KavuahDescriptionHebrew";
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.Frozen = true;
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.HeaderText = "סוג";
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.Name = "kavuahDescriptionHebrewDataGridViewTextBoxColumn";
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.ReadOnly = true;
-            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.Width = 250;
-            // 
-            // SettingEntryDate
-            // 
-            this.SettingEntryDate.DataPropertyName = "SettingEntryDate";
-            this.SettingEntryDate.HeaderText = "ראיה הקובע";
-            this.SettingEntryDate.Name = "SettingEntryDate";
-            this.SettingEntryDate.ReadOnly = true;
-            // 
-            // activeDataGridViewCheckBoxColumn
-            // 
-            this.activeDataGridViewCheckBoxColumn.DataPropertyName = "Active";
-            this.activeDataGridViewCheckBoxColumn.HeaderText = "פעיל?";
-            this.activeDataGridViewCheckBoxColumn.Name = "activeDataGridViewCheckBoxColumn";
-            this.activeDataGridViewCheckBoxColumn.Width = 50;
-            // 
-            // cancelsOnahBeinanisDataGridViewCheckBoxColumn
-            // 
-            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.DataPropertyName = "CancelsOnahBeinanis";
-            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.HeaderText = "מבטל עונה בינונית?";
-            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.Name = "cancelsOnahBeinanisDataGridViewCheckBoxColumn";
-            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.Width = 135;
-            // 
-            // notesDataGridViewTextBoxColumn
-            // 
-            this.notesDataGridViewTextBoxColumn.DataPropertyName = "Notes";
-            this.notesDataGridViewTextBoxColumn.HeaderText = "הערות";
-            this.notesDataGridViewTextBoxColumn.Name = "notesDataGridViewTextBoxColumn";
-            this.notesDataGridViewTextBoxColumn.Width = 198;
-            // 
-            // dayNightDataGridViewTextBoxColumn
-            // 
-            this.dayNightDataGridViewTextBoxColumn.DataPropertyName = "DayNight";
-            this.dayNightDataGridViewTextBoxColumn.HeaderText = "DayNight";
-            this.dayNightDataGridViewTextBoxColumn.Name = "dayNightDataGridViewTextBoxColumn";
-            this.dayNightDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // kavuahTypeDataGridViewTextBoxColumn
-            // 
-            this.kavuahTypeDataGridViewTextBoxColumn.DataPropertyName = "KavuahType";
-            this.kavuahTypeDataGridViewTextBoxColumn.HeaderText = "KavuahType";
-            this.kavuahTypeDataGridViewTextBoxColumn.Name = "kavuahTypeDataGridViewTextBoxColumn";
-            this.kavuahTypeDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // numberDataGridViewTextBoxColumn
-            // 
-            this.numberDataGridViewTextBoxColumn.DataPropertyName = "Number";
-            this.numberDataGridViewTextBoxColumn.HeaderText = "Number";
-            this.numberDataGridViewTextBoxColumn.Name = "numberDataGridViewTextBoxColumn";
-            this.numberDataGridViewTextBoxColumn.Visible = false;
             // 
             // kavuahBindingSource
             // 
@@ -262,6 +194,85 @@
             this.panel1.Size = new System.Drawing.Size(975, 413);
             this.panel1.TabIndex = 18;
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Frozen = true;
+            this.btnDelete.HeaderText = "";
+            this.btnDelete.Image = global::Chashavshavon.Properties.Resources.delete;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.ReadOnly = true;
+            this.btnDelete.ToolTipText = "מחק רשומה הזאת";
+            this.btnDelete.Width = 40;
+            // 
+            // kavuahDescriptionHebrewDataGridViewTextBoxColumn
+            // 
+            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.DataPropertyName = "KavuahDescriptionHebrew";
+            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.Frozen = true;
+            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.HeaderText = "סוג";
+            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.Name = "kavuahDescriptionHebrewDataGridViewTextBoxColumn";
+            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.ReadOnly = true;
+            this.kavuahDescriptionHebrewDataGridViewTextBoxColumn.Width = 57;
+            // 
+            // SettingEntryDate
+            // 
+            this.SettingEntryDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.SettingEntryDate.DataPropertyName = "SettingEntryDate";
+            this.SettingEntryDate.HeaderText = "ראיה הקובע";
+            this.SettingEntryDate.Name = "SettingEntryDate";
+            this.SettingEntryDate.ReadOnly = true;
+            this.SettingEntryDate.Width = 112;
+            // 
+            // activeDataGridViewCheckBoxColumn
+            // 
+            this.activeDataGridViewCheckBoxColumn.DataPropertyName = "Active";
+            this.activeDataGridViewCheckBoxColumn.HeaderText = "פעיל?";
+            this.activeDataGridViewCheckBoxColumn.Name = "activeDataGridViewCheckBoxColumn";
+            this.activeDataGridViewCheckBoxColumn.Width = 50;
+            // 
+            // cancelsOnahBeinanisDataGridViewCheckBoxColumn
+            // 
+            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.DataPropertyName = "CancelsOnahBeinanis";
+            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.HeaderText = "מבטל עונה בינונית?";
+            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.Name = "cancelsOnahBeinanisDataGridViewCheckBoxColumn";
+            this.cancelsOnahBeinanisDataGridViewCheckBoxColumn.Width = 139;
+            // 
+            // notesDataGridViewTextBoxColumn
+            // 
+            this.notesDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.notesDataGridViewTextBoxColumn.DataPropertyName = "Notes";
+            this.notesDataGridViewTextBoxColumn.HeaderText = "הערות";
+            this.notesDataGridViewTextBoxColumn.Name = "notesDataGridViewTextBoxColumn";
+            this.notesDataGridViewTextBoxColumn.Width = 77;
+            // 
+            // dayNightDataGridViewTextBoxColumn
+            // 
+            this.dayNightDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dayNightDataGridViewTextBoxColumn.DataPropertyName = "DayNight";
+            this.dayNightDataGridViewTextBoxColumn.HeaderText = "DayNight";
+            this.dayNightDataGridViewTextBoxColumn.Name = "dayNightDataGridViewTextBoxColumn";
+            this.dayNightDataGridViewTextBoxColumn.Visible = false;
+            this.dayNightDataGridViewTextBoxColumn.Width = 99;
+            // 
+            // kavuahTypeDataGridViewTextBoxColumn
+            // 
+            this.kavuahTypeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.kavuahTypeDataGridViewTextBoxColumn.DataPropertyName = "KavuahType";
+            this.kavuahTypeDataGridViewTextBoxColumn.HeaderText = "KavuahType";
+            this.kavuahTypeDataGridViewTextBoxColumn.Name = "kavuahTypeDataGridViewTextBoxColumn";
+            this.kavuahTypeDataGridViewTextBoxColumn.Visible = false;
+            this.kavuahTypeDataGridViewTextBoxColumn.Width = 118;
+            // 
+            // numberDataGridViewTextBoxColumn
+            // 
+            this.numberDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.numberDataGridViewTextBoxColumn.DataPropertyName = "Number";
+            this.numberDataGridViewTextBoxColumn.HeaderText = "Number";
+            this.numberDataGridViewTextBoxColumn.Name = "numberDataGridViewTextBoxColumn";
+            this.numberDataGridViewTextBoxColumn.Visible = false;
+            this.numberDataGridViewTextBoxColumn.Width = 91;
+            // 
             // frmKavuahs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -302,6 +313,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn1;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn2;
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridViewImageColumn btnDelete;
         private System.Windows.Forms.DataGridViewTextBoxColumn kavuahDescriptionHebrewDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn SettingEntryDate;
@@ -311,6 +323,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dayNightDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn kavuahTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Panel panel1;
     }
 }

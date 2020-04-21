@@ -16,14 +16,14 @@ namespace Chashavshavon
 
         public frmAddNewEntry(DateTime date)
         {
-            InitializeComponent();  
+            InitializeComponent();
 
             this._date = date;
             this.FillZmanData();
             this.cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(this._date);
             this.cmbMonth.SelectedIndex = Program.HebrewCalendar.GetMonth(this._date) - 1;
             this.cmbDay.SelectedIndex = Program.HebrewCalendar.GetDayOfMonth(this._date) - 1;
-                        
+
             this.SetDateAndDayNight();
 
             //The timer is for the clock
@@ -148,22 +148,16 @@ namespace Chashavshavon
                     });
                 }
             }
-            if (Program.MainForm.ProblemOnas != null)
+            if (ProblemOnahs.ProblemOnahList != null)
             {
-                var pOnahs = Program.MainForm.ProblemOnas.Where(o => o.DateTime == this._date);
-                if (pOnahs.Count() > 0)
+                foreach (Onah o in ProblemOnahs.ProblemOnahList.Where(o => o.DateTime == this._date && !o.IsIgnored))
                 {
-                    foreach (var o in pOnahs)
+                    this.tableLayoutPanel1.Controls.Add(new Label()
                     {
-                        string name = "♦ " + (o.IsIgnored ? "[" : "") + o.HebrewDayNight + 
-                            ": " + o.Name + (o.IsIgnored ? "]" : "");
-                        this.tableLayoutPanel1.Controls.Add(new Label()
-                        {
-                            Text = name,
-                            RightToLeft = RightToLeft.Yes,
-                            AutoSize = true
-                        });
-                    }
+                        Text = "♦ " + o.HebrewDayNight + ": " + o.Name,
+                        RightToLeft = RightToLeft.Yes,
+                        AutoSize = true
+                    });
                 }
             }
             if (this.tableLayoutPanel1.Controls.Count == 0)
@@ -209,7 +203,7 @@ namespace Chashavshavon
             bool isAfterMidnight = now.Hour < shkiah.Hour || (now.Hour == shkiah.Hour && now.Minute < shkiah.Minute);
             this.rbDay.Checked = !isNightTime;
             this.rbNight.Checked = isNightTime;
-            
+
             string todayString = Program.Today.ToString("dddd dd MMM yyyy");
             foreach (string holiday in JewishHolidays.GetHebrewHolidays(this._date, Program.CurrentPlace.IsInIsrael))
             {

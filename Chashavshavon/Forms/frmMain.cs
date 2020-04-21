@@ -57,7 +57,7 @@ namespace Chashavshavon
         {
             using (frmAddNewEntry f = new frmAddNewEntry((DateTime)((Control)sender).Tag))
             {
-                if (f.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                if (f.ShowDialog(this) == DialogResult.OK)
                 {
                     //Refresh in case of change to current month
                     this.DisplayMonth();
@@ -68,7 +68,7 @@ namespace Chashavshavon
         private void btnAddEntry_Click(object sender, EventArgs e)
         {
             frmAddNewEntry f = new frmAddNewEntry(Program.Today);
-            if (f.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            if (f.ShowDialog(this) == DialogResult.OK)
             {
                 //Refresh in case of change to current month
                 this.DisplayMonth();
@@ -170,9 +170,8 @@ namespace Chashavshavon
             if (e.ColumnIndex == this.dgEntries.Columns["NotesColumn"].Index)
             {
                 DataGridViewRow r = this.dgEntries.Rows[e.RowIndex];
-                if (r.DataBoundItem is Entry)
+                if (r.DataBoundItem is Entry entry)
                 {
-                    Entry entry = (Entry)r.DataBoundItem;
                     string nkText = "";
                     foreach (Kavuah nk in entry.NoKavuahList)
                     {
@@ -239,7 +238,7 @@ namespace Chashavshavon
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.SaveCurrentFile(); //why not...
-            if (openFileDialog1.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 try
                 {
@@ -381,7 +380,7 @@ namespace Chashavshavon
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Exclamation,
                     MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
                     Properties.Settings.Default.RecentFiles.Remove(e.ClickedItem.Text);
                     recentFilesToolStripMenuItem.DropDownItems.Remove(e.ClickedItem);
@@ -516,7 +515,7 @@ namespace Chashavshavon
             saveFileDialog1.DefaultExt = "pm";
             saveFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pm";
 
-            if (saveFileDialog1.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            if (saveFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 CurrentFile = saveFileDialog1.FileName;
                 CurrentFileIsRemote = false;
@@ -544,7 +543,7 @@ namespace Chashavshavon
         {
             using (frmKavuahs f = new frmKavuahs())
             {
-                if (f.ShowDialog(this) != System.Windows.Forms.DialogResult.Cancel)
+                if (f.ShowDialog(this) != DialogResult.Cancel)
                 {
                     this.SaveCurrentFile();
                     this.TestInternet();
@@ -587,67 +586,18 @@ namespace Chashavshavon
                     {
                         f.ShowDialog(this);
                         if (f.DialogResult == DialogResult.No)
+                        {
                             MessageBox.Show("סיסמה שגויה",
                             "חשבשבון",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
+                        }
                     }
                     while (f.DialogResult == DialogResult.No);
                     //If the user canceled etc. we will close this in form load
                     this.CloseMeFirst = f.DialogResult != DialogResult.Yes;
                 }
             }
-        }
-
-        #region Calculate Problem Onahs
-
-        private void CalculateProblemOnahs()
-        {
-            //Clears the list and gets it ready to accept new problems
-            if (this.ProblemOnas == null)
-            {
-                this.ProblemOnas = new List<Onah>();
-            }
-            this.ProblemOnas.Clear();
-
-            //A list of Onahs that need to be kept. This first list is worked out from the list of Entries.
-            //Problem Onahs are searched for from the date of each entry until the number of months specified in the
-            //Property Setting "numberMonthsAheadToWarn"
-            this.SetEntryListDependentProblemOnahs();
-
-            //Get the onahs that need to be kept for Kavuahs of yom hachodesh, sirug,
-            //and other Kavuahs that are not dependent on the actual entry list
-            this.SetIndependentKavuahProblemOnahs();
-
-            //Clean out doubles
-            //TODO:Figure out why more than just doubles are getting deleted from the following
-            //Onah.ClearDoubleOnahs(this.ProblemOnas);
-
-            //The lblNextProblem displays the next upcoming Onah that needs to be kept
-            this.lblNextProblem.Text = GetNextOnahText();
-            this.SetWeekListHtml();
-        }
-
-        private void CreateLocalBackup()
-        {
-            var bgw = new System.ComponentModel.BackgroundWorker();
-            bgw.DoWork += delegate
-            {
-                if (File.Exists(this.CurrentFile))
-                {
-                    string path = Program.BackupFolderPath + "\\" +
-                        Path.GetFileNameWithoutExtension(this.CurrentFile) +
-                        "_" +
-                        DateTime.Now.ToString("d-MMM-yy_HH-mm-ss", CultureInfo.GetCultureInfo("en-us").DateTimeFormat) +
-                        ".pm";
-                    if (File.Exists(path))
-                    {
-                        path = path.Replace(".pm", "_Version_1" + DateTime.Now.Millisecond.ToString() + ".pm");
-                    }
-                    File.Copy(this.CurrentFile, path);
-                }
-            };
-            bgw.RunWorkerAsync();
         }
 
         private void DisplayMonth()
@@ -721,7 +671,7 @@ namespace Chashavshavon
                     i,
                     Program.HebrewCalendar);
 
-                Panel pnl = new Panel()
+                Panel pnl = new TableLayoutPanel()
                 {
                     Dock = DockStyle.Fill,
                     Margin = new Padding(0),
@@ -738,7 +688,7 @@ namespace Chashavshavon
                         Dock = DockStyle.Fill,
                         Margin = new Padding(0),
                         Padding = new Padding(3),
-                        BackColor = Color.LightSlateGray
+                        BackColor = Color.DarkSlateBlue
                     };
                     border.Controls.Add(pnl);
                     this.luachTableLayout.Controls.Add(border, currentColumn, currentRow);
@@ -784,7 +734,7 @@ namespace Chashavshavon
                 {
                     if (!string.IsNullOrWhiteSpace(daySpecialText))
                     {
-                        daySpecialText += " - ";
+                        daySpecialText += Environment.NewLine;
                     }
                     daySpecialText += holiday;
                 }
@@ -794,29 +744,28 @@ namespace Chashavshavon
                     pnl.BackgroundImageLayout = ImageLayout.Stretch;
                     pnl.Controls.Add(new Label()
                     {
-                        Dock = DockStyle.Bottom,
-                        Padding = new Padding(0, 7, 0, 2),
+                        AutoSize = true,
+                        Anchor = AnchorStyles.Top,
                         Text = daySpecialText,
                         Font = new Font(Font.FontFamily, 7f),
                         ForeColor = Color.DarkGreen,
-                        TextAlign = ContentAlignment.MiddleCenter,
-                        RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                        TextAlign = ContentAlignment.BottomCenter,
+                        RightToLeft = RightToLeft.Yes,
+                        Margin = new Padding(3),
+                        AutoEllipsis = true
                     });
                 }
 
                 string onahText = "";
-                bool hasNotIgnored = false;
-                if (this.ProblemOnas != null)
+                if (ProblemOnahs.ProblemOnahList != null)
                 {
-                    var pOnahs = this.ProblemOnas.Where(o => o.DateTime == date);
-                    if (pOnahs.Count() > 0)
+                    foreach (var o in ProblemOnahs.ProblemOnahList.Where(o => o.DateTime == date && !o.IsIgnored))
                     {
-                        hasNotIgnored = pOnahs.Any(o => !o.IsIgnored);
-                        foreach (var o in pOnahs)
+                        if (!string.IsNullOrWhiteSpace(onahText))
                         {
-                            onahText += "\t♦  " + (o.IsIgnored ? "[" : "") + o.HebrewDayNight + ": " +
-                                o.Name + (o.IsIgnored ? "]" : "") + Environment.NewLine;
+                            onahText += Environment.NewLine;
                         }
+                        onahText += o.HebrewDayNight + ": " + o.Name;
                     }
                 }
 
@@ -825,36 +774,40 @@ namespace Chashavshavon
                     en.DateTime == date);
                 if (entry != null)
                 {
+                    string entryText = "ראיה - עונת " + entry.HebrewDayNight;
+                    if (entry.Interval > 0)
+                    {
+                        entryText += Environment.NewLine + " הפלגה: " + entry.Interval.ToString();
+                    }
                     pnl.BackgroundImage = Properties.Resources.PinkMarbleTile;
                     pnl.BackgroundImageLayout = ImageLayout.Stretch;
                     pnl.BackColor = Color.Transparent;
                     pnl.Controls.Add(new Label()
                     {
-                        Dock = DockStyle.Bottom,
-                        Text = "ראיה - עונת " + entry.HebrewDayNight + Environment.NewLine + " הפלגה: " + entry.Interval.ToString(),
-                        ForeColor = Color.Red,
-                        Font = new Font(Font.FontFamily, 7f),
-                        TextAlign = ContentAlignment.TopCenter,
-                        RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                        AutoSize = true,
+                        Anchor = AnchorStyles.Top,
+                        Text = entryText,
+                        ForeColor = Color.DarkRed,
+                        Font = new Font(Font.FontFamily, 7f, FontStyle.Bold),
+                        TextAlign = ContentAlignment.BottomCenter,
+                        RightToLeft = RightToLeft.Yes
                     });
                 }
-                else if (!string.IsNullOrEmpty(onahText))
+                else if (!string.IsNullOrWhiteSpace(onahText))
                 {
-                    if (hasNotIgnored)
-                    {
-                        pnl.BackgroundImage = Properties.Resources.ParchmentMarbleTile;
-                        pnl.BackgroundImageLayout = ImageLayout.Stretch;
-                        pnl.BackColor = Color.Transparent;
-                    }
+                    pnl.BackgroundImage = Properties.Resources.ParchmentMarbleTile;
+                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
+                    pnl.BackColor = Color.Transparent;
                     pnl.Controls.Add(new Label()
                     {
-                        Dock = DockStyle.Bottom,
-                        Text = (onahText.Length >= 18 ?
-                            onahText.Substring(0, 17) : onahText).PadRight(20, '.'),
-                        TextAlign = ContentAlignment.TopCenter,
-                        Font = new Font(Font.FontFamily, 7f),
-                        ForeColor = Color.Black,
-                        RightToLeft = System.Windows.Forms.RightToLeft.Yes
+                        AutoSize = true,
+                        Anchor = AnchorStyles.Top,
+                        Text = onahText,
+                        Font = new Font(Font.FontFamily, 6.3f, FontStyle.Bold),
+                        ForeColor = Color.DarkGoldenrod,
+                        TextAlign = ContentAlignment.BottomCenter,
+                        RightToLeft = RightToLeft.Yes,
+                        AutoEllipsis = true
                     });
                 }
                 else if (currentColumn == luachTableLayout.ColumnCount - 1)
@@ -891,6 +844,28 @@ namespace Chashavshavon
             this.luachTableLayout.Visible = true;
         }
 
+        private void CreateLocalBackup()
+        {
+            var bgw = new System.ComponentModel.BackgroundWorker();
+            bgw.DoWork += delegate
+            {
+                if (File.Exists(this.CurrentFile))
+                {
+                    string path = Program.BackupFolderPath + "\\" +
+                        Path.GetFileNameWithoutExtension(this.CurrentFile) +
+                        "_" +
+                        DateTime.Now.ToString("d-MMM-yy_HH-mm-ss", CultureInfo.GetCultureInfo("en-us").DateTimeFormat) +
+                        ".pm";
+                    if (File.Exists(path))
+                    {
+                        path = path.Replace(".pm", "_Version_1" + DateTime.Now.Millisecond.ToString() + ".pm");
+                    }
+                    File.Copy(this.CurrentFile, path);
+                }
+            };
+            bgw.RunWorkerAsync();
+        }
+
         private string GetEntryListText()
         {
             var sb = new StringBuilder("<html><head><meta content='text/html;charset=UTF-8;' />" +
@@ -913,42 +888,6 @@ namespace Chashavshavon
             }
             sb.Append("</table></body></html>");
             return sb.ToString();
-        }
-
-        private string GetNextOnahText()
-        {
-            string nextProblemText = "";
-            if (this.ProblemOnas.Count > 0)
-            {
-                //We need to determine the earliest problem Onah, so we need to do a
-                //special sort on the list where the night Onah is before the day one for the same date.
-                this.ProblemOnas.Sort(Onah.CompareOnahs);
-
-                Onah nowProblem = this.ProblemOnas.FirstOrDefault(o => (!o.IsIgnored) && Onah.IsSameOnahPeriod(o, Program.NowOnah));
-                Onah nextProblem = this.ProblemOnas.FirstOrDefault(o => (!o.IsIgnored) && (Onah.CompareOnahs(o, Program.NowOnah) == 1));
-
-                if (nowProblem != null)
-                {
-                    nextProblemText += "עכשיו הוא " + nowProblem.Name;
-                }
-
-                if (nextProblem != null)
-                {
-                    if (nextProblemText.Length > 0)
-                    {
-                        nextProblemText += " - ";
-                    }
-                    nextProblemText += "העונה הבאה בעוד " +
-                        ((nextProblem.DateTime - Program.Today).Days + 1).ToString() +
-                        " ימים - בתאריך: " +
-                        nextProblem.DateTime.ToString("dd MMMM yyyy") +
-                        " (" +
-                        nextProblem.HebrewDayNight +
-                        ") שהוא " +
-                        nextProblem.Name;
-                }
-            }
-            return nextProblemText;
         }
 
         private string GetPassword()
@@ -1066,143 +1005,6 @@ namespace Chashavshavon
             Program.NowOnah = new Onah(Program.Today, isNightTime ? DayNight.Night : DayNight.Day);
         }
 
-        private void SetEntryDependentKavuahProblemOnahs(Entry entry)
-        {
-            //Kavuah Haflagah - with or without Maayan Pasuach
-            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
-                k.KavuahType.In(KavuahType.Haflagah, KavuahType.HaflagaMaayanPasuach) && k.Active))
-            {
-                Onah kavuahHaflaga = entry.AddDays(kavuah.Number - 1);
-                kavuahHaflaga.DayNight = kavuah.DayNight;
-                kavuahHaflaga.Name = "קבוע " + kavuah.ToString();
-                this.ProblemOnas.Add(kavuahHaflaga);
-
-                if (Properties.Settings.Default.ShowOhrZeruah)
-                {
-                    Onah kavuahHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahHaflaga);
-                    kavuahHaflagaOhrZarua.Name = " או\"ז של " + kavuahHaflaga.Name;
-                    this.ProblemOnas.Add(kavuahHaflagaOhrZarua);
-                }
-            }
-
-            //Kavuah Dilug Haflagos - from each actual entry. 
-            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
-                k.KavuahType == KavuahType.DilugHaflaga && k.Active))
-            {
-                Onah kavuahDilugHaflaga = entry.AddDays(entry.Interval + kavuah.Number - 1);
-                kavuahDilugHaflaga.DayNight = kavuah.DayNight;
-                kavuahDilugHaflaga.Name = "קבוע " + kavuah.ToString() + " ע\"פ ראייה";
-                this.ProblemOnas.Add(kavuahDilugHaflaga);
-
-                if (Properties.Settings.Default.ShowOhrZeruah)
-                {
-                    Onah kavuahDilugHaflagaOhrZarua = Onah.GetPreviousOnah(kavuahDilugHaflaga);
-                    kavuahDilugHaflagaOhrZarua.Name = " או\"ז של " + kavuahDilugHaflaga.Name;
-                    this.ProblemOnas.Add(kavuahDilugHaflagaOhrZarua);
-                }
-            }
-
-        }
-
-        private void SetEntryListDependentProblemOnahs()
-        {
-            foreach (Entry entry in Entry.EntryList.Where(en => !en.IsInvisible))
-            {
-                this.SetOnahBeinenisProblemOnahs(entry);
-                this.SetEntryDependentKavuahProblemOnahs(entry);
-            }
-        }
-
-        /// <summary>
-        /// Work out the Kavuahs of yom hachodesh, sirug, dilug Yom hachodesh
-        /// and other Kavuahs that are not dependant on the entry list
-        /// </summary>
-        /// <param name="onahs"></param>
-        /// <returns></returns>
-        private void SetIndependentKavuahProblemOnahs()
-        {
-            //Kavuahs of Yom Hachodesh and Sirug
-            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
-                                        k.Active &&
-                                        k.SettingEntryDate > DateTime.MinValue &&
-                                        k.KavuahType.In(KavuahType.DayOfMonth,
-                                                        KavuahType.DayOfMonthMaayanPasuach,
-                                                        KavuahType.Sirug)))
-            {
-                for (DateTime dt = Program.HebrewCalendar.AddMonths(kavuah.SettingEntryDate,
-                        kavuah.KavuahType == KavuahType.Sirug ? kavuah.Number : 1);
-                    dt <= Program.HebrewCalendar.AddMonths(Program.Today, Properties.Settings.Default.NumberMonthsAheadToWarn);
-                    dt = Program.HebrewCalendar.AddMonths(dt, (kavuah.KavuahType == KavuahType.Sirug ? kavuah.Number : 1)))
-                {
-                    Onah o = new Onah(dt, kavuah.DayNight)
-                    {
-                        Name = kavuah.ToString(),
-                        Day = Program.HebrewCalendar.GetDayOfMonth(kavuah.SettingEntryDate)
-                    };
-                    this.ProblemOnas.Add(o);
-                    if (Properties.Settings.Default.ShowOhrZeruah)
-                    {
-                        var ooz = Onah.GetPreviousOnah(o);
-                        ooz.Name = " או\"ז של " + o.Name;
-                        this.ProblemOnas.Add(ooz);
-                    }
-                }
-            }
-
-            //Kavuahs of "Day of week"
-            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
-                k.KavuahType == KavuahType.DayOfWeek && k.Active))
-            {
-                for (DateTime dt = kavuah.SettingEntryDate.AddDays(kavuah.Number);
-                    dt <= Program.HebrewCalendar.AddMonths(Program.Today, Properties.Settings.Default.NumberMonthsAheadToWarn);
-                    dt = dt.AddDays(kavuah.Number))
-                {
-                    Onah o = new Onah(dt, kavuah.DayNight)
-                    {
-                        Name = "קבוע " + kavuah.ToString(),
-                    };
-                    this.ProblemOnas.Add(o);
-                    if (Properties.Settings.Default.ShowOhrZeruah)
-                    {
-                        var ooz = Onah.GetPreviousOnah(o);
-                        ooz.Name = " או\"ז של " + o.Name;
-                        this.ProblemOnas.Add(ooz);
-                    }
-                }
-            }
-
-            //Kavuahs of Yom Hachodesh of Dilug
-            foreach (Kavuah kavuah in Kavuah.KavuahsList.Where(k =>
-                                        k.Active &&
-                                        k.KavuahType == KavuahType.DilugDayOfMonth))
-            {
-                DateTime dt = kavuah.SettingEntryDate;
-                for (int i = 0; i >= 0; i++)
-                {
-                    dt = Program.HebrewCalendar.AddMonths(dt, 1);
-                    DateTime dtNext = dt.AddDays(kavuah.Number * i);
-                    //We stop when we get to the beginning or end of the month
-                    if (dtNext.Month != dt.Month ||
-                        dtNext > Program.HebrewCalendar.AddMonths(Program.Today, Properties.Settings.Default.NumberMonthsAheadToWarn))
-                    {
-                        break;
-                    }
-
-                    Onah o = new Onah(dtNext, kavuah.DayNight)
-                    {
-                        Name = "קבוע " + kavuah.ToString()
-                    };
-                    this.ProblemOnas.Add(o);
-                    if (Properties.Settings.Default.ShowOhrZeruah)
-                    {
-                        var ooz = Onah.GetPreviousOnah(o);
-                        ooz.Name = " או\"ז של " + o.Name;
-                        this.ProblemOnas.Add(ooz);
-                    }
-                }
-            }
-        }
-
         private void SetLocation()
         {
             int locId = Properties.Settings.Default.UserPlaceId;
@@ -1214,157 +1016,13 @@ namespace Chashavshavon
             Program.CurrentPlace = Utils.Place.GetPlace(locId);
         }
 
-        private void SetOnahBeinenisProblemOnahs(Entry entry)
-        {
-            bool cancelOnahBeinenis = Kavuah.KavuahsList.Exists(k => k.Active && k.CancelsOnahBeinanis);
-
-            //Day Thirty
-            Onah thirty = entry.AddDays(29);
-            thirty.Name = "יום שלושים";
-            thirty.IsIgnored = cancelOnahBeinenis;
-            this.ProblemOnas.Add(thirty);
-
-            //If the user wants to keep 24 for the Onah Beinenis
-            if (Properties.Settings.Default.OnahBenIs24Hours)
-            {
-                Onah o = thirty.Clone();
-                o.DayNight = o.DayNight == DayNight.Day ? DayNight.Night : DayNight.Day;
-                this.ProblemOnas.Add(o);
-            }
-
-            //If the user wants to see the Ohr Zarua  - the previous onah
-            if (Properties.Settings.Default.ShowOhrZeruah)
-            {
-                Onah thirtyOhrZarua = Onah.GetPreviousOnah(thirty);
-                thirtyOhrZarua.Name = "או\"ז של יום שלושים";
-                thirtyOhrZarua.IsIgnored = cancelOnahBeinenis;
-                this.ProblemOnas.Add(thirtyOhrZarua);
-            }
-
-            //Day Thirty One
-            Onah thirtyOne = entry.AddDays(30);
-            thirtyOne.Name = "יום ל\"א";
-            thirtyOne.IsIgnored = cancelOnahBeinenis;
-            this.ProblemOnas.Add(thirtyOne);
-
-            if (Properties.Settings.Default.OnahBenIs24Hours)
-            {
-                Onah o = thirtyOne.Clone();
-                o.DayNight = o.DayNight == DayNight.Day ? DayNight.Night : DayNight.Day;
-                this.ProblemOnas.Add(o);
-            }
-
-            if (Properties.Settings.Default.ShowOhrZeruah)
-            {
-                Onah thirtyOneOhrZarua = Onah.GetPreviousOnah(thirtyOne);
-                thirtyOneOhrZarua.Name = "או\"ז של יום ל\"א";
-                thirtyOneOhrZarua.IsIgnored = cancelOnahBeinenis;
-                this.ProblemOnas.Add(thirtyOneOhrZarua);
-            }
-
-            //Haflagah
-            if (entry.Interval > 1)
-            {
-                Onah intervalHaflagah = entry.AddDays(entry.Interval - 1);
-                intervalHaflagah.Name = "יום הפלגה (" + entry.Interval + ")";
-                intervalHaflagah.IsIgnored = cancelOnahBeinenis;
-                this.ProblemOnas.Add(intervalHaflagah);
-
-                if (Properties.Settings.Default.ShowOhrZeruah)
-                {
-                    Onah intervalHaflagahOhrZarua = Onah.GetPreviousOnah(intervalHaflagah);
-                    intervalHaflagahOhrZarua.Name = "או\"ז של " + intervalHaflagah.Name;
-                    intervalHaflagahOhrZarua.IsIgnored = cancelOnahBeinenis;
-                    this.ProblemOnas.Add(intervalHaflagahOhrZarua);
-                }
-
-                //The Ta"z
-
-                if (Properties.Settings.Default.KeepLongerHaflagah)
-                {
-                    //Go through all earlier entries in the list that have a longer haflaga than this one
-                    foreach (Entry e in Entry.EntryList.Where(en =>
-                        en.DateTime < entry.DateTime && en.Interval > entry.Interval))
-                    {
-                        //See if their haflaga was never surpassed by an Entry after them
-                        if (!Entry.EntryList.Any(oe =>
-                            oe.DateTime > e.DateTime &&
-                            oe.Interval > e.Interval))
-                        {
-                            var on = e.AddDays(entry.Interval - 1);
-                            on.Name = "יום הפלגה (" + entry.Interval + ") שלא נתבטלה";
-                            on.IsIgnored = cancelOnahBeinenis;
-                            this.ProblemOnas.Add(on);
-                            if (Properties.Settings.Default.ShowOhrZeruah)
-                            {
-                                Onah ooz = Onah.GetPreviousOnah(on);
-                                ooz.Name = "או\"ז של " + on.Name;
-                                ooz.IsIgnored = cancelOnahBeinenis;
-                                this.ProblemOnas.Add(ooz);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void SetWeekListHtml()
-        {
-            // First we combine double onahs - such as if one onah is also day 30 and also a haflagah.
-            // We will only display it once, but with both descriptions.
-            // If one of them is to be ignored though, it will get it's own row.
-            var onahsToAdd = new List<Onah>();
-            foreach (Onah onah in this.ProblemOnas.Where(on => on.DateTime >= Program.Today || Program.Today.IsSameday(on.DateTime)))
-            {
-                if (onahsToAdd.Exists(o => Onah.IsSameOnahPeriod(o, onah) && o.IsIgnored == onah.IsIgnored))
-                {
-                    onahsToAdd.Where(o => Onah.IsSameOnahPeriod(o, onah)).First().Name += ", וגם " + onah.Name;
-                }
-                else
-                {
-                    onahsToAdd.Add(onah);
-                }
-            }
-
-            var sb = new StringBuilder("<html><head><meta content='(text/html;charset=UTF-8;' />" +
-                "<title>לוח חשבשבון ");
-            sb.Append(Program.Today.ToLongDateString());
-            sb.Append("</title><style>" +
-                "body,table,td{text-align:right;direction:rtl;font-family:Narkisim;}" +
-                "table{border:solid 1px silver;width:100%;}" +
-                "div.ignored{float:right;color:#999999;width:400px;text-align:right;}" +
-                "td{padding:3px;margin:1px;}" +
-                "tr.alt td{background-color:#f1f1f1;}" +
-                "tr.red td{color:#ff0000;}" +
-                "tr.ignored td{color:#999999;}</style></head>");
-            sb.AppendFormat("<body><h3>לוח חשבשבון - עונות הבאות - {0}</h3>", Program.Today.ToLongDateString());
-            if (onahsToAdd.Exists(o => o.IsIgnored))
-            {
-                sb.Append("<div class='ignored'>רשומות באפור לא פעילים עקב וסת קבוע</div>");
-            }
-            sb.Append("<table><tr><th>יום</th><th>תאריך</th><th>יום/לילה</th><th>סיבה</th></tr>");
-
-            int count = 0;
-            foreach (Onah onah in onahsToAdd)
-            {
-                sb.AppendFormat("<tr class='{0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
-                    (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnahPeriod(Program.NowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
-                    Zmanim.GetDayOfWeekText(onah.DateTime),
-                    Zmanim.DaysOfMonthHebrew[onah.Day],
-                    onah.Month.MonthName,
-                    onah.HebrewDayNight,
-                    onah.Name);
-            }
-            sb.AppendFormat("</table><br /><hr /><strong>{0}</strong><hr />", this.lblNextProblem.Text);
-            sb.Append("</body></html>");
-            this.WeekListHtml = sb.ToString();
-        }
-
         private frmBrowser ShowCalendarTextList(bool print = false)
         {
-            var fb = new frmBrowser(print);
-            fb.Text = "לוח חשבשבון_" + Program.Today.ToString("dd_MMM_yyyy").Replace("'", "").Replace("\"", "");
-            fb.Html = this.WeekListHtml;
+            var fb = new frmBrowser(print)
+            {
+                Text = "לוח חשבשבון_" + Program.Today.ToString("dd_MMM_yyyy").Replace("'", "").Replace("\"", ""),
+                Html = this.WeekListHtml
+            };
             fb.Show();
             return fb;
         }
@@ -1379,39 +1037,14 @@ namespace Chashavshavon
 
         private frmBrowser ShowEntryTextList(bool print = false)
         {
-            var fb = new frmBrowser(print);
-            fb.Text = "רשימת חשבשבון_" + Program.Today.ToString("dd_MMM_yyyy").Replace("'", "").Replace("\"", "");
-            fb.Html = this.GetEntryListText();
+            var fb = new frmBrowser(print)
+            {
+                Text = "רשימת חשבשבון_" + Program.Today.ToString("dd_MMM_yyyy").Replace("'", "").Replace("\"", ""),
+                Html = this.GetEntryListText()
+            };
             fb.Show();
             return fb;
         }
-
-        /// <summary>
-        /// Sorts the list of entries in order of occurrence, then sets the Interval for each Entry -
-        /// which is the days elapsed since the previous Entry.
-        /// This is in order to Cheshbon out the Haflagah
-        /// </summary>
-        private void SortEntriesAndSetInterval()
-        {
-            Entry.EntryList.Sort(Onah.CompareOnahs);
-
-            Entry previousEntry = null;
-            foreach (Entry entry in Entry.EntryList.Where(en => !en.IsInvisible))
-            {
-                if (previousEntry != null)
-                {
-                    entry.SetInterval(previousEntry);
-                }
-                else
-                {
-                    entry.Interval = 0;
-                }
-                previousEntry = entry;
-            }
-        }
-
-        #endregion Calculate Problem Onahs
-
         #endregion Private Functions
 
         #region Public Functions
@@ -1419,7 +1052,7 @@ namespace Chashavshavon
         public void AddNewEntry(Entry newEntry, Form sourceForm = null)
         {
             Entry.EntryList.Add(newEntry);
-            this.SortEntriesAndSetInterval();
+            Entry.SortEntriesAndSetInterval();
             Kavuah.FindAndPromptKavuahs();
             this.CalculateProblemOnahs();
             this.SaveCurrentFile(sourceForm);
@@ -1432,7 +1065,7 @@ namespace Chashavshavon
             using (frmAddKavuah f = new frmAddKavuah())
             {
                 f.ShowDialog(owner);
-                if (f.DialogResult != System.Windows.Forms.DialogResult.Cancel)
+                if (f.DialogResult != DialogResult.Cancel)
                 {
                     this.SaveCurrentFile();
                     this.RefreshData();
@@ -1482,7 +1115,7 @@ namespace Chashavshavon
                     }
                 }
                 Entry.EntryList.Remove(entry);
-                this.SortEntriesAndSetInterval();
+                Entry.SortEntriesAndSetInterval();
                 Kavuah.FindAndPromptKavuahs();
                 this.CalculateProblemOnahs();
                 this.SaveCurrentFile();
@@ -1565,11 +1198,13 @@ namespace Chashavshavon
                     // won't be prompted again each time the list is reloaded.
                     foreach (XmlNode k in entryNode.SelectNodes("NoKavuah"))
                     {
-                        Kavuah ka = new Kavuah();
-                        ka.KavuahType = (KavuahType)Enum.Parse(typeof(KavuahType), k.Attributes["KavuahType"].InnerText);
-                        ka.Number = Convert.ToInt32(k.Attributes["Number"].InnerText);
-                        ka.SettingEntryDate = newEntry.DateTime;
-                        ka.DayNight = newEntry.DayNight;
+                        Kavuah ka = new Kavuah(
+                            (KavuahType)Enum.Parse(typeof(KavuahType), k.Attributes["KavuahType"].InnerText),
+                            newEntry.DayNight)
+                        {
+                            Number = Convert.ToInt32(k.Attributes["Number"].InnerText),
+                            SettingEntryDate = newEntry.DateTime
+                        };
                         newEntry.NoKavuahList.Add(ka);
                     }
                     Entry.EntryList.Add(newEntry);
@@ -1616,9 +1251,69 @@ namespace Chashavshavon
             }
 
             this.SetCaptionText();
-            this.SortEntriesAndSetInterval();
+            Entry.SortEntriesAndSetInterval();
             this.CalculateProblemOnahs();
             this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
+        }
+
+        private void CalculateProblemOnahs()
+        {
+            ProblemOnahs.CalculateProblemOnahs();
+            //The lblNextProblem displays the next upcoming Onah that needs to be kept
+            this.lblNextProblem.Text = ProblemOnahs.GetNextOnahText();
+            this.WeekListHtml = GetWeekListHtml();
+        }
+
+        private string GetWeekListHtml()
+        {
+            // First we combine double onahs - such as if one onah is also day 30 and also a haflagah.
+            // We will only display it once, but with both descriptions.
+            // If one of them is to be ignored though, it will get it's own row.
+            var onahsToAdd = new List<Onah>();
+            foreach (Onah onah in ProblemOnahs.ProblemOnahList.Where(on => on.DateTime >= Program.Today || Program.Today.IsSameday(on.DateTime)))
+            {
+                if (onahsToAdd.Exists(o => Onah.IsSameOnahPeriod(o, onah) && o.IsIgnored == onah.IsIgnored))
+                {
+                    onahsToAdd.Where(o => Onah.IsSameOnahPeriod(o, onah)).First().Name += ", וגם " + onah.Name;
+                }
+                else
+                {
+                    onahsToAdd.Add(onah.Clone());
+                }
+            }
+
+            var sb = new StringBuilder("<html><head><meta content='text/html;charset=UTF-8;' />" +
+                "<title>לוח חשבשבון ");
+            sb.Append(Program.Today.ToLongDateString());
+            sb.Append("</title><style>" +
+                "body,table,td{text-align:right;direction:rtl;font-family:Narkisim;}" +
+                "table{border:solid 1px silver;width:100%;}" +
+                "div.ignored{float:right;color:#999999;width:400px;text-align:right;}" +
+                "td{padding:3px;margin:1px;}" +
+                "tr.alt td{background-color:#f1f1f1;}" +
+                "tr.red td{color:#ff0000;}" +
+                "tr.ignored td{color:#999999;}</style></head>");
+            sb.AppendFormat("<body><h3>לוח חשבשבון - עונות הבאות - {0}</h3>", Program.Today.ToLongDateString());
+            if (onahsToAdd.Exists(o => o.IsIgnored))
+            {
+                sb.Append("<div class='ignored'>רשומות באפור לא פעילים עקב וסת קבוע</div>");
+            }
+            sb.Append("<table><tr><th>יום</th><th>תאריך</th><th>יום/לילה</th><th>סיבה</th></tr>");
+
+            int count = 0;
+            foreach (Onah onah in onahsToAdd)
+            {
+                sb.AppendFormat("<tr class='{0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
+                    (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnahPeriod(Program.NowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
+                    Zmanim.GetDayOfWeekText(onah.DateTime),
+                    Zmanim.DaysOfMonthHebrew[onah.Day],
+                    onah.Month.MonthName,
+                    onah.HebrewDayNight,
+                    onah.Name);
+            }
+            sb.AppendFormat("</table><br /><hr /><strong>{0}</strong><hr />", this.lblNextProblem.Text);
+            sb.Append("</body></html>");
+            return sb.ToString();
         }
 
         /// <summary>
@@ -1640,7 +1335,7 @@ namespace Chashavshavon
                         MessageBoxButtons.YesNoCancel,
                         MessageBoxIcon.Exclamation,
                         MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == System.Windows.Forms.DialogResult.Yes)
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
                     this.SaveAs(sourceForm);
                 }
@@ -1756,10 +1451,7 @@ namespace Chashavshavon
 
         public string CurrentFile
         {
-            get
-            {
-                return Properties.Settings.Default.CurrentFile;
-            }
+            get => Properties.Settings.Default.CurrentFile;
             set
             {
                 Properties.Settings.Default.CurrentFile = value;
@@ -1770,10 +1462,7 @@ namespace Chashavshavon
 
         public bool CurrentFileIsRemote
         {
-            get
-            {
-                return Properties.Settings.Default.IsCurrentFileRemote;
-            }
+            get => Properties.Settings.Default.IsCurrentFileRemote;
             set
             {
                 Properties.Settings.Default.IsCurrentFileRemote = value;
@@ -1814,9 +1503,7 @@ namespace Chashavshavon
 
                 return (string.IsNullOrWhiteSpace(xml) ? "<Entries />" : xml);
             }
-        }
-
-        public List<Onah> ProblemOnas { get; private set; }
+        }        
         public string WeekListHtml { get; set; }
 
         #endregion Properties
