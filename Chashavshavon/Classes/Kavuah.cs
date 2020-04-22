@@ -19,10 +19,25 @@ namespace Chashavshavon
         HaflagaMaayanPasuach,
         DayOfMonthMaayanPasuach
     }
-
     [Serializable()]
     public class Kavuah
     {
+        /// <summary>
+        /// Rate the strength of each Kavuah Type. Lower is better.
+        /// </summary>
+        public static readonly Dictionary<KavuahType, int> KavuahTypeRatings =
+            new Dictionary<KavuahType, int>
+            {
+                {KavuahType.DayOfMonth, 1},
+                {KavuahType.DayOfWeek, 1},
+                {KavuahType.Haflagah, 2},
+                {KavuahType.Sirug, 3},
+                {KavuahType.DilugHaflaga, 4},
+                {KavuahType.DilugDayOfMonth, 4},
+                {KavuahType.HaflagaMaayanPasuach, 5},
+                {KavuahType.DayOfMonthMaayanPasuach, 5}
+            };
+
         public Kavuah()
         {
             //Set default to true
@@ -60,6 +75,17 @@ namespace Chashavshavon
         #endregion
 
         #region Public Functions
+
+        /// <summary>
+        /// Is this Kavuah a "stronger" Kavua type than the given one
+        /// </summary>
+        /// <param name="kavuah"></param>
+        /// <returns></returns>
+        private bool IsBetterKavuah(Kavuah kavuah)
+        {
+            return KavuahTypeRatings[this.KavuahType] < KavuahTypeRatings[kavuah.KavuahType];
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -161,7 +187,8 @@ namespace Chashavshavon
         {
             for (int i = 0; i < list.Count; i++)
             {
-                if (list.Exists(ka => IsSimilarKavuah(ka, list[i])))
+                if (list.Exists(ka => ka.Active && 
+                    IsSimilarKavuah(ka, list[i]) /*|| ka.IsBetterKavuah(list[i])*/))
                 {
                     list.RemoveAt(i);
                 }
@@ -176,6 +203,12 @@ namespace Chashavshavon
                 a.KavuahType == b.KavuahType &&
                 a.DayNight == b.DayNight &&
                 a.Number == b.Number);
+        }
+
+        private static bool HasSameSettingEntry(Kavuah a, Kavuah b)
+        {
+            return (a != b &&
+                Onah.IsSameOnahPeriod(a.SettingOnah, b.SettingOnah));
         }
 
         private static bool InActiveKavuahList(Kavuah kavuah)

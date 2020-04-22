@@ -124,11 +124,6 @@
                     "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
                     "ProductCode" = "8:.NETFramework,Version=v4.7.2"
                     }
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.4.5"
-                    {
-                    "Name" = "8:Windows Installer 4.5"
-                    "ProductCode" = "8:Microsoft.Windows.Installer.4.5"
-                    }
                 }
             }
         }
@@ -452,7 +447,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
         "ProductCode" = "8:{9110E264-48D4-4A43-B5DF-CD73C7317BD8}"
-        "PackageCode" = "8:{7F67BD46-A441-4AF7-86CB-3ECC24F98151}"
+        "PackageCode" = "8:{4A7AB279-7709-4685-9594-2A00BEEB06CB}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1045,7 +1040,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_010BB34F6CCC48F5A63ADAFCA30F85D7"
             {
-            "SourcePath" = "8:..\\Chashavshavon\\obj\\x64\\Chashavshavon.exe"
+            "SourcePath" = "8:..\\Chashavshavon\\obj\\Release\\Chashavshavon.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
