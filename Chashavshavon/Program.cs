@@ -118,7 +118,7 @@ namespace Chashavshavon
                         File.AppendAllText(logFilePath,
                             "\"" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "\",\"" +
                             excep.Message + "\",\"" + excep.Source + "\",\"" + excep.TargetSite +
-                            "\",\"" + excep.StackTrace + "\"" + Environment.NewLine);
+                            "\",\"" + excep.StackTrace + "\"" + Environment.NewLine, System.Text.Encoding.UTF8);
                     }
                     catch (Exception ex)
                     {

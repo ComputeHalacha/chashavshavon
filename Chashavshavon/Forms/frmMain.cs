@@ -187,16 +187,29 @@ namespace Chashavshavon
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.SaveCurrentFile();
-            if (!Properties.Settings.Default.OpenLastFile)
+            try
             {
-                Properties.Settings.Default.CurrentFile = null;
-                Properties.Settings.Default.IsCurrentFileRemote = false;
-            }
+                this.SaveCurrentFile();
+                if (!Properties.Settings.Default.OpenLastFile)
+                {
+                    Properties.Settings.Default.CurrentFile = null;
+                    Properties.Settings.Default.IsCurrentFileRemote = false;
+                }
 
-            //the temp folder is only deleted if the user manually closed the app.
-            //Otherwise we may be in an installer run and do not want to delete the installation files.
-            Program.BeforeExit(e.CloseReason == CloseReason.UserClosing);
+                //the temp folder is only deleted if the user manually closed the app.
+                //Otherwise we may be in an installer run and do not want to delete the installation files.
+                Program.BeforeExit(e.CloseReason == CloseReason.UserClosing);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ארעה שגיעה.\nיתכן שלא נשמר הפעולות אחרונות שנעשתה בתוכנה.\nפרטי השגיעה רשומים למטה.\n---------------------------------------------\n."
+                    + ex.Message,
+                                              "חשבשבון",
+                                              MessageBoxButtons.OK,
+                                              MessageBoxIcon.Error,
+                                              MessageBoxDefaultButton.Button1,
+                                              MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            }
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -1306,7 +1319,7 @@ namespace Chashavshavon
                 sb.AppendFormat("<tr class='{0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
                     (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnahPeriod(Program.NowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
                     Zmanim.GetDayOfWeekText(onah.DateTime),
-                    Zmanim.DaysOfMonthHebrew[onah.Day],                    
+                    Zmanim.DaysOfMonthHebrew[onah.Day],
                     onah.Month.ToString(),
                     onah.HebrewDayNight,
                     onah.Name);
@@ -1354,6 +1367,32 @@ namespace Chashavshavon
             }
             else
             {
+                string dir = Path.GetDirectoryName(this.CurrentFile);
+
+                try
+                {
+                    if (!Directory.Exists(dir))
+                    {
+                        Directory.CreateDirectory(dir);
+                    }
+                }
+                catch (IOException)
+                {
+                    string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                        @"\Chashavshavon Files";
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    this.CurrentFile = this.CurrentFile.Replace(dir, path);
+                    MessageBox.Show("חשבשבון היה צריל להעתיק הקובץ הפעילה למיקום אחר.\nהקובץ עכשיו נמצא ב: \n" +
+                        this.CurrentFile,
+                        "חשבשבון",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                }
                 stream = File.CreateText(this.CurrentFile).BaseStream;
             }
             xtw = new XmlTextWriter(stream, Encoding.UTF8);
@@ -1503,7 +1542,7 @@ namespace Chashavshavon
 
                 return (string.IsNullOrWhiteSpace(xml) ? "<Entries />" : xml);
             }
-        }        
+        }
         public string WeekListHtml { get; set; }
 
         #endregion Properties

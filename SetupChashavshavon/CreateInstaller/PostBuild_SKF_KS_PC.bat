@@ -1,6 +1,9 @@
-"C:\Program Files\7-Zip\7z.exe " a "Chashavshavon_Installer.7z" "%~1%~2\*"
+SETLOCAL ENABLEEXTENSIONS
+SET "szPath=C:\Program Files\7-Zip\7z.exe"
+SET "reposPath=D:\repos_git" 
+"%szPath% " a "Chashavshavon_Installer.zip" "%~1%~2\*"
 copy /b 7zSD.sfx + SFX_Config.txt + Chashavshavon_Installer.7z Chashavshavon_Installer.exe
 DEL "Chashavshavon_Installer.7z"
-MOVE "Chashavshavon_Installer.exe" "D:\Repositories\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.exe"
-"C:\Program Files\7-Zip\7z.exe " a "D:\Repositories\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.zip" "D:\Repositories\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.exe"
-"SetVersionApp.exe " "D:\Repos_git\chashavshavon\Chashavshavon\bin\%~2\Chashavshavon.exe" "D:\Repositories\Compute\WebSite\Products\Chashavshavon"
+MOVE "Chashavshavon_Installer.exe" "%reposPath%\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.exe"
+"%szPath% " a "%reposPath%\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.zip" "%reposPath%\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.exe"
+"SetVersionApp.exe " "%reposPath%\Chashavshavon\Chashavshavon\bin\%~2\Chashavshavon.exe" "%reposPath%\Compute\WebSite\Products\Chashavshavon"

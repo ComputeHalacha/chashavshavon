@@ -21,7 +21,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
-    <PublishUrl>D:\Documents\Visual Studio 2010\Projects\Chashavshavon\Publish\</PublishUrl>
+    <PublishUrl>D:\Documents\Visual Studio 2019\Projects\Chashavshavon\Publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -35,8 +35,8 @@
     <ProductName>חשבשבון</ProductName>
     <PublisherName>08-974-1364</PublisherName>
     <SuiteName>חשבשבון</SuiteName>
-    <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>2.3.1.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>4.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -121,12 +121,17 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
   <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>chashavshavon.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="JewishDate">
-      <HintPath>.\JewishDate.dll</HintPath>
+    <Reference Include="JewishCalendar">
+      <HintPath>.\JewishCalendar.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -275,8 +280,8 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="app.manifest" />
-    <None Include="Chashavshavon_TemporaryKey.pfx" />
+    <None Include="chashavshavon.pfx" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\Entry.datasource" />
     <None Include="Properties\DataSources\Kavuah.datasource" />
     <None Include="Properties\Settings.settings">
@@ -331,15 +336,20 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>true</Install>
+      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
       <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>true</Install>
+      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
       <Visible>False</Visible>
@@ -356,30 +366,14 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <PublishFile Include="Utils\HebrewCalendarHelper\Jewish calendar calculation.html">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <FileAssociation Include=".pm">
       <Visible>False</Visible>
       <Description>Chashavshavon File</Description>
       <Progid>be377a27-ece1-47f6-8d50-238e38e89843</Progid>
-      <DefaultIcon>chash.ico</DefaultIcon>
+      <DefaultIcon>scroll.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
   <ItemGroup />

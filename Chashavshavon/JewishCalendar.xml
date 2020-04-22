@@ -1,0 +1,1730 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JewishCalendar</name>
+    </assembly>
+    <members>
+        <member name="T:JewishCalendar.DafYomi">
+            <summary>
+            Does the calculations for ascertaining the Daf Yomi for any Jewish date since Daf Yomi was initiated.
+            Sample of use to get todays daf:
+            <code>
+            JewishCalendar.JewishDate jd = new JewishDate(DateTime.Now); 
+            JewishCalendar.Daf dafOfDay = JewishCalendar.DafYomi.GetDafYomi(jd);
+            string strDafOfDay = dafOfDay.ToStringHeb();
+            </code>
+            The algorithms was converted to C# (and tweaked) 
+            from the C code in Danny Sadinoff's HebCal - Copyright (C) 1994.
+            The HebCal code for dafyomi was adapted by Aaron Peromsik from Bob Newell's public domain daf.el.
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.DafYomi.GetDafYomi(JewishCalendar.JewishDate)">
+            <summary>
+            Computes the Day Yomi for the given day.
+            </summary>
+            <param name="jewishDate">The Jewish date for which to get the Daf Yomi information</param>
+            <returns>A Daf object containing the DafYomi information for the given day</returns>
+        </member>
+        <member name="M:JewishCalendar.DafYomi.GetSingleDaf(System.Int32)">
+            <summary>
+            Gets the DafYomi for the given day
+            </summary>
+            <param name="absoluteDate"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JewishCalendar.Masechta">
+            <summary>
+            Represents a single Masechta in Shas.
+            This structure is not meant to be instantiated directly.
+            To access the DafYomi, use <see cref="M:JewishCalendar.DafYomi.GetDafYomi(JewishCalendar.JewishDate)"/>
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Masechta.NameEnglish">
+            <summary>
+            The name of the masechta in English
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Masechta.NameHebrew">
+            <summary>
+            The name of the masechta in Hebrew
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Masechta.Dappim">
+            <summary>
+            The number of dappim in the current masechta
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.Masechta.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Create a new Masechta
+            </summary>
+            <param name="eng"></param>
+            <param name="heb"></param>
+            <param name="dappim"></param>
+        </member>
+        <member name="T:JewishCalendar.Daf">
+            <summary>
+            Represents a single Daf in Shas.
+            This class is not meant to be instantiated directly.
+            To access the DafYomi, use <see cref="M:JewishCalendar.DafYomi.GetDafYomi(JewishCalendar.JewishDate)"/>
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Daf.Masechta">
+            <summary>
+            The masechta this daf is in
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Daf.DafNumber">
+            <summary>
+            The number of this daf
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.Daf.#ctor(JewishCalendar.Masechta,System.Int32)">
+            <summary>
+            Create a new Daf object
+            </summary>
+            <param name="m"></param>
+            <param name="d"></param>
+        </member>
+        <member name="M:JewishCalendar.Daf.ToString">
+            <summary>
+            Returns the name of the Masechta and daf number in English, For example: Sukkah, Daf 3
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Daf.ToStringHeb">
+            <summary>
+            Returns the name of the Masechta and daf number in Hebrew. For example: 'סוכה דף כ.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:JewishCalendar.ZmanType">
+            <summary>
+            The type of the single Zman
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.NetzMishor">
+            <summary>
+            Sunrise at sea level
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.NetzAtElevation">
+            <summary>
+            Sunrise at current Locations elevation
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.KShmMga">
+            <summary>
+            Say Shma by... according to the Magen Avraham
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.KshmGra">
+            <summary>
+            Say Shma by... according to the Gr"a
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.TflMga">
+            <summary>
+            Say Shmonah Esray of Shacharis by... according to the Magen Avraham
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.TflGra">
+            <summary>
+            Say Shmonah Esray of Shacharis by... according to the Gr"a
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.Chatzos">
+            <summary>
+            Chatzos of the night and the day
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.MinchaG">
+            <summary>
+            Mincha Gedolah
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.MinchaK">
+            <summary>
+            Mincha Ketana
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.MinchaPlg">
+            <summary>
+            Plag Hamincha
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.ShkiaAtElevation">
+            <summary>
+            Sunset at current Locations elevation
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.ZmanType.ShkiaMishor">
+            <summary>
+            Sunset at sea level
+            </summary>
+        </member>
+        <member name="T:JewishCalendar.DailyZmanim">
+            <summary>
+            Gives efficient access to the daily Zmanim for a single day at the given location
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.DailyZmanim.#ctor(System.DateTime,JewishCalendar.Location)">
+            <summary>
+            Create a new DailyZmanim object for the given date and location
+            </summary>
+            <param name="sd">The Gregorian Date</param>
+            <param name="location">The location</param>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.Zmanim">
+            <summary>
+            Access the underlying Zmanim object
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.SecularDate">
+            <summary>
+            The Gregorian Date
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.JewishDate">
+            <summary>
+            The Jewish Date
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.Location">
+            <summary>
+            The Location
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.NetzShkiaAtElevation">
+            <summary>
+            Gets an array of two TimeOfDay structures for the current Date and Location. 
+            The first is the time of Netz for the current date at the elevation 
+            and coordinates of the current Location and the second is the time of shkia.        
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.NetzShkiaMishor">
+            <summary>
+            Gets an array of two TimeOfDay structures at sea level for the current Date and Location. 
+            The first is the time of Netz for the current date and location and the second is the time of shkia.
+            The elevation is NOT kept into account.
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.NetzAtElevation">
+            <summary>
+            Sunrise for the current Date at the elevation and coordinates of the current Location. 
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.ShkiaAtElevation">
+            <summary>
+            Sunset for the current Date at the elevation and coordinates of the current Location.
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.NetzMishor">
+            <summary>
+            Sunrise at sea level for the current Date at the coordinates of the current Location.
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.ShkiaMishor">
+            <summary>
+            Sunset at sea level for the current Date at the coordinates of the current Location.
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.Chatzos">
+            <summary>
+            Chatzos of the day and the night
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.ShaaZmanis">
+            <summary>
+            The length of Shaa zmanis in minutes for current date and location.
+            Configured from netz to shkia at sea level.
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.DailyZmanim.ShaaZmanisMga">
+            <summary>
+            The length of Shaa zmanis in minutes for current date and location.
+            Configured from alos hashachar to tzais hakochavim at sea level.
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.DailyZmanim.GetZman(JewishCalendar.ZmanType,System.Int32)">
+            <summary>
+            Gets a single Zman for the current Date and Location
+            </summary>
+            <param name="type">The type of Zman to return</param>
+            <param name="offset">Optional. The number of minutes to offset the zman by.</param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.DailyZmanim.Reset">
+            <summary>
+            Used to invalidate previously calculated Zmanim.
+            Use when changing the Date or Location
+            </summary>
+        </member>
+        <member name="T:JewishCalendar.TimeOfDay">
+            <summary>
+            A simpler Time Span.
+            Explicitly cast-able to and from TimeSpan.
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.TimeOfDay.Hour">
+            <summary>
+            The hour
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.TimeOfDay.Minute">
+            <summary>
+            The minute
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.TimeOfDay.Seconds">
+            <summary>
+            The seconds
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.TimeOfDay.TotalSeconds">
+            <summary>
+            Returns the total number of seconds that have passed from 0:00:00 until this time
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.ToTimeSpan">
+            <summary>
+            Returns a TimeSpan representation of this TimeOfDay
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:JewishCalendar.TimeOfDay.NoValue">
+            <summary>
+            An TimeOfDay that does not represent a real time.
+            Use in the place of null or empty etc.
+            Note: very different from TimeSpan.Zero which represents "zero hour" or midnight.
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Addition(JewishCalendar.TimeOfDay,System.Int32)">
+            <summary>
+            Add minutes
+            </summary>
+            <param name="t"></param>
+            <param name="min"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Addition(JewishCalendar.TimeOfDay,System.Double)">
+            <summary>
+            Add minutes
+            </summary>
+            <param name="t"></param>
+            <param name="min"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Addition(JewishCalendar.TimeOfDay,JewishCalendar.TimeOfDay)">
+            <summary>
+            Add the number of hours and minutes in the given TimeOfDay to the current TimeOfDay
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Addition(JewishCalendar.TimeOfDay,System.TimeSpan)">
+            <summary>
+            Add a TimeSpan to this TimeOfDay
+            </summary>
+            <param name="t"></param>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Subtraction(JewishCalendar.TimeOfDay,System.Int32)">
+            <summary>
+            Subtract minutes.
+            </summary>
+            <param name="t"></param>
+            <param name="min"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Subtraction(JewishCalendar.TimeOfDay,System.Double)">
+            <summary>
+            Subtract minutes.
+            </summary>
+            <param name="t"></param>
+            <param name="min"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Subtraction(JewishCalendar.TimeOfDay,JewishCalendar.TimeOfDay)">
+            <summary>
+            Subtract the number of hours and minutes in the given TimeOfDay from the current TimeOfDay
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Subtraction(JewishCalendar.TimeOfDay,System.TimeSpan)">
+            <summary>
+            Subtract a TimeSpan from this TimeOfDay
+            </summary>
+            <param name="t"></param>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Equality(JewishCalendar.TimeOfDay,JewishCalendar.TimeOfDay)">
+            <summary>
+            Compares 2 TimeOfDay objects
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Inequality(JewishCalendar.TimeOfDay,JewishCalendar.TimeOfDay)">
+            <summary>
+            Compares 2 TimeOfDay objects for inequality
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Equality(JewishCalendar.TimeOfDay,System.TimeSpan)">
+            <summary>
+            Compare the current TimeOfDay to a TimeSpan
+            </summary>
+            <param name="t1"></param>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Inequality(JewishCalendar.TimeOfDay,System.TimeSpan)">
+            <summary>
+            Compare the current TimeOfDay to a TimeSpan for inequality
+            </summary>
+            <param name="t1"></param>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_GreaterThan(JewishCalendar.TimeOfDay,JewishCalendar.TimeOfDay)">
+            <summary>
+            Returns true if the current TimeOfDay is after the second one.
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_LessThan(JewishCalendar.TimeOfDay,JewishCalendar.TimeOfDay)">
+            <summary>
+            Returns true if the current TimeOfDay is before the second one.
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_GreaterThan(JewishCalendar.TimeOfDay,System.TimeSpan)">
+            <summary>
+            Returns true if the current TimeOfDay is after the TimeSpan.
+            </summary>
+            <param name="t1"></param>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_GreaterThanOrEqual(JewishCalendar.TimeOfDay,JewishCalendar.TimeOfDay)">
+            <summary>
+            Returns true if the current TimeOfDay is not before the second one.
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_LessThanOrEqual(JewishCalendar.TimeOfDay,JewishCalendar.TimeOfDay)">
+            <summary>
+            Returns true if the current TimeOfDay is not after the second one.
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_GreaterThanOrEqual(JewishCalendar.TimeOfDay,System.TimeSpan)">
+            <summary>
+            Returns true if the current TimeOfDay is not before the TimeSpan.
+            </summary>
+            <param name="t1"></param>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_LessThanOrEqual(JewishCalendar.TimeOfDay,System.TimeSpan)">
+            <summary>
+            Returns true if the current TimeOfDay is not after the TimeSpan.
+            </summary>
+            <param name="t1"></param>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_LessThan(JewishCalendar.TimeOfDay,System.TimeSpan)">
+            <summary>
+            Returns true if the current TimeOfDay is before the TimeSpan.
+            </summary>
+            <param name="t1"></param>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Explicit(JewishCalendar.TimeOfDay)~System.TimeSpan">
+            <summary>
+            Explicitly convert (cast) an TimeOfDay into a TimeSpan.
+            </summary>
+            <param name="hm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.op_Explicit(System.TimeSpan)~JewishCalendar.TimeOfDay">
+            <summary>
+            Explicitly convert (cast) a TimeSpan into an TimeOfDay
+            </summary>
+            <param name="ts"></param>
+            <returns></returns>
+        </member>
+        <member name="P:JewishCalendar.TimeOfDay.TotalMinutes">
+            <summary>
+            The total number of minutes represented by this TimeOfDay (includes the hours)
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.ToString">
+            <summary>
+            The hour and minute displayed in the format: h:MM tt
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.ToString(System.Boolean)">
+            <summary>
+            This TimeOfDay displayed in the format: h:MM:SS tt
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.ToString(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            This TimeOfDay displayed in the format: HH:MM:SS
+            </summary>
+            <param name="army"></param>
+            <param name="amPm"></param>
+            <param name="showSeconds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.ToString24H(System.Boolean)">
+            <summary>
+            Returns the current time in the format HH:mm:SS
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.Equals(System.Object)">
+            <summary>
+            Tests 2 TimeOfDay objects for equality.
+            </summary>
+            <param name="obj">The object to compare to this one.</param>
+            <returns>True if the two object are Equal</returns>
+        </member>
+        <member name="M:JewishCalendar.TimeOfDay.GetHashCode">
+            <summary>
+            Returns the hashcode for this instance
+            </summary>
+            <returns>The HashCode for this instance</returns>
+        </member>
+        <member name="T:JewishCalendar.JewishDateCalculations">
+            <summary>
+            Static class that contains functions for Jewish calendar calculations.
+            </summary>
+            <remarks>This class does much of the actual Jewish Date calculations for the <see cref="T:JewishCalendar.JewishDate">JewishDate</see> class.
+            The calculations do not use System.Globalization.HebrewCalendar so they can be used with .NET micro projects.
+            Most of the Jewish date logic and calculations were translated from the C code
+            which in turn were translated from the Lisp code in "Calendrical Calculations" by Nachum Dershowitz and Edward M. Reingold
+            in Software---Practice &amp; Experience, vol. 20, no. 9 (September, 1990), pp. 899--928.
+            </remarks>
+        </member>
+        <member name="F:JewishCalendar.JewishDateCalculations._yearCache">
+            <summary>
+            To save on calculations, a table of years and their elapsed days values is saved in memory
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.JewishDateCalculations.HEBREW_EPOCH">
+            <summary>
+            Absolute date of start of Jewish calendar
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.IsJewishLeapYear(System.Int32)">
+            <summary>
+            Determines if the given Jewish Year is a Leap Year
+            </summary>
+            <param name="year"></param>
+            <returns>True if the year is a leap year and False if not</returns>
+            <remarks>This function is identical to
+            <see cref="M:JewishCalendar.JewishDateCalculations.IsJewishLeapYear(System.Int32)">JewishDate.IsLeapYear</see>.
+            The only difference is, the JewishDate class's version uses Globalization.HebrewCalendars.IsLeapYear 
+            which adds a check to make sure that the year is within the range of the HebrewCalendar class.
+            </remarks>
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.MonthsInJewishYear(System.Int32)">
+            <summary>
+            Gets the number of months in the given Jewish year
+            </summary>
+            <param name="year">The Jewish Year for which to get the number of months for</param>
+            <returns>The number of months in the given year</returns>        
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.IsLongCheshvan(System.Int32)">
+            <summary>
+            Does Cheshvan have a full 30 days in the given Jewish Year?
+            </summary>
+            <param name="year">The given Jewish Year</param>
+            <returns>Whether or not Cheshvan has 30 days in the given year</returns>       
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.IsShortKislev(System.Int32)">
+            <summary>
+            Does Kislev have 29 days for the given Jewish year?
+            </summary>
+            <param name="year">The given Jewish Year</param>
+            <returns>Whether or not Kislev has 29 days in the given year</returns>        
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.DaysInJewishMonth(System.Int32,System.Int32)">
+            <summary>
+            Compute the number of days in the given Jewish month
+            </summary>
+            <param name="year">The Jewish year</param>
+            <param name="month">The Nissan based Jewish Month (Nissan is 1 and Adar Sheini is 13)</param>
+            <returns>The number of days in the given Jewish Month</returns>
+            <remarks>If you are not using the .NET micro framework, use 
+            <see cref="M:JewishCalendar.JewishDateCalculations.DaysInJewishMonth(System.Int32,System.Int32)">JewishDate.DaysInJewishMonth</see> 
+            instead of this function.</remarks>
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.DaysInJewishYear(System.Int32)">
+            <summary>
+            Get the total number of days in the given Jewish year.
+            From Rosh Hashana of the given year until the next Rosh Hashana.
+            </summary>
+            <param name="year">The given Jewish Year</param>
+            <returns>The number of days in the given Jewish Year</returns>        
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.IsSameDate(JewishCalendar.JewishDate,JewishCalendar.JewishDate)">
+            <summary>
+            Compares this Jewish Date to another one to see if they both represent the same Jewish calendar date.         
+            </summary>
+            <param name="jd1">This JewishDate</param>
+            <param name="jd2">The JewishDate to test against this one</param>
+            <returns>Whether or not the two represent the same Jewish calendar date</returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.GetGregorianDateFromJewishDate(JewishCalendar.JewishDate)">
+            <summary>
+            Gets the Gregorian date that starts at midnight of the given Jewish Date
+            </summary>
+            <param name="jd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.GetAbsoluteFromJewishDate(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            The number of days elapsed since the theoretical Gregorian date Sunday, December 31, 1 BCE.
+            Since there is no year 0 in the calendar, the year following 1 BCE is 1 CE.
+            So, the Gregorian date January 1, 1 CE is absolute date number 1.
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.GetAbsoluteFromGregorianDate(System.DateTime)">
+            <summary>
+            Computed the absolute date for the given Gregorian Date
+            NOTE: If you are not using the .NET micro framework, 
+            you can use the following instead: (int)((YOUR_DATETIME.Subtract(new DateTime(1, 1, 1)).TotalDays + 1));
+            </summary>
+            <param name="date">The Gregorian Date</param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.GetAbsoluteFromGregorianDate(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Computed the absolute date for the given Gregorian Year, Month and Day
+            NOTE: If you are not using the .NET micro framework, 
+            you can use the following instead: (int)((new DateTime(year, month, day).Subtract(new DateTime(1, 1, 1)).TotalDays + 1));
+            </summary>
+            <param name="year">The Gregorian Year</param>
+            <param name="month">The Gregorian Month</param>
+            <param name="day">The Gregorian Day</param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.GetGregorianDateFromAbsolute(System.Int32)">
+            <summary>
+            Calculates the Gregorian Date from an Absolute Date
+            The Absolute Date is the number of days elapsed since the theoretical Gregorian date Sunday, December 31, 1 BCE.
+            Since there is no year 0 in the calendar, the year following 1 BCE is 1 CE.
+            So, the Gregorian date January 1, 1 CE is absolute date number 1.
+            </summary>
+            <param name="abs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.DaysInGregorianMonth(System.Int32,System.Int32)">
+            <summary>
+            Compute the number of days in the given month of the Gregorian calendar.
+            NOTE: If you are not using the .NET Micro framework, 
+            you can use the GregorianCalendar.GetDaysInMonth function instead of this function
+            </summary>
+            <param name="month">The Gregorian Month</param>
+            <param name="year">The Gregorian Year</param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.GetGregorianDateFromJewishDate(JewishCalendar.JewishDate,JewishCalendar.TimeOfDay,JewishCalendar.Location)">
+            <summary>
+            Returns the correct Secular Date for a JewishDate at the given Time and Location.
+            </summary>
+            <param name="jd">The Jewish Date</param>
+            <param name="location"></param>
+            <param name="timeOfDay"></param>
+            <returns></returns>
+            <remarks>
+            When using a JewishDate constructor that takes a "Location" object,
+            if the initializing DateTime was after sunset, the Jewish date was set to the next day, but not the GregorianDate.
+            The GregorianDate property therefore only represents the correct Secular Date for the original location and time.
+            This function returns the correct GregorianDate for a JewishDate at the given time and place.
+            </remarks>
+        </member>
+        <member name="M:JewishCalendar.JewishDateCalculations.GetElapsedDays(System.Int32)">
+            <summary>
+            Computes the number of days elapsed from the Sunday prior to the start of the
+            Jewish calendar to the mean conjunction of Tishrei of the given Jewish year.
+            </summary>
+            <param name="year">The Jewish Year</param>
+            <returns>The number of days elapsed</returns>
+        </member>
+        <member name="T:JewishCalendar.JewishDate">
+            <summary>
+            Represents a single day in the Jewish calendar - Month are Nissan based.
+            </summary>
+            <remarks>
+            The calculations and functions used by this class's representation of the Jewish Date are based on open source algorithms.
+            
+            <list type="numeric">
+            <listheader>This class has 3 main advantages over Globalization.HebrewCalendar:</listheader>
+            
+            <item>
+            The Months are numbered from Nissan. The regular .NET class Globalization.HebrewCalendar has Tishrei as month #1.
+            This becomes confusing, as months after Adar get a different number -
+            depending on whether the year is a leap year or not.
+            The Torah also instructs us to call Nissan the first month. (See Ramban in Drasha for Rosh Hashana)
+            Hence this "Nissan first" Jewish Date class.
+            </item>
+            
+            <item>
+            It can represent any Jewish Date from creation until the Jewish year 6000. 
+            Globalization.HebrewCalendar can only represent dates starting from the Gregorian year 1583.
+            </item>
+            
+            <item>
+            It can be used for projects which do not have access to Globalization.HebrewCalendar,
+            such as .NET Micro Framework projects etc.
+            </item>
+            </list>     
+            </remarks>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.#cctor">
+            <summary>
+            static constructor
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.#ctor">
+            <summary>
+            Empty constructor. Sets the date to the current system date.
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.#ctor(JewishCalendar.Location)">
+            <summary>
+            Get the current Jewish date in the given location. Cut-off time is sunset.
+            </summary>
+            <param name="location">The location. This will be used to determine the time of sunset.</param>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Creates a new JewishDate with the specified Hebrew year, month, day and absolute day.        
+            Caution: If the absolute day doesn't correctly match the given year/month/day, weird things will happen.
+            </summary>
+            <param name="year">The year - counted from the creation of the world</param>
+            <param name="month">The Jewish month. As it is in the Torah, Nissan is 1.</param>
+            <param name="day">The day of the month</param>
+            <param name="absoluteDay">The "absolute day"</param>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime)">
+            <summary>
+            Creates a new JewishDate with the specified Hebrew year, month, day, absolute day and Gregorian Date.
+            This is the quickest constructor as it does no calculations at all. 
+            Caution: If the absolute day doesn't correctly match the given year/month/day, weird things will happen.
+            </summary>
+            <param name="year">The year - counted from the creation of the world</param>
+            <param name="month">The Jewish month. As it is in the Torah, Nissan is 1.</param>
+            <param name="day">The day of the month</param>
+            <param name="absoluteDay">The "absolute day"</param>
+            <param name="gd">The secular date</param>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Creates a new JewishDate with the specified Hebrew year, month and day
+            </summary>
+            <param name="year">The year - counted from the creation of the world</param>
+            <param name="month">The Jewish month. As it is in the Torah, Nissan is 1.</param>
+            <param name="day">The day of the month</param>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.#ctor(System.DateTime)">
+            <summary>
+            Creates a Jewish date that corresponds to the given Gregorian date
+            </summary>
+            <param name="date">The Gregorian date from which to create the Jewish Date</param>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.#ctor(System.DateTime,JewishCalendar.Location)">
+            <summary>
+            Creates a Jewish date that corresponds to the given Gregorian date in the given location. Cut-off time is sunset.
+            </summary>
+            <param name="date">The Gregorian date from which to create the Jewish Date</param>
+            <param name="location">The location. This will be used to determine the time of sunset.</param>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.#ctor(System.Int32)">
+            <summary>
+            Creates a Hebrew date from the "absolute date".
+            In other words, the Hebrew date on the day that is the given number of days after/before December 31st, 1 BCE
+            </summary>
+            <param name="absoluteDate">The number of days elapsed since the theoretical Gregorian date Sunday, December 31, 1 BCE.
+            Since there is no year 0 in the calendar, the year following 1 BCE is 1 CE.
+            So, the Gregorian date January 1, 1 CE is absolute date number 1.</param>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.SetFromAbsoluteDate(System.Int32)">
+            <summary>
+            Sets the current Jewish date to the date represented by the given "Absolute Date" -
+            which is the number of days after/before December 31st, 1 BCE.
+            The logic here was translated from the C code - which in turn were translated
+            from the Lisp code in ''Calendrical Calculations'' by Nachum Dershowitz and Edward M. Reingold in
+            Software---Practice &amp; Experience, vol. 20, no. 9 (September, 1990), pp. 899--928.
+            </summary>
+            <param name="absoluteDate"></param>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.AbsoluteDate">
+            <summary>
+            The number of days elapsed since the theoretical Gregorian date Sunday, December 31, 1 BCE.
+            Since there is no year 0 in the calendar, the year following 1 BCE is 1 CE.
+            So, the Gregorian date January 1, 1 CE is absolute date number 1.
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.Day">
+            <summary>
+            The Day in the month for this Jewish Date.
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.DayInWeek">
+            <summary>
+            The index of the day of the week for this Jewish Date. Sunday is 0.
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.DayOfWeek">
+            <summary>
+            The day of the week for this Jewish Date
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.Month">
+            <summary>
+            The Jewish Month. As in the Torah, Nissan is month 1
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.MonthName">
+            <summary>
+            The name of the current Jewish Month (in English)
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.Year">
+            <summary>
+            The number of years since creation
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.TimeOfDay">
+            <summary>
+            Represents the time of day for this JewishDate
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.GregorianDate">
+            <summary>
+            Get the Gregorian Date for the current Hebrew Date
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.Hour">
+            <summary>
+            The Hour component of the time of day represented by this Jewish Date
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.Minute">
+            <summary>
+            The Minute component of the time of day represented by this Jewish Date
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.Second">
+            <summary>
+            The Second component of the time of day represented by this Jewish Date
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.Millisecond">
+            <summary>
+            The Millisecond component of the time of day represented by this Jewish Date
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.JewishDate.MinDate">
+            <summary>
+            Minimum valid date that can be represented by this class
+            </summary>
+            
+        </member>
+        <member name="P:JewishCalendar.JewishDate.MaxDate">
+            <summary>
+            Maximum valid date that can be represented by this class
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.Equals(System.Object)">
+            <summary>
+            Returns true if both objects have the same day, month and year. You can also use the == operator or the extension method IsSameDate(JewishDate js) for the same purpose.
+            </summary>
+            <param name="jd2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.DateDiffMonth(JewishCalendar.JewishDate)">
+            <summary>
+            Gets the difference in months between two JewishDates. 
+            If the second date is before this one, the number will be negative.
+            </summary>
+            <param name="jd"></param>
+            <returns></returns>
+            <remarks>Ignores Day part. For example, from 29 Kislev to 1 Teves will 
+            return 1 even though they are only a day or two apart</remarks>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.AddMonths(System.Int32)">
+            <summary>
+            Adds the given number of months to the current date and returns the new Jewish Date
+            </summary>
+            <param name="months"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.AddYears(System.Int32)">
+            <summary>
+            Adds the given number of years to the current date and returns the new Jewish Date
+            </summary>
+            <param name="years"></param>
+            <returns></returns>
+            <remarks>If the current month is Adar Sheini and the new year is not a leap year, the month is set to Adar.
+            If the current Day is the 30th of Cheshvan or Kislev and in the new year that month only has 29 days, 
+            the day is set to the 1st of the following month.
+            </remarks>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.GetDayOfOmer">
+            <summary>
+            Returns the day of the Omer for the given Jewish date. If the given day is not during Sefirah, 0 is returned
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.GetHashCode">
+            <summary>
+            Returns the HashCode for this instance
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.ToLongDateString">
+            <summary>
+            Returns the Jewish date in the format: The 14th day of Adar, 5775
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.ToLongDateStringHeb">
+            <summary>
+            Returns the Jewish date in the format: יום חמישי כ"ט תשרי תשע"ה
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.ToShortDateString">
+            <summary>
+            Returns the Jewish date in the format: Adar 14, 5775
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.ToShortDateStringHeb">
+            <summary>
+            Returns the Jewish date in the format: כ"ו אלול תשע"ה
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.ToString">
+            <summary>
+            Returns the Jewish date in the format: Adar 14, 5775
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.op_Subtraction(JewishCalendar.JewishDate,System.Int32)">
+            <summary>
+            Subtract days from a Jewish date.
+            </summary>
+            <param name="hd"></param>
+            <param name="days"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.op_Subtraction(JewishCalendar.JewishDate,JewishCalendar.JewishDate)">
+            <summary>
+            Gets the difference in days between two Jewish dates.
+            </summary>
+            <param name="hd"></param>
+            <param name="hd2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.op_Inequality(JewishCalendar.JewishDate,JewishCalendar.JewishDate)">
+            <summary>
+            Returns true if both objects do not have the same day, month and year
+            </summary>
+            <param name="jd1"></param>
+            <param name="jd2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.op_Addition(JewishCalendar.JewishDate,System.Int32)">
+            <summary>
+            Add days to a Jewish date.
+            </summary>
+            <param name="hd"></param>
+            <param name="days"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.op_LessThan(JewishCalendar.JewishDate,JewishCalendar.JewishDate)">
+            <summary>
+            Returns true if the current JewishDateMicro object is chronologically before the second JewishDate object
+            </summary>
+            <param name="jd1"></param>
+            <param name="jd2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.op_LessThanOrEqual(JewishCalendar.JewishDate,JewishCalendar.JewishDate)">
+            <summary>
+            Returns true if the current JewishDateMicro object is not chronologically later than the second JewishDate object
+            </summary>
+            <param name="jd1"></param>
+            <param name="jd2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.op_Equality(JewishCalendar.JewishDate,JewishCalendar.JewishDate)">
+            <summary>
+            Returns true if both objects have the same day, month and year. You can also use the Equals function or the extension method IsSameDate(JewishDate js) for the same purpose.
+            </summary>
+            <param name="jd1"></param>
+            <param name="jd2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.op_GreaterThan(JewishCalendar.JewishDate,JewishCalendar.JewishDate)">
+            <summary>
+            Returns true if the current JewishDateMicro object is chronologically after the second JewishDate object
+            </summary>
+            <param name="jd1"></param>
+            <param name="jd2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.JewishDate.op_GreaterThanOrEqual(JewishCalendar.JewishDate,JewishCalendar.JewishDate)">
+            <summary>
+            Returns true if the current JewishDateMicro object is not chronologically earlier than the second JewishDate object
+            </summary>
+            <param name="jd1"></param>
+            <param name="jd2"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JewishCalendar.Molad">
+            <summary>
+            Represents the molad for a single month
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Molad.JewishDate">
+            <summary>
+            The date of the molad
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Molad.Time">
+            <summary>
+            Represents the time of the molad - not including the chalakim
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Molad.Chalakim">
+            <summary>
+            Represents the Chalakim (1/1080 of an hour) part of the molad
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.Molad.ToString">
+            <summary>
+            Returns the time of the molad as a string in the format: Monday Night, 8:33 PM and 12 Chalakim
+            NOTE: the cutoff time to be considered "night" is 8 PM.
+            To specify another nightfall time (such as the real sunset time), use the function: ToString(TimeOfDay nightfall)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Molad.ToString(JewishCalendar.TimeOfDay)">
+            <summary>
+            Returns the time of the molad as a string in the format: Monday Night, 8:33 PM and 12 Chalakim
+            </summary>
+            <param name="nightfall">Used to determine when to display "Night" or "Motzai Shabbos" etc.</param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Molad.ToStringHeb(JewishCalendar.TimeOfDay)">
+            <summary>
+            Returns the time of the molad as a string in the format: ליל שני 20:33 12 חלקים
+            </summary>
+            <param name="nightfall">Used to determine when to display "ליל/יום" or "מוצאי שב"ק" etc.</param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Molad.GetMolad(System.Int32,System.Int32)">
+            <summary>
+            Returns the molad for the given year and month
+            </summary>
+            <param name="month"></param>
+            <param name="year"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JewishCalendar.PirkeiAvos">
+            <summary>
+            Gets the Pirkei Avos Perek/Prakim for any given Shabbos in the summer months.
+            The rules are: the Parshiyaos, Nasso, Pinchas and Shoftim start a new cycle and the last two weeks in Ellul get double prakim.
+            The calculations of this class work OK for Eretz Yisroel, but Chu"l seems to be incorrect.
+            The issue is that in Chu"l, Achron Shel Pesach and the second day of Shavuos can both fall out on Shabbos.
+            Sample code to get the Perek for the given Shabbos:
+            <code>
+            JewishCalendar.JewishDate jd = new JewishDate(5776, 2, 13);
+            int[] Prakim = PirkeiAvos.GetPirkeiAvos(jd, true);
+            string text = String.Join(" and ", prakim.Select(p => p.ToSuffixedString()) + 
+                (prakim.Length > 1 ? " Prakim" : " Perek");
+            </code>
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.PirkeiAvos.GetPirkeiAvos(JewishCalendar.JewishDate,System.Boolean)">
+            <summary>
+            Returns an array of Perek number/s for the given Jewish Date and location.
+            If the given day does not have Pirkei Avos, an empty array is returned.
+            </summary>
+            <param name="jDate"></param>
+            <param name="inIsrael"></param>
+            <returns>An array of integers representing the Perek/Prakim of the given Shabbos.
+            If the given day does not have Pirkei Avos, an empty array is returned.
+            </returns>
+        </member>
+        <member name="M:JewishCalendar.PirkeiAvos.GetSinglePerek(JewishCalendar.JewishDate,System.Boolean)">
+            <summary>
+            Gets the single Perek for a typical Summer Shabbos day.
+            </summary>
+            <param name="jDate"></param>
+            <param name="inIsrael"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.PirkeiAvos.GetEllulPrakim(JewishCalendar.JewishDate,System.Boolean)">
+            <summary>
+            Gets the double Prakim for the weeks in Ellul.
+            </summary>
+            <param name="jDate"></param>
+            <param name="inIsrael"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JewishCalendar.Sedra">
+            <summary>
+            This class should not be instantiated publicly.
+            It is only used internally as a container to hold the data for all the sedras of a single year.
+            To get the sedra for any given date, use the public static function: "GetSedra"
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Sedra._lastSedraCalculated">
+            <summary>
+             Because most consecutive calls to GetSedra will be within the same year,
+             and, in order to figure out the sedra for a single day we need to calculate the entire year,
+             so we save the last year calculated and use it if it is called again.
+             If memory is an issue, remove the first few lines of code in the Sedra constructor
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.Sedra.GetSedra(JewishCalendar.JewishDate,System.Boolean)">
+            <summary>
+            Gets the Parsha/s for the given Jewish date
+            </summary>
+            <param name="date"></param>
+            <param name="inIsrael"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JewishCalendar.Parsha">
+            <summary>
+            Represents a single parsha in the torah. The weekly sedra for any given week contains either one or two parshas.
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.Parsha.#ctor(System.String,System.String)">
+            <summary>
+            Create a new Parsha object
+            </summary>
+            <param name="eng"></param>
+            <param name="heb"></param>
+        </member>
+        <member name="F:JewishCalendar.Parsha.nameEng">
+            <summary>
+            Name of this parsha in English
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Parsha.nameHebrew">
+            <summary>
+            Name of this parsha in Hebrew
+            </summary>
+        </member>
+        <member name="T:JewishCalendar.SpecialDayTypes">
+            <summary>
+            Types of special days
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.SpecialDayTypes.Shabbos">
+            <summary>
+            Shabbos
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.SpecialDayTypes.MajorYomTov">
+            <summary>
+            Major Yom Tov - where melacha is prohibited
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.SpecialDayTypes.MinorYomtov">
+            <summary>
+            Minor Yom Tov - where Melacha is permitted
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.SpecialDayTypes.CholHamoed">
+            <summary>
+            Chol Hamoed
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.SpecialDayTypes.FastDay">
+            <summary>
+            A fast day
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.SpecialDayTypes.Information">
+            <summary>
+            Extra day information
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.SpecialDayTypes.HasCandleLighting">
+            <summary>
+            Erev shabbos or yomtov
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.SpecialDayTypes.EruvTavshilin">
+            <summary>
+            Erev Yomtov - when Yomtov contains a Friday
+            </summary>
+        </member>
+        <member name="T:JewishCalendar.SpecialDay">
+            <summary>
+            Represents a single special day
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.SpecialDay.DayType">
+            <summary>
+            Type of special day. Can have multiple values.
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.SpecialDay.NameEnglish">
+            <summary>
+            Name of this special day in English
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.SpecialDay.NameHebrew">
+            <summary>
+            Name of this special day in Hebrew
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.SpecialDay.#ctor(System.String,System.String,JewishCalendar.SpecialDayTypes)">
+            <summary>
+            Create a new SpecialDay instance.
+            </summary>
+            <param name="nameEnglish"></param>
+            <param name="nameHebrew"></param>
+            <param name="dayTypes"></param>
+        </member>
+        <member name="M:JewishCalendar.SpecialDay.#ctor(System.String,System.String)">
+            <summary>
+            Create a new SpecialDay of DayType SpecialDayTypes.Information.
+            </summary>
+            <param name="nameEnglish"></param>
+            <param name="nameHebrew"></param>
+        </member>
+        <member name="M:JewishCalendar.SpecialDay.ToString">
+            <summary>
+            Returns the name of this special day in English.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.SpecialDay.IsMajorYomTov(JewishCalendar.JewishDate,JewishCalendar.Location)">
+            <summary>
+            Returns true if the given day is a day of Yom Tov or Chol Ha'moed in the given location.
+            </summary>
+            <param name="jd"></param>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.SpecialDay.IsShabbosOrYomTov(JewishCalendar.JewishDate,JewishCalendar.Location)">
+            <summary>
+            Returns true if the given day is a day of Yom Tov or Shabbos in the given location.
+            </summary>
+            <param name="jd"></param>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.SpecialDay.IsMinorYomTovOrFast(JewishCalendar.JewishDate,JewishCalendar.Location)">
+            <summary>
+            Returns true if the given day is a special day or a fast day,
+            but not Shabbos or a major Yom Tov in the given location.
+            </summary>
+            <param name="jd"></param>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JewishCalendar.Zmanim">
+            <summary>
+            Computes the daily Zmanim and Yomim Tovim for a single Jewish date.
+            </summary>
+            <remarks>Most of the astronomical mathematical calculations were directly adapted from the excellent
+            Jewish calendar calculation in C# Copyright © by Ulrich and Ziporah Greve (2005)</remarks>
+        </member>
+        <member name="P:JewishCalendar.Zmanim.Location">
+            <summary>
+            The Location to cheshbon the zmanim for
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Zmanim.SecularDate">
+            <summary>
+            Zmanim are by the secular date
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.#ctor(System.DateTime,JewishCalendar.Location)">
+            <summary>
+            Create a new Zmanim instance for the given secular day and Location
+            </summary>
+            <param name="d"></param>
+            <param name="loc"></param>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.#ctor(JewishCalendar.JewishDate,JewishCalendar.Location)">
+            <summary>
+            Create a new Zmanim instance for the given Jewish day and Location
+            </summary>
+            <param name="hd"></param>
+            <param name="loc"></param>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetChatzos">
+            <summary>
+            Gets chatzos of both day and night for current location.
+            Configured from netz to shkia at sea level
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetNetz">
+            <summary>
+            Gets sunrise for current location  (at the locations altitude)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetNetzShkia(System.Boolean)">
+            <summary>
+            Gets an array of two TimeOfDay structures. The first is the time of Netz for the current date and location and the second is the time of shkia.
+            </summary>
+            <param name="considerElevation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetShaaZmanis(System.Double)">
+            <summary>
+            Gets length of Shaa zmanis in minutes for current location.
+            Configured from netz to shkia at sea level.
+            </summary>
+            <param name="offset">Number of minutes before/after shkia/netz to cheshbon</param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetShkia">
+            <summary>
+            Gets sunset for current location  (at the locations altitude)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetChatzos(JewishCalendar.TimeOfDay[])">
+            <summary>
+            Gets chatzos of both day and night for given netz and shkia.
+            </summary>
+            <param name="netzShkia"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetChatzos(System.DateTime,JewishCalendar.Location)">
+            <summary>
+            Gets chatzos of both day and night for given date and location.
+            Configured from netz to shkia at sea level
+            </summary>
+            <param name="date"></param>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetHolidays(JewishCalendar.JewishDate,System.Boolean)">
+            <summary>
+            Gets a list of special days and information about the given Jewish Date
+            </summary>
+            <param name="jDate"></param>
+            <param name="inIsrael"></param>
+            <returns></returns>
+            <remarks>We use an ArrayList rather than a generic List to accommodate
+            the .NET Micro framework which does not support generic lists.
+            For regular projects just use as follows: GetHolidays(jDate, inIsrael).Cast&lt;JewishCalendar.SpecialDay&gt;()
+            </remarks>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetHolidaysText(JewishCalendar.SpecialDay[],System.String,System.Boolean)">
+             <summary>
+             Gets a dash delimited list of holidays for the given Jewish Day
+             </summary>
+            <param name="holidayList"></param>
+            <param name="delimiter"></param>
+            <param name="hebrew"></param>
+             <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetHolidaysText(JewishCalendar.JewishDate,System.Boolean,System.Boolean)">
+            <summary>
+            Gets a dash delimited list of holidays for the given Jewish Day
+            </summary>
+            <param name="jdate"></param>
+            <param name="inIsrael"></param>
+            <param name="hebrew"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetHolidaysText(System.Collections.ArrayList,System.String,System.Boolean)">
+             <summary>
+             Gets a dash delimited list of holidays for the given Jewish Day
+             </summary>
+            <param name="holidayList"></param>
+            <param name="delimiter"></param>
+            <param name="hebrew"></param>
+             <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetNetz(System.DateTime,JewishCalendar.Location,System.Boolean)">
+            <summary>
+            Get time of sunrise for the given location and date
+            </summary>
+            <param name="date"></param>
+            <param name="location"></param>
+            <param name="considerElevation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetShaaZmanis(JewishCalendar.TimeOfDay[],System.Double)">
+            <summary>
+            Gets length of Shaa zmanis in minutes for given netz and shkia.
+            </summary>
+            <param name="netzShkia"></param>
+            <param name="offset">Number of minutes before/after shkia/netz to cheshbon</param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetShaaZmanisMga(JewishCalendar.TimeOfDay[],System.Boolean)">
+            <summary>
+            Gets length of Shaa zmanis of the Magen Avraham in minutes for given netz and shkia.
+            </summary>
+            <param name="netzShkia"></param>
+            <param name="israel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetShaaZmanis(System.DateTime,JewishCalendar.Location,System.Double)">
+            <summary>
+            Gets length of Shaa zmanis in minutes for given date and location.
+            Configured from netz to shkia at sea level.
+            </summary>
+            <param name="date"></param>
+            <param name="location"></param>
+            <param name="offset">Number of minutes before/after shkia/netz to cheshbon</param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetShkia(System.DateTime,JewishCalendar.Location,System.Boolean)">
+            <summary>
+            Get time of sunset for the given location and date
+            </summary>
+            <param name="date"></param>
+            <param name="location"></param>
+            <param name="considerElevation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Zmanim.GetNetzShkia(System.DateTime,JewishCalendar.Location,System.Boolean)">
+            <summary>
+            Gets an array of two TimeOfDay structures.
+            The first is the time of sunrise for the given date and location and the second is the time of sunset.
+            </summary>
+            <param name="date"></param>
+            <param name="location"></param>
+            <param name="considerElevation"></param>
+            <returns></returns>
+        </member>
+        <member name="T:JewishCalendar.Location">
+            <summary>
+            Represents a place or location. Used for calculating the zmanim.
+            </summary>
+        </member>
+        <member name="T:JewishCalendar.Location.LatitudeTypes">
+            <summary>
+            Latitude type
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Location.LatitudeTypes.North">
+            <summary>
+            North of the equator
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Location.LatitudeTypes.South">
+            <summary>
+            South of the equator
+            </summary>
+        </member>
+        <member name="T:JewishCalendar.Location.LongitudeTypes">
+            <summary>
+            Longitude type
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Location.LongitudeTypes.East">
+            <summary>
+            East of Greenwich England
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Location.LongitudeTypes.West">
+            <summary>
+            West of Greenwich England
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.Location.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.Location.#ctor(System.String,System.Int32,System.Double,System.Double)">
+            <summary>
+            Create a new location.
+            </summary>
+            <param name="name">Name of Location</param>
+            <param name="timeZone">The number of hours this location is offset from GMT (UTC)</param>
+            <param name="latitude">The latitude of this location</param>
+            <param name="longitute">The longitude of this location</param>
+        </member>
+        <member name="P:JewishCalendar.Location.Name">
+            <summary>
+            The english name for this place
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.NameHebrew">
+            <summary>
+            The name of this place in Hebrew
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.IsInIsrael">
+            <summary>
+            Is this location in Israel?
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.LatitudeDegrees">
+            <summary>
+            Number of latitude degrees
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.LatitudeMinutes">
+            <summary>
+            Number of latitude minutes
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.LatitudeType">
+            <summary>
+            Is this place above or below the equator?
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.LongitudeDegrees">
+            <summary>
+            Number of longitude degrees
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.LongitudeMinutes">
+            <summary>
+            Number of longitude minutes
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.LongitudeType">
+            <summary>
+            Is this east or West of Greenwich England
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.TimeZone">
+            <summary>
+            Time zone in relation to GMT
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.TimeZoneName">
+            <summary>
+            Needed for figuring out date of transition to DST.
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.TimeZoneInfo">
+            <summary>
+            Needed for figuring out date of transition to DST.
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.Elevation">
+            <summary>
+            Elevation of this location in meters
+            </summary>
+        </member>
+        <member name="P:JewishCalendar.Location.CandleLighting">
+            <summary>
+            Number of minutes before sunset is candle lighting.
+            The default for this is, in Israel 30 minutes and in Chutz La'aretz 18 minutes.
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.Location.IsSameLocation(JewishCalendar.Location)">
+            <summary>
+            Compares another Location to this one to see if they are geographically identical.
+            Does not take Location Name or Candle Lighting Time into account.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Location.ToString">
+            <summary>
+            Returns the name of this Location in English.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:JewishCalendar.Nusach">
+            <summary>
+            Nusach of siddur. Used for generating correct text of Sefira counting.
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Nusach.Ashkenaz">
+            <summary>
+            Nusach Ashkenaz.
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Nusach.Sefard">
+            <summary>
+            Nusach Sefard and Ari
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Nusach.Sefardi">
+            <summary>
+            Nusach of Eidot Hamizrach and Aram Tzova.
+            </summary>
+        </member>
+        <member name="T:JewishCalendar.Utils">
+            <summary>
+            Contains general static arrays, some useful utility functions and other such pitchifkes.
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.Utils.#cctor">
+            <summary>
+            static constructor
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Utils.DaysOfWeek">
+            <summary>
+            The Jewish names for the days of the week in English as an array. For example, DaysOfWeek[5] is Erev Shabbos
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Utils.HebrewCalendar">
+            <summary>
+            A .NET Hebrew calendar.
+            IMPORTANT NOTE: For using this file with a .NET Micro Framework project, the following must be removed.
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Utils.HebrewCultureInfo">
+            <summary>
+            The hebrew culture info
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Utils.JewishDOWNames">
+            <summary>
+            Names of days of week in Hebrew. יום ראשון is JewishDOWNames[0].
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Utils.JewishDOWNamesShort">
+            <summary>
+            Names of days of week in Hebrew. ראשון is JewishDOWNames[0].
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Utils.JewishMonthNamesEnglish">
+            <summary>
+            Array of name of the Jewish Months. Month numbers correspond to the array index, so  Nissan is JewishMonthNamesEnglish[1] etc.
+            </summary>
+        </member>
+        <member name="F:JewishCalendar.Utils.JewishMonthNamesHebrew">
+            <summary>
+            Array of Hebrew names of the Jewish Months. Month numbers correspond to the array index, so  ניסן is JewishMonthNamesHebrew[1] etc.
+            </summary>
+        </member>
+        <member name="M:JewishCalendar.Utils.GetOmerNusach(System.Int32,JewishCalendar.Nusach)">
+            <summary>
+            Returns the nusach for Sefiras Ha'omer for the given day and minhag
+            </summary>
+            <param name="dayOfOmer">The day of the Omer for which to get the nusach for</param>
+            <param name="nusach">Should it be La'Omer (Nusach Sefard) or Ba'Omer (Nusach Ashkenaz) or Sfardi Nusach (Eidot Hamizrach)?</param>        
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Utils.In(System.Object,System.Object[])">
+            <summary>
+            Determine if this object is contained in a list of objects
+            </summary>
+            <param name="obj">The object to test</param>
+            <param name="list">Any number of parameters which together make up the list of objects to look through</param>
+            <returns>True; if the item is in the parameter list. Otherwise, False</returns>
+        </member>
+        <member name="M:JewishCalendar.Utils.IsSpecialDayType(JewishCalendar.SpecialDayTypes,JewishCalendar.SpecialDayTypes)">
+            <summary>
+            Determine if the given SpecialDayType contains the given type. Equivalent to Enum.HasFlag.
+            </summary>
+            <param name="specialDayType"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Utils.IsDateTimeDST(System.DateTime,JewishCalendar.Location)">
+            <summary>
+            Determines if the given Gregorian date and time is within the rules for DST.
+            If no time zone info is available; if the location is in Israel, the current Israeli rules are used.
+            Otherwise, the local system rules are used. [This may be very incorrect if the user is viewing any other location but the local system one]
+            </summary>
+            <param name="date">The secular date</param>
+            <param name="location">Where in the world?</param>
+            <returns>True if the given date and time is DST for the given location, otherwise False.</returns>
+        </member>
+        <member name="M:JewishCalendar.Utils.ToNumberHeb(System.Int32)">
+            <summary>
+            Converts a number into its Jewish number equivalent. I.E. 254 is רכ"ד
+            NOTE: The exact thousands numbers (1000, 2000, 3000 etc.)
+            will look awfully similar to the single digits, but will be formatted with a double apostrophe I.E. 2000 = "''ב"
+            </summary>
+            <param name="number">The number to convert</param>
+            <returns>A Hebrew string representation of the number</returns>
+        </member>
+        <member name="M:JewishCalendar.Utils.ToSuffixedString(System.Int32)">
+            <summary>
+            Add two character suffix to number. e.g. 21st, 102nd, 93rd, 500th
+            </summary>
+            <param name="num">The number to add the suffix to</param>
+            <returns>A string representation of the number as a sequence item</returns>
+        </member>
+        <member name="M:JewishCalendar.Utils.GetProperMonthName(System.Int32,System.Int32)">
+            <summary>
+            Gets the "proper" name for the given Jewish Month.
+            This means for a leap year, labeling each of the the 2 Adars.
+            </summary>
+            <param name="jYear"></param>
+            <param name="jMonth"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Utils.GetProperMonthNameHeb(System.Int32,System.Int32)">
+            <summary>
+            Gets the "proper" name in Hebrew for the given Jewish Month.
+            This means for a leap year, labeling each of the the 2 Adars.
+            </summary>
+            <param name="jYear"></param>
+            <param name="jMonth"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JewishCalendar.Utils.getDOW(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Get day of week using Zellers algorithm.
+            </summary>
+            <remarks>Day zero is Sunday</remarks>
+            <param name="year">The secular year</param>
+            <param name="month">The secular month</param>
+            <param name="day">The secular day</param>
+            <returns>The day of week index. Sunday is 0.</returns>
+        </member>
+        <member name="M:JewishCalendar.Utils.IsIsraelDst(System.DateTime)">
+            <summary>
+            Determine if the given secular date and time is during Daylight Savings Time using the (current [2015]) Israeli rules.
+            </summary>
+            <param name="date">The given date and time</param>
+            <returns>Whether or not the given DateTime is during Daylight Savings Time</returns>
+        </member>
+        <member name="M:JewishCalendar.Utils.IsUsaDst(System.DateTime)">
+            <summary>
+            Determine if the given secular date and time is during Daylight Savings Time using the USA rules.
+            </summary>
+            <param name="date">The given date and time</param>
+            <returns>Whether or not the given DateTime is during Daylight Savings Time</returns>
+        </member>
+    </members>
+</doc>
