@@ -1,6 +1,6 @@
-"C:\Program Files\7-Zip\7z.exe " a "Chashavshavon_Installer.zip" "%~1%~2\*"
-"C:\Program Files (x86)\ZipGenius 6\zg.exe" -sfx "Chashavshavon_Installer.zip" A1 B1 O0 E0 L0 C"Setup.exe" D"%temp%" U"ChashInstall" H2 I"scroll.ico" S0 T"Extracting Chashavshavon installation files..."
-DEL "Chashavshavon_Installer.zip"
+"C:\Program Files\7-Zip\7z.exe " a "Chashavshavon_Installer.7z" "%~1%~2\*"
+copy /b 7zSD.sfx + SFX_Config.txt + Chashavshavon_Installer.7z Chashavshavon_Installer.exe
+DEL "Chashavshavon_Installer.7z"
 MOVE "Chashavshavon_Installer.exe" "D:\Repositories\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.exe"
 "C:\Program Files\7-Zip\7z.exe " a "D:\Repositories\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.zip" "D:\Repositories\Compute\WebSite\Products\Chashavshavon\Chashavshavon_Installer.exe"
-"SetVersionApp.exe " "D:\Repositories\Chashavshavon\Chashavshavon\bin\%~2\Chashavshavon.exe" "D:\Repositories\Compute\WebSite\Products\Chashavshavon"
+"SetVersionApp.exe " "D:\Repos_git\chashavshavon\Chashavshavon\bin\%~2\Chashavshavon.exe" "D:\Repositories\Compute\WebSite\Products\Chashavshavon"
