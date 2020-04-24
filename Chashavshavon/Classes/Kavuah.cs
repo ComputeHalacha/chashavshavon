@@ -187,7 +187,7 @@ namespace Chashavshavon
         {
             for (int i = 0; i < list.Count; i++)
             {
-                if (list.Exists(ka => ka.Active && 
+                if (list.Exists(ka => ka.Active &&
                     IsSimilarKavuah(ka, list[i]) /*|| ka.IsBetterKavuah(list[i])*/))
                 {
                     list.RemoveAt(i);
@@ -541,6 +541,13 @@ namespace Chashavshavon
                     });
                 }
             }
+        }
+        #endregion
+
+        #region public static functions
+        public static bool IsSameKavuah(Kavuah a, Kavuah b)
+        {
+            return (a.Active == b.Active && IsSimilarKavuah(a, b));
         }
         #endregion
     }

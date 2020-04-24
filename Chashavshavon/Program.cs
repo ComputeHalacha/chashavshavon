@@ -1,7 +1,11 @@
-﻿using System;
+﻿using JewishCalendar;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Chashavshavon
 {
@@ -16,7 +20,7 @@ namespace Chashavshavon
         public static DateTime Today { get; set; }
         public static Onah NowOnah { get; set; }
         //Keeps track of where user is; for calculating zmanim
-        public static Chashavshavon.Utils.Place CurrentPlace { get; set; }
+        public static Location CurrentLocation { get; set; }
         public static frmMain MainForm { get; set; }
 
         /// <summary>
@@ -181,9 +185,66 @@ namespace Chashavshavon
 
         internal static string GetCurrentPlaceName()
         {
-            return String.IsNullOrWhiteSpace(CurrentPlace.NameHebrew) ?
-                CurrentPlace.Name : CurrentPlace.NameHebrew;
-        }       
+            return String.IsNullOrWhiteSpace(Program.CurrentLocation.NameHebrew) ?
+                Program.CurrentLocation.Name : Program.CurrentLocation.NameHebrew;
+        }
+
+        internal static (List<Entry> entries, List<Kavuah> kavuahs) LoadEntriesKavuahsFromXml(string xmlString)
+        {
+            var lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>());
+            XmlDocument xml = new XmlDocument();
+
+            xml.LoadXml(xmlString);
+            if (xml.HasChildNodes)
+            {
+                foreach (XmlNode entryNode in xml.SelectNodes("//Entry"))
+                {
+                    bool isInvisible = entryNode.SelectSingleNode("IsInvisible") == null ?
+                        false :
+                        Convert.ToBoolean(entryNode.SelectSingleNode("IsInvisible").InnerText);
+                    int day = Convert.ToInt32(entryNode.SelectSingleNode("Day").InnerText);
+                    int month = Convert.ToInt32(entryNode.SelectSingleNode("Month").InnerText);
+                    int year = Convert.ToInt32(entryNode.SelectSingleNode("Year").InnerText); ;
+                    DayNight dayNight = (DayNight)Convert.ToInt32(entryNode.SelectSingleNode("DN").InnerText);
+                    string notes = entryNode.SelectSingleNode("Notes").InnerText;
+
+                    Entry newEntry = new Entry(day, month, year, dayNight, notes)
+                    {
+                        IsInvisible = isInvisible
+                    };
+
+                    // If during the addition of a new Entry the program finds
+                    // a set of 3 entries that might have been considered a Kavuah;
+                    // such as if there are 3 of the same haflagas in a row,
+                    // the user is prompted to create a new kavuah. If they choose not to,
+                    // a NoKavuah element is added to the 3rd entry so the user
+                    // won't be prompted again each time the list is reloaded.
+                    foreach (XmlNode k in entryNode.SelectNodes("NoKavuah"))
+                    {
+                        Kavuah ka = new Kavuah(
+                            (KavuahType)Enum.Parse(typeof(KavuahType), k.Attributes["KavuahType"].InnerText),
+                            newEntry.DayNight)
+                        {
+                            Number = Convert.ToInt32(k.Attributes["Number"].InnerText),
+                            SettingEntryDate = newEntry.DateTime
+                        };
+                        newEntry.NoKavuahList.Add(ka);
+                    }
+                    lists.entries.Add(newEntry);
+                }
+                Entry.SortEntriesAndSetInterval(lists.entries);
+                //After the list of Entries, there is a lst of Kavuahs
+                if (xml.SelectNodes("//Kavuah").Count > 0)
+                {
+                    var ser = new XmlSerializer(typeof(List<Kavuah>));
+                    lists.kavuahs.AddRange((List<Kavuah>)ser.Deserialize(
+                        new StringReader(xml.SelectSingleNode("//ArrayOfKavuah").OuterXml)));
+                }
+            }
+
+            return lists;
+        }
+
 
         #region Extention Methods
         /// <summary>
@@ -213,6 +274,16 @@ namespace Chashavshavon
                 HebrewCalendar.GetMonth(firstDate) == HebrewCalendar.GetMonth(secondDate) &&
                 HebrewCalendar.GetDayOfMonth(firstDate) == HebrewCalendar.GetDayOfMonth(secondDate));
         }
-        #endregion        
+
+        /// <summary>
+        /// Determine if the given SpecialDayType contains the given type. Equivalent to Enum.HasFlag.
+        /// </summary>
+        /// <param name="specialDayType"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsSpecialDayType(this SpecialDayTypes specialDayType, SpecialDayTypes value) =>
+            specialDayType.HasFlag(value);
+
+        #endregion
     }
 }

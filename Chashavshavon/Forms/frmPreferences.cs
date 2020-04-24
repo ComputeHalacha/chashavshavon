@@ -1,4 +1,5 @@
 using Chashavshavon.Utils;
+using JewishCalendar;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Chashavshavon
 
         private void Preferences_Load(object sender, EventArgs e)
         {
-            this.rbPlacesInIsrael.Checked = Program.CurrentPlace.IsInIsrael;
+            this.rbPlacesInIsrael.Checked = Program.CurrentLocation.IsInIsrael;
             this.rbPlacesInDiaspora.Checked = (!this.rbPlacesInIsrael.Checked);
 
             if (this.cbPlaces.Items.Count == 0)
@@ -27,8 +28,8 @@ namespace Chashavshavon
 
             for (int i = 0; i < this.cbPlaces.Items.Count; i++)
             {
-                Place place = (Place)this.cbPlaces.Items[i];
-                if (place.PlaceId == Program.CurrentPlace.PlaceId)
+                Location place = (Location)this.cbPlaces.Items[i];
+                if (place.Name == Program.CurrentLocation.Name)
                 {
                     this.cbPlaces.SelectedIndex = i;
                     break;
@@ -41,26 +42,19 @@ namespace Chashavshavon
             if (!string.IsNullOrEmpty(pw))
             {
                 this.txtPassword.Text = Utils.GeneralUtils.Decrypt(pw, "kedoshimteeheeyoo");
-            }
-
-            //We wait until the form is loaded...
-            this.cbPlaces.SelectedIndexChanged += delegate
-            {
-                Zmanim.SetSummerTime();
-                this.cbSummerTime.Checked = Properties.Settings.Default.IsSummerTime;                
-            };
+            }            
         }
 
         private void FillPlaces()
         {
             cbPlaces.Items.Clear();
-            IEnumerable<Place> places = Utils.Place.PlacesList.Where(l => l.IsInIsrael == this.rbPlacesInIsrael.Checked);
+            IEnumerable<Location> places = Locations.LocationsList.Where(l => l.IsInIsrael == this.rbPlacesInIsrael.Checked);
             //First Hebrew named ones
-            foreach (Place place in places.Where(l => !string.IsNullOrWhiteSpace(l.NameHebrew)).OrderBy(l => l.NameHebrew))
+            foreach (Location place in places.Where(l => !string.IsNullOrWhiteSpace(l.NameHebrew)).OrderBy(l => l.NameHebrew))
             {
                 this.cbPlaces.Items.Add(place);
             }
-            foreach (Place place in places.Where(l => string.IsNullOrWhiteSpace(l.NameHebrew)).OrderBy(l => l.Name))
+            foreach (Location place in places.Where(l => string.IsNullOrWhiteSpace(l.NameHebrew)).OrderBy(l => l.Name))
             {
                 this.cbPlaces.Items.Add(place);
             }
@@ -93,8 +87,8 @@ namespace Chashavshavon
                 this._regKey.SetValue("Straight", this.cbRequirePassword.Checked ? "0" : "1", RegistryValueKind.String);
             }
 
-            Program.CurrentPlace = ((Place)this.cbPlaces.SelectedItem);
-            Properties.Settings.Default.UserPlaceId = Program.CurrentPlace.PlaceId;
+            Program.CurrentLocation = ((Location)this.cbPlaces.SelectedItem);
+            Properties.Settings.Default.LocationName = Program.CurrentLocation.Name;
             Properties.Settings.Default.Save();
             ((frmMain)this.Owner).AfterChangePreferences();
             this.Close();
@@ -121,7 +115,7 @@ namespace Chashavshavon
 
         private void cbPlacess_Format(object sender, ListControlConvertEventArgs e)
         {
-            if (e.Value is Place place)
+            if (e.Value is Location place)
             {
                 e.Value = (string.IsNullOrEmpty(place.NameHebrew) ? place.Name : place.NameHebrew);
             }

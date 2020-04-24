@@ -1,4 +1,5 @@
 ﻿using Chashavshavon.Utils;
+using JewishCalendar;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -511,6 +512,50 @@ namespace Chashavshavon
             f.Show(this);
         }
 
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ImportEntriesStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.CheckFileExists = false;
+            openFileDialog1.DefaultExt = "pm";
+            if (openFileDialog1.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+            using (var i = new frmImport(openFileDialog1.FileName))
+            {
+                var added = false;
+                if (i.ShowDialog() == DialogResult.OK)
+                {
+                    var (entries, kavuahs) = (i.EntryList, i.KavuahList);
+                    foreach (var entry in entries)
+                    {
+                        if (!Entry.EntryList.Exists(o => Onah.IsSimilarOnah(o, entry)))
+                        {
+                            Entry.EntryList.Add(entry);
+                            added = true;
+                        }
+                    }
+                    foreach (var kavuah in kavuahs)
+                    {
+                        if (!Kavuah.KavuahsList.Exists(o => Kavuah.IsSameKavuah(o, kavuah)))
+                        {
+                            Kavuah.KavuahsList.Add(kavuah);
+                            added = true;
+                        }
+                    }
+                    if (added)
+                    {
+                        this.SaveCurrentFile();
+                        this.RefreshData();
+                    }
+                }
+
+            }
+        }
         #endregion Event Handlers
 
         #region Private Functions
@@ -582,7 +627,6 @@ namespace Chashavshavon
             System.Threading.Thread.CurrentThread.CurrentCulture = Program.CultureInfo;
             System.Threading.Thread.CurrentThread.CurrentUICulture = Program.CultureInfo;
 
-            Zmanim.SetSummerTime();
             this.SetLocation();
             this.SetDateAndDayNight();
 
@@ -620,6 +664,7 @@ namespace Chashavshavon
             DateTime firstDayOfMonth = this._monthToDisplay.AddDays(1 - Program.HebrewCalendar.GetDayOfMonth(this._monthToDisplay));
             int firstDayOfWeek = 1 + (int)firstDayOfMonth.DayOfWeek;
             int currentRow = 1, currentColumn = firstDayOfWeek - 1;
+            var smallFont = new Font(Font.FontFamily, 6f);
             var sysCulture = CultureInfo.InstalledUICulture.DateTimeFormat;
 
             this.luachTableLayout.Visible = false;
@@ -667,7 +712,7 @@ namespace Chashavshavon
                 };
                 dow.Controls.Add(new Label()
                 {
-                    Text = Zmanim.DaysOfWeekHebrewFull[i],
+                    Text = Chashavshavon.Utils.Zmanim.DaysOfWeekHebrewFull[i],
                     Dock = DockStyle.Fill,
                     TextAlign = ContentAlignment.MiddleCenter,
                     ForeColor = Color.FromArgb(255, 225, 228, 230),
@@ -688,34 +733,18 @@ namespace Chashavshavon
                 {
                     Dock = DockStyle.Fill,
                     Margin = new Padding(0),
-                    BackColor = Color.Transparent,
-                    BackgroundImage = Properties.Resources.WhiteMarble,
-                    BackgroundImageLayout = ImageLayout.Stretch
+                    BackColor = Color.Transparent
                 };
+                Image dayBgImgMainOrLeft = Properties.Resources.WhiteMarble;
+                Image dayBgImgRight = null;
 
-                if (Program.Today.IsSameday(date))
-                {
-                    pnl.Padding = new Padding(2);
-                    Panel border = new Panel()
-                    {
-                        Dock = DockStyle.Fill,
-                        Margin = new Padding(0),
-                        Padding = new Padding(3),
-                        BackColor = Color.DarkSlateBlue
-                    };
-                    border.Controls.Add(pnl);
-                    this.luachTableLayout.Controls.Add(border, currentColumn, currentRow);
-                }
-                else
-                {
-                    this.luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);
-                }
+                this.luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);
 
                 var itlp = new TableLayoutPanel()
                 {
                     ColumnCount = 2,
                     RowCount = 1,
-                    Height = 40,
+                    Height = pnl.Height / 4,
                     Dock = DockStyle.Top,
                     Margin = new Padding(0),
                     Padding = new Padding(0)
@@ -727,7 +756,7 @@ namespace Chashavshavon
                     AutoSize = true,
                     Font = new Font("Verdana", 18f, FontStyle.Bold),
                     ForeColor = Color.Maroon,
-                    Text = Zmanim.DaysOfMonthHebrew[i].Replace("\"", "").Replace("\'", ""),
+                    Text = Chashavshavon.Utils.Zmanim.DaysOfMonthHebrew[i].Replace("\"", "").Replace("\'", ""),
                 });
 
                 itlp.Controls.Add(new Label()
@@ -743,33 +772,62 @@ namespace Chashavshavon
                 pnl.Controls.Add(itlp);
 
                 string daySpecialText = "";
-                foreach (string holiday in JewishHolidays.GetHebrewHolidays(date, Program.CurrentPlace.IsInIsrael))
+                bool isInIsrael = Program.CurrentLocation.IsInIsrael;
+                var jd = new JewishDate(date);
+                var holidays = JewishCalendar.Zmanim.GetHolidays(jd, isInIsrael).Cast<SpecialDay>();
+                if (jd.DayOfWeek == DayOfWeek.Saturday)
                 {
-                    if (!string.IsNullOrWhiteSpace(daySpecialText))
+                    if (!((jd.Month == 7 && jd.Day.In(1, 2, 10, 15, 16, 17, 18, 19, 20, 21, 22, (isInIsrael ? 0 : 23))) ||
+                        (jd.Month == 1 && jd.Day.In(15, 16, 17, 18, 19, 20, 21, (isInIsrael ? 0 : 22)) ||
+                        (jd.Month == 3 && jd.Day.In(6, (isInIsrael ? 0 : 7))))))
                     {
-                        daySpecialText += Environment.NewLine;
+                        var parshas = Sedra.GetSedra(jd, isInIsrael);
+                        daySpecialText = "שבת פרשת " + string.Join(" - ", parshas.Select(p => p.nameHebrew)) + Environment.NewLine;
                     }
-                    daySpecialText += holiday;
                 }
+                if (holidays.Any(h => h.DayType.IsSpecialDayType(SpecialDayTypes.HasCandleLighting)) &&
+                    !holidays.Any(h => h.DayType.IsSpecialDayType(SpecialDayTypes.MajorYomTov)))
+                {
+                    var shkiah = JewishCalendar.Zmanim.GetShkia(date, Program.CurrentLocation);
+                    shkiah -= Program.CurrentLocation.CandleLighting;
+                    daySpecialText += "הדלק\"נ: " +
+                        shkiah.ToString(true, false, false) + Environment.NewLine;
+                }
+
+                daySpecialText += JewishCalendar.Zmanim.GetHolidaysText(
+                    holidays.Where(h => h.NameHebrew != "ערב שבת").ToArray(),
+                    Environment.NewLine, true);
+
                 if (!string.IsNullOrWhiteSpace(daySpecialText))
                 {
-                    pnl.BackgroundImage = Properties.Resources.BlueMarble;
-                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
                     pnl.Controls.Add(new Label()
                     {
                         AutoSize = true,
                         Anchor = AnchorStyles.Top,
                         Text = daySpecialText,
-                        Font = new Font(Font.FontFamily, 7f),
-                        ForeColor = Color.DarkGreen,
-                        TextAlign = ContentAlignment.BottomCenter,
+                        Font = smallFont,
+                        ForeColor = Color.DarkSlateGray,
+                        TextAlign = ContentAlignment.TopCenter,
                         RightToLeft = RightToLeft.Yes,
                         Margin = new Padding(3),
                         AutoEllipsis = true
                     });
                 }
 
+                if (date.DayOfWeek == DayOfWeek.Saturday || holidays.Any(h =>
+                 h.DayType.IsSpecialDayType(SpecialDayTypes.MajorYomTov)))
+                {
+                    dayBgImgMainOrLeft = Properties.Resources.BlueMarble;
+                }
+                else if (
+                    holidays.Any(h => h.DayType.IsSpecialDayType(SpecialDayTypes.MinorYomtov)))
+                {
+                    dayBgImgMainOrLeft = Properties.Resources.LightBlueMarble;
+                }
+
                 string onahText = "";
+                bool hasDayOnah = false;
+                bool hasNightOnah = false;
                 if (ProblemOnahs.ProblemOnahList != null)
                 {
                     foreach (var o in ProblemOnahs.ProblemOnahList.Where(o => o.DateTime == date && !o.IsIgnored))
@@ -777,6 +835,14 @@ namespace Chashavshavon
                         if (!string.IsNullOrWhiteSpace(onahText))
                         {
                             onahText += Environment.NewLine;
+                        }
+                        if (o.DayNight == DayNight.Day)
+                        {
+                            hasDayOnah = true;
+                        }
+                        else if (o.DayNight == DayNight.Night)
+                        {
+                            hasNightOnah = true;
                         }
                         onahText += o.HebrewDayNight + ": " + o.Name;
                     }
@@ -792,42 +858,88 @@ namespace Chashavshavon
                     {
                         entryText += Environment.NewLine + " הפלגה: " + entry.Interval.ToString();
                     }
-                    pnl.BackgroundImage = Properties.Resources.PinkMarbleTile;
-                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
-                    pnl.BackColor = Color.Transparent;
+                    if (entry.DayNight == DayNight.Day)
+                    {
+                        dayBgImgRight = dayBgImgMainOrLeft;
+                        dayBgImgMainOrLeft = Properties.Resources.PinkMarbleTile;
+                    }
+                    else
+                    {
+                        dayBgImgRight = Properties.Resources.PinkMarbleTile;
+                    }
                     pnl.Controls.Add(new Label()
                     {
                         AutoSize = true,
                         Anchor = AnchorStyles.Top,
                         Text = entryText,
                         ForeColor = Color.DarkRed,
-                        Font = new Font(Font.FontFamily, 7f, FontStyle.Bold),
+                        Font = smallFont,
                         TextAlign = ContentAlignment.BottomCenter,
                         RightToLeft = RightToLeft.Yes
                     });
                 }
                 else if (!string.IsNullOrWhiteSpace(onahText))
                 {
-                    pnl.BackgroundImage = Properties.Resources.ParchmentMarbleTile;
-                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
-                    pnl.BackColor = Color.Transparent;
+                    if (hasNightOnah)
+                    {
+                        dayBgImgRight = Properties.Resources.ParchmentMarbleTile;
+                    }
+                    if (hasDayOnah)
+                    {
+                        if (dayBgImgRight == null)
+                        {
+                            dayBgImgRight = dayBgImgMainOrLeft;
+                        }
+                        dayBgImgMainOrLeft = Properties.Resources.ParchmentMarbleTile;
+                    }
+
+
                     pnl.Controls.Add(new Label()
                     {
                         AutoSize = true,
                         Anchor = AnchorStyles.Top,
                         Text = onahText,
-                        Font = new Font(Font.FontFamily, 6.3f, FontStyle.Bold),
-                        ForeColor = Color.DarkGoldenrod,
+                        Font = smallFont,
+                        ForeColor = Color.FromArgb(0x80, 0x50, 0),
                         TextAlign = ContentAlignment.BottomCenter,
                         RightToLeft = RightToLeft.Yes,
                         AutoEllipsis = true
                     });
                 }
-                else if (currentColumn == luachTableLayout.ColumnCount - 1)
+
+                pnl.Paint += delegate (object sender, PaintEventArgs e)
                 {
-                    pnl.BackgroundImage = Properties.Resources.BlueMarble;
-                    pnl.BackgroundImageLayout = ImageLayout.Stretch;
-                }
+                    using (Graphics g = e.Graphics)
+                    {
+                        int pWidth = pnl.DisplayRectangle.Width;
+                        int pHeight = pnl.DisplayRectangle.Height;
+
+                        if (dayBgImgRight == null)
+                        {
+                            g.DrawImage(dayBgImgMainOrLeft, 0, 0, pWidth, pHeight);
+                        }
+                        else
+                        {
+                            float halfX = pWidth / 2f;
+                            g.DrawImage(dayBgImgMainOrLeft, 0, 0, halfX, pHeight);
+                            g.DrawImage(dayBgImgRight, halfX, 0, halfX, pHeight);
+                        }
+                        if (Program.Today.IsSameday(date))
+                        {
+                            SolidBrush solidBrush = new SolidBrush(Color.FromArgb(50, Color.DarkSlateBlue));
+                            var eh = pHeight / 3.3f;
+                            var ew = pWidth / 3.3f;
+                            g.FillClosedCurve(solidBrush, new PointF[]
+                            {
+                            new PointF(ew, eh),
+                            new PointF((pWidth - ew), eh),
+                            new PointF((pWidth - ew), (pHeight - eh)),
+                            new PointF(ew, (pHeight - eh))
+                            }, System.Drawing.Drawing2D.FillMode.Alternate, 3f);
+                        }
+                    }
+                };
+
 
                 string toolTipText = date.ToLongDateString() +
                     Environment.NewLine +
@@ -917,34 +1029,6 @@ namespace Chashavshavon
             return password;
         }
 
-        private string GetToolTipForDate(DateTime dateTime)
-        {
-            StringBuilder toolTip = new StringBuilder();
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(dateTime, Program.CurrentPlace.IsInIsrael))
-            {
-                toolTip.AppendLine(holiday);
-            }
-
-            TimesCalculation tc = new TimesCalculation();
-            AstronomicalTime shkiah = tc.GetSunset(dateTime, Program.CurrentPlace);
-            AstronomicalTime netz = tc.GetSunrise(dateTime, Program.CurrentPlace);
-
-            if (Properties.Settings.Default.IsSummerTime)
-            {
-                shkiah.Hour++;
-                netz.Hour++;
-            }
-            toolTip.Append("שקיעה - ");
-            toolTip.Append(shkiah.Hour.ToString());
-            toolTip.Append(":");
-            toolTip.Append(shkiah.Minute.ToString("0#"));
-            toolTip.Append("\nנץ - ");
-            toolTip.Append(netz.Hour.ToString());
-            toolTip.Append(":");
-            toolTip.Append(netz.Minute.ToString("0#"));
-            return toolTip.ToString();
-        }
-
         private void PrintCalendarList()
         {
             this.ShowCalendarTextList(true);
@@ -995,38 +1079,26 @@ namespace Chashavshavon
 
         private void SetDateAndDayNight()
         {
-            TimesCalculation tc = new TimesCalculation();
-            AstronomicalTime shkiah = tc.GetSunset(DateTime.Now, Program.CurrentPlace);
-            AstronomicalTime netz = tc.GetSunrise(DateTime.Now, Program.CurrentPlace);
-            DateTime now = DateTime.Now;
-
-            if (Properties.Settings.Default.IsSummerTime)
+            DateTime date = DateTime.Now;
+            var zman = new JewishCalendar.Zmanim(date, Program.CurrentLocation);
+            var isNight = zman.GetShkia() <= date.TimeOfDay;
+            if (isNight)
             {
-                shkiah.Hour++;
-                netz.Hour++;
+                date = date.AddDays(1);
             }
-
-            int curHour = now.Hour;
-            int curMin = now.Minute;
-
-            bool isAfterNetz = curHour > netz.Hour || (curHour == netz.Hour && curMin > netz.Minute);
-            bool isBeforeShkiah = (curHour < shkiah.Hour || (curHour == shkiah.Hour && curMin < shkiah.Minute));
-            bool isNightTime = (!isAfterNetz) || (!isBeforeShkiah);
-            bool isAfterMidnight = now.Hour < shkiah.Hour || (now.Hour == shkiah.Hour && now.Minute < shkiah.Minute);
-
-            Program.Today = isNightTime && !isAfterMidnight ? now.AddDays(1) : now; //after shkia before midnight is tomorrow in Jewish...
-            Program.NowOnah = new Onah(Program.Today, isNightTime ? DayNight.Night : DayNight.Day);
+            Program.Today = date;
+            Program.NowOnah = new Onah(Program.Today, isNight ? DayNight.Night : DayNight.Day);
         }
 
         private void SetLocation()
         {
-            int locId = Properties.Settings.Default.UserPlaceId;
-            if (locId <= 0)
+            string location = Properties.Settings.Default.LocationName;
+            if (string.IsNullOrWhiteSpace(location))
             {
-                locId = Properties.Settings.Default.UserPlaceId = 151; //Yerushalayim
+                location = Properties.Settings.Default.LocationName = "Jerusalem"; //Yerushalayim
             }
 
-            Program.CurrentPlace = Utils.Place.GetPlace(locId);
+            Program.CurrentLocation = Utils.Locations.GetPlace(location);
         }
 
         private frmBrowser ShowCalendarTextList(bool print = false)
@@ -1147,24 +1219,16 @@ namespace Chashavshavon
         public void LoadXmlFile()
         {
             this.CreateLocalBackup();
-            //Clear previous list data
-            Entry.EntryList.Clear();
-            //Clear previous Kavuahs
-            if (Kavuah.KavuahsList != null)
-            {
-                Kavuah.KavuahsList.Clear();
-            }
             this.lblNextProblem.Text = "";
-
-            XmlDocument xml = new XmlDocument();
 
             if (CurrentFileIsRemote || File.Exists(CurrentFile))
             {
                 try
                 {
-                    xml.LoadXml(this.CurrentFileXML);
+                    (Entry.EntryList, Kavuah.KavuahsList) =
+                        Program.LoadEntriesKavuahsFromXml(this.CurrentFileXML);
                 }
-                catch (XmlException)
+                catch (Exception)
                 {
                     MessageBox.Show("הקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
                         CurrentFile + "\"" + Environment.NewLine +
@@ -1180,73 +1244,6 @@ namespace Chashavshavon
                     if (Kavuah.KavuahsList != null)
                     {
                         Kavuah.KavuahsList.Clear();
-                    }
-                    this.CalculateProblemOnahs();
-                }
-            }
-
-            if (xml.HasChildNodes)
-            {
-                foreach (XmlNode entryNode in xml.SelectNodes("//Entry"))
-                {
-                    bool isInvisible = entryNode.SelectSingleNode("IsInvisible") == null ?
-                        false :
-                        Convert.ToBoolean(entryNode.SelectSingleNode("IsInvisible").InnerText);
-                    int day = Convert.ToInt32(entryNode.SelectSingleNode("Day").InnerText);
-                    int month = Convert.ToInt32(entryNode.SelectSingleNode("Month").InnerText);
-                    int year = Convert.ToInt32(entryNode.SelectSingleNode("Year").InnerText); ;
-                    DayNight dayNight = (DayNight)Convert.ToInt32(entryNode.SelectSingleNode("DN").InnerText);
-                    string notes = entryNode.SelectSingleNode("Notes").InnerText;
-
-                    Entry newEntry = new Entry(day, month, year, dayNight, notes)
-                    {
-                        IsInvisible = isInvisible
-                    };
-
-                    // If during the addition of a new Entry the program finds
-                    // a set of 3 entries that might have been considered a Kavuah;
-                    // such as if there are 3 of the same haflagas in a row,
-                    // the user is prompted to create a new kavuah. If they choose not to,
-                    // a NoKavuah element is added to the 3rd entry so the user
-                    // won't be prompted again each time the list is reloaded.
-                    foreach (XmlNode k in entryNode.SelectNodes("NoKavuah"))
-                    {
-                        Kavuah ka = new Kavuah(
-                            (KavuahType)Enum.Parse(typeof(KavuahType), k.Attributes["KavuahType"].InnerText),
-                            newEntry.DayNight)
-                        {
-                            Number = Convert.ToInt32(k.Attributes["Number"].InnerText),
-                            SettingEntryDate = newEntry.DateTime
-                        };
-                        newEntry.NoKavuahList.Add(ka);
-                    }
-                    Entry.EntryList.Add(newEntry);
-                }
-
-                //After the list of Entries, there is a lst of Kavuahs
-                if (xml.SelectNodes("//Kavuah").Count > 0)
-                {
-                    var ser = new XmlSerializer(typeof(List<Kavuah>));
-                    try
-                    {
-                        Kavuah.KavuahsList = (List<Kavuah>)ser.Deserialize(
-                            new StringReader(xml.SelectSingleNode("//ArrayOfKavuah").OuterXml));
-                    }
-                    catch
-                    {
-                        MessageBox.Show("רשימת וסת קבוע בקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
-                        CurrentFile + "\"" + Environment.NewLine +
-                        " איננה תקינה. תפתח רשימת קבוע ריקה.",
-                        "חשבשבון",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                        //Clear previous Kavuahs
-                        if (Kavuah.KavuahsList != null)
-                        {
-                            Kavuah.KavuahsList.Clear();
-                        }
                     }
                 }
             }
@@ -1264,7 +1261,6 @@ namespace Chashavshavon
             }
 
             this.SetCaptionText();
-            Entry.SortEntriesAndSetInterval();
             this.CalculateProblemOnahs();
             this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
         }
@@ -1318,8 +1314,8 @@ namespace Chashavshavon
             {
                 sb.AppendFormat("<tr class='{0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
                     (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnahPeriod(Program.NowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
-                    Zmanim.GetDayOfWeekText(onah.DateTime),
-                    Zmanim.DaysOfMonthHebrew[onah.Day],
+                    Chashavshavon.Utils.Zmanim.GetDayOfWeekText(onah.DateTime),
+                    Chashavshavon.Utils.Zmanim.DaysOfMonthHebrew[onah.Day],
                     onah.Month.ToString(),
                     onah.HebrewDayNight,
                     onah.Name);
@@ -1545,6 +1541,6 @@ namespace Chashavshavon
         }
         public string WeekListHtml { get; set; }
 
-        #endregion Properties
+        #endregion Properties                
     }
 }

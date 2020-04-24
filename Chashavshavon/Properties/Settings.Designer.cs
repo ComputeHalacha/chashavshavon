@@ -37,30 +37,6 @@ namespace Chashavshavon.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("151")]
-        public int UserPlaceId {
-            get {
-                return ((int)(this["UserPlaceId"]));
-            }
-            set {
-                this["UserPlaceId"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool IsSummerTime {
-            get {
-                return ((bool)(this["IsSummerTime"]));
-            }
-            set {
-                this["IsSummerTime"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string RemoteUserName {
             get {
@@ -199,6 +175,18 @@ namespace Chashavshavon.Properties {
             }
             set {
                 this["NeedsSettingsUpgrade"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Jerusalem")]
+        public string LocationName {
+            get {
+                return ((string)(this["LocationName"]));
+            }
+            set {
+                this["LocationName"] = value;
             }
         }
     }

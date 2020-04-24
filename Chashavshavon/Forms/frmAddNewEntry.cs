@@ -1,4 +1,5 @@
 ﻿using Chashavshavon.Utils;
+using JewishCalendar;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -89,28 +90,11 @@ namespace Chashavshavon
                 this.cmbDay.SelectedIndex + 1,
                 Program.HebrewCalendar);
 
-            TimesCalculation tc = new TimesCalculation();
-            AstronomicalTime shkiah = tc.GetSunset(this._date, Program.CurrentPlace);
-            AstronomicalTime netz = tc.GetSunrise(this._date, Program.CurrentPlace);
-
-            if (Properties.Settings.Default.IsSummerTime)
-            {
-                shkiah.Hour++;
-                netz.Hour++;
-            }
-
-            string sHoliday = null;
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(this._date, Program.CurrentPlace.IsInIsrael))
-            {
-                sHoliday += holiday + " - ";
-            }
-
-            if (sHoliday != null)
-            {
-                sHoliday = " - " + sHoliday;
-            }
-
-            this.Text = this._date.ToString("dddd dd MMM yyyy", Program.CultureInfo) + sHoliday;
+            var jd = new JewishDate(this._date);
+            var suntimes = JewishCalendar.Zmanim.GetNetzShkia(this._date, Program.CurrentLocation);
+            var netz = suntimes[0];
+            var shkiah = suntimes[1];
+            this.Text = this._date.ToString("dddd dd MMM yyyy", Program.CultureInfo);
             this.lblLocation.Text = Program.GetCurrentPlaceName() + " - " + this.Text;
 
             StringBuilder sb = new StringBuilder("נץ - ");
@@ -183,32 +167,16 @@ namespace Chashavshavon
 
         private void SetDateAndDayNight()
         {
-            TimesCalculation tc = new TimesCalculation();
-            AstronomicalTime shkiah = tc.GetSunset(DateTime.Now, Program.CurrentPlace);
-            AstronomicalTime netz = tc.GetSunrise(DateTime.Now, Program.CurrentPlace);
-            DateTime now = DateTime.Now;
 
-            if (Properties.Settings.Default.IsSummerTime)
-            {
-                shkiah.Hour++;
-                netz.Hour++;
-            }
+            var now = DateTime.Now;
+            var jd = new JewishDate(now);
+            var zman = new JewishCalendar.Zmanim(now, Program.CurrentLocation);
+            var isNight = zman.GetShkia() <= now.TimeOfDay;
 
-            int curHour = now.Hour;
-            int curMin = now.Minute;
-
-            bool isAfterNetz = curHour > netz.Hour || (curHour == netz.Hour && curMin > netz.Minute);
-            bool isBeforeShkiah = (curHour < shkiah.Hour || (curHour == shkiah.Hour && curMin < shkiah.Minute));
-            bool isNightTime = (!isAfterNetz) || (!isBeforeShkiah);
-            bool isAfterMidnight = now.Hour < shkiah.Hour || (now.Hour == shkiah.Hour && now.Minute < shkiah.Minute);
-            this.rbDay.Checked = !isNightTime;
-            this.rbNight.Checked = isNightTime;
+            this.rbDay.Checked = !isNight;
+            this.rbNight.Checked = isNight;
 
             string todayString = Program.Today.ToString("dddd dd MMM yyyy");
-            foreach (string holiday in JewishHolidays.GetHebrewHolidays(this._date, Program.CurrentPlace.IsInIsrael))
-            {
-                todayString += " - " + holiday;
-            }
             this.lblToday.Text = todayString;
         }
 
@@ -257,7 +225,7 @@ namespace Chashavshavon
             if (cmbDay.Items.Count == 0)
             {
                 curDay = new KeyValuePair<int, string>(Program.HebrewCalendar.GetDayOfMonth(this._date),
-                    Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(this._date)]);
+                    Utils.Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(this._date)]);
             }
             else
             {
@@ -267,7 +235,7 @@ namespace Chashavshavon
             cmbDay.Items.Clear();
             for (int i = 1; i < curMonth.DaysInMonth + 1; i++)
             {
-                KeyValuePair<int, string> day = new KeyValuePair<int, string>(i, Zmanim.DaysOfMonthHebrew[i]);
+                KeyValuePair<int, string> day = new KeyValuePair<int, string>(i, Utils.Zmanim.DaysOfMonthHebrew[i]);
                 cmbDay.Items.Add(day);
             }
 

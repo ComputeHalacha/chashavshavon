@@ -266,11 +266,30 @@ namespace Chashavshavon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LightBlueMarble {
+            get {
+                object obj = ResourceManager.GetObject("LightBlueMarble", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://localhost:8080.
         /// </summary>
         internal static string LocalAppURL {
             get {
                 return ResourceManager.GetString("LocalAppURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;LS&gt;&lt;L N=&quot;Ofakim&quot; H=&quot;אופקים&quot; I=&quot;Y&quot;&gt;&lt;T&gt;2&lt;/T&gt;&lt;E&gt;170&lt;/E&gt;&lt;LT&gt;31.32&lt;/LT&gt;&lt;LN&gt;-34.62&lt;/LN&gt;&lt;/L&gt;&lt;L N=&quot;Eilat&quot; H=&quot;אילת&quot; I=&quot;Y&quot;&gt;&lt;T&gt;2&lt;/T&gt;&lt;LT&gt;29.55&lt;/LT&gt;&lt;LN&gt;-34.95&lt;/LN&gt;&lt;/L&gt;&lt;L N=&quot;Elad&quot; H=&quot;אלעד&quot; I=&quot;Y&quot;&gt;&lt;T&gt;2&lt;/T&gt;&lt;E&gt;150&lt;/E&gt;&lt;LT&gt;32.05&lt;/LT&gt;&lt;LN&gt;-34.95&lt;/LN&gt;&lt;/L&gt;&lt;L N=&quot;Ashdod&quot; H=&quot;אשדוד&quot; I=&quot;Y&quot;&gt;&lt;T&gt;2&lt;/T&gt;&lt;LT&gt;31.78&lt;/LT&gt;&lt;LN&gt;-34.63&lt;/LN&gt;&lt;/L&gt;&lt;L N=&quot;Ashkelon&quot; H=&quot;אשקלון&quot; I=&quot;Y&quot;&gt;&lt;T&gt;2&lt;/T&gt;&lt;LT&gt;31.65&lt;/LT&gt;&lt;LN&gt;-34.57&lt;/LN&gt;&lt;/L&gt;&lt;L N=&quot;Be&apos;er Ya&apos;akov&quot; H=&quot;באר יעקב&quot; I=&quot;Y&quot;&gt;&lt;T&gt;2&lt;/T&gt;&lt;LT&gt;31.93&lt;/LT&gt;&lt;LN&gt;-34.83&lt;/LN&gt;....
+        /// </summary>
+        internal static string LocationsList {
+            get {
+                return ResourceManager.GetString("LocationsList", resourceCulture);
             }
         }
         

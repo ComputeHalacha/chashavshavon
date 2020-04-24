@@ -76,8 +76,7 @@ namespace Chashavshavon.Utils
         //Recursively gets all controls contained in the given control or any of it's descendants
         public static System.Collections.Generic.IEnumerable<System.Windows.Forms.Control> GetAllControls(System.Windows.Forms.Control control)
         {
-            var l = new System.Collections.Generic.List<System.Windows.Forms.Control>();
-            l.Add(control);
+            var l = new System.Collections.Generic.List<System.Windows.Forms.Control> { control };
             foreach (System.Windows.Forms.Control c in control.Controls)
             {
                 l.AddRange(GetAllControls(c));
@@ -86,7 +85,7 @@ namespace Chashavshavon.Utils
         }
 
         #endregion
-        
+
         /// <summary>
         /// Gets the Jewish representation of a number (365 = ωρ"δ)
         /// Minimum number is 1 and maximum is 9999.
@@ -110,7 +109,7 @@ namespace Chashavshavon.Utils
 
             if (n >= 1000)
             {
-                retval += _jsd[(int)((n - (n % 1000)) / 1000) - 1].ToString() + '\'';
+                retval += _jsd[(n - (n % 1000)) / 1000 - 1].ToString() + '\'';
                 n = n % 1000;
             }
 
@@ -122,7 +121,7 @@ namespace Chashavshavon.Utils
 
             if (n >= 100)
             {
-                retval += _jhd[(int)((n - (n % 100)) / 100) - 1].ToString();
+                retval += _jhd[(n - (n % 100)) / 100 - 1].ToString();
                 n = n % 100;
             }
 
@@ -138,7 +137,7 @@ namespace Chashavshavon.Utils
             {
                 if (n > 9)
                 {
-                    retval += _jtd[(int)((n - (n % 10)) / 10) - 1].ToString();
+                    retval += _jtd[(n - (n % 10)) / 10 - 1].ToString();
                 }
                 if (n % 10 > 0)
                 {

@@ -113,7 +113,7 @@
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(458, 83);
+            this.label16.Location = new System.Drawing.Point(458, 80);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(37, 15);
@@ -123,10 +123,12 @@
             // lblToday
             // 
             this.lblToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblToday.Location = new System.Drawing.Point(252, 82);
+            this.lblToday.Font = new System.Drawing.Font("Narkisim", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblToday.ForeColor = System.Drawing.Color.LightSlateGray;
+            this.lblToday.Location = new System.Drawing.Point(252, 75);
             this.lblToday.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblToday.Name = "lblToday";
-            this.lblToday.Size = new System.Drawing.Size(202, 17);
+            this.lblToday.Size = new System.Drawing.Size(202, 24);
             this.lblToday.TabIndex = 16;
             this.lblToday.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -144,10 +146,12 @@
             // lblTime
             // 
             this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTime.Location = new System.Drawing.Point(9, 81);
+            this.lblTime.Font = new System.Drawing.Font("Narkisim", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblTime.ForeColor = System.Drawing.Color.LightSlateGray;
+            this.lblTime.Location = new System.Drawing.Point(9, 75);
             this.lblTime.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(100, 14);
+            this.lblTime.Size = new System.Drawing.Size(100, 24);
             this.lblTime.TabIndex = 14;
             this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 

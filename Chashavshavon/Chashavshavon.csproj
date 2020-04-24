@@ -130,9 +130,6 @@
     <AssemblyOriginatorKeyFile>chashavshavon.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="JewishCalendar">
-      <HintPath>.\JewishCalendar.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -166,7 +163,7 @@
     <Compile Include="Classes\Installer.Designer.cs">
       <DependentUpon>Installer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Place.cs" />
+    <Compile Include="Utils\Locations.cs" />
     <Compile Include="Classes\Kavuah.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
@@ -179,6 +176,12 @@
     </Compile>
     <Compile Include="Forms\frmAddKavuah.Designer.cs">
       <DependentUpon>frmAddKavuah.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmImport.Designer.cs">
+      <DependentUpon>frmImport.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmAddNewEntry.cs">
       <SubType>Form</SubType>
@@ -239,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddKavuah.resx">
       <DependentUpon>frmAddKavuah.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmImport.resx">
+      <DependentUpon>frmImport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddNewEntry.resx">
       <DependentUpon>frmAddNewEntry.cs</DependentUpon>
@@ -327,10 +333,12 @@
     <None Include="Resources\Marble\ParchmentMarbleTile.jpg" />
     <None Include="Resources\Marble\PinkMarbleTile.jpg" />
     <None Include="Resources\Marble\WhiteMarble.jpg" />
+    <None Include="Resources\Marble\NightParchmentMarbleTile.jpg" />
+    <None Include="Resources\Marble\NightPinkMarbleTile.jpg" />
+    <None Include="Resources\Marble\TodayMarble.png" />
+    <None Include="Resources\Marble\LightBlueMarble.jpg" />
+    <None Include="Resources\LocationsList.xml" />
     <Content Include="scroll.ico" />
-    <Content Include="Places.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
@@ -367,7 +375,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <FileAssociation Include=".pm">
       <Visible>False</Visible>
@@ -376,7 +383,12 @@
       <DefaultIcon>scroll.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\JewishCalendar\JewishCalendar\JewishCalendar.csproj">
+      <Project>{43e5c945-9d11-4097-9990-1d2afc9e16d3}</Project>
+      <Name>JewishCalendar</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

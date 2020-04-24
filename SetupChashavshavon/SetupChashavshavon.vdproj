@@ -27,7 +27,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_AE146A96E8336459B0E7CAF41BC0E473"
+        "MsmKey" = "8:_A103B891AC332C6CCE36D3293418D5B4"
         "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -52,7 +52,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_AE146A96E8336459B0E7CAF41BC0E473"
+        "OwnerKey" = "8:_A103B891AC332C6CCE36D3293418D5B4"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -86,11 +86,6 @@
                     {
                     "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
                     "ProductCode" = "8:.NETFramework,Version=v4.7.2"
-                    }
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
-                    {
-                    "Name" = "8:Windows Installer 3.1"
-                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
                     }
                 }
             }
@@ -263,20 +258,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AE146A96E8336459B0E7CAF41BC0E473"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A103B891AC332C6CCE36D3293418D5B4"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:JewishDate, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:JewishCalendar, Version=2.2.3.0, Culture=neutral, PublicKeyToken=ec00b42c1312038c, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_AE146A96E8336459B0E7CAF41BC0E473"
+                    "_A103B891AC332C6CCE36D3293418D5B4"
                     {
-                    "Name" = "8:JewishDate.dll"
+                    "Name" = "8:JewishCalendar.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:JewishDate.dll"
+            "SourcePath" = "8:JewishCalendar.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"

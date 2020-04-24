@@ -10,8 +10,8 @@ namespace Chashavshavon
     {
         //Holds the list of Entries in the currently loaded file 
         public static List<Entry> EntryList = new List<Entry>();
-        
-        private List<Kavuah> _noKavuahList = new List<Kavuah>();
+
+        private readonly List<Kavuah> _noKavuahList = new List<Kavuah>();
 
         public Entry() : base() { }
 
@@ -39,7 +39,7 @@ namespace Chashavshavon
         /// imported together with a Kavuah that it was a SettngEntry for etc.
         /// </summary>
         public bool IsInvisible { get; set; }
-        
+
         /// <summary>
         /// If during a search for Kavuahs 
         /// (I.E. after the addition of a new Entry or during a "search for Kavuah" button click event)
@@ -50,24 +50,19 @@ namespace Chashavshavon
         /// won't be prompted again when the list is searched again for possible Kavuahs.
         /// The reason this is a collection, is because there can be different types of Kavuahs on a single day. 
         /// </summary>        
-        public List<Kavuah> NoKavuahList { 
-            get 
-            { 
-                return this._noKavuahList;
-            }
-        }
+        public List<Kavuah> NoKavuahList => this._noKavuahList;
 
         /// <summary>
         /// Sorts the list of entries in order of occurrence, then sets the Interval for each Entry -
         /// which is the days elapsed since the previous Entry.
         /// This is in order to Cheshbon out the Haflagah
         /// </summary>
-        public static void SortEntriesAndSetInterval()
+        public static void SortEntriesAndSetInterval(List<Entry> list)
         {
-            Entry.EntryList.Sort(Onah.CompareOnahs);
+            list.Sort(Onah.CompareOnahs);
 
             Entry previousEntry = null;
-            foreach (Entry entry in Entry.EntryList.Where(en => !en.IsInvisible))
+            foreach (Entry entry in list.Where(en => !en.IsInvisible))
             {
                 if (previousEntry != null)
                 {
@@ -79,6 +74,16 @@ namespace Chashavshavon
                 }
                 previousEntry = entry;
             }
+        }
+
+        /// <summary>
+        /// Sorts the static main list of entries in order of occurrence, then sets the Interval for each Entry -
+        /// which is the days elapsed since the previous Entry.
+        /// This is in order to Cheshbon out the Haflagah
+        /// </summary>
+        public static void SortEntriesAndSetInterval()
+        {
+            SortEntriesAndSetInterval(Entry.EntryList);
         }
     }
 }

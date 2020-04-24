@@ -5,12 +5,6 @@
     <Setting Name="CurrentFile" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="UserPlaceId" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">151</Value>
-    </Setting>
-    <Setting Name="IsSummerTime" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="RemoteUserName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -46,6 +40,9 @@
     </Setting>
     <Setting Name="NeedsSettingsUpgrade" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LocationName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Jerusalem</Value>
     </Setting>
   </Settings>
 </SettingsFile>
