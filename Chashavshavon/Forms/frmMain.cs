@@ -19,7 +19,16 @@ namespace Chashavshavon
         #region Private Variables
 
         private DateTime _monthToDisplay;
-        private string _tempXMLFileName = Program.TempFolderPath + @"\ChashavshavonTempFile.xml";
+        private static string _tempXMLFileName = Program.TempFolderPath + @"\ChashavshavonTempFile.xml";
+        private static Font _smallFont;
+        private static Font _hebrewDayFont = new Font("Verdana", 18f, FontStyle.Bold);
+        private static Font _goyishDateFont = new Font("Verdana", 8f, FontStyle.Bold);
+        private static SolidBrush _highlightBrush = new SolidBrush(Color.FromArgb(50, Color.DarkSlateBlue));
+        private static DateTimeFormatInfo _sysCulture = CultureInfo.InstalledUICulture.DateTimeFormat;
+        private static TextFormatFlags _textFormatFlags =
+            TextFormatFlags.HorizontalCenter |
+            TextFormatFlags.VerticalCenter |
+            TextFormatFlags.NoPrefix;
 
         #endregion Private Variables
 
@@ -27,7 +36,7 @@ namespace Chashavshavon
 
         public frmMain()
         {
-            this.StartUp();
+            this.StartUp();            
         }
 
         public frmMain(string filePath)
@@ -159,10 +168,20 @@ namespace Chashavshavon
 
         private void dgEntries_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgEntries.Columns[e.ColumnIndex] == btnDeleteColumn &&
-                dgEntries.Rows[e.RowIndex].DataBoundItem is Entry)
+            if (dgEntries.Rows[e.RowIndex].DataBoundItem is Entry)
             {
-                this.DeleteEntry((Entry)dgEntries.Rows[e.RowIndex].DataBoundItem);
+                var column = dgEntries.Columns[e.ColumnIndex];
+                var entry = (Entry)dgEntries.Rows[e.RowIndex].DataBoundItem;
+
+                if (column == btnDeleteColumn)
+                {
+                    this.DeleteEntry(entry);
+                }
+                else if (column == DateColumn)
+                {
+                    this._monthToDisplay = entry.DateTime;
+                    this.DisplayMonth(highlightDay: true);
+                }
             }
         }
 
@@ -478,7 +497,7 @@ namespace Chashavshavon
             {
                 SaveCurrentFile();
                 this.GetTempXmlFile();
-                System.Diagnostics.Process.Start(this._tempXMLFileName);
+                System.Diagnostics.Process.Start(_tempXMLFileName);
             }
             else
             {
@@ -622,6 +641,8 @@ namespace Chashavshavon
 
             InitializeComponent();
 
+            _smallFont = new Font(Font.FontFamily, 6f);
+
             //The following sets all output displays of date time functions to Jewish dates for the current thread
             Program.CultureInfo.DateTimeFormat.Calendar = Program.HebrewCalendar;
             System.Threading.Thread.CurrentThread.CurrentCulture = Program.CultureInfo;
@@ -655,18 +676,29 @@ namespace Chashavshavon
                     this.CloseMeFirst = f.DialogResult != DialogResult.Yes;
                 }
             }
+
+            for (int i = 0; i < 7; i++)
+            {
+                this.dowLayoutTable.Controls.Add(new Label()
+                {
+                    Text = Chashavshavon.Utils.Zmanim.DaysOfWeekHebrewFull[i],
+                    Dock = DockStyle.Fill,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    ForeColor = Color.FromArgb(255, 225, 228, 230),
+                    BackColor = Color.Transparent,
+                    Font = new Font("Narkisim", 12f)
+                }, i, 0);
+            }
         }
 
-        private void DisplayMonth()
+        private void DisplayMonth(bool highlightDay = false)
         {
             int year = Program.HebrewCalendar.GetYear(this._monthToDisplay);
             MonthObject month = new MonthObject(year, Program.HebrewCalendar.GetMonth(this._monthToDisplay));
             DateTime firstDayOfMonth = this._monthToDisplay.AddDays(1 - Program.HebrewCalendar.GetDayOfMonth(this._monthToDisplay));
             int firstDayOfWeek = 1 + (int)firstDayOfMonth.DayOfWeek;
-            int currentRow = 1, currentColumn = firstDayOfWeek - 1;
-            var smallFont = new Font(Font.FontFamily, 6f);
-            var sysCulture = CultureInfo.InstalledUICulture.DateTimeFormat;
-
+            int currentRow = 0, currentColumn = firstDayOfWeek - 1;
+            
             this.luachTableLayout.Visible = false;
             this.luachTableLayout.SuspendLayout();
 
@@ -684,7 +716,7 @@ namespace Chashavshavon
                    Program.HebrewCalendar.GetDaysInMonth(year, month.MonthInYear)
                 > 29)
             {
-                this.luachTableLayout.RowCount = 7;
+                this.luachTableLayout.RowCount = 6;
                 this.luachTableLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 16.66667F));
                 foreach (RowStyle rs in this.luachTableLayout.RowStyles)
                 {
@@ -696,30 +728,7 @@ namespace Chashavshavon
             }
             else
             {
-                this.luachTableLayout.RowCount = 6;
-            }
-
-            for (int i = 0; i < 7; i++)
-            {
-                Panel dow = new Panel()
-                {
-                    BackgroundImage = Properties.Resources.DarkBlueMarbleBar,
-                    BackgroundImageLayout = ImageLayout.Tile,
-                    Margin = new Padding(0),
-                    Height = 20,
-                    Padding = new Padding(0),
-                    Dock = DockStyle.Fill
-                };
-                dow.Controls.Add(new Label()
-                {
-                    Text = Chashavshavon.Utils.Zmanim.DaysOfWeekHebrewFull[i],
-                    Dock = DockStyle.Fill,
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    ForeColor = Color.FromArgb(255, 225, 228, 230),
-                    BackColor = Color.Transparent,
-                    Font = new Font("Narkisim", 12f)
-                });
-                this.luachTableLayout.Controls.Add(dow, i, 0);
+                this.luachTableLayout.RowCount = 5;
             }
 
             for (int i = 1; i < month.DaysInMonth + 1; i++)
@@ -733,43 +742,13 @@ namespace Chashavshavon
                 {
                     Dock = DockStyle.Fill,
                     Margin = new Padding(0),
+                    Padding = new Padding(0),
                     BackColor = Color.Transparent
                 };
                 Image dayBgImgMainOrLeft = Properties.Resources.WhiteMarble;
                 Image dayBgImgRight = null;
 
-                this.luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);
-
-                var itlp = new TableLayoutPanel()
-                {
-                    ColumnCount = 2,
-                    RowCount = 1,
-                    Height = pnl.Height / 4,
-                    Dock = DockStyle.Top,
-                    Margin = new Padding(0),
-                    Padding = new Padding(0)
-                };
-
-                itlp.Controls.Add(new Label()
-                {
-                    Dock = DockStyle.Fill,
-                    AutoSize = true,
-                    Font = new Font("Verdana", 18f, FontStyle.Bold),
-                    ForeColor = Color.Maroon,
-                    Text = Chashavshavon.Utils.Zmanim.DaysOfMonthHebrew[i].Replace("\"", "").Replace("\'", ""),
-                });
-
-                itlp.Controls.Add(new Label()
-                {
-                    Dock = DockStyle.Fill,
-                    AutoSize = true,
-                    TextAlign = ContentAlignment.TopRight,
-                    Font = new Font("Verdana", 8f, FontStyle.Bold),
-                    ForeColor = Color.DarkSlateBlue,
-                    Text = date.ToString("%d", sysCulture)
-                });
-
-                pnl.Controls.Add(itlp);
+                this.luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);               
 
                 string daySpecialText = "";
                 bool isInIsrael = Program.CurrentLocation.IsInIsrael;
@@ -805,11 +784,11 @@ namespace Chashavshavon
                         AutoSize = true,
                         Anchor = AnchorStyles.Top,
                         Text = daySpecialText,
-                        Font = smallFont,
+                        Font = _smallFont,
                         ForeColor = Color.DarkSlateGray,
                         TextAlign = ContentAlignment.TopCenter,
                         RightToLeft = RightToLeft.Yes,
-                        Margin = new Padding(3),
+                        Margin = new Padding(0, 20, 0, 0),
                         AutoEllipsis = true
                     });
                 }
@@ -873,9 +852,10 @@ namespace Chashavshavon
                         Anchor = AnchorStyles.Top,
                         Text = entryText,
                         ForeColor = Color.DarkRed,
-                        Font = smallFont,
+                        Font = _smallFont,
                         TextAlign = ContentAlignment.BottomCenter,
-                        RightToLeft = RightToLeft.Yes
+                        RightToLeft = RightToLeft.Yes,
+                        Margin = new Padding(0, 20,0,0)
                     });
                 }
                 else if (!string.IsNullOrWhiteSpace(onahText))
@@ -899,11 +879,12 @@ namespace Chashavshavon
                         AutoSize = true,
                         Anchor = AnchorStyles.Top,
                         Text = onahText,
-                        Font = smallFont,
+                        Font = _smallFont,
                         ForeColor = Color.FromArgb(0x80, 0x50, 0),
                         TextAlign = ContentAlignment.BottomCenter,
                         RightToLeft = RightToLeft.Yes,
-                        AutoEllipsis = true
+                        AutoEllipsis = true,
+                        Margin = new Padding(0, 20, 0, 0)
                     });
                 }
 
@@ -924,26 +905,51 @@ namespace Chashavshavon
                             g.DrawImage(dayBgImgMainOrLeft, 0, 0, halfX, pHeight);
                             g.DrawImage(dayBgImgRight, halfX, 0, halfX, pHeight);
                         }
+                        if (highlightDay && date.Date == this._monthToDisplay.Date)
+                        {
+                            g.DrawRectangle(new Pen(_highlightBrush, pHeight / 3), pnl.DisplayRectangle);
+                        }
                         if (Program.Today.IsSameday(date))
                         {
-                            SolidBrush solidBrush = new SolidBrush(Color.FromArgb(50, Color.DarkSlateBlue));
                             var eh = pHeight / 3.3f;
                             var ew = pWidth / 3.3f;
-                            g.FillClosedCurve(solidBrush, new PointF[]
-                            {
-                            new PointF(ew, eh),
-                            new PointF((pWidth - ew), eh),
-                            new PointF((pWidth - ew), (pHeight - eh)),
-                            new PointF(ew, (pHeight - eh))
+                            g.FillClosedCurve(_highlightBrush, new PointF[] {
+                                new PointF(ew, eh),
+                                new PointF((pWidth - ew), eh),
+                                new PointF((pWidth - ew), (pHeight - eh)),
+                                new PointF(ew, (pHeight - eh))
                             }, System.Drawing.Drawing2D.FillMode.Alternate, 3f);
+                        }
+
+                        var jdText = jd.Day.ToNumberHeb().Replace("'", "");
+
+                        TextRenderer.DrawText(g, jdText, _hebrewDayFont, 
+                            new Point(pWidth *2 -40, 10), Color.Maroon, _textFormatFlags);
+
+                        g.DrawString(date.ToString("%d", _sysCulture),
+                            _goyishDateFont,
+                            Brushes.DarkSlateBlue,
+                            20,
+                            10);
+
+                        if (Entry.EntryList.Count > 0)
+                        {
+                            var latestEntry = Entry.EntryList.LastOrDefault(en => en.DateTime < date);
+                            if(latestEntry != null)
+                            {
+                                var day = (date- latestEntry.DateTime).TotalDays +1;
+                                if(day > 0)
+                                {
+                                    g.DrawString("יום " + day.ToString(), _smallFont, Brushes.Red, pWidth-40, pHeight - 20);
+                                }
+                            }
                         }
                     }
                 };
 
-
                 string toolTipText = date.ToLongDateString() +
                     Environment.NewLine +
-                    date.ToString("D", sysCulture) +
+                    date.ToString("D", _sysCulture) +
                     (!string.IsNullOrWhiteSpace(onahText) ?
                         Environment.NewLine + "--------------------------------" + Environment.NewLine + onahText : "");
 
@@ -1212,8 +1218,8 @@ namespace Chashavshavon
 
         public string GetTempXmlFile()
         {
-            File.WriteAllText(this._tempXMLFileName, CurrentFileXML ?? "");
-            return this._tempXMLFileName;
+            File.WriteAllText(_tempXMLFileName, CurrentFileXML ?? "");
+            return _tempXMLFileName;
         }
 
         public void LoadXmlFile()
