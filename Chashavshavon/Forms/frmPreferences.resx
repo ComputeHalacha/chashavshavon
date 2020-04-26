@@ -120,4 +120,16 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pbShowPassword.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAUpJREFUSEvt
+        1M0qRHEYx/Gz8DJhIS5hEpcw5W1BciFir5TYTzKbKZIiRdlJcgcWpJRb8bJE8f3WMTXP/M8Ys6LmV5+a
+        zv/l/M9znjNZL/8iA5jGGrZzq/m1fnSdKRzjBZ8FHDvCJDrOIGr4QGrTlHfswqdtm3HcI25wgRmUcrO4
+        RJx3izEkM4JHxEXrKMoG4vwHDKMl54iTPbnx1Ad4hXXfh6U0V4jrTtGUZcRJsizGzePYHswc4pgW0Uiq
+        7vLkxpPHsWeYIcQx3aGRn26QatUnmI5usITUJLvFWPM4VoeZRxzTAppyhjjJVjS+UGtuWTy5m3/3/DXi
+        uhO0xNayxeJkW7Eom4jzLbdlS8aPxI8lLrIV7RYXyrKkTn6DUbSNj74DP/+4QZE3VPGrP78JHMK6pzaV
+        78NvpIyu04cKVrCV87fXHOvlTyfLvgBLebv4vhfchgAAAABJRU5ErkJggg==
+</value>
+  </data>
 </root>

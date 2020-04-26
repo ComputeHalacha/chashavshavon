@@ -156,7 +156,7 @@ namespace Chashavshavon
                     dt = Program.HebrewCalendar.AddMonths(dt, 1);
                     DateTime dtNext = dt.AddDays(kavuah.Number * i);
                     //We stop when we get to the beginning or end of the month
-                    if (dtNext.Month != dt.Month ||
+                    if ((!Properties.Settings.Default.DilugChodeshPastEnds && dtNext.Month != dt.Month) ||
                         dtNext > Program.HebrewCalendar.AddMonths(Program.Today, Properties.Settings.Default.NumberMonthsAheadToWarn))
                     {
                         break;

@@ -120,5 +120,17 @@ namespace Chashavshavon
                 e.Value = (string.IsNullOrEmpty(place.NameHebrew) ? place.Name : place.NameHebrew);
             }
         }
+
+        private void pbShowPassword_Click(object sender, EventArgs e)
+        {
+            if(this.txtPassword.PasswordChar == Char.MinValue)
+            {
+                this.txtPassword.PasswordChar = '•';
+            }
+            else
+            {
+                this.txtPassword.PasswordChar = Char.MinValue;
+            }
+        }
     }
 }

@@ -47,5 +47,8 @@
     <Setting Name="Nusach" Type="JewishCalendar.Nusach" Scope="User">
       <Value Profile="(Default)">Ashkenaz</Value>
     </Setting>
+    <Setting Name="DilugChodeshPastEnds" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

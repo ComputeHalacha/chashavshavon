@@ -201,5 +201,17 @@ namespace Chashavshavon.Properties {
                 this["Nusach"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DilugChodeshPastEnds {
+            get {
+                return ((bool)(this["DilugChodeshPastEnds"]));
+            }
+            set {
+                this["DilugChodeshPastEnds"] = value;
+            }
+        }
     }
 }
