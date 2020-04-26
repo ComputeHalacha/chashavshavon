@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddNewEntry));
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cmbMonth = new System.Windows.Forms.ComboBox();
@@ -40,15 +41,17 @@
             this.txtNotes = new System.Windows.Forms.TextBox();
             this.btnEnter = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label6 = new System.Windows.Forms.Label();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblCaption = new System.Windows.Forms.Label();
+            this.btnToday = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -246,6 +249,21 @@
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label5.Location = new System.Drawing.Point(420, 10);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(224, 27);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "הוסף רשומה חדשה";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -283,6 +301,8 @@
             // 
             this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.BlueMarble;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btnToday);
+            this.panel2.Controls.Add(this.lblCaption);
             this.panel2.Controls.Add(this.cmbYear);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.cmbMonth);
@@ -317,6 +337,21 @@
             this.splitContainer1.Size = new System.Drawing.Size(1271, 538);
             this.splitContainer1.SplitterDistance = 646;
             this.splitContainer1.TabIndex = 32;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Font = new System.Drawing.Font("Tahoma", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
+            this.label6.Location = new System.Drawing.Point(385, 10);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(259, 27);
+            this.label6.TabIndex = 27;
+            this.label6.Text = "רשימת חששות ביום זה";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // webBrowser1
             // 
@@ -353,7 +388,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Narkisim", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.btnClose.ForeColor = System.Drawing.Color.Lavender;
-            this.btnClose.Location = new System.Drawing.Point(-209, 16);
+            this.btnClose.Location = new System.Drawing.Point(10, 16);
             this.btnClose.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(83, 27);
@@ -361,35 +396,44 @@
             this.btnClose.Text = "סגור";
             this.btnClose.UseVisualStyleBackColor = false;
             // 
-            // label5
+            // lblCaption
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label5.Location = new System.Drawing.Point(420, 10);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(224, 27);
-            this.label5.TabIndex = 25;
-            this.label5.Text = "הוסף רשומה חדשה";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblCaption.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCaption.AutoEllipsis = true;
+            this.lblCaption.BackColor = System.Drawing.Color.Transparent;
+            this.lblCaption.Font = new System.Drawing.Font("Tahoma", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblCaption.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblCaption.Location = new System.Drawing.Point(2, 0);
+            this.lblCaption.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCaption.Name = "lblCaption";
+            this.lblCaption.Size = new System.Drawing.Size(701, 59);
+            this.lblCaption.TabIndex = 28;
+            this.lblCaption.Text = "כותרת";
+            this.lblCaption.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label6
+            // btnToday
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
-            this.label6.Location = new System.Drawing.Point(385, 10);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(259, 27);
-            this.label6.TabIndex = 27;
-            this.label6.Text = "רשימת חששות ביום זה";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnToday.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnToday.BackColor = System.Drawing.Color.Transparent;
+            this.btnToday.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnToday.BackgroundImage")));
+            this.btnToday.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnToday.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnToday.FlatAppearance.BorderSize = 0;
+            this.btnToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnToday.Font = new System.Drawing.Font("Narkisim", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.btnToday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(208)))), ((int)(((byte)(210)))));
+            this.btnToday.Image = global::Chashavshavon.Properties.Resources.down;
+            this.btnToday.Location = new System.Drawing.Point(732, 28);
+            this.btnToday.Name = "btnToday";
+            this.btnToday.Size = new System.Drawing.Size(89, 31);
+            this.btnToday.TabIndex = 37;
+            this.btnToday.Text = "היום";
+            this.btnToday.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnToday.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnToday.UseVisualStyleBackColor = false;
+            this.btnToday.Click += new System.EventHandler(this.btnToday_Click);
             // 
             // frmAddNewEntry
             // 
@@ -412,7 +456,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "פרטי היום";
-            this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -449,5 +492,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblCaption;
+        private System.Windows.Forms.Button btnToday;
     }
 }
