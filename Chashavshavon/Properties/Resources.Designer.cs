@@ -266,6 +266,27 @@ namespace Chashavshavon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!doctype html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;Luach Project Daily Info&lt;/title&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;meta http-equiv=&quot;Content-type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+        ///    &lt;style type=&quot;text/css&quot;&gt;
+        ///        html, body { font-family: Tahoma; font-size: 8pt; color: #696969; margin: 0; padding: 0; direction: rtl; }
+        ///        .seven { font-size: 7.3pt; }
+        ///        .nine { font-size: 9pt; }
+        ///        .bold { font-weight: bold; }
+        ///        .reg { font-weight: normal; }
+        ///        .italic { font-style: ital [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string InfoHTMLHeb {
+            get {
+                return ResourceManager.GetString("InfoHTMLHeb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap LightBlueMarble {

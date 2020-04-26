@@ -44,5 +44,8 @@
     <Setting Name="LocationName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Jerusalem</Value>
     </Setting>
+    <Setting Name="Nusach" Type="JewishCalendar.Nusach" Scope="User">
+      <Value Profile="(Default)">Ashkenaz</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

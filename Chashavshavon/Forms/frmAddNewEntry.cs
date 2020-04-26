@@ -13,25 +13,32 @@ namespace Chashavshavon
     {
         //The combos are changed dynamically and we don't want to fire the change event during initial loading.
         private bool _loading = true;
-        private DateTime _date;
+        private DateTime _displayingSecularDate;
+        private JewishDate _displayingJewishDate;
+        private DateTime _secularDateAtMidnight;
+        private IEnumerable<SpecialDay> _holidays;
+        private DailyZmanim _dailyZmanim;
+
 
         public frmAddNewEntry(DateTime date)
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            this._date = date;
+            this._displayingSecularDate = date;
+            this._displayingJewishDate = new JewishDate(date);
+            this.SetSecularDate();
+            this._dailyZmanim = new DailyZmanim(this._secularDateAtMidnight, Program.CurrentLocation);
+            this._holidays = JewishCalendar.Zmanim.GetHolidays(this._displayingJewishDate, Program.CurrentLocation.IsInIsrael).Cast<SpecialDay>();
             this.FillZmanData();
-            this.cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(this._date);
-            this.cmbMonth.SelectedIndex = Program.HebrewCalendar.GetMonth(this._date) - 1;
-            this.cmbDay.SelectedIndex = Program.HebrewCalendar.GetDayOfMonth(this._date) - 1;
+            this.cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(this._displayingSecularDate);
+            this.cmbMonth.SelectedIndex = Program.HebrewCalendar.GetMonth(this._displayingSecularDate) - 1;
+            this.cmbDay.SelectedIndex = Program.HebrewCalendar.GetDayOfMonth(this._displayingSecularDate) - 1;
 
             this.SetDateAndDayNight();
 
-            //The timer is for the clock
-            this.timer1.Start();
-
             this._loading = false;
             this.FillZmanim();
+            this.ShowDateData();
         }
 
         private void cmbDay_SelectedIndexChanged(object sender, EventArgs e)
@@ -70,14 +77,10 @@ namespace Chashavshavon
 
         private void rbDay_CheckedChanged(object sender, EventArgs e)
         {
-            rbDay.Checked = !rbNight.Checked;
+            this.rbDay.Checked = !this.rbNight.Checked;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            this.lblTime.Text = DateTime.Now.ToLongTimeString();
-        }
-
+        
         private void FillZmanim()
         {
             if (this._loading)
@@ -85,30 +88,13 @@ namespace Chashavshavon
                 return;
             }
 
-            this._date = new DateTime((int)cmbYear.SelectedItem,
-                ((MonthObject)cmbMonth.SelectedItem).MonthInYear,
+            this._displayingSecularDate = new DateTime((int)this.cmbYear.SelectedItem,
+                ((MonthObject)this.cmbMonth.SelectedItem).MonthInYear,
                 this.cmbDay.SelectedIndex + 1,
                 Program.HebrewCalendar);
 
-            var jd = new JewishDate(this._date);
-            var suntimes = JewishCalendar.Zmanim.GetNetzShkia(this._date, Program.CurrentLocation);
-            var netz = suntimes[0];
-            var shkiah = suntimes[1];
-            this.Text = this._date.ToString("dddd dd MMM yyyy", Program.CultureInfo);
-            this.lblLocation.Text = Program.GetCurrentPlaceName() + " - " + this.Text;
-
-            StringBuilder sb = new StringBuilder("נץ - ");
-            sb.Append(netz.Hour.ToString());
-            sb.Append(":");
-            sb.Append(netz.Minute.ToString("0#"));
-            sb.Append("\nשקיעה - ");
-            sb.Append(shkiah.Hour.ToString());
-            sb.Append(":");
-            sb.Append(shkiah.Minute.ToString("0#"));
-
-            lblZmanim.Text = sb.ToString();
-
-
+            this.Text = this._displayingSecularDate.ToString("dddd dd MMM yyyy", Program.CultureInfo);
+          
             foreach (Control c in this.tableLayoutPanel1.Controls)
             {
                 c.Dispose();
@@ -116,14 +102,14 @@ namespace Chashavshavon
             this.tableLayoutPanel1.Controls.Clear();
             if (Entry.EntryList.Count > 0)
             {
-                var entry = Entry.EntryList.FirstOrDefault(en => !en.IsInvisible && Program.IsSameday(en.DateTime, this._date));
+                Entry entry = Entry.EntryList.FirstOrDefault(en => !en.IsInvisible && Program.IsSameday(en.DateTime, this._displayingSecularDate));
                 if (entry != null)
                 {
                     this.tableLayoutPanel1.Controls.Add(new Label()
                     {
                         Text = "ראיה בעונת " + entry.HebrewDayNight + " - הפלגה [" + entry.Interval.ToString() + "]",
                         ForeColor = Color.Red,
-                        BackColor = Color.Pink,
+                        BackColor = Color.Transparent,
                         Font = new Font(this.tableLayoutPanel1.Font, FontStyle.Bold),
                         AutoSize = true,
                         Padding = new Padding(5),
@@ -134,13 +120,16 @@ namespace Chashavshavon
             }
             if (ProblemOnahs.ProblemOnahList != null)
             {
-                foreach (Onah o in ProblemOnahs.ProblemOnahList.Where(o => o.DateTime == this._date && !o.IsIgnored))
+                foreach (Onah o in ProblemOnahs.ProblemOnahList.Where(o => o.DateTime == this._displayingSecularDate && !o.IsIgnored))
                 {
                     this.tableLayoutPanel1.Controls.Add(new Label()
                     {
                         Text = "♦ " + o.HebrewDayNight + ": " + o.Name,
                         RightToLeft = RightToLeft.Yes,
-                        AutoSize = true
+                        AutoSize = true,
+                        BackColor = Color.Transparent,
+                        Font = this.tableLayoutPanel1.Font,
+                        ForeColor = this.tableLayoutPanel1.ForeColor
                     });
                 }
             }
@@ -148,46 +137,44 @@ namespace Chashavshavon
             {
                 this.tableLayoutPanel1.Controls.Add(new Label()
                 {
-                    Text = "אין התראות ביום זה.",
+                    Text = "אין חששות ביום זה.",
                     RightToLeft = RightToLeft.Yes,
-                    AutoSize = true
+                    AutoSize = true,
+                    BackColor = Color.Transparent,
+                    Font = this.tableLayoutPanel1.Font,
+                    ForeColor = Color.DarkSlateBlue
                 });
             }
             if (this.tableLayoutPanel1.Controls.Count < 5)
             {
-                this.tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
-                this.tableLayoutPanel1.BackColor = Color.White;
+                this.tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;                
             }
             else
             {
                 this.tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
-                this.tableLayoutPanel1.BackColor = Color.WhiteSmoke;
             }
         }
 
         private void SetDateAndDayNight()
         {
 
-            var now = DateTime.Now;
+            DateTime now = DateTime.Now;
             var jd = new JewishDate(now);
             var zman = new JewishCalendar.Zmanim(now, Program.CurrentLocation);
-            var isNight = zman.GetShkia() <= now.TimeOfDay;
+            bool isNight = zman.GetShkia() <= now.TimeOfDay;
 
             this.rbDay.Checked = !isNight;
             this.rbNight.Checked = isNight;
-
-            string todayString = Program.Today.ToString("dddd dd MMM yyyy");
-            this.lblToday.Text = todayString;
         }
 
         private void FillZmanData()
         {
             for (int i = 5750; i < 6000; i++)
             {
-                cmbYear.Items.Add(i);
+                this.cmbYear.Items.Add(i);
             }
 
-            cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(this._date);
+            this.cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(this._displayingSecularDate);
 
             this.FillMonths();
             this.FillDays();
@@ -196,57 +183,57 @@ namespace Chashavshavon
         private void FillMonths()
         {
             string currentSelection = null;
-            if (cmbMonth.Items.Count != 0)
+            if (this.cmbMonth.Items.Count != 0)
             {
-                currentSelection = cmbMonth.Text;
-                cmbMonth.Items.Clear();
+                currentSelection = this.cmbMonth.Text;
+                this.cmbMonth.Items.Clear();
             }
-            int year = (int)cmbYear.SelectedItem;
+            int year = (int)this.cmbYear.SelectedItem;
             for (int i = 0; i < Program.HebrewCalendar.GetMonthsInYear(year); i++)
             {
-                MonthObject month = new MonthObject(year, i + 1);
-                if (currentSelection == null && month.Year == Program.HebrewCalendar.GetYear(this._date) && month.MonthInYear == Program.HebrewCalendar.GetMonth(this._date))
+                var month = new MonthObject(year, i + 1);
+                if (currentSelection == null && month.Year == Program.HebrewCalendar.GetYear(this._displayingSecularDate) && month.MonthInYear == Program.HebrewCalendar.GetMonth(this._displayingSecularDate))
                 {
                     currentSelection = month.MonthName;
                 }
-                cmbMonth.Items.Add(month);
+                this.cmbMonth.Items.Add(month);
                 if (month.MonthName == currentSelection)
                 {
-                    cmbMonth.SelectedItem = month;
+                    this.cmbMonth.SelectedItem = month;
                 }
             }
         }
 
         private void FillDays()
         {
-            MonthObject curMonth = (MonthObject)cmbMonth.SelectedItem;
+            var curMonth = (MonthObject)this.cmbMonth.SelectedItem;
             KeyValuePair<int, string> curDay;
 
-            if (cmbDay.Items.Count == 0)
+            if (this.cmbDay.Items.Count == 0)
             {
-                curDay = new KeyValuePair<int, string>(Program.HebrewCalendar.GetDayOfMonth(this._date),
-                    Utils.Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(this._date)]);
+                curDay = new KeyValuePair<int, string>(Program.HebrewCalendar.GetDayOfMonth(this._displayingSecularDate),
+                    Utils.Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(this._displayingSecularDate)]);
             }
             else
             {
-                curDay = (KeyValuePair<int, string>)cmbDay.SelectedItem;
+                curDay = (KeyValuePair<int, string>)this.cmbDay.SelectedItem;
             }
 
-            cmbDay.Items.Clear();
+            this.cmbDay.Items.Clear();
             for (int i = 1; i < curMonth.DaysInMonth + 1; i++)
             {
-                KeyValuePair<int, string> day = new KeyValuePair<int, string>(i, Utils.Zmanim.DaysOfMonthHebrew[i]);
-                cmbDay.Items.Add(day);
+                var day = new KeyValuePair<int, string>(i, Utils.Zmanim.DaysOfMonthHebrew[i]);
+                this.cmbDay.Items.Add(day);
             }
 
             //If the current month does not have as many days as the last one and the 30th day was selected, we go to day 29.
             if (curDay.Key > curMonth.DaysInMonth)
             {
-                cmbDay.SelectedIndex = cmbDay.Items.Count - 1;
+                this.cmbDay.SelectedIndex = this.cmbDay.Items.Count - 1;
             }
             else
             {
-                cmbDay.SelectedItem = curDay;
+                this.cmbDay.SelectedItem = curDay;
             }
         }
 
@@ -255,9 +242,9 @@ namespace Chashavshavon
             Program.MainForm.AddNewEntry(new Entry()
             {
                 Day = this.cmbDay.SelectedIndex + 1,
-                Month = (MonthObject)cmbMonth.SelectedItem,
-                Year = (int)cmbYear.SelectedItem,
-                DayNight = rbNight.Checked ? DayNight.Night : DayNight.Day,
+                Month = (MonthObject)this.cmbMonth.SelectedItem,
+                Year = (int)this.cmbYear.SelectedItem,
+                DayNight = this.rbNight.Checked ? DayNight.Night : DayNight.Day,
                 Notes = this.txtNotes.Text
             }, this);
             this.DialogResult = DialogResult.OK;
@@ -272,5 +259,260 @@ namespace Chashavshavon
         {
             e.Value = GeneralUtils.ToJNum((int)e.Value % 1000);
         }
+        private void ShowDateData()
+        {
+            this.Cursor = Cursors.WaitCursor;
+            bool showSeconds = true;
+            Daf dy = DafYomi.GetDafYomi(this._displayingJewishDate);
+            TimeOfDay[] netzshkia = this._dailyZmanim.NetzShkiaAtElevation;
+            TimeOfDay[] netzshkiaMishor = this._dailyZmanim.NetzShkiaMishor;
+            TimeOfDay netz = this._dailyZmanim.NetzAtElevation;
+            TimeOfDay shkia = this._dailyZmanim.ShkiaAtElevation;
+            TimeOfDay netzMishor = this._dailyZmanim.NetzMishor;
+            TimeOfDay shkiaMishor = this._dailyZmanim.ShkiaMishor;
+            TimeOfDay chatzos = this._dailyZmanim.Chatzos;
+            double shaaZmanis = this._dailyZmanim.ShaaZmanis;
+            double shaaZmanis90 = this._dailyZmanim.ShaaZmanisMga;
+            var html = new StringBuilder();
+
+            html.AppendFormat("<div class=\"padWidth royalBlue bold\">{0}</div>",
+                this._displayingJewishDate.ToLongDateStringHeb());
+            html.AppendFormat("<div class=\"padWidth lightSteelBlue\">{0}</div>",
+                this._displayingSecularDate.ToString("D", JewishCalendar.Utils.HebrewCultureInfo));
+
+            //If the secular day is a day behind as day being displayed is todays date and it is after sunset,
+            //the user may get confused as the secular date for today and tomorrow will be the same.
+            //So we esplain'in it to them...
+            if (this._secularDateAtMidnight.Date != this._displayingSecularDate.Date)
+            {
+                html.Append("<div class=\"padWidth rosyBrown seven italic\">שים לב: תאריך הלועזי מתחיל בשעה 0:00</div>");
+            }
+
+            this.DisplayDateDiff(html);
+
+            html.Append("<br />");
+            if (this._holidays.Count() > 0)
+            {
+                foreach (SpecialDay h in this._holidays)
+                {
+                    html.AppendFormat("<div class=\"padWidth\">{0}", h.NameHebrew);
+                    if (h.NameEnglish == "Shabbos Mevarchim")
+                    {
+                        JewishDate nextMonth = this._displayingJewishDate + 12;
+                        html.AppendFormat(" - חודש {0}", JewishCalendar.Utils.GetProperMonthNameHeb(nextMonth.Year, nextMonth.Month));
+
+                        var molad = Molad.GetMolad(nextMonth.Month, nextMonth.Year);
+                        int dim = JewishDateCalculations.DaysInJewishMonth(this._displayingJewishDate.Year, this._displayingJewishDate.Month);
+                        int dow = dim - this._displayingJewishDate.Day;
+                        if (dim == 30)
+                        {
+                            dow--;
+                        }
+                        html.AppendFormat("<div>המולד: {0}</div>", molad.ToStringHeb(this._dailyZmanim.ShkiaAtElevation));
+                        html.AppendFormat("<div>ראש חודש: {0}{1}</div>",
+                            JewishCalendar.Utils.JewishDOWNames[dow], (dim == 30 ? ", " + JewishCalendar.Utils.JewishDOWNames[(dow + 1) % 7] : ""));
+                    }
+                    html.Append("</div>");
+                    if (h.NameEnglish.Contains("Sefiras Ha'omer"))
+                    {
+                        html.AppendFormat("<div class=\"nine bluoid\">{0}</div>",
+                            JewishCalendar.Utils.GetOmerNusach(this._displayingJewishDate.GetDayOfOmer(), Properties.Settings.Default.Nusach));
+                    }
+
+                    if (h.DayType.IsSpecialDayType(SpecialDayTypes.EruvTavshilin))
+                    {
+                        html.Append("<div class=\"padWidth crimson bold\">עירוב תבשילין</div>");
+                    }
+                }
+            }
+
+            html.Append("<table>");
+
+            if (shkia != TimeOfDay.NoValue &&
+                    this._holidays.Any(h => h.DayType.IsSpecialDayType(SpecialDayTypes.HasCandleLighting)))
+            {
+                this.AddLine(html, "הדלקת נרות", (shkia - this._dailyZmanim.Location.CandleLighting).ToString24H(showSeconds),
+                    wideDescription: false);
+                html.Append("<tr><td class=\"nobg\" colspan=\"3\">&nbsp;</td></tr>");
+            }
+
+            this.AddLine(html, "פרשת השבוע",
+                string.Join(" ", Sedra.GetSedra(this._displayingJewishDate, this._dailyZmanim.Location.IsInIsrael).Select(i => i.nameHebrew)),
+                wideDescription: false);
+            if (dy != null)
+            {
+                this.AddLine(html, "דף יומי", dy.ToStringHeb(), wideDescription: false);
+            }
+
+            html.Append("</table><br />");
+            html.AppendFormat("<div class=\"padBoth lightSteelBlueBG ghostWhite nine bold clear\">זמני היום ב{0}</div>",
+                this._dailyZmanim.Location.NameHebrew);
+            html.Append("<table>");
+
+            if (netz == TimeOfDay.NoValue)
+            {
+                this.AddLine(html, "הנץ החמה", "השמש אינו עולה", bold: true, emphasizeValue: true);
+            }
+            else
+            {
+                if (this._displayingJewishDate.Month == 1 && this._displayingJewishDate.Day == 14)
+                {
+                    this.AddLine(html, "סו\"ז אכילת חמץ", ((netz - 90) + (int)Math.Floor(shaaZmanis90 * 4D)).ToString24H(showSeconds),
+                        bold: true);
+                    this.AddLine(html, "סו\"ז שריפת חמץ", ((netz - 90) + (int)Math.Floor(shaaZmanis90 * 5D)).ToString24H(showSeconds),
+                        bold: true);
+                    html.Append("<br />");
+                }
+
+                this.AddLine(html, "עלות השחר - 90", (netzMishor - 90).ToString24H(showSeconds));
+                this.AddLine(html, "עלות השחר - 72", (netzMishor - 72).ToString24H(showSeconds));
+
+                if (netz == netzMishor)
+                {
+                    this.AddLine(html, "הנץ החמה", netz.ToString24H(showSeconds), bold: true, emphasizeValue: true);
+                }
+                else
+                {
+                    this.AddLine(html, "הנה\"ח <span class=\"reg lightSteelBlue\">...מ " + this._dailyZmanim.Location.Elevation.ToString() + " מטר</span>",
+                        netz.ToString24H(showSeconds));
+                    this.AddLine(html, "הנה\"ח <span class=\"reg lightSteelBlue\">...גובה פני הים</span>",
+                        netzMishor.ToString24H(showSeconds), bold: true, emphasizeValue: true);
+                }
+                this.AddLine(html, "סוזק\"ש - מג\"א", this._dailyZmanim.GetZman(ZmanType.KShmMga).ToString24H(showSeconds));
+                this.AddLine(html, "סוזק\"ש - הגר\"א", this._dailyZmanim.GetZman(ZmanType.KshmGra).ToString24H(showSeconds));
+                this.AddLine(html, "סוז\"ת - מג\"א", this._dailyZmanim.GetZman(ZmanType.TflMga).ToString24H(showSeconds));
+                this.AddLine(html, "סוז\"ת - הגר\"א", this._dailyZmanim.GetZman(ZmanType.TflGra).ToString24H(showSeconds));
+            }
+            if (netz != TimeOfDay.NoValue && shkia != TimeOfDay.NoValue)
+            {
+                this.AddLine(html, "חצות היום והלילה", chatzos.ToString24H(showSeconds));
+                this.AddLine(html, "מנחה גדולה", this._dailyZmanim.GetZman(ZmanType.MinchaG).ToString24H(showSeconds));
+                this.AddLine(html, "מנחה קטנה", this._dailyZmanim.GetZman(ZmanType.MinchaK).ToString24H(showSeconds));
+                this.AddLine(html, "פלג המנחה", this._dailyZmanim.GetZman(ZmanType.MinchaPlg).ToString24H(showSeconds));
+            }
+            if (shkia == TimeOfDay.NoValue)
+            {
+                this.AddLine(html, "שקיעת החמה", "השמש אינו שוקע", bold: true, emphasizeValue: true);
+            }
+            else
+            {
+                if (shkia == shkiaMishor)
+                {
+                    this.AddLine(html, "שקיעת החמה", shkia.ToString24H(showSeconds), bold: true, emphasizeValue: true);
+                }
+                else
+                {
+                    this.AddLine(html, "שקה\"ח <span class=\"reg lightSteelBlue\">...גובה פני הים</span>", shkiaMishor.ToString24H(showSeconds));
+                    this.AddLine(html, "שקה\"ח <span class=\"reg lightSteelBlue\">...מ " + this._dailyZmanim.Location.Elevation.ToString() + " מטר</span>",
+                        shkia.ToString24H(showSeconds), bold: true, emphasizeValue: true);
+                }
+
+                this.AddLine(html, "צאת הכוכבים 45", (shkia + 45).ToString24H(showSeconds));
+                this.AddLine(html, "רבינו תם", (shkia + 72).ToString24H(showSeconds));
+                this.AddLine(html, "72 דקות זמניות", (shkia + (int)(shaaZmanis * 1.2)).ToString24H(showSeconds));
+                this.AddLine(html, "72 דקות זמניות לחומרה", (shkia + (int)(shaaZmanis90 * 1.2)).ToString24H(showSeconds));
+            }
+            html.Append("</table>");
+            this.webBrowser1.DocumentText = Properties.Resources.InfoHTMLHeb
+                .Replace("{{BODY}}", html.ToString());
+            this.Cursor = Cursors.Default;
+        }
+
+
+        #region private functions
+        private void AddLine(StringBuilder sb, string header, string value, bool wideDescription = true, bool bold = false, bool emphasizeValue = false)
+        {
+            sb.Append("<tr>");
+            sb.AppendFormat("<td class=\"{0}{1}\"><span>{2}</span></td><td>&nbsp;</td>",
+                (wideDescription ? "wide" : "medium"),
+                (bold ? " bold" : ""), header);
+            sb.AppendFormat("<td class=\"{0} {1} bold nobg\">{2}</td>",
+                (wideDescription ? "narrow" : "medium"),
+                (emphasizeValue ? "crimson" : "cornFlowerBlue"),
+                value);
+            sb.Append("</tr>");
+        }
+
+        private void DisplayDateDiff(StringBuilder html)
+        {
+            var now = new JewishDate(this._dailyZmanim.Location);
+            int diffDays = this._displayingJewishDate.AbsoluteDate - now.AbsoluteDate;
+
+            html.Append("<div class=\"padWidth\">");
+
+            if (diffDays == 0)
+            {
+                html.Append("היום");
+            }
+            else if (diffDays == 1)
+            {
+                html.Append("מחר");
+            }
+            else if (diffDays == 2)
+            {
+                html.Append("מחרתיים");
+            }
+            else if (diffDays == -1)
+            {
+                html.Append("אתמול");
+            }
+            else
+            {
+                int totalDays = Math.Abs(diffDays);
+
+                if (diffDays < 0)
+                {
+                    html.AppendFormat("לפני {0:N0} ימים", totalDays);
+                }
+                else
+                {
+                    html.AppendFormat("בעוד {0:N0} ימים", totalDays);
+                }
+
+                if (totalDays > 29)
+                {
+                    var dateDiff = new Itenso.TimePeriod.DateDiff(
+                        this._displayingJewishDate.GregorianDate, now.GregorianDate);
+                    int years = Math.Abs(dateDiff.ElapsedYears),
+                        months = Math.Abs(dateDiff.ElapsedMonths);
+
+                    if (years + months > 0)
+                    {
+                        int singleDays = Math.Abs(dateDiff.ElapsedDays);
+
+                        html.Append("&nbsp;&nbsp;<span class=\"purpleoid seven italic\">");
+
+                        if (years >= 1)
+                        {
+                            html.AppendFormat("{0:N0} {1}", years, years >= 2 ? "שנים" : "שנה");
+                        }
+                        if (months >= 1)
+                        {
+                            html.AppendFormat(" {0:N0} {1}", months, (months >= 2 ? "חודשים" : "חודש"));
+                        }
+                        if (singleDays >= 1)
+                        {
+                            html.AppendFormat(" {0:N0} {1}", singleDays, (singleDays >= 2 ? "ימים" : "יום"));
+                        }
+
+                        html.Append("</span>");
+                    }
+                }
+            }
+
+            html.Append("</div>");
+        }
+
+        private void SetSecularDate()
+        {
+            this._displayingSecularDate = this._displayingJewishDate.GregorianDate;
+            /*-------------------------------------------------------------------------------------------------------------------------------
+             * The zmanim shown will always be for the Gregorian Date that starts at midnight of the current Jewish Date.
+             * We use the JewishDateCalculations.GetGregorianDateFromJewishDate function 
+             * which gets the Gregorian Date that will be at midnight of the given Jewish day.  
+            ----------------------------------------------------------------------------------------------------------------------------------*/
+            this._secularDateAtMidnight = JewishDateCalculations.GetGregorianDateFromJewishDate(this._displayingJewishDate);
+        }
+        #endregion private functions        
     }
 }

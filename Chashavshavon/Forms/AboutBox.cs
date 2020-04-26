@@ -82,7 +82,7 @@ namespace Chashavshavon
             this.label4.Font = new System.Drawing.Font("Tahoma", 7F);
             this.label4.Location = new System.Drawing.Point(12, 50);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(403, 131);
+            this.label4.Size = new System.Drawing.Size(403, 148);
             this.label4.TabIndex = 5;
             this.label4.Text = resources.GetString("label4.Text");
             // 

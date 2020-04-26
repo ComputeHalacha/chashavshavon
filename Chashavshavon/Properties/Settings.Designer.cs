@@ -189,5 +189,17 @@ namespace Chashavshavon.Properties {
                 this["LocationName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ashkenaz")]
+        public global::JewishCalendar.Nusach Nusach {
+            get {
+                return ((global::JewishCalendar.Nusach)(this["Nusach"]));
+            }
+            set {
+                this["Nusach"] = value;
+            }
+        }
     }
 }

@@ -1077,8 +1077,6 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
-            this.ResizeBegin += new System.EventHandler(this.frmMain_ResizeBegin);
-            this.ResizeEnd += new System.EventHandler(this.frmMain_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.dgEntries)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceEntries)).EndInit();
             this.gbCalendar.ResumeLayout(false);
