@@ -21,13 +21,25 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_0E8DCE059090FE288CE6F30E794F6699"
+        "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_117A60BAD4044FA99441EEFB71B6224F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A103B891AC332C6CCE36D3293418D5B4"
+        "MsmKey" = "8:_4F06AED8747791508A21A58055331447"
+        "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C7727CA193F4F76CD6BDAD0C959AEAB1"
         "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -52,7 +64,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A103B891AC332C6CCE36D3293418D5B4"
+        "OwnerKey" = "8:_C7727CA193F4F76CD6BDAD0C959AEAB1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4F06AED8747791508A21A58055331447"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0E8DCE059090FE288CE6F30E794F6699"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -238,6 +262,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0E8DCE059090FE288CE6F30E794F6699"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Itenso.TimePeriod, Version=1.4.11.0, Culture=neutral, PublicKeyToken=d7f23b760ed5c748, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_0E8DCE059090FE288CE6F30E794F6699"
+                    {
+                    "Name" = "8:Itenso.TimePeriod.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Itenso.TimePeriod.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_117A60BAD4044FA99441EEFB71B6224F"
             {
             "SourcePath" = "8:..\\BypassPassword.reg"
@@ -258,20 +313,51 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A103B891AC332C6CCE36D3293418D5B4"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4F06AED8747791508A21A58055331447"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:JewishCalendar, Version=2.2.3.0, Culture=neutral, PublicKeyToken=ec00b42c1312038c, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A103B891AC332C6CCE36D3293418D5B4"
+                    "_4F06AED8747791508A21A58055331447"
                     {
                     "Name" = "8:JewishCalendar.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:JewishCalendar.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C7727CA193F4F76CD6BDAD0C959AEAB1"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Tahara, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b5991e0be6fbb447, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C7727CA193F4F76CD6BDAD0C959AEAB1"
+                    {
+                    "Name" = "8:Tahara.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Tahara.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
@@ -441,17 +527,17 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
-        "ProductCode" = "8:{901A7BC0-4B66-4D5F-9FA1-88DF2AE8AC2F}"
-        "PackageCode" = "8:{8EB47B7F-76C0-4410-AEF2-57CF27A426A4}"
+        "ProductCode" = "8:{B36F50CC-DEBE-4603-9FF1-91053128B386}"
+        "PackageCode" = "8:{BE7BF59B-DB9D-4993-BE42-4D75408BAFA9}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:4.4.2"
+        "ProductVersion" = "8:4.5.0"
         "Manufacturer" = "8:Compute Software Solutions"
-        "ARPHELPTELEPHONE" = "8:08-974-1364"
+        "ARPHELPTELEPHONE" = "8:058-327-7718"
         "ARPHELPLINK" = "8:https://www.compute.co.il/contact"
         "Title" = "8:Chashavshavon"
         "Subject" = "8:"
