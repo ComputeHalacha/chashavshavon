@@ -64,18 +64,6 @@
   <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup>
-    <ManifestCertificateThumbprint>972D69B435E112A110FB3D9C3D08CAC7870EBEFE</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>Chashavshavon_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <PropertyGroup />
@@ -127,7 +115,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>chashavshavon.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>chashavshavon.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Itenso.TimePeriod">
@@ -285,7 +273,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="chashavshavon.pfx" />
+    <None Include="chashavshavon.snk" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\Entry.datasource" />
     <None Include="Properties\DataSources\Kavuah.datasource" />
@@ -337,6 +325,7 @@
     <None Include="Resources\Marble\LightBlueMarble.jpg" />
     <None Include="Resources\LocationsList.xml" />
     <None Include="Resources\InfoHTMLHeb.html" />
+    <None Include="Resources\today.png" />
     <Content Include="scroll.ico" />
   </ItemGroup>
   <ItemGroup>

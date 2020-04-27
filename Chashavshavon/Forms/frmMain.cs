@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
@@ -1510,10 +1511,12 @@ namespace Chashavshavon
 
         public void SetCaptionText()
         {
+            var fileName = !String.IsNullOrWhiteSpace(this.CurrentFileName)
+                ? " - " +(this.CurrentFileIsRemote ? "קובץ רשת - " : "") + this.CurrentFileName
+                :"";
             this.Text = " חשבשבון גירסה " +
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() + " - " +
-                Program.GetCurrentPlaceName() + " - " +
-                (this.CurrentFileIsRemote ? "קובץ רשת - " : "") + this.CurrentFileName;
+                Assembly.GetExecutingAssembly().GetName().Version.ToString() + " - " +
+                Program.GetCurrentPlaceName() + CurrentFileName;
             if (this.pbWeb != null)
             {
                 this.pbWeb.Visible = this.CurrentFileIsRemote;
