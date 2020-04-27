@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Tahara;
 
 namespace Chashavshavon
 {
@@ -43,7 +44,7 @@ namespace Chashavshavon
 
         private void ShowCurrentDateZmanimData()
         {
-            this._holidays = JewishCalendar.Zmanim.GetHolidays(this._displayingJewishDate, Program.CurrentLocation.IsInIsrael).Cast<SpecialDay>();
+            this._holidays = Zmanim.GetHolidays(this._displayingJewishDate, Program.CurrentLocation.IsInIsrael).Cast<SpecialDay>();
             this.cmbYear.SelectedItem = Program.HebrewCalendar.GetYear(this._displayingSecularDate);
             this.cmbMonth.SelectedIndex = Program.HebrewCalendar.GetMonth(this._displayingSecularDate) - 1;
             this.cmbDay.SelectedIndex = Program.HebrewCalendar.GetDayOfMonth(this._displayingSecularDate) - 1;
@@ -117,9 +118,9 @@ namespace Chashavshavon
                 c.Dispose();
             }
             this.tableLayoutPanel1.Controls.Clear();
-            if (Entry.EntryList.Count > 0)
+            if (Program.EntryList.Count > 0)
             {
-                Entry entry = Entry.EntryList.FirstOrDefault(en => !en.IsInvisible && Program.IsSameday(en.DateTime, this._displayingSecularDate));
+                Entry entry = Program.EntryList.FirstOrDefault(en => !en.IsInvisible && Program.IsSameday(en.DateTime, this._displayingSecularDate));
                 if (entry != null)
                 {
                     this.tableLayoutPanel1.Controls.Add(new Label()
@@ -135,9 +136,9 @@ namespace Chashavshavon
                     });
                 }
             }
-            if (ProblemOnahs.ProblemOnahList != null)
+            if (Program.ProblemOnahs != null)
             {
-                foreach (Onah o in ProblemOnahs.ProblemOnahList.Where(o => o.DateTime == this._displayingSecularDate && !o.IsIgnored))
+                foreach (Onah o in Program.ProblemOnahs.Where(o => o.DateTime == this._displayingSecularDate && !o.IsIgnored))
                 {
                     this.tableLayoutPanel1.Controls.Add(new Label()
                     {
@@ -224,7 +225,7 @@ namespace Chashavshavon
             if (this.cmbDay.Items.Count == 0)
             {
                 curDay = new KeyValuePair<int, string>(Program.HebrewCalendar.GetDayOfMonth(this._displayingSecularDate),
-                    Utils.Zmanim.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(this._displayingSecularDate)]);
+                    GeneralUtils.DaysOfMonthHebrew[Program.HebrewCalendar.GetDayOfMonth(this._displayingSecularDate)]);
             }
             else
             {
@@ -234,7 +235,7 @@ namespace Chashavshavon
             this.cmbDay.Items.Clear();
             for (int i = 1; i < curMonth.DaysInMonth + 1; i++)
             {
-                var day = new KeyValuePair<int, string>(i, Utils.Zmanim.DaysOfMonthHebrew[i]);
+                var day = new KeyValuePair<int, string>(i, GeneralUtils.DaysOfMonthHebrew[i]);
                 this.cmbDay.Items.Add(day);
             }
 

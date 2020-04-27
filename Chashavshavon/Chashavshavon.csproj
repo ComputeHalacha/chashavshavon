@@ -156,7 +156,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ProblemOnahs.cs" />
     <Compile Include="Classes\DoubleBufferedLayoutTable.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -167,7 +166,6 @@
       <DependentUpon>Installer.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\Locations.cs" />
-    <Compile Include="Classes\Kavuah.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,7 +202,6 @@
     <Compile Include="Forms\frmEnterPassword.Designer.cs">
       <DependentUpon>frmEnterPassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Entry.cs" />
     <Compile Include="Forms\frmKavuahs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,7 +234,6 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Utils\GeneralUtils.cs" />
-    <Compile Include="Classes\Onah.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AboutBox.resx">
@@ -303,7 +299,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Utils\RemoteFunctions.cs" />
-    <Compile Include="Utils\Zmanim.cs" />
     <None Include="uninstall.bat" />
   </ItemGroup>
   <ItemGroup>
@@ -391,6 +386,10 @@
     <ProjectReference Include="..\..\JewishCalendar\JewishCalendar\JewishCalendar.csproj">
       <Project>{43e5c945-9d11-4097-9990-1d2afc9e16d3}</Project>
       <Name>JewishCalendar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tahara\Tahara.csproj">
+      <Project>{8d2a5c62-10c3-4a70-b1b9-b4812418dee4}</Project>
+      <Name>Tahara</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

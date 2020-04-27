@@ -133,7 +133,7 @@
             // 
             // kavuahBindingSource
             // 
-            this.kavuahBindingSource.DataSource = typeof(Chashavshavon.Kavuah);
+            this.kavuahBindingSource.DataSource = typeof(Tahara.Kavuah);
             // 
             // button1
             // 

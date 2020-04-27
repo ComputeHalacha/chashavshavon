@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Tahara;
 
 namespace Chashavshavon
 {
@@ -41,7 +42,7 @@ namespace Chashavshavon
             string pw = Convert.ToString(this._regKey.GetValue("Entry"));
             if (!string.IsNullOrEmpty(pw))
             {
-                this.txtPassword.Text = Utils.GeneralUtils.Decrypt(pw, "kedoshimteeheeyoo");
+                this.txtPassword.Text = GeneralUtils.Decrypt(pw, "kedoshimteeheeyoo");
             }            
         }
 
@@ -83,7 +84,7 @@ namespace Chashavshavon
             }
             else
             {
-                this._regKey.SetValue("Entry", Utils.GeneralUtils.Encrypt(this.txtPassword.Text, "kedoshimteeheeyoo"), RegistryValueKind.String);
+                this._regKey.SetValue("Entry", GeneralUtils.Encrypt(this.txtPassword.Text, "kedoshimteeheeyoo"), RegistryValueKind.String);
                 this._regKey.SetValue("Straight", this.cbRequirePassword.Checked ? "0" : "1", RegistryValueKind.String);
             }
 

@@ -1,5 +1,4 @@
-﻿using Chashavshavon.Utils;
-using JewishCalendar;
+﻿using JewishCalendar;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -11,6 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Tahara;
 
 namespace Chashavshavon
 {
@@ -92,12 +92,12 @@ namespace Chashavshavon
 
         private void btnCheshbonKavuahs_Click(object sender, EventArgs e)
         {
-            if (Kavuah.FindAndPromptKavuahs())
+            if (this.FindAndPromptKavuahs())
             {
                 //Save the new Kavuahs to the file
                 this.SaveCurrentFile();
                 //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-                this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
+                this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
             }
             else
             {
@@ -245,7 +245,7 @@ namespace Chashavshavon
             this.TestInternet();
             //Load the last opened file. If it does not exist or this is the first run, a blank list is presented
             this.LoadXmlFile();
-            this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
+            this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
             this._monthToDisplay = Program.Today;
             this.DisplayMonth();
 
@@ -285,7 +285,7 @@ namespace Chashavshavon
                             var list = (List<Kavuah>)ser.Deserialize(
                                 new StringReader(doc.SelectSingleNode("//ArrayOfKavuah").OuterXml));
 
-                            Kavuah.KavuahsList.AddRange(list);
+                            Program.KavuahList.AddRange(list);
 
                             /* If the setting entry of the Kavuah is not contained
                             * on the current list, than frmKavuah will cause an error
@@ -297,12 +297,12 @@ namespace Chashavshavon
                             * Entry class. */
                             foreach (Kavuah kav in list)
                             {
-                                if (!Entry.EntryList.Exists(en =>
+                                if (!Program.EntryList.Exists(en =>
                                     en.DateTime == kav.SettingEntryDate &&
                                     en.DayNight == kav.DayNight &&
                                     en.Interval == kav.SettingEntryInterval))
                                 {
-                                    Entry.EntryList.Add(new Entry(
+                                    Program.EntryList.Add(new Entry(
                                         Program.HebrewCalendar.GetDayOfMonth(kav.SettingEntryDate),
                                         Program.HebrewCalendar.GetMonth(kav.SettingEntryDate),
                                         Program.HebrewCalendar.GetYear(kav.SettingEntryDate),
@@ -314,7 +314,7 @@ namespace Chashavshavon
                                 }
                             }
                             //Clean out any overlappers
-                            Kavuah.ClearDoubleKavuahs(Kavuah.KavuahsList);
+                            Kavuah.ClearDoubleKavuahs(Program.KavuahList);
 
                             this.CalculateProblemOnahs();
                             this.DisplayMonth();
@@ -443,12 +443,12 @@ namespace Chashavshavon
 
         private void SearchForKavuahsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Kavuah.FindAndPromptKavuahs())
+            if (this.FindAndPromptKavuahs())
             {
                 //Save the new Kavuahs to the file
                 this.SaveCurrentFile();
                 //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-                this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
+                this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
             }
             else
             {
@@ -552,17 +552,17 @@ namespace Chashavshavon
                     (List<Entry> entries, List<Kavuah> kavuahs) = (i.EntryList, i.KavuahList);
                     foreach (Entry entry in entries)
                     {
-                        if (!Entry.EntryList.Exists(o => Onah.IsSimilarOnah(o, entry)))
+                        if (!Program.EntryList.Exists(o => Onah.IsSimilarOnah(o, entry)))
                         {
-                            Entry.EntryList.Add(entry);
+                            Program.EntryList.Add(entry);
                             added = true;
                         }
                     }
                     foreach (Kavuah kavuah in kavuahs)
                     {
-                        if (!Kavuah.KavuahsList.Exists(o => Kavuah.IsSameKavuah(o, kavuah)))
+                        if (!Program.KavuahList.Exists(o => Kavuah.IsSameKavuah(o, kavuah)))
                         {
-                            Kavuah.KavuahsList.Add(kavuah);
+                            Program.KavuahList.Add(kavuah);
                             added = true;
                         }
                     }
@@ -681,7 +681,7 @@ namespace Chashavshavon
             {
                 this.dowLayoutTable.Controls.Add(new Label()
                 {
-                    Text = Chashavshavon.Utils.Zmanim.DaysOfWeekHebrewFull[i],
+                    Text = GeneralUtils.DaysOfWeekHebrewFull[i],
                     Dock = DockStyle.Fill,
                     TextAlign = ContentAlignment.MiddleCenter,
                     ForeColor = Color.FromArgb(255, 225, 228, 230),
@@ -757,7 +757,7 @@ namespace Chashavshavon
                 string daySpecialText = "";
                 bool isInIsrael = Program.CurrentLocation.IsInIsrael;
                 var jd = new JewishDate(date);
-                IEnumerable<SpecialDay> holidays = JewishCalendar.Zmanim.GetHolidays(jd, isInIsrael).Cast<SpecialDay>();
+                IEnumerable<SpecialDay> holidays = Zmanim.GetHolidays(jd, isInIsrael).Cast<SpecialDay>();
                 if (jd.DayOfWeek == DayOfWeek.Saturday)
                 {
                     if (!((jd.Month == 7 && jd.Day.In(1, 2, 10, 15, 16, 17, 18, 19, 20, 21, 22, (isInIsrael ? 0 : 23))) ||
@@ -771,13 +771,13 @@ namespace Chashavshavon
                 if (holidays.Any(h => h.DayType.IsSpecialDayType(SpecialDayTypes.HasCandleLighting)) &&
                     !holidays.Any(h => h.DayType.IsSpecialDayType(SpecialDayTypes.MajorYomTov)))
                 {
-                    TimeOfDay shkiah = JewishCalendar.Zmanim.GetShkia(date, Program.CurrentLocation);
+                    TimeOfDay shkiah = Zmanim.GetShkia(date, Program.CurrentLocation);
                     shkiah -= Program.CurrentLocation.CandleLighting;
                     daySpecialText += "הדלק\"נ: " +
                         shkiah.ToString(true, false, false) + Environment.NewLine;
                 }
 
-                daySpecialText += JewishCalendar.Zmanim.GetHolidaysText(
+                daySpecialText += Zmanim.GetHolidaysText(
                     holidays.Where(h => h.NameHebrew != "ערב שבת").ToArray(),
                     Environment.NewLine, true);
 
@@ -811,9 +811,9 @@ namespace Chashavshavon
                 string onahText = "";
                 bool hasDayOnah = false;
                 bool hasNightOnah = false;
-                if (ProblemOnahs.ProblemOnahList != null)
+                if (Program.ProblemOnahs != null)
                 {
-                    foreach (Onah o in ProblemOnahs.ProblemOnahList.Where(o => o.DateTime == date && !o.IsIgnored))
+                    foreach (Onah o in Program.ProblemOnahs.Where(o => o.DateTime == date && !o.IsIgnored))
                     {
                         if (!string.IsNullOrWhiteSpace(onahText))
                         {
@@ -831,7 +831,7 @@ namespace Chashavshavon
                     }
                 }
 
-                Entry entry = Entry.EntryList.FirstOrDefault(en =>
+                Entry entry = Program.EntryList.FirstOrDefault(en =>
                     !en.IsInvisible &&
                     en.DateTime == date);
                 if (entry != null)
@@ -936,9 +936,9 @@ namespace Chashavshavon
                             20,
                             10);
 
-                        if (Entry.EntryList.Count > 0)
+                        if (Program.EntryList.Count > 0)
                         {
-                            Entry latestEntry = Entry.EntryList.LastOrDefault(en => en.DateTime < date);
+                            Entry latestEntry = Program.EntryList.LastOrDefault(en => en.DateTime < date);
                             if (latestEntry != null)
                             {
                                 double day = (date - latestEntry.DateTime).TotalDays + 1;
@@ -958,7 +958,7 @@ namespace Chashavshavon
                         Environment.NewLine + "--------------------------------" + Environment.NewLine + onahText : "");
 
                 //Sets the tag, tooltip and click function for all controls of the day
-                foreach (Control cntrl in Utils.GeneralUtils.GetAllControls(this.luachTableLayout.GetControlFromPosition(currentColumn, currentRow)))
+                foreach (Control cntrl in GeneralUtils.GetAllControls(this.luachTableLayout.GetControlFromPosition(currentColumn, currentRow)))
                 {
                     cntrl.Tag = date;
                     cntrl.Click += new EventHandler(this.AddNewEntry);
@@ -1011,7 +1011,7 @@ namespace Chashavshavon
             sb.AppendFormat("<body><h3>רשימת וסתות - {0}</h3><table>", Program.Today.ToLongDateString());
             sb.Append("<tr><th>מספר</th><th>תאריך</th><th>יום/לילה</th><th>הפלגה</th><th>הערות</th></tr>");
             int count = 0;
-            foreach (Entry e in Entry.EntryList.Where(en => !en.IsInvisible))
+            foreach (Entry e in Program.EntryList.Where(en => !en.IsInvisible))
             {
                 sb.AppendFormat("<tr{0}><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
                     (count++ % 2 == 0 ? " class='alt'" : ""),
@@ -1090,7 +1090,7 @@ namespace Chashavshavon
         private void SetDateAndDayNight()
         {
             DateTime date = DateTime.Now;
-            var zman = new JewishCalendar.Zmanim(date, Program.CurrentLocation);
+            var zman = new Zmanim(date, Program.CurrentLocation);
             bool isNight = zman.GetShkia() <= date.TimeOfDay;
             if (isNight)
             {
@@ -1146,13 +1146,13 @@ namespace Chashavshavon
 
         public void AddNewEntry(Entry newEntry, Form sourceForm = null)
         {
-            Entry.EntryList.Add(newEntry);
-            Entry.SortEntriesAndSetInterval();
-            Kavuah.FindAndPromptKavuahs();
+            Program.EntryList.Add(newEntry);
+            Entry.SortEntriesAndSetInterval(Program.EntryList);
+            this.FindAndPromptKavuahs();
             this.CalculateProblemOnahs();
             this.SaveCurrentFile(sourceForm);
             //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-            this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
+            this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
         }
 
         public bool AddNewKavuah(Form owner)
@@ -1189,7 +1189,7 @@ namespace Chashavshavon
                                                   MessageBoxDefaultButton.Button1,
                                                   MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
             {
-                if (Kavuah.KavuahsList.Exists(k => k.SettingEntry == entry ||
+                if (Program.KavuahList.Exists(k => k.SettingEntry == entry ||
                     (k.SettingEntryDate == entry.DateTime && k.DayNight == entry.DayNight)))
                 {
                     if (MessageBox.Show(" נמצאו וסתי קבוע שהוגדרו על פי רשומה הזאת. האם אתם עדיין בטוחים שברצונכם למחוק השורה של " +
@@ -1201,7 +1201,7 @@ namespace Chashavshavon
                                               MessageBoxDefaultButton.Button2,
                                               MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
                     {
-                        Kavuah.KavuahsList.RemoveAll(k => k.SettingEntry == entry ||
+                        Program.KavuahList.RemoveAll(k => k.SettingEntry == entry ||
                             (k.SettingEntryDate == entry.DateTime && k.DayNight == entry.DayNight));
                     }
                     else
@@ -1209,13 +1209,13 @@ namespace Chashavshavon
                         return;
                     }
                 }
-                Entry.EntryList.Remove(entry);
-                Entry.SortEntriesAndSetInterval();
-                Kavuah.FindAndPromptKavuahs();
+                Program.EntryList.Remove(entry);
+                Entry.SortEntriesAndSetInterval(Program.EntryList);
+                this.FindAndPromptKavuahs();
                 this.CalculateProblemOnahs();
                 this.SaveCurrentFile();
                 //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-                this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
+                this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
                 this.DisplayMonth();
             }
         }
@@ -1235,8 +1235,12 @@ namespace Chashavshavon
             {
                 try
                 {
-                    (Entry.EntryList, Kavuah.KavuahsList) =
+                    (List<Entry> entryList, List<Kavuah> kavuahList) =
                         Program.LoadEntriesKavuahsFromXml(this.CurrentFileXML);
+                    Program.EntryList.Clear();
+                    Program.EntryList.AddRange(entryList);
+                    Program.KavuahList.Clear();
+                    Program.KavuahList.AddRange(kavuahList);
                 }
                 catch (Exception)
                 {
@@ -1249,20 +1253,15 @@ namespace Chashavshavon
                         MessageBoxDefaultButton.Button1,
                         MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
                     //Clear previous list data
-                    Entry.EntryList.Clear();
+                    Program.EntryList.Clear();
                     //Clear previous Kavuahs
-                    if (Kavuah.KavuahsList != null)
+                    if (Program.KavuahList != null)
                     {
-                        Kavuah.KavuahsList.Clear();
+                        Program.KavuahList.Clear();
                     }
                 }
             }
-
-            if (Kavuah.KavuahsList == null)
-            {
-                Kavuah.KavuahsList = new List<Kavuah>();
-            }
-
+           
             if (File.Exists(this.CurrentFile) && !Properties.Settings.Default.RecentFiles.Contains(this.CurrentFile))
             {
                 Properties.Settings.Default.RecentFiles.Insert(0, this.CurrentFile);
@@ -1272,15 +1271,72 @@ namespace Chashavshavon
 
             this.SetCaptionText();
             this.CalculateProblemOnahs();
-            this.bindingSourceEntries.DataSource = Entry.EntryList.Where(en => !en.IsInvisible);
+            this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
         }
 
         private void CalculateProblemOnahs()
         {
-            ProblemOnahs.CalculateProblemOnahs();
+            var c = new ProblemOnahCalculator
+            {
+                EntryList = Program.EntryList,
+                KavuahList = Program.KavuahList,
+                Today = Program.Today,
+                NowOnah = Program.NowOnah,
+                NumberMonthsAheadToWarn = Properties.Settings.Default.NumberMonthsAheadToWarn,
+                DilugChodeshPastEnds = Properties.Settings.Default.DilugChodeshPastEnds,
+                KeepLongerHaflaga = Properties.Settings.Default.KeepLongerHaflagah,
+                OnahBenIs24Hours = Properties.Settings.Default.OnahBenIs24Hours,
+                ShowOhrZeruah = Properties.Settings.Default.ShowOhrZeruah
+            };
+
+            Program.ProblemOnahs.Clear();
+            Program.ProblemOnahs.AddRange(c.CalculateProblemOnahs());
             //The lblNextProblem displays the next upcoming Onah that needs to be kept
-            this.lblNextProblem.Text = ProblemOnahs.GetNextOnahText();
+            this.lblNextProblem.Text = c.GetNextOnahText();
             this.WeekListHtml = this.GetWeekListHtml();
+        }
+
+        /// <summary>
+        /// Gets a list of proposed Kavuahs according to the entries in the Entry list 
+        /// and prompts the user to either add them, ignore them for now, or "NoKavuah" them 
+        /// </summary>
+        /// <returns></returns>
+        private bool FindAndPromptKavuahs()
+        {
+            //The following function does all the hard work - 
+            //cheshboning out all the prospective Kavuahs from the current entry list. 
+            List<Kavuah> kavuahList = Kavuah.GetProposedKavuahList(Program.EntryList, Program.KavuahList);
+
+            if (kavuahList.Count > 0)
+            {
+                //Prompt user to decide which ones to keep and edit their details
+                using (var fkp = new frmKavuahPrompt(kavuahList))
+                {
+                    if (fkp.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        //For each found Kavuah, either we add it to the main list 
+                        //or we set it as a "NoKavuah" for the third entry so it shouldn't pop up again
+                        foreach (Kavuah kv in kavuahList)
+                        {
+                            //The ListToAdd property contains the ones the user decided to add
+                            if (fkp.ListToAdd.Contains(kv))
+                            {
+                                Program.KavuahList.Add(kv);
+                            }
+                            else
+                            {
+                                //The SettingEtry is set when the Kavuah was added to the proposed list
+                                kv.SettingEntry.NoKavuahList.Add(kv);
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private string GetWeekListHtml()
@@ -1289,7 +1345,7 @@ namespace Chashavshavon
             // We will only display it once, but with both descriptions.
             // If one of them is to be ignored though, it will get it's own row.
             var onahsToAdd = new List<Onah>();
-            foreach (Onah onah in ProblemOnahs.ProblemOnahList.Where(on => on.DateTime >= Program.Today || Program.Today.IsSameday(on.DateTime)))
+            foreach (Onah onah in Program.ProblemOnahs.Where(on => on.DateTime >= Program.Today || Program.Today.IsSameday(on.DateTime)))
             {
                 if (onahsToAdd.Exists(o => Onah.IsSameOnahPeriod(o, onah) && o.IsIgnored == onah.IsIgnored))
                 {
@@ -1324,8 +1380,8 @@ namespace Chashavshavon
             {
                 sb.AppendFormat("<tr class='{0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
                     (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnahPeriod(Program.NowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
-                    Chashavshavon.Utils.Zmanim.GetDayOfWeekText(onah.DateTime),
-                    Chashavshavon.Utils.Zmanim.DaysOfMonthHebrew[onah.Day],
+                    GeneralUtils.GetDayOfWeekText(onah.DateTime),
+                    GeneralUtils.DaysOfMonthHebrew[onah.Day],
                     onah.Month.ToString(),
                     onah.HebrewDayNight,
                     onah.Name);
@@ -1348,7 +1404,7 @@ namespace Chashavshavon
             //we prompt the user to create a file to save to.
             while (string.IsNullOrEmpty(this.CurrentFile))
             {
-                if (((Entry.EntryList.Count + Kavuah.KavuahsList.Count) > 0) &&
+                if (((Program.EntryList.Count + Program.KavuahList.Count) > 0) &&
                     MessageBox.Show("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש",
                         "חשבשבון",
                         MessageBoxButtons.YesNoCancel,
@@ -1404,7 +1460,7 @@ namespace Chashavshavon
             xtw = new XmlTextWriter(stream, Encoding.UTF8);
             xtw.WriteStartDocument();
             xtw.WriteStartElement("Entries");
-            foreach (Entry entry in Entry.EntryList)
+            foreach (Entry entry in Program.EntryList)
             {
                 xtw.WriteStartElement("Entry");
                 xtw.WriteElementString("IsInvisible", entry.IsInvisible.ToString());
@@ -1425,7 +1481,7 @@ namespace Chashavshavon
             }
 
             var ser = new XmlSerializer(typeof(List<Kavuah>));
-            ser.Serialize(xtw, Kavuah.KavuahsList);
+            ser.Serialize(xtw, Program.KavuahList);
 
             xtw.WriteEndDocument();
             xtw.Flush();

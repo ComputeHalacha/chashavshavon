@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Tahara;
 
 namespace Chashavshavon
 {
@@ -16,15 +17,15 @@ namespace Chashavshavon
         {
             this.LoadIntervalNumbers();
 
-            foreach (Entry entry in Entry.EntryList)
+            foreach (Entry entry in Program.EntryList)
             {
                 this.cmbSettingEntry.Items.Add(entry);
             }
-            if (Entry.EntryList.Count > 0)
+            if (Program.EntryList.Count > 0)
             {
                 this.cmbSettingEntry.Items.Add("ראייה אחרת לא רשומה");
 
-                Entry last = Entry.EntryList.Last();
+                Entry last = Program.EntryList.Last();
                 //Select the last entry as it is probably the setting entry
                 this.cmbSettingEntry.SelectedItem = last;
                 if (last.Interval > 0)
@@ -67,7 +68,7 @@ namespace Chashavshavon
         {
             this.cmbNumber.DataSource = null;
             this.cmbNumber.Items.Clear();
-            string[] a = Zmanim.DaysOfMonthHebrew;
+            string[] a = GeneralUtils.DaysOfMonthHebrew;
             for (int i = 1; i < a.Length; i++)
             {
                 this.cmbNumber.Items.Add(a[i]);
@@ -192,7 +193,7 @@ namespace Chashavshavon
                     this.AddedKavuah.Number != entry.Day)
                 {
                     if (MessageBox.Show("היום החודש של הראייה הקובעת הוא יום " +
-                           Zmanim.DaysOfMonthHebrew[entry.Day] +
+                           GeneralUtils.DaysOfMonthHebrew[entry.Day] +
                             " בחודש,\nאבל היום החודש שנבחרה להקבוע החדש הוא יום " +
                             this.cmbNumber.Text +
                             " בחודש.\nהאם להמשיך בכל זאת?",
@@ -227,7 +228,7 @@ namespace Chashavshavon
 
             this.AddedKavuah.Notes = this.tbNotes.Text;
 
-            Kavuah.KavuahsList.Add(this.AddedKavuah);
+            Program.KavuahList.Add(this.AddedKavuah);
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 

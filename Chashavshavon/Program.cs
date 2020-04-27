@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Tahara;
 
 namespace Chashavshavon
 {
@@ -15,6 +16,9 @@ namespace Chashavshavon
         public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
         public static readonly string TempFolderPath = Path.GetTempPath() + @"\ChashInstall";
         public static readonly string BackupFolderPath = Directory.GetCurrentDirectory() + @"\Backups";
+        public static readonly List<Entry> EntryList = new List<Entry>();
+        public static readonly List<Kavuah> KavuahList = new List<Kavuah>();
+        public static readonly List<Onah> ProblemOnahs = new List<Onah>();
 
         //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
         public static DateTime Today { get; set; }
@@ -192,7 +196,7 @@ namespace Chashavshavon
         internal static (List<Entry> entries, List<Kavuah> kavuahs) LoadEntriesKavuahsFromXml(string xmlString)
         {
             var lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>());
-            XmlDocument xml = new XmlDocument();
+            var xml = new XmlDocument();
 
             xml.LoadXml(xmlString);
             if (xml.HasChildNodes)
@@ -205,10 +209,10 @@ namespace Chashavshavon
                     int day = Convert.ToInt32(entryNode.SelectSingleNode("Day").InnerText);
                     int month = Convert.ToInt32(entryNode.SelectSingleNode("Month").InnerText);
                     int year = Convert.ToInt32(entryNode.SelectSingleNode("Year").InnerText); ;
-                    DayNight dayNight = (DayNight)Convert.ToInt32(entryNode.SelectSingleNode("DN").InnerText);
+                    var dayNight = (DayNight)Convert.ToInt32(entryNode.SelectSingleNode("DN").InnerText);
                     string notes = entryNode.SelectSingleNode("Notes").InnerText;
 
-                    Entry newEntry = new Entry(day, month, year, dayNight, notes)
+                    var newEntry = new Entry(day, month, year, dayNight, notes)
                     {
                         IsInvisible = isInvisible
                     };
@@ -221,7 +225,7 @@ namespace Chashavshavon
                     // won't be prompted again each time the list is reloaded.
                     foreach (XmlNode k in entryNode.SelectNodes("NoKavuah"))
                     {
-                        Kavuah ka = new Kavuah(
+                        var ka = new Kavuah(
                             (KavuahType)Enum.Parse(typeof(KavuahType), k.Attributes["KavuahType"].InnerText),
                             newEntry.DayNight)
                         {
@@ -281,8 +285,10 @@ namespace Chashavshavon
         /// <param name="specialDayType"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static bool IsSpecialDayType(this SpecialDayTypes specialDayType, SpecialDayTypes value) =>
-            specialDayType.HasFlag(value);
+        public static bool IsSpecialDayType(this SpecialDayTypes specialDayType, SpecialDayTypes value)
+        {
+            return specialDayType.HasFlag(value);
+        }
 
         #endregion
     }

@@ -8,14 +8,14 @@ namespace Chashavshavon
         public frmKavuahs()
         {
             InitializeComponent();
-            this.kavuahBindingSource.DataSource = Kavuah.KavuahsList;            
+            this.kavuahBindingSource.DataSource = Program.KavuahList;            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (Program.MainForm.AddNewKavuah(this))
             {
-                this.kavuahBindingSource.DataSource = Kavuah.KavuahsList;
+                this.kavuahBindingSource.DataSource = Program.KavuahList;
                 this.kavuahBindingSource.ResetBindings(false);
             }
         }
