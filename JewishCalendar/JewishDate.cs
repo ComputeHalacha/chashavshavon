@@ -519,7 +519,7 @@ namespace JewishCalendar
             sb.Append(" ");
             sb.Append(Utils.GetProperMonthNameHeb(this._year, this._month));
             sb.Append(" ");
-            sb.Append(this._year.ToNumberHeb());
+            sb.Append((this._year % 1000).ToNumberHeb());
             return sb.ToString();
         }
 
