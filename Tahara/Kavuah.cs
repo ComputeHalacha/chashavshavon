@@ -381,7 +381,7 @@ namespace Tahara
                 //and that has the same interval from the previously found entry
                 Entry secondFind = entries.FirstOrDefault(en =>
                     !en.IsInvisible &&
-                    en.DateTime == firstFind.DateTime.AddDays(interval) &&
+                    en.DateTime.IsSameday(firstFind.DateTime.AddDays(interval)) &&
                     en.DayOfWeek == entry.DayOfWeek &&
                     en.DayNight == entry.DayNight);
 

@@ -299,7 +299,7 @@ namespace Chashavshavon
                             foreach (Kavuah kav in list)
                             {
                                 if (!Program.EntryList.Exists(en =>
-                                    en.DateTime == kav.SettingEntryDate &&
+                                    en.DateTime.IsSameday(kav.SettingEntryDate) &&
                                     en.DayNight == kav.DayNight &&
                                     en.Interval == kav.SettingEntryInterval))
                                 {
@@ -814,7 +814,7 @@ namespace Chashavshavon
                 bool hasNightOnah = false;
                 if (Program.ProblemOnahs != null)
                 {
-                    foreach (Onah o in Program.ProblemOnahs.Where(o => o.DateTime == date && !o.IsIgnored))
+                    foreach (Onah o in Program.ProblemOnahs.Where(o => o.DateTime.IsSameday(date) && !o.IsIgnored))
                     {
                         if (!string.IsNullOrWhiteSpace(onahText))
                         {
@@ -834,7 +834,7 @@ namespace Chashavshavon
 
                 Entry entry = Program.EntryList.FirstOrDefault(en =>
                     !en.IsInvisible &&
-                    en.DateTime == date);
+                    en.DateTime.IsSameday(date));
                 if (entry != null)
                 {
                     string entryText = "ראיה - עונת " + entry.HebrewDayNight;
@@ -1262,7 +1262,7 @@ namespace Chashavshavon
                     }
                 }
             }
-           
+
             if (File.Exists(this.CurrentFile) && !Properties.Settings.Default.RecentFiles.Contains(this.CurrentFile))
             {
                 Properties.Settings.Default.RecentFiles.Insert(0, this.CurrentFile);
@@ -1511,12 +1511,12 @@ namespace Chashavshavon
 
         public void SetCaptionText()
         {
-            var fileName = !String.IsNullOrWhiteSpace(this.CurrentFileName)
-                ? " - " +(this.CurrentFileIsRemote ? "קובץ רשת - " : "") + this.CurrentFileName
-                :"";
+            string fileName = !String.IsNullOrWhiteSpace(this.CurrentFileName)
+                ? " - " + (this.CurrentFileIsRemote ? "קובץ רשת - " : "") + this.CurrentFileName
+                : "";
             this.Text = " חשבשבון גירסה " +
                 Assembly.GetExecutingAssembly().GetName().Version.ToString() + " - " +
-                Program.GetCurrentPlaceName() + CurrentFileName;
+                Program.GetCurrentPlaceName() + this.CurrentFileName;
             if (this.pbWeb != null)
             {
                 this.pbWeb.Visible = this.CurrentFileIsRemote;

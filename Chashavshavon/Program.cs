@@ -274,7 +274,8 @@ namespace Chashavshavon
         /// <returns></returns>
         public static bool IsSameday(this DateTime firstDate, DateTime secondDate)
         {
-            return (HebrewCalendar.GetYear(firstDate) == HebrewCalendar.GetYear(secondDate) &&
+            return firstDate.Date == secondDate.Date ||
+                (HebrewCalendar.GetYear(firstDate) == HebrewCalendar.GetYear(secondDate) &&
                 HebrewCalendar.GetMonth(firstDate) == HebrewCalendar.GetMonth(secondDate) &&
                 HebrewCalendar.GetDayOfMonth(firstDate) == HebrewCalendar.GetDayOfMonth(secondDate));
         }

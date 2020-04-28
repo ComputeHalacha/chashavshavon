@@ -1,5 +1,4 @@
-﻿using Chashavshavon.Utils;
-using JewishCalendar;
+﻿using JewishCalendar;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -120,7 +119,7 @@ namespace Chashavshavon
             this.tableLayoutPanel1.Controls.Clear();
             if (Program.EntryList.Count > 0)
             {
-                Entry entry = Program.EntryList.FirstOrDefault(en => !en.IsInvisible && Program.IsSameday(en.DateTime, this._displayingSecularDate));
+                Entry entry = Program.EntryList.FirstOrDefault(en => !en.IsInvisible && en.DateTime.IsSameday(this._displayingSecularDate));
                 if (entry != null)
                 {
                     this.tableLayoutPanel1.Controls.Add(new Label()
@@ -138,7 +137,7 @@ namespace Chashavshavon
             }
             if (Program.ProblemOnahs != null)
             {
-                foreach (Onah o in Program.ProblemOnahs.Where(o => o.DateTime == this._displayingSecularDate && !o.IsIgnored))
+                foreach (Onah o in Program.ProblemOnahs.Where(o => o.DateTime.IsSameday(this._displayingSecularDate) && !o.IsIgnored))
                 {
                     this.tableLayoutPanel1.Controls.Add(new Label()
                     {
