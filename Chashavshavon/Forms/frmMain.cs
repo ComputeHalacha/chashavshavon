@@ -750,7 +750,9 @@ namespace Chashavshavon
                     Padding = new Padding(0),
                     BackColor = Color.Transparent
                 };
-                Image dayBgImgMainOrLeft = Properties.Resources.WhiteMarble;
+
+                Image dayBgImgMain = Properties.Resources.WhiteMarble;
+                Image dayBgImgLeft = null;
                 Image dayBgImgRight = null;
 
                 this.luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);
@@ -801,12 +803,12 @@ namespace Chashavshavon
                 if (date.DayOfWeek == DayOfWeek.Saturday || holidays.Any(h =>
                  h.DayType.IsSpecialDayType(SpecialDayTypes.MajorYomTov)))
                 {
-                    dayBgImgMainOrLeft = Properties.Resources.BlueMarble;
+                    dayBgImgMain = Properties.Resources.BlueMarble;
                 }
                 else if (
                     holidays.Any(h => h.DayType.IsSpecialDayType(SpecialDayTypes.MinorYomtov)))
                 {
-                    dayBgImgMainOrLeft = Properties.Resources.LightBlueMarble;
+                    dayBgImgMain = Properties.Resources.LightBlueMarble;
                 }
 
                 string onahText = "";
@@ -835,6 +837,30 @@ namespace Chashavshavon
                 Entry entry = Program.EntryList.FirstOrDefault(en =>
                     !en.IsInvisible &&
                     en.DateTime.IsSameday(date));
+                if (!string.IsNullOrWhiteSpace(onahText))
+                {
+                    if (hasNightOnah)
+                    {
+                        dayBgImgRight = Properties.Resources.ParchmentMarbleTile;
+                    }
+                    if (hasDayOnah)
+                    {
+                        dayBgImgLeft = Properties.Resources.ParchmentMarbleTile;
+                    }
+
+                    pnl.Controls.Add(new Label()
+                    {
+                        AutoSize = true,
+                        Anchor = AnchorStyles.Top,
+                        Text = onahText,
+                        Font = _smallFont,
+                        ForeColor = Color.FromArgb(0x80, 0x50, 0),
+                        TextAlign = ContentAlignment.BottomCenter,
+                        RightToLeft = RightToLeft.Yes,
+                        AutoEllipsis = true,
+                        Margin = dayInfoMargin
+                    });
+                }
                 if (entry != null)
                 {
                     string entryText = "ראיה - עונת " + entry.HebrewDayNight;
@@ -844,8 +870,7 @@ namespace Chashavshavon
                     }
                     if (entry.DayNight == DayNight.Day)
                     {
-                        dayBgImgRight = dayBgImgMainOrLeft;
-                        dayBgImgMainOrLeft = Properties.Resources.PinkMarbleTile;
+                        dayBgImgLeft = Properties.Resources.PinkMarbleTile;
                     }
                     else
                     {
@@ -863,35 +888,7 @@ namespace Chashavshavon
                         Margin = dayInfoMargin
                     });
                 }
-                else if (!string.IsNullOrWhiteSpace(onahText))
-                {
-                    if (hasNightOnah)
-                    {
-                        dayBgImgRight = Properties.Resources.ParchmentMarbleTile;
-                    }
-                    if (hasDayOnah)
-                    {
-                        if (dayBgImgRight == null)
-                        {
-                            dayBgImgRight = dayBgImgMainOrLeft;
-                        }
-                        dayBgImgMainOrLeft = Properties.Resources.ParchmentMarbleTile;
-                    }
 
-
-                    pnl.Controls.Add(new Label()
-                    {
-                        AutoSize = true,
-                        Anchor = AnchorStyles.Top,
-                        Text = onahText,
-                        Font = _smallFont,
-                        ForeColor = Color.FromArgb(0x80, 0x50, 0),
-                        TextAlign = ContentAlignment.BottomCenter,
-                        RightToLeft = RightToLeft.Yes,
-                        AutoEllipsis = true,
-                        Margin = dayInfoMargin
-                    });
-                }
 
                 pnl.Paint += delegate (object sender, PaintEventArgs e)
                 {
@@ -900,15 +897,18 @@ namespace Chashavshavon
                         int pWidth = pnl.DisplayRectangle.Width;
                         int pHeight = pnl.DisplayRectangle.Height;
 
-                        if (dayBgImgRight == null)
+                        if (dayBgImgRight == null && dayBgImgLeft == null)
                         {
-                            g.DrawImage(dayBgImgMainOrLeft, 0, 0, pWidth, pHeight);
+                            g.DrawImage(dayBgImgMain, 0, 0, pWidth, pHeight);
                         }
                         else
                         {
                             float halfX = pWidth / 2f;
-                            g.DrawImage(dayBgImgMainOrLeft, 0, 0, halfX, pHeight);
-                            g.DrawImage(dayBgImgRight, halfX, 0, halfX, pHeight);
+
+                            g.DrawImage(dayBgImgLeft == null ? dayBgImgMain : dayBgImgLeft,
+                                0, 0, halfX, pHeight);
+                            g.DrawImage(dayBgImgRight == null ? dayBgImgMain : dayBgImgRight,
+                                halfX, 0, halfX, pHeight);
                         }
                         if (highlightDay && date.Date == this._monthToDisplay.Date)
                         {

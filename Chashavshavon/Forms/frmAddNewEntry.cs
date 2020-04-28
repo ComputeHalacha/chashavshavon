@@ -161,15 +161,7 @@ namespace Chashavshavon
                     Font = this.tableLayoutPanel1.Font,
                     ForeColor = Color.DarkSlateBlue
                 });
-            }
-            if (this.tableLayoutPanel1.Controls.Count < 5)
-            {
-                this.tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
-            }
-            else
-            {
-                this.tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
-            }
+            }           
         }
 
         private void SetDayNightRadio()
