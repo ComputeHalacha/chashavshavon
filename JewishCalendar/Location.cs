@@ -130,7 +130,9 @@ namespace JewishCalendar
                 try
                 {
                     if (!string.IsNullOrEmpty(value))
+                    {
                         this.TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(value.Trim());
+                    }
                 }
                 catch (TimeZoneNotFoundException)
                 {
@@ -166,7 +168,7 @@ namespace JewishCalendar
             other.IsInIsrael == this.IsInIsrael &&
             other.TimeZone == this.TimeZone &&
             other.Elevation == this.Elevation &&
-            other.LatitudeType == this.LatitudeType &&            
+            other.LatitudeType == this.LatitudeType &&
             other.LatitudeDegrees == this.LatitudeDegrees &&
             other.LatitudeMinutes == this.LatitudeMinutes &&
             other.LongitudeType == this.LongitudeType &&

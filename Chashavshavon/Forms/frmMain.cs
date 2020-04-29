@@ -20,13 +20,13 @@ namespace Chashavshavon
         #region Private Variables
 
         private DateTime _monthToDisplay;
-        private static string _tempXMLFileName = Program.TempFolderPath + @"\ChashavshavonTempFile.xml";
+        private static readonly string _tempXMLFileName = Program.TempFolderPath + @"\ChashavshavonTempFile.xml";
         private static Font _smallFont;
-        private static Font _hebrewDayFont = new Font("Verdana", 18f, FontStyle.Bold);
-        private static Font _goyishDateFont = new Font("Verdana", 8f, FontStyle.Bold);
-        private static SolidBrush _highlightBrush = new SolidBrush(Color.FromArgb(50, Color.DarkSlateBlue));
-        private static DateTimeFormatInfo _sysCulture = CultureInfo.InstalledUICulture.DateTimeFormat;
-        private static TextFormatFlags _textFormatFlags =
+        private static readonly Font _hebrewDayFont = new Font("Verdana", 18f, FontStyle.Bold);
+        private static readonly Font _goyishDateFont = new Font("Verdana", 8f, FontStyle.Bold);
+        private static readonly SolidBrush _highlightBrush = new SolidBrush(Color.FromArgb(50, Color.DarkSlateBlue));
+        private static readonly DateTimeFormatInfo _sysCulture = CultureInfo.InstalledUICulture.DateTimeFormat;
+        private static readonly TextFormatFlags _textFormatFlags =
             TextFormatFlags.HorizontalCenter |
             TextFormatFlags.VerticalCenter |
             TextFormatFlags.NoPrefix;
@@ -210,13 +210,7 @@ namespace Chashavshavon
         {
             try
             {
-                this.SaveCurrentFile();
-                if (!Properties.Settings.Default.OpenLastFile)
-                {
-                    Properties.Settings.Default.CurrentFile = null;
-                    Properties.Settings.Default.IsCurrentFileRemote = false;
-                }
-
+                this.SaveCurrentFile();                
                 //the temp folder is only deleted if the user manually closed the app.
                 //Otherwise we may be in an installer run and do not want to delete the installation files.
                 Program.BeforeExit(e.CloseReason == CloseReason.UserClosing);
@@ -1505,6 +1499,10 @@ namespace Chashavshavon
             stream.Dispose();
             Properties.Settings.Default.IsCurrentFileRemote = this.CurrentFileIsRemote;
             Properties.Settings.Default.CurrentFile = this.CurrentFile;
+            if(!this.CurrentFileIsRemote)
+            {
+                Properties.Settings.Default.LastLocalFileName = this.CurrentFile;
+            }            
             Properties.Settings.Default.Save();
             this.SetCaptionText();
         }
@@ -1559,6 +1557,10 @@ namespace Chashavshavon
             set
             {
                 Properties.Settings.Default.CurrentFile = value;
+                if (!this.CurrentFileIsRemote)
+                {
+                    Properties.Settings.Default.LastLocalFileName = this.CurrentFile;
+                }
                 Properties.Settings.Default.Save();
                 this.SetCaptionText();
             }

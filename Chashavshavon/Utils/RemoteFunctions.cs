@@ -5,7 +5,6 @@ using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
-using System.Net.Mail;
 
 namespace Chashavshavon.Utils
 {

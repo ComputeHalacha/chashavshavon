@@ -6,11 +6,11 @@ namespace Chashavshavon
 {
     public partial class frmBrowser : Form
     {
-        private bool _isForPrint = false;
+        private readonly bool _isForPrint = false;
 
         public frmBrowser(bool print = false)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this._isForPrint = print;
         }
 
@@ -18,7 +18,7 @@ namespace Chashavshavon
         {
             //Just making sure... browsers are resource guzzlers
             this.webBrowser1.Dispose();
-        }      
+        }
 
         private void printToolStripButton_Click(object sender, EventArgs e)
         {
@@ -45,9 +45,9 @@ namespace Chashavshavon
                 this.webBrowser1.ShowPrintDialog();
             }
         }
-        
-        public string Html 
-        { 
+
+        public string Html
+        {
             get
             {
                 return this.webBrowser1.DocumentText;
@@ -56,6 +56,6 @@ namespace Chashavshavon
             {
                 this.webBrowser1.DocumentText = value;
             }
-        }          
+        }
     }
 }

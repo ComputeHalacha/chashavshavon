@@ -17,7 +17,7 @@ namespace JewishCalendar
         /// <summary>
         /// To save on calculations, a table of years and their elapsed days values is saved in memory
         /// </summary>
-        private static Dictionary<int, int> _yearCache = new Dictionary<int, int>();
+        private static readonly Dictionary<int, int> _yearCache = new Dictionary<int, int>();
 
         /// <summary>
         /// Absolute date of start of Jewish calendar
@@ -96,7 +96,11 @@ namespace JewishCalendar
         /// <returns>Whether or not the two represent the same Jewish calendar date</returns>
         public static bool IsSameDate(this JewishDate jd1, JewishDate jd2)
         {
-            if (jd2 == null) return false;
+            if (jd2 == null)
+            {
+                return false;
+            }
+
             return jd1.Year == jd2.Year && jd1.Month == jd2.Month && jd1.Day == jd2.Day;
         }
 
@@ -214,7 +218,10 @@ namespace JewishCalendar
                 month = 1;
                 while (abs > GetAbsoluteFromGregorianDate(
                     year, month, DaysInGregorianMonth(month, year)))
+                {
                     month++;
+                }
+
                 day = abs - GetAbsoluteFromGregorianDate(year, month, 1) + 1;
 
                 return new DateTime(year, month, day);
@@ -236,9 +243,13 @@ namespace JewishCalendar
                 case 2:
                     if ((((year % 4) == 0) && ((year % 100) != 0))
                         || ((year % 400) == 0))
+                    {
                         return 29;
+                    }
                     else
+                    {
                         return 28;
+                    }
 
                 case 4:
                 case 6:

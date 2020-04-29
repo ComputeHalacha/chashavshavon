@@ -377,10 +377,10 @@ namespace JewishCalendar
         /// </summary>
         /// <returns></returns>
         public string ToString(bool showSeconds) =>
-            (Hour <= 12 ? (Hour == 0 ? 12 : Hour) : Hour - 12).ToString() +
-            ":" + ((Minute < 10 ? "0" : "") + Minute.ToString()) +
-            (showSeconds ? (":" + (Seconds < 10 ? "0" : "") + Seconds.ToString()) : "") +
-            (Hour < 12 ? " AM" : " PM");
+            (this.Hour <= 12 ? (this.Hour == 0 ? 12 : this.Hour) : this.Hour - 12).ToString() +
+            ":" + ((this.Minute < 10 ? "0" : "") + this.Minute.ToString()) +
+            (showSeconds ? (":" + (this.Seconds < 10 ? "0" : "") + this.Seconds.ToString()) : "") +
+            (this.Hour < 12 ? " AM" : " PM");
 
         /// <summary>
         /// This TimeOfDay displayed in the format: HH:MM:SS
@@ -392,18 +392,18 @@ namespace JewishCalendar
         public string ToString(bool army, bool amPm = true, bool showSeconds = false) =>
             army
             ? this.ToString24H(showSeconds) : (amPm ? this.ToString()
-            : (Hour <= 12 ? (Hour == 0 ? 12 : Hour) : Hour - 12).ToString() +
-            ":" + (Minute < 10 ? "0" + Minute.ToString() : Minute.ToString())) +
-            (showSeconds ? (":" + (Seconds < 10 ? "0" : "") + Seconds.ToString()) : "");
+            : (this.Hour <= 12 ? (this.Hour == 0 ? 12 : this.Hour) : this.Hour - 12).ToString() +
+            ":" + (this.Minute < 10 ? "0" + this.Minute.ToString() : this.Minute.ToString())) +
+            (showSeconds ? (":" + (this.Seconds < 10 ? "0" : "") + this.Seconds.ToString()) : "");
 
         /// <summary>
         /// Returns the current time in the format HH:mm:SS
         /// </summary>
         /// <returns></returns>
         public string ToString24H(bool showSeconds = false) =>
-            (Hour.ToString() +
-            ":" + (Minute < 10 ? "0" + Minute.ToString() : Minute.ToString())) +
-            (showSeconds ? (":" + (Seconds < 10 ? "0" : "") + Seconds.ToString()) : "");
+            (this.Hour.ToString() +
+            ":" + (this.Minute < 10 ? "0" + this.Minute.ToString() : this.Minute.ToString())) +
+            (showSeconds ? (":" + (this.Seconds < 10 ? "0" : "") + this.Seconds.ToString()) : "");
 
         /// <summary>
         /// Tests 2 TimeOfDay objects for equality.

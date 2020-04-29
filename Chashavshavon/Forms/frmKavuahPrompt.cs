@@ -7,11 +7,11 @@ namespace Chashavshavon
 {
     public partial class frmKavuahPrompt : Form
     {
-        private List<Kavuah> _listToAdd = new List<Kavuah>();
+        private readonly List<Kavuah> _listToAdd = new List<Kavuah>();
 
         public frmKavuahPrompt(List<Kavuah> list)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this._listToAdd.AddRange(list);
             this.bindingSource1.DataSource = this._listToAdd;
         }
@@ -47,6 +47,6 @@ namespace Chashavshavon
             {
                 return this._listToAdd;
             }
-        }                                        
+        }
     }
 }

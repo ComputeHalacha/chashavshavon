@@ -132,7 +132,11 @@ namespace JewishCalendar
         /// <returns></returns>
         public static bool IsShabbosOrYomTov(JewishDate jd, Location location)
         {
-            if (jd.DayOfWeek == DayOfWeek.Saturday) return true;
+            if (jd.DayOfWeek == DayOfWeek.Saturday)
+            {
+                return true;
+            }
+
             switch (jd.Month)
             {
                 case 1:

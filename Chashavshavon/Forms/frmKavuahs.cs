@@ -7,8 +7,8 @@ namespace Chashavshavon
     {
         public frmKavuahs()
         {
-            InitializeComponent();
-            this.kavuahBindingSource.DataSource = Program.KavuahList;            
+            this.InitializeComponent();
+            this.kavuahBindingSource.DataSource = Program.KavuahList;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -19,7 +19,7 @@ namespace Chashavshavon
                 this.kavuahBindingSource.ResetBindings(false);
             }
         }
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -28,7 +28,7 @@ namespace Chashavshavon
         private void frmKavuahs_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.kavuahBindingSource.EndEdit();
-        }                
+        }
 
         private void frmKavuahs_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -54,6 +54,6 @@ namespace Chashavshavon
                     e.Value = dt.ToString("dddd dd MMM yyyy", Program.CultureInfo);
                 }
             }
-        }       
+        }
     }
 }

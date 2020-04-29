@@ -80,7 +80,10 @@
 
             /*  No cycle, new cycle, old cycle */
             if (absoluteDate < osday)
+            {
                 return null; /* daf yomi hadn't started yet */
+            }
+
             if (absoluteDate >= nsday)
             {
                 cno = 8 + ((absoluteDate - nsday) / 2711);
@@ -98,9 +101,13 @@
 
             /* Fix Shekalim for old cycles */
             if (cno <= 7)
+            {
                 masechtaList[4].Dappim = 13;
+            }
             else
+            {
                 masechtaList[4].Dappim = 22;
+            }
 
             /* Find the daf */
             j = 0;
@@ -167,7 +174,7 @@
         /// <param name="eng"></param>
         /// <param name="heb"></param>
         /// <param name="dappim"></param>
-        internal Masechta(string eng, string heb, int dappim) { NameEnglish = eng; NameHebrew = heb; Dappim = dappim; }
+        internal Masechta(string eng, string heb, int dappim) { this.NameEnglish = eng; this.NameHebrew = heb; this.Dappim = dappim; }
     }
 
     /// <summary>
@@ -192,7 +199,7 @@
         /// </summary>
         /// <param name="m"></param>
         /// <param name="d"></param>
-        internal Daf(Masechta m, int d) { Masechta = m; DafNumber = d; }
+        internal Daf(Masechta m, int d) { this.Masechta = m; this.DafNumber = d; }
 
         /// <summary>
         /// Returns the name of the Masechta and daf number in English, For example: Sukkah, Daf 3

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Tahara;
 
 namespace Chashavshavon
 {
@@ -14,7 +13,7 @@ namespace Chashavshavon
         private RegistryKey _regKey;
         public frmPreferences()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void Preferences_Load(object sender, EventArgs e)
@@ -24,7 +23,7 @@ namespace Chashavshavon
 
             if (this.cbPlaces.Items.Count == 0)
             {
-                FillPlaces();
+                this.FillPlaces();
             }
 
             for (int i = 0; i < this.cbPlaces.Items.Count; i++)
@@ -43,12 +42,16 @@ namespace Chashavshavon
             if (!string.IsNullOrEmpty(pw))
             {
                 this.txtPassword.Text = GeneralUtils.Decrypt(pw, "kedoshimteeheeyoo");
-            }            
+            }
+            this.rbOpenLastFile.Checked = Properties.Settings.Default.OpenLastFile;
+            this.rbOpenLastFileName.Checked = Properties.Settings.Default.openLastFileName;
+            this.rbOpenNewFile.Checked = Properties.Settings.Default.openNewFile;
+            this.rbOpenFileDialog.Checked = Properties.Settings.Default.openFileDialog;
         }
 
         private void FillPlaces()
         {
-            cbPlaces.Items.Clear();
+            this.cbPlaces.Items.Clear();
             IEnumerable<Location> places = Locations.LocationsList.Where(l => l.IsInIsrael == this.rbPlacesInIsrael.Checked);
             //First Hebrew named ones
             foreach (Location place in places.Where(l => !string.IsNullOrWhiteSpace(l.NameHebrew)).OrderBy(l => l.NameHebrew))
@@ -102,7 +105,7 @@ namespace Chashavshavon
 
         private void cbRequirePassword_CheckedChanged(object sender, EventArgs e)
         {
-            this.txtPassword.Enabled = cbRequirePassword.Checked;
+            this.txtPassword.Enabled = this.cbRequirePassword.Checked;
             if (this.txtPassword.Enabled)
             {
                 this.txtPassword.Focus();
@@ -124,7 +127,7 @@ namespace Chashavshavon
 
         private void pbShowPassword_Click(object sender, EventArgs e)
         {
-            if(this.txtPassword.PasswordChar == Char.MinValue)
+            if (this.txtPassword.PasswordChar == Char.MinValue)
             {
                 this.txtPassword.PasswordChar = '•';
             }
@@ -132,6 +135,14 @@ namespace Chashavshavon
             {
                 this.txtPassword.PasswordChar = Char.MinValue;
             }
+        }
+
+        private void rbOpenLastFile_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.OpenLastFile = this.rbOpenLastFile.Checked;
+            Properties.Settings.Default.openLastFileName = this.rbOpenLastFileName.Checked;
+            Properties.Settings.Default.openNewFile = this.rbOpenNewFile.Checked;
+            Properties.Settings.Default.openFileDialog = this.rbOpenFileDialog.Checked;            
         }
     }
 }

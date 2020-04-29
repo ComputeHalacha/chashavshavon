@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Xml;
-using Tahara;
 
 namespace Chashavshavon
 {
@@ -13,7 +12,7 @@ namespace Chashavshavon
 
         public frmRemoteFiles()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void frmRemoteFiles_Load(object sender, EventArgs e)
@@ -44,7 +43,7 @@ namespace Chashavshavon
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            if (ValidateUserFields())
+            if (this.ValidateUserFields())
             {
                 this.LogIn();
             }
@@ -52,7 +51,7 @@ namespace Chashavshavon
 
         private void btnNewUser_Click(object sender, EventArgs e)
         {
-            if (ValidateUserFields())
+            if (this.ValidateUserFields())
             {
                 this.SaveUser();
                 if (Utils.RemoteFunctions.GetRemoteResponse("NewUser") != null)
@@ -67,7 +66,7 @@ namespace Chashavshavon
         private void btnSaveCurrent_Click(object sender, EventArgs e)
         {
             this.SaveUser();
-            if (_mainForm.CurrentFileIsRemote && _mainForm.CurrentFileName == this.txtCurrentFileName.Text)
+            if (this._mainForm.CurrentFileIsRemote && this._mainForm.CurrentFileName == this.txtCurrentFileName.Text)
             {
                 if (MessageBox.Show(
                     string.Format("קובץ בשם" + "{0}\"{1}\"{0}" +
@@ -103,17 +102,17 @@ namespace Chashavshavon
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            OpenFileFromList();
+            this.OpenFileFromList();
         }
 
         private void lbFileNames_DoubleClick(object sender, EventArgs e)
         {
-            OpenFileFromList();
+            this.OpenFileFromList();
         }
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            if ((!ValidateUserFields()) || MessageBox.Show("?האם אתם בטוחים שאתם רוצים למחוק משתמש הזאת מהמערכת עם כל הקבצים השמורים ברשימה",
+            if ((!this.ValidateUserFields()) || MessageBox.Show("?האם אתם בטוחים שאתם רוצים למחוק משתמש הזאת מהמערכת עם כל הקבצים השמורים ברשימה",
                                     "חשבשבון",
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Question,
@@ -131,10 +130,10 @@ namespace Chashavshavon
                 this.txtPassword.Text = "";
                 Properties.Settings.Default.RemotePassword = "";
                 Properties.Settings.Default.RemoteUserName = "";
-                if (_mainForm.CurrentFileIsRemote)
+                if (this._mainForm.CurrentFileIsRemote)
                 {
-                    _mainForm.CurrentFileIsRemote = false;
-                    _mainForm.CurrentFile = DateTime.Now.ToString("ddMMMyyyy_hhmm").Replace("\"", "").Replace("'", "") + ".pm";
+                    this._mainForm.CurrentFileIsRemote = false;
+                    this._mainForm.CurrentFile = DateTime.Now.ToString("ddMMMyyyy_hhmm").Replace("\"", "").Replace("'", "") + ".pm";
                 }
             }
         }
@@ -191,10 +190,10 @@ namespace Chashavshavon
             if (this.lbFileNames.SelectedItem != null)
             {
                 String html = Utils.RemoteFunctions.GetRemoteResponseText("GetFileAsHTML",
-                                    Utils.RemoteFunctions.NewParam("fileName", lbFileNames.SelectedItem.ToString()));
+                                    Utils.RemoteFunctions.NewParam("fileName", this.lbFileNames.SelectedItem.ToString()));
                 frmBrowser fb = new frmBrowser
                 {
-                    Text = "הצגת קובץ רשת - " + lbFileNames.SelectedItem.ToString(),
+                    Text = "הצגת קובץ רשת - " + this.lbFileNames.SelectedItem.ToString(),
                     Html = html
                 };
                 fb.ShowDialog(this);
@@ -227,7 +226,7 @@ namespace Chashavshavon
             this.SaveUser();
             if (this.lbFileNames.SelectedItem != null)
             {
-                this._mainForm.CurrentFile = lbFileNames.SelectedItem.ToString();
+                this._mainForm.CurrentFile = this.lbFileNames.SelectedItem.ToString();
                 this._mainForm.CurrentFileIsRemote = true;
                 this._mainForm.LoadXmlFile();
                 this.Close();
@@ -272,7 +271,7 @@ namespace Chashavshavon
             {
                 messages.Add(string.Format("{0}             שם משתמש שהוקש איננה חוקי  * {0}          אורך השם משתמש חייב להיות לפחות שני תווים", Environment.NewLine));
             }
-            if (txtPassword.Text.Length < 4)
+            if (this.txtPassword.Text.Length < 4)
             {
                 messages.Add(string.Format("{0}             סיסמה שהוקש איננה חוקי  * {0}          אורך הסיסמה חייב להיות לפחות ארבע תווים", Environment.NewLine));
             }

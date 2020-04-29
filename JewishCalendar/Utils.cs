@@ -28,7 +28,7 @@ namespace JewishCalendar
     /// </summary>
     public static class Utils
     {
-       
+
         #region Public Constructors
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace JewishCalendar
             {
                 txt += "לעומר";
             }
-            else if(nusach == Nusach.Ashkenaz)
+            else if (nusach == Nusach.Ashkenaz)
             {
                 txt += "בעומר";
             }
@@ -188,7 +188,7 @@ namespace JewishCalendar
         /// <param name="obj">The object to test</param>
         /// <param name="list">Any number of parameters which together make up the list of objects to look through</param>
         /// <returns>True; if the item is in the parameter list. Otherwise, False</returns>
-        public static bool In(this object obj, params Object[] list) => 
+        public static bool In(this object obj, params Object[] list) =>
             Array.IndexOf(list, obj) > -1;
 
         /// <summary>
@@ -197,9 +197,9 @@ namespace JewishCalendar
         /// <param name="specialDayType"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static bool IsSpecialDayType(this SpecialDayTypes specialDayType, SpecialDayTypes value) => 
+        public static bool IsSpecialDayType(this SpecialDayTypes specialDayType, SpecialDayTypes value) =>
             (specialDayType & value) == value;
-        
+
         /// <summary>
         /// Determines if the given Gregorian date and time is within the rules for DST.
         /// If no time zone info is available; if the location is in Israel, the current Israeli rules are used.

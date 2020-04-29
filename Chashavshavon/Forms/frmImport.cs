@@ -9,14 +9,14 @@ namespace Chashavshavon
 {
     public partial class frmImport : Form
     {
-        private bool _loading = true; 
+        private bool _loading = true;
 
         public List<Entry> EntryList { get; private set; }
         public List<Kavuah> KavuahList { get; private set; }
 
         public frmImport(string path)
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             if (File.Exists(path))
             {
@@ -31,7 +31,7 @@ namespace Chashavshavon
 
                 foreach (var e in this.EntryList)
                 {
-                    this.lvEntries.Items.Add(new ListViewItem(e.ToString()){ Tag = e });
+                    this.lvEntries.Items.Add(new ListViewItem(e.ToString()) { Tag = e });
                 }
                 foreach (var k in this.KavuahList)
                 {
@@ -51,14 +51,14 @@ namespace Chashavshavon
         {
             this.Hide();
             this.EntryList.Clear();
-            foreach (ListViewItem i in lvEntries.Items)
+            foreach (ListViewItem i in this.lvEntries.Items)
             {
                 if (i.Checked)
                 {
                     this.EntryList.Add((Entry)i.Tag);
                 }
             }
-            foreach (ListViewItem i in lvKavuahs.Items)
+            foreach (ListViewItem i in this.lvKavuahs.Items)
             {
                 if (i.Checked)
                 {
@@ -70,7 +70,7 @@ namespace Chashavshavon
 
         private void cbAllEntries_CheckedChanged(object sender, EventArgs e)
         {
-            if(this._loading)
+            if (this._loading)
             {
                 return;
             }
@@ -78,7 +78,7 @@ namespace Chashavshavon
             this._loading = true;
             if (this.cbAllEntries.CheckState != CheckState.Indeterminate)
             {
-                foreach (ListViewItem i in lvEntries.Items)
+                foreach (ListViewItem i in this.lvEntries.Items)
                 {
                     i.Checked = this.cbAllEntries.Checked;
                 }
@@ -96,7 +96,7 @@ namespace Chashavshavon
             this._loading = true;
             if (this.cbAllKavuahs.CheckState != CheckState.Indeterminate)
             {
-                foreach (ListViewItem i in lvKavuahs.Items)
+                foreach (ListViewItem i in this.lvKavuahs.Items)
                 {
                     i.Checked = this.cbAllKavuahs.Checked;
                 }
@@ -160,15 +160,15 @@ namespace Chashavshavon
 
         private void lvEntries_ItemActivate(object sender, EventArgs e)
         {
-            var isc = lvEntries.SelectedItems[0].Checked;
-            lvEntries.SelectedItems[0].Checked = !isc;
+            var isc = this.lvEntries.SelectedItems[0].Checked;
+            this.lvEntries.SelectedItems[0].Checked = !isc;
         }
 
         private void lvKavuahs_ItemActivate(object sender, EventArgs e)
         {
 
-            var isc = lvKavuahs.SelectedItems[0].Checked;
-            lvKavuahs.SelectedItems[0].Checked = !isc;
+            var isc = this.lvKavuahs.SelectedItems[0].Checked;
+            this.lvKavuahs.SelectedItems[0].Checked = !isc;
         }
     }
 }

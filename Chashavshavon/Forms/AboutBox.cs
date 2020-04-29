@@ -10,7 +10,7 @@ namespace Chashavshavon
     {
         public AboutBox()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -39,8 +39,8 @@ namespace Chashavshavon
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -252,7 +252,7 @@ namespace Chashavshavon
                 {
                     using (BackgroundWorker bgw = new BackgroundWorker())
                     {
-                        bgw.DoWork += delegate(object sndr, DoWorkEventArgs dwea)
+                        bgw.DoWork += delegate (object sndr, DoWorkEventArgs dwea)
                         {
                             string installer = null;
                             try
@@ -263,18 +263,18 @@ namespace Chashavshavon
                             {
                                 Program.HandleException(ex, true);
                             }
-                            
+
                             if (!string.IsNullOrEmpty(installer) && File.Exists(installer))
                             {
                                 System.Diagnostics.Process.Start(installer);
                                 dwea.Result = true;
                             }
-                            else 
+                            else
                             {
                                 dwea.Result = false;
                             }
                         };
-                        bgw.RunWorkerCompleted += delegate(object sndr, RunWorkerCompletedEventArgs rwcea)
+                        bgw.RunWorkerCompleted += delegate (object sndr, RunWorkerCompletedEventArgs rwcea)
                         {
                             if ((bool)rwcea.Result)
                             {

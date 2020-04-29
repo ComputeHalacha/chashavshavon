@@ -12,7 +12,7 @@ namespace Chashavshavon
 {
     public partial class frmAddNewEntry : Form
     {
-        private static Calendar _gregCal = new GregorianCalendar(GregorianCalendarTypes.Localized);
+        private static readonly Calendar _gregCal = new GregorianCalendar(GregorianCalendarTypes.Localized);
 
         //The combos are changed dynamically and we don't want to fire the change event during initial loading.
         private bool _loading = true;
@@ -161,7 +161,7 @@ namespace Chashavshavon
                     Font = this.tableLayoutPanel1.Font,
                     ForeColor = Color.DarkSlateBlue
                 });
-            }           
+            }
         }
 
         private void SetDayNightRadio()

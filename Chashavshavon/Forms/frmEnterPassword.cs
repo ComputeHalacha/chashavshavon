@@ -5,10 +5,10 @@ namespace Chashavshavon
 {
     public partial class frmEnterPassword : Form
     {
-        private string _password;
+        private readonly string _password;
         public frmEnterPassword(string password)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this._password = password;
         }
 

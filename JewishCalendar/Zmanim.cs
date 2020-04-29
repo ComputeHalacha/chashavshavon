@@ -343,7 +343,7 @@ namespace JewishCalendar
         /// <param name="netzShkia"></param>
         /// <param name="israel"></param>
         /// <returns></returns>
-        public static double GetShaaZmanisMga(TimeOfDay[] netzShkia, bool israel) => 
+        public static double GetShaaZmanisMga(TimeOfDay[] netzShkia, bool israel) =>
             GetShaaZmanis(netzShkia, israel ? 90 : 72);
 
         /// <summary>
@@ -396,7 +396,7 @@ namespace JewishCalendar
         {
             int jYear = jDate.Year,
                 jMonth = jDate.Month,
-                jDay = jDate.Day;            
+                jDay = jDate.Day;
 
             if (jMonth == 1 && jDay > 7 && jDay < 15)
             {

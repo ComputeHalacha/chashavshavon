@@ -30,7 +30,7 @@ namespace JewishCalendar
         /// </summary>
         private static Sedra _lastSedraCalculated = null;
 
-        private static Parsha[] ParshaList =
+        private static readonly Parsha[] ParshaList =
         {
             new Parsha("Bereshis", "בראשית"),
             new Parsha("Noach", "נח"),
@@ -90,76 +90,76 @@ namespace JewishCalendar
 
         private static int GetDayOnOrBefore(int day_of_week, int date) => date - ((date - day_of_week) % 7);
 
-        private static int[] shabbos_short = {
+        private static readonly int[] shabbos_short = {
             52, 52, 53, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
             17, 18, 19, 20, -21, 23, 24, 25, 25, -26, -28, 30, -31, 33, 34, 35, 36, 37, 38, 39, 40, -41, 43, 44, 45, 46, 47,
             48, 49, 50 };
 
-        private static int[] shabbos_long = {
+        private static readonly int[] shabbos_long = {
             52, 52, 53, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
             17, 18, 19, 20, -21, 23, 24, 25, 25, -26, -28, 30, -31, 33, 34, 35, 36, 37, 38, 39, 40, -41, 43, 44, 45, 46, 47,
             48, 49, -50 };
 
-        private static int[] mon_short = {
+        private static readonly int[] mon_short = {
             51, 52, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
             18, 19, 20, -21, 23, 24, 25, 25, -26, -28, 30, -31, 33, 34, 35, 36, 37, 38, 39, 40, -41, 43, 44, 45, 46, 47, 48,
             49, -50 };
 
-        private static int[] mon_long = {
+        private static readonly int[] mon_long = {
             51, 52, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, -21, 23, 24, 25, 25, -26, -28,
             30, -31, 33, 34, 34, 35, 36, 37, -38, 40, -41, 43, 44, 45, 46, 47, 48, 49, -50 };
 
-        private static int[] thu_normal = {
+        private static readonly int[] thu_normal = {
             52, 53, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
             18, 19, 20, -21, 23, 24, 25, 25, 25, -26, -28, 30, -31, 33, 34, 35, 36, 37, 38, 39, 40, -41, 43, 44, 45, 46, 47,
             48, 49, 50 };
 
-        private static int[] thu_normal_Israel = {
+        private static readonly int[] thu_normal_Israel = {
             52, 53, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
             16, 17, 18, 19, 20, -21, 23, 24, 25, 25, -26, -28, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, -41, 43, 44, 45,
             46, 47, 48, 49, 50 };
 
-        private static int[] thu_long = {
+        private static readonly int[] thu_long = {
             52, 53, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
             18, 19, 20, 21, 22, 23, 24, 25, 25, -26, -28, 30, -31, 33, 34, 35, 36, 37, 38, 39, 40, -41, 43, 44, 45, 46, 47,
             48, 49, 50 };
 
-        private static int[] shabbos_short_leap = {
+        private static readonly int[] shabbos_short_leap = {
             52, 52, 53, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
             16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, -41,
             43, 44, 45, 46, 47, 48, 49, -50 };
 
-        private static int[] shabbos_long_leap = {
+        private static readonly int[] shabbos_long_leap = {
             52, 52, 53, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
             16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 29, 30, 31, 32, 33, 34, 34, 35, 36, 37, -38, 40, -41,
             43, 44, 45, 46, 47, 48, 49, -50 };
 
-        private static int[] mon_short_leap = {
+        private static readonly int[] mon_short_leap = {
             51, 52, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
             17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 29, 30, 31, 32, 33, 34, 34, 35, 36, 37, -38, 40, -41, 43,
             44, 45, 46, 47, 48, 49, -50 };
 
-        private static int[] mon_short_leap_Israel = {
+        private static readonly int[] mon_short_leap_Israel = {
             51, 52, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
             15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
             -41, 43, 44, 45, 46, 47, 48, 49, -50 };
 
-        private static int[] mon_long_leap = {
+        private static readonly int[] mon_long_leap = {
             51, 52, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
             17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, -41,
             43, 44, 45, 46, 47, 48, 49, 50 };
 
-        private static int[] mon_long_leap_Israel = {
+        private static readonly int[] mon_long_leap_Israel = {
             51, 52, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
             15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
             41, 42, 43, 44, 45, 46, 47, 48, 49, 50 };
 
-        private static int[] thu_short_leap = {
+        private static readonly int[] thu_short_leap = {
             52, 53, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
             17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
             43, 44, 45, 46, 47, 48, 49, 50 };
 
-        private static int[] thu_long_leap = {
+        private static readonly int[] thu_long_leap = {
             52, 53, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
             17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
             43, 44, 45, 46, 47, 48, 49, -50 };
@@ -175,11 +175,11 @@ namespace JewishCalendar
 
         #region private
 
-        private int _year;
-        private bool _inIsrael;
-        private int[] _sedraArray;
+        private readonly int _year;
+        private readonly bool _inIsrael;
+        private readonly int[] _sedraArray;
         private int _sedraNumWeeks => this._sedraArray.Length;
-        private int _firstSatInYear;
+        private readonly int _firstSatInYear;
 
         private Sedra(int year, bool inIsrael)
         {
@@ -202,11 +202,17 @@ namespace JewishCalendar
             YearType yearType;
 
             if (longCheshvon && !shortKislev)
+            {
                 yearType = YearType.Complete;
+            }
             else if (!longCheshvon && shortKislev)
+            {
                 yearType = YearType.Incomplete;
+            }
             else
+            {
                 yearType = YearType.Regular;
+            }
 
             this._year = year;
             this._inIsrael = inIsrael;
@@ -384,7 +390,7 @@ namespace JewishCalendar
         /// </summary>
         /// <param name="eng"></param>
         /// <param name="heb"></param>
-        public Parsha(string eng, string heb) { nameEng = eng; nameHebrew = heb; }
+        public Parsha(string eng, string heb) { this.nameEng = eng; this.nameHebrew = heb; }
 
         /// <summary>
         /// Name of this parsha in English

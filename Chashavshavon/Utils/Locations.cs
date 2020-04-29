@@ -6,7 +6,7 @@ namespace Chashavshavon.Utils
 {
     public static class Locations
     {
-        public static List<Location> LocationsList{ get; private set; }
+        public static List<Location> LocationsList { get; private set; }
 
         static Locations()
         {

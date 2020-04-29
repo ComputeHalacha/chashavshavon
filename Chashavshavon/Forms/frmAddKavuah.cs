@@ -1,5 +1,4 @@
-﻿using Chashavshavon.Utils;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
 using Tahara;
@@ -10,7 +9,7 @@ namespace Chashavshavon
     {
         public frmAddKavuah()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void frmAddKavuah_Load(object sender, EventArgs e)
@@ -29,7 +28,9 @@ namespace Chashavshavon
                 //Select the last entry as it is probably the setting entry
                 this.cmbSettingEntry.SelectedItem = last;
                 if (last.Interval > 0)
+                {
                     this.cmbNumber.SelectedItem = last.Interval;
+                }
             }
             else
             {
@@ -42,22 +43,22 @@ namespace Chashavshavon
         {
             if (this.rbDayOfMonth.Checked)
             {
-                LoadHebrewNumbers();
+                this.LoadHebrewNumbers();
                 this.lblNumber.Text = "תבחר יום בחדש";
             }
             else if (this.rbInterval.Checked || this.rbdayOfWeek.Checked)
             {
-                LoadIntervalNumbers();
+                this.LoadIntervalNumbers();
                 this.lblNumber.Text = "תבחר מספר הימים בין הראיות";
             }
-            else if (rbDilugHaflagah.Checked)
+            else if (this.rbDilugHaflagah.Checked)
             {
-                LoadDilugNumbers();
+                this.LoadDilugNumbers();
                 this.lblNumber.Text = "תבחר מספר ימי דילוג של ההפלגה";
             }
             else if (this.rbDilugDayOfMonth.Checked)
             {
-                LoadDilugNumbers();
+                this.LoadDilugNumbers();
                 this.lblNumber.Text = "תבחר מספר ימי דילוג של יום החודש";
             }
 
@@ -129,11 +130,11 @@ namespace Chashavshavon
                 this.AddedKavuah.KavuahType = this.cbMaayanPasuach.Checked ?
                     KavuahType.DayOfMonthMaayanPasuach : KavuahType.DayOfMonth;
             }
-            else if (rbdayOfWeek.Checked)
+            else if (this.rbdayOfWeek.Checked)
             {
                 this.AddedKavuah.KavuahType = KavuahType.DayOfWeek;
             }
-            else if (rbDilugHaflagah.Checked)
+            else if (this.rbDilugHaflagah.Checked)
             {
                 this.AddedKavuah.KavuahType = KavuahType.DilugHaflaga;
             }
@@ -154,7 +155,7 @@ namespace Chashavshavon
                 this.AddedKavuah.SettingEntryDate = entry.DateTime;
                 this.AddedKavuah.SettingEntryInterval = entry.Interval;
 
-                if (AddedKavuah.DayNight != entry.DayNight)
+                if (this.AddedKavuah.DayNight != entry.DayNight)
                 {
                     if (MessageBox.Show("העונה של הראייה הקובעת הוא [עונת " +
                             entry.HebrewDayNight +
@@ -255,7 +256,7 @@ namespace Chashavshavon
 
         private void SetCancelOnaBeinanis()
         {
-            if ((!cbMaayanPasuach.Checked) && (rbDay.Checked || rbInterval.Checked))
+            if ((!this.cbMaayanPasuach.Checked) && (this.rbDay.Checked || this.rbInterval.Checked))
             {
                 this.cbCancelsOnahBeinenis.Checked = true;
             }
