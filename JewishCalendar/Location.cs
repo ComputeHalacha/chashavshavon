@@ -164,22 +164,27 @@ namespace JewishCalendar
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool IsSameLocation(Location other) =>
-            other.IsInIsrael == this.IsInIsrael &&
-            other.TimeZone == this.TimeZone &&
-            other.Elevation == this.Elevation &&
-            other.LatitudeType == this.LatitudeType &&
-            other.LatitudeDegrees == this.LatitudeDegrees &&
-            other.LatitudeMinutes == this.LatitudeMinutes &&
-            other.LongitudeType == this.LongitudeType &&
-            other.LongitudeDegrees == this.LongitudeDegrees &&
-            other.LongitudeMinutes == this.LongitudeMinutes;
+        public bool IsSameLocation(Location other)
+        {
+            return other.IsInIsrael == this.IsInIsrael &&
+other.TimeZone == this.TimeZone &&
+other.Elevation == this.Elevation &&
+other.LatitudeType == this.LatitudeType &&
+other.LatitudeDegrees == this.LatitudeDegrees &&
+other.LatitudeMinutes == this.LatitudeMinutes &&
+other.LongitudeType == this.LongitudeType &&
+other.LongitudeDegrees == this.LongitudeDegrees &&
+other.LongitudeMinutes == this.LongitudeMinutes;
+        }
 
 
         /// <summary>
         /// Returns the name of this Location in English.
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => this.Name;
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

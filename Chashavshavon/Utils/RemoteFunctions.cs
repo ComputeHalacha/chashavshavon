@@ -35,19 +35,19 @@ namespace Chashavshavon.Utils
             return new KeyValuePair<string, string>(name, value);
         }
 
-        public static bool SaveCurrentFile(string fileName, string xml)
+        public static bool SaveFile(string fileName, string xml)
         {
             return ExecuteRemoteCall("SetFileText", NewParam("fileName", fileName), NewParam("fileText", xml)) != null;
         }
 
-        public static string GetCurrentFileText(string fileName)
+        public static string GetFileXml(string fileName)
         {
             return ExecuteRemoteCall("GetFileText", NewParam("fileName", fileName)).OuterXml;
         }
 
         public static XmlDocument GetRemoteResponse(string function, params KeyValuePair<string, string>[] fields)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             try
             {
                 doc = ExecuteRemoteCall(function, fields);
@@ -82,13 +82,13 @@ namespace Chashavshavon.Utils
         public static string GetRemoteResponseText(string function, params KeyValuePair<string, string>[] fields)
         {
             string responseText = null;
-            WebRequest request = WebRequest.Create(
+            var request = WebRequest.Create(
                                 (Properties.Settings.Default.DevMode ?
                                     Properties.Resources.LocalAppURL : Properties.Resources.AppURL) +
                                 "/" + function);
             request.Method = "POST";
 
-            StringBuilder postData = new StringBuilder();
+            var postData = new StringBuilder();
             postData.Append("userName=" + Properties.Settings.Default.RemoteUserName);
             postData.Append("&password=" + Properties.Settings.Default.RemotePassword);
             foreach (KeyValuePair<string, string> field in fields)
@@ -107,7 +107,7 @@ namespace Chashavshavon.Utils
             if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
             {
                 dataStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(dataStream);
+                var reader = new StreamReader(dataStream);
                 responseText = reader.ReadToEnd();
                 reader.Close();
                 dataStream.Close();
@@ -123,16 +123,16 @@ namespace Chashavshavon.Utils
             string errorLogText = File.Exists(logFilePath) ? File.ReadAllText(logFilePath) : "";
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string url = GetComputeURL(Properties.Resources.SendErrorReportURL);
-            WebRequest request = WebRequest.Create(url);
+            var request = WebRequest.Create(url);
             var jse = new System.Web.Script.Serialization.JavaScriptSerializer();
             string jsonString = jse.Serialize(new
             {
                 App = "Chashavshavon",
                 Version = version,
-                Message = excep.Message,
-                Source = excep.Source,
+                excep.Message,
+                excep.Source,
                 TargetSite = excep.TargetSite.ToString(),
-                StackTrace = excep.StackTrace,
+                excep.StackTrace,
                 CurrentFile = currentFileText,
                 CurrentFileExt = "xml",
                 ErrorLog = errorLogText,
@@ -148,8 +148,8 @@ namespace Chashavshavon.Utils
             {
                 dataStream.Write(byteArray, 0, byteArray.Length);
                 dataStream.Close();
-                var response = request.GetResponse();
-                var resStream = response.GetResponseStream();
+                WebResponse response = request.GetResponse();
+                Stream resStream = response.GetResponseStream();
                 var streamReader = new StreamReader(resStream);
                 string responseText =
                     jse.Deserialize<System.Collections.Generic.Dictionary<String, String>>(streamReader.ReadToEnd())["d"];
@@ -174,13 +174,13 @@ namespace Chashavshavon.Utils
             try
             {
                 string url = GetComputeURL(Properties.Resources.GetLatestVersionURL);
-                WebRequest request = WebRequest.Create(url);
+                var request = WebRequest.Create(url);
                 request.Method = "GET";
 
                 WebResponse response = request.GetResponse();
                 if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
                 {
-                    var dataStream = response.GetResponseStream();
+                    Stream dataStream = response.GetResponseStream();
                     var reader = new StreamReader(dataStream);
                     versionString = reader.ReadToEnd();
                     reader.Close();
@@ -203,14 +203,14 @@ namespace Chashavshavon.Utils
             return version;
         }
 
-        public static String DownloadLatestVersion()
+        public static string DownloadLatestVersion()
         {
             string installerPath = null;
             string path = Program.TempFolderPath + @"\InstallChashavshavon.exe";
 
             try
             {
-                WebRequest request = WebRequest.Create(GetComputeURL(Properties.Resources.DownloadApplicationURL));
+                var request = WebRequest.Create(GetComputeURL(Properties.Resources.DownloadApplicationURL));
                 request.Method = "GET";
                 WebResponse response = request.GetResponse();
                 if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
@@ -222,9 +222,9 @@ namespace Chashavshavon.Utils
                             File.Delete(path);
                         }
 
-                        var dataStream = response.GetResponseStream();
-                        Byte[] buffer = new Byte[256];
-                        FileStream fs = new FileStream(path, FileMode.Create);
+                        Stream dataStream = response.GetResponseStream();
+                        byte[] buffer = new byte[256];
+                        var fs = new FileStream(path, FileMode.Create);
                         int numBytesRead = 0;
                         while (true)
                         {
@@ -263,7 +263,7 @@ namespace Chashavshavon.Utils
 
         private static XmlDocument ExecuteRemoteCall(string function, params KeyValuePair<string, string>[] fields)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.LoadXml(GetRemoteResponseText(function, fields));
             XmlNode errorNode = doc.SelectSingleNode("//error");
             if (errorNode != null)

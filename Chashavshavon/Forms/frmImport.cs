@@ -20,7 +20,7 @@ namespace Chashavshavon
 
             if (File.Exists(path))
             {
-                var xml = File.ReadAllText(path);
+                string xml = File.ReadAllText(path);
 
                 if (string.IsNullOrWhiteSpace(xml))
                 {
@@ -29,11 +29,11 @@ namespace Chashavshavon
                 (this.EntryList, this.KavuahList) =
                     Program.LoadEntriesKavuahsFromXml(xml);
 
-                foreach (var e in this.EntryList)
+                foreach (Entry e in this.EntryList)
                 {
                     this.lvEntries.Items.Add(new ListViewItem(e.ToString()) { Tag = e });
                 }
-                foreach (var k in this.KavuahList)
+                foreach (Kavuah k in this.KavuahList)
                 {
                     this.lvKavuahs.Items.Add(new ListViewItem(k.ToString()) { Tag = k });
                 }
@@ -74,7 +74,7 @@ namespace Chashavshavon
             {
                 return;
             }
-            var prev = this._loading;
+            bool prev = this._loading;
             this._loading = true;
             if (this.cbAllEntries.CheckState != CheckState.Indeterminate)
             {
@@ -92,7 +92,7 @@ namespace Chashavshavon
             {
                 return;
             }
-            var prev = this._loading;
+            bool prev = this._loading;
             this._loading = true;
             if (this.cbAllKavuahs.CheckState != CheckState.Indeterminate)
             {
@@ -110,7 +110,7 @@ namespace Chashavshavon
             {
                 return;
             }
-            var prev = this._loading;
+            bool prev = this._loading;
             this._loading = true;
             IEnumerable<ListViewItem> lv = this.lvEntries.Items.Cast<ListViewItem>();
             if (lv.All(lvi => lvi.Checked))
@@ -137,7 +137,7 @@ namespace Chashavshavon
             {
                 return;
             }
-            var prev = this._loading;
+            bool prev = this._loading;
             this._loading = true;
             IEnumerable<ListViewItem> lv = this.lvKavuahs.Items.Cast<ListViewItem>();
             if (lv.All(lvi => lvi.Checked))
@@ -160,14 +160,14 @@ namespace Chashavshavon
 
         private void lvEntries_ItemActivate(object sender, EventArgs e)
         {
-            var isc = this.lvEntries.SelectedItems[0].Checked;
+            bool isc = this.lvEntries.SelectedItems[0].Checked;
             this.lvEntries.SelectedItems[0].Checked = !isc;
         }
 
         private void lvKavuahs_ItemActivate(object sender, EventArgs e)
         {
 
-            var isc = this.lvKavuahs.SelectedItems[0].Checked;
+            bool isc = this.lvKavuahs.SelectedItems[0].Checked;
             this.lvKavuahs.SelectedItems[0].Checked = !isc;
         }
     }

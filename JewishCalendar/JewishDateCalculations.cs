@@ -34,28 +34,40 @@ namespace JewishCalendar
         /// The only difference is, the JewishDate class's version uses Globalization.HebrewCalendars.IsLeapYear 
         /// which adds a check to make sure that the year is within the range of the HebrewCalendar class.
         /// </remarks>
-        public static bool IsJewishLeapYear(int year) => (((7 * year) + 1) % 19) < 7;
+        public static bool IsJewishLeapYear(int year)
+        {
+            return (((7 * year) + 1) % 19) < 7;
+        }
 
         /// <summary>
         /// Gets the number of months in the given Jewish year
         /// </summary>
         /// <param name="year">The Jewish Year for which to get the number of months for</param>
         /// <returns>The number of months in the given year</returns>        
-        public static int MonthsInJewishYear(int year) => IsJewishLeapYear(year) ? 13 : 12;
+        public static int MonthsInJewishYear(int year)
+        {
+            return IsJewishLeapYear(year) ? 13 : 12;
+        }
 
         /// <summary>
         /// Does Cheshvan have a full 30 days in the given Jewish Year?
         /// </summary>
         /// <param name="year">The given Jewish Year</param>
         /// <returns>Whether or not Cheshvan has 30 days in the given year</returns>       
-        public static bool IsLongCheshvan(int year) => (DaysInJewishYear(year) % 10) == 5;
+        public static bool IsLongCheshvan(int year)
+        {
+            return (DaysInJewishYear(year) % 10) == 5;
+        }
 
         /// <summary>
         /// Does Kislev have 29 days for the given Jewish year?
         /// </summary>
         /// <param name="year">The given Jewish Year</param>
         /// <returns>Whether or not Kislev has 29 days in the given year</returns>        
-        public static bool IsShortKislev(int year) => (DaysInJewishYear(year) % 10) == 3;
+        public static bool IsShortKislev(int year)
+        {
+            return (DaysInJewishYear(year) % 10) == 3;
+        }
 
         /// <summary>
         /// Compute the number of days in the given Jewish month
@@ -86,7 +98,10 @@ namespace JewishCalendar
         /// </summary>
         /// <param name="year">The given Jewish Year</param>
         /// <returns>The number of days in the given Jewish Year</returns>        
-        public static int DaysInJewishYear(int year) => ((GetElapsedDays(year + 1)) - (GetElapsedDays(year)));
+        public static int DaysInJewishYear(int year)
+        {
+            return ((GetElapsedDays(year + 1)) - (GetElapsedDays(year)));
+        }
 
         /// <summary>
         /// Compares this Jewish Date to another one to see if they both represent the same Jewish calendar date.         
@@ -109,7 +124,10 @@ namespace JewishCalendar
         /// </summary>
         /// <param name="jd"></param>
         /// <returns></returns>
-        public static DateTime GetGregorianDateFromJewishDate(JewishDate jd) => GetGregorianDateFromAbsolute(jd.AbsoluteDate).Add(jd.TimeOfDay);
+        public static DateTime GetGregorianDateFromJewishDate(JewishDate jd)
+        {
+            return GetGregorianDateFromAbsolute(jd.AbsoluteDate).Add(jd.TimeOfDay);
+        }
 
         /// <summary>
         /// The number of days elapsed since the theoretical Gregorian date Sunday, December 31, 1 BCE.
@@ -155,7 +173,10 @@ namespace JewishCalendar
         /// </summary>
         /// <param name="date">The Gregorian Date</param>
         /// <returns></returns>
-        public static int GetAbsoluteFromGregorianDate(DateTime date) => GetAbsoluteFromGregorianDate(date.Year, date.Month, date.Day);
+        public static int GetAbsoluteFromGregorianDate(DateTime date)
+        {
+            return GetAbsoluteFromGregorianDate(date.Year, date.Month, date.Day);
+        }
 
         /// <summary>
         /// Computed the absolute date for the given Gregorian Year, Month and Day

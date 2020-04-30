@@ -41,12 +41,6 @@ namespace Chashavshavon
             }
         }
 
-        public List<Kavuah> ListToAdd
-        {
-            get
-            {
-                return this._listToAdd;
-            }
-        }
+        public List<Kavuah> ListToAdd => this._listToAdd;
     }
 }

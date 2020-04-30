@@ -72,7 +72,7 @@ namespace JewishCalendar
         /// <returns></returns>
         public TimeOfDay GetNetz()
         {
-            var netzShkia = this.GetNetzShkia();
+            TimeOfDay[] netzShkia = this.GetNetzShkia();
             if (netzShkia == null) { return new TimeOfDay(); }
             return netzShkia[0];
         }
@@ -104,7 +104,7 @@ namespace JewishCalendar
         /// <returns></returns>
         public TimeOfDay GetShkia()
         {
-            var netzShkia = this.GetNetzShkia();
+            TimeOfDay[] netzShkia = this.GetNetzShkia();
             if (netzShkia == null) { return new TimeOfDay(); }
             return netzShkia[1];
         }
@@ -127,7 +127,7 @@ namespace JewishCalendar
                 return TimeOfDay.NoValue;
             }
 
-            var chatz = (shkia.TotalMinutes - netz.TotalMinutes) / 2;
+            int chatz = (shkia.TotalMinutes - netz.TotalMinutes) / 2;
             return netz + chatz;
         }
 
@@ -156,7 +156,7 @@ namespace JewishCalendar
         /// </remarks>
         public static ArrayList GetHolidays(JewishDate jDate, bool inIsrael)
         {
-            ArrayList list = new ArrayList();
+            var list = new ArrayList();
             int jYear = jDate.Year;
             int jMonth = jDate.Month;
             int jDay = jDate.Day;
@@ -178,7 +178,7 @@ namespace JewishCalendar
             //V'sain Tal U'Matar in Chutz La'aretz is according to the secular date
             if (secDate.Month == 12 && secDate.Day.In(5, 6) && !inIsrael)
             {
-                var nextYearIsLeap = JewishDateCalculations.IsJewishLeapYear(jYear + 1);
+                bool nextYearIsLeap = JewishDateCalculations.IsJewishLeapYear(jYear + 1);
                 if (((secDate.Day == 5 && !nextYearIsLeap)) || (secDate.Day == 6 && nextYearIsLeap))
                 {
                     list.Add(new SpecialDay("V'sain Tal U'Matar", "ותן טל ומטר"));
@@ -318,7 +318,7 @@ namespace JewishCalendar
         /// <returns></returns>
         public static TimeOfDay GetNetz(DateTime date, Location location, bool considerElevation = true)
         {
-            var netzShkia = GetNetzShkia(date, location, considerElevation);
+            TimeOfDay[] netzShkia = GetNetzShkia(date, location, considerElevation);
             if (netzShkia == null) { return new TimeOfDay(); }
             return netzShkia[0];
         }
@@ -343,8 +343,10 @@ namespace JewishCalendar
         /// <param name="netzShkia"></param>
         /// <param name="israel"></param>
         /// <returns></returns>
-        public static double GetShaaZmanisMga(TimeOfDay[] netzShkia, bool israel) =>
-            GetShaaZmanis(netzShkia, israel ? 90 : 72);
+        public static double GetShaaZmanisMga(TimeOfDay[] netzShkia, bool israel)
+        {
+            return GetShaaZmanis(netzShkia, israel ? 90 : 72);
+        }
 
         /// <summary>
         /// Gets length of Shaa zmanis in minutes for given date and location.
@@ -369,7 +371,7 @@ namespace JewishCalendar
         /// <returns></returns>
         public static TimeOfDay GetShkia(DateTime date, Location location, bool considerElevation = true)
         {
-            var netzShkia = GetNetzShkia(date, location, considerElevation);
+            TimeOfDay[] netzShkia = GetNetzShkia(date, location, considerElevation);
             if (netzShkia == null) { return new TimeOfDay(); }
             return netzShkia[1];
         }
@@ -990,7 +992,7 @@ namespace JewishCalendar
                 hour -= 24;
             }
 
-            TimeOfDay hm = new TimeOfDay { Hour = hour, Minute = min, Seconds = sec };
+            var hm = new TimeOfDay { Hour = hour, Minute = min, Seconds = sec };
 
             if (Utils.IsDateTimeDST(date.Date.AddHours(hour), location))
             {

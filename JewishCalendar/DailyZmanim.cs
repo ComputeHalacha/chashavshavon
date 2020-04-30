@@ -183,7 +183,7 @@ namespace JewishCalendar
         /// The length of Shaa zmanis in minutes for current date and location.
         /// Configured from netz to shkia at sea level.
         /// </summary>
-        public Double ShaaZmanis
+        public double ShaaZmanis
         {
             get
             {
@@ -198,7 +198,7 @@ namespace JewishCalendar
         /// The length of Shaa zmanis in minutes for current date and location.
         /// Configured from alos hashachar to tzais hakochavim at sea level.
         /// </summary>
-        public Double ShaaZmanisMga
+        public double ShaaZmanisMga
         {
             get
             {

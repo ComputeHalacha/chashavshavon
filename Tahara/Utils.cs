@@ -92,7 +92,7 @@ namespace Tahara
         /// <param name="test">Object to be searched for - is supplied by the compiler using the caller object</param>
         /// <param name="list">List of objects to search in.</param>
         /// <returns></returns>		
-        public static bool In(this Object o, params object[] list)
+        public static bool In(this object o, params object[] list)
         {
             return Array.IndexOf(list, o) > -1;
         }

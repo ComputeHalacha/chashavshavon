@@ -61,18 +61,6 @@ namespace Chashavshavon.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool IsCurrentFileRemote {
-            get {
-                return ((bool)(this["IsCurrentFileRemote"]));
-            }
-            set {
-                this["IsCurrentFileRemote"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ShowOhrZeruah {
             get {
@@ -217,18 +205,6 @@ namespace Chashavshavon.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool openLastFileName {
-            get {
-                return ((bool)(this["openLastFileName"]));
-            }
-            set {
-                this["openLastFileName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool openNewFile {
             get {
                 return ((bool)(this["openNewFile"]));
@@ -252,13 +228,13 @@ namespace Chashavshavon.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastLocalFileName {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool openNoFile {
             get {
-                return ((string)(this["LastLocalFileName"]));
+                return ((bool)(this["openNoFile"]));
             }
             set {
-                this["LastLocalFileName"] = value;
+                this["openNoFile"] = value;
             }
         }
     }

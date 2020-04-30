@@ -48,14 +48,8 @@ namespace Chashavshavon
 
         public string Html
         {
-            get
-            {
-                return this.webBrowser1.DocumentText;
-            }
-            set
-            {
-                this.webBrowser1.DocumentText = value;
-            }
+            get => this.webBrowser1.DocumentText;
+            set => this.webBrowser1.DocumentText = value;
         }
     }
 }

@@ -42,7 +42,6 @@ namespace Chashavshavon
 
         public frmMain(string filePath)
         {
-            this.CurrentFileIsRemote = false;
             this.CurrentFile = filePath;
             this.StartUp();
         }
@@ -50,6 +49,56 @@ namespace Chashavshavon
         #endregion Constructors
 
         #region Event Handlers
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            if (this.CloseMeFirst)
+            {
+                this.Close();
+            }
+
+            this.dgEntries.AutoGenerateColumns = false;
+
+            //Checks to see if the user is connected to the internet, and activates remote functionality if they are.
+            this.TestInternet();
+            if (Properties.Settings.Default.openNewFile)
+            {
+                this.CurrentFile = null;
+                this.saveFileDialog1.Title = "נא לבחור שם ומיקום לקובץ החדש";
+                this.saveFileDialog1.CreatePrompt = false;
+                this.saveFileDialog1.CheckFileExists = false;
+                this.saveFileDialog1.OverwritePrompt = true;
+                this.saveFileDialog1.DefaultExt = "pm";
+                this.saveFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pm";
+
+                if (this.saveFileDialog1.ShowDialog(this) == DialogResult.OK)
+                {
+                    this.CurrentFile = this.saveFileDialog1.FileName;
+                }
+            }
+            else if (Properties.Settings.Default.openFileDialog)
+            {
+                this.openFileDialog1.ShowDialog(this);
+                this.openFileDialog1.CheckFileExists = true;
+                this.CurrentFile = this.openFileDialog1.FileName;
+
+            }
+            else if (Properties.Settings.Default.openNoFile)
+            {
+                this.CurrentFile = null;
+            }
+            //Load the last opened file. If it does not exist or this is the first run, a blank list is presented
+            this.LoadXmlFile();
+            this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
+            this._monthToDisplay = Program.Today;
+            this.DisplayMonth();
+
+            foreach (string f in Properties.Settings.Default.RecentFiles)
+            {
+                this.recentFilesToolStripMenuItem.DropDownItems.Add(f);
+            }
+            this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = this.recentFilesToolStripMenuItem.HasDropDownItems;
+        }
+
 
         private void AbouToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -210,7 +259,7 @@ namespace Chashavshavon
         {
             try
             {
-                this.SaveCurrentFile();                
+                this.SaveCurrentFile();
                 //the temp folder is only deleted if the user manually closed the app.
                 //Otherwise we may be in an installer run and do not want to delete the installation files.
                 Program.BeforeExit(e.CloseReason == CloseReason.UserClosing);
@@ -225,30 +274,6 @@ namespace Chashavshavon
                                               MessageBoxDefaultButton.Button1,
                                               MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
-        }
-
-        private void frmMain_Load(object sender, EventArgs e)
-        {
-            if (this.CloseMeFirst)
-            {
-                this.Close();
-            }
-
-            this.dgEntries.AutoGenerateColumns = false;
-
-            //Checks to see if the user is connected to the internet, and activates remote functionality if they are.
-            this.TestInternet();
-            //Load the last opened file. If it does not exist or this is the first run, a blank list is presented
-            this.LoadXmlFile();
-            this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
-            this._monthToDisplay = Program.Today;
-            this.DisplayMonth();
-
-            foreach (string f in Properties.Settings.Default.RecentFiles)
-            {
-                this.recentFilesToolStripMenuItem.DropDownItems.Add(f);
-            }
-            this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = this.recentFilesToolStripMenuItem.HasDropDownItems;
         }
 
         /*private void frmMain_ResizeBegin(object sender, EventArgs e)
@@ -365,7 +390,6 @@ namespace Chashavshavon
             this.openFileDialog1.ShowDialog(this);
             this.openFileDialog1.CheckFileExists = true;
             this.CurrentFile = this.openFileDialog1.FileName;
-            this.CurrentFileIsRemote = false;
             this.LoadXmlFile();
             this.CalculateProblemOnahs();
             this.DisplayMonth();
@@ -394,7 +418,6 @@ namespace Chashavshavon
             {
                 this.SaveCurrentFile();
                 this.CurrentFile = e.ClickedItem.Text;
-                this.CurrentFileIsRemote = false;
                 this.LoadXmlFile();
                 this.CalculateProblemOnahs();
                 this.DisplayMonth();
@@ -430,7 +453,7 @@ namespace Chashavshavon
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.SaveCurrentFile();
-            MessageBox.Show("הקובץ נשמרה" + (this.CurrentFileIsRemote ? " ברשת " : ""),
+            MessageBox.Show("הקובץ נשמרה",
                             "חשבשבון",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
@@ -590,7 +613,6 @@ namespace Chashavshavon
             if (this.saveFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 this.CurrentFile = this.saveFileDialog1.FileName;
-                this.CurrentFileIsRemote = false;
                 this.RefreshData();
             }
         }
@@ -605,8 +627,6 @@ namespace Chashavshavon
                 return;
             }
             this.CurrentFile = this.openFileDialog1.FileName;
-            this.CurrentFileIsRemote = false;
-
             this.SaveCurrentFile();
             return;
         }
@@ -1226,7 +1246,7 @@ namespace Chashavshavon
             this.CreateLocalBackup();
             this.lblNextProblem.Text = "";
 
-            if (this.CurrentFileIsRemote || File.Exists(this.CurrentFile))
+            if (File.Exists(this.CurrentFile))
             {
                 try
                 {
@@ -1418,40 +1438,35 @@ namespace Chashavshavon
             XmlTextWriter xtw;
             Stream stream = null;
 
-            if (this.CurrentFileIsRemote)
-            {
-                stream = new MemoryStream();
-            }
-            else
-            {
-                string dir = Path.GetDirectoryName(this.CurrentFile);
 
-                try
+            string dir = Path.GetDirectoryName(this.CurrentFile);
+
+            try
+            {
+                if (!Directory.Exists(dir))
                 {
-                    if (!Directory.Exists(dir))
-                    {
-                        Directory.CreateDirectory(dir);
-                    }
+                    Directory.CreateDirectory(dir);
                 }
-                catch (IOException)
-                {
-                    string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-                        @"\Chashavshavon Files";
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-                    this.CurrentFile = this.CurrentFile.Replace(dir, path);
-                    MessageBox.Show("חשבשבון היה צריל להעתיק הקובץ הפעילה למיקום אחר.\nהקובץ עכשיו נמצא ב: \n" +
-                        this.CurrentFile,
-                        "חשבשבון",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                }
-                stream = File.CreateText(this.CurrentFile).BaseStream;
             }
+            catch (IOException)
+            {
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                    @"\Chashavshavon Files";
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                this.CurrentFile = this.CurrentFile.Replace(dir, path);
+                MessageBox.Show("חשבשבון היה צריל להעתיק הקובץ הפעילה למיקום אחר.\nהקובץ עכשיו נמצא ב: \n" +
+                    this.CurrentFile,
+                    "חשבשבון",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+            }
+            stream = File.CreateText(this.CurrentFile).BaseStream;
+
             xtw = new XmlTextWriter(stream, Encoding.UTF8);
             xtw.WriteStartDocument();
             xtw.WriteStartElement("Entries");
@@ -1480,45 +1495,22 @@ namespace Chashavshavon
 
             xtw.WriteEndDocument();
             xtw.Flush();
-            if (this.CurrentFileIsRemote)
-            {
-                stream.Position = 0;
-                var sr = new StreamReader(stream);
-                try
-                {
-                    Utils.RemoteFunctions.SaveCurrentFile(this.CurrentFile, sr.ReadToEnd());
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message, "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                sr.Close();
-                sr.Dispose();
-            }
             xtw.Close();
             stream.Dispose();
-            Properties.Settings.Default.IsCurrentFileRemote = this.CurrentFileIsRemote;
             Properties.Settings.Default.CurrentFile = this.CurrentFile;
-            if(!this.CurrentFileIsRemote)
-            {
-                Properties.Settings.Default.LastLocalFileName = this.CurrentFile;
-            }            
             Properties.Settings.Default.Save();
             this.SetCaptionText();
         }
 
         public void SetCaptionText()
         {
-            string fileName = !String.IsNullOrWhiteSpace(this.CurrentFileName)
-                ? " - " + (this.CurrentFileIsRemote ? "קובץ רשת - " : "") + this.CurrentFileName
+            string fileName = !string.IsNullOrWhiteSpace(this.CurrentFileName)
+                ? " - " + this.CurrentFileName
                 : "";
             this.Text = " חשבשבון גירסה " +
                 Assembly.GetExecutingAssembly().GetName().Version.ToString() + " - " +
-                Program.GetCurrentPlaceName() + this.CurrentFileName;
-            if (this.pbWeb != null)
-            {
-                this.pbWeb.Visible = this.CurrentFileIsRemote;
-            }
+                Program.GetCurrentPlaceName() + fileName;
+
         }
 
         /// <summary>
@@ -1530,18 +1522,6 @@ namespace Chashavshavon
         {
             bool hasInternet = Properties.Settings.Default.DevMode || Utils.RemoteFunctions.IsConnectedToInternet();
             this.RemoteToolStripMenuItem.Visible = hasInternet;
-            if (this.CurrentFileIsRemote && !hasInternet)
-            {
-                MessageBox.Show("הקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
-                    this.CurrentFile + "\"" + Environment.NewLine + "הוא קובץ רשת, אבל אין גישה לרשת כרגע" + Environment.NewLine + ".לכן תפתח קובץ ריק",
-                    "חשבשבון",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                this.CurrentFileIsRemote = false;
-                this.CurrentFile = Program.Today.ToString("ddMMMyyyy_hhmm").Replace("\"", "").Replace("'", "") + ".pm";
-            }
             return hasInternet;
         }
 
@@ -1557,57 +1537,25 @@ namespace Chashavshavon
             set
             {
                 Properties.Settings.Default.CurrentFile = value;
-                if (!this.CurrentFileIsRemote)
-                {
-                    Properties.Settings.Default.LastLocalFileName = this.CurrentFile;
-                }
                 Properties.Settings.Default.Save();
                 this.SetCaptionText();
             }
         }
 
-        public bool CurrentFileIsRemote
-        {
-            get => Properties.Settings.Default.IsCurrentFileRemote;
-            set
-            {
-                Properties.Settings.Default.IsCurrentFileRemote = value;
-                Properties.Settings.Default.Save();
-                this.SetCaptionText();
-            }
-        }
-
-        public string CurrentFileName
-        {
-            get
-            {
-                string[] cf = this.CurrentFile.Split(new char[] { '\\', '/' });
-                return cf[cf.Length - 1];
-            }
-        }
+        public string CurrentFileName => Path.GetFileName(this.CurrentFile);
 
         public string CurrentFileXML
         {
             get
             {
-                string xml = null;
-                if (this.CurrentFileIsRemote)
+                if (!string.IsNullOrWhiteSpace(this.CurrentFile))
                 {
-                    try
-                    {
-                        xml = Utils.RemoteFunctions.GetCurrentFileText(this.CurrentFile);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message, "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    return File.ReadAllText(this.CurrentFile);
                 }
-                else if (!String.IsNullOrWhiteSpace(this.CurrentFile))
+                else
                 {
-                    xml = File.ReadAllText(this.CurrentFile);
+                    return "<Entries />";
                 }
-
-                return (string.IsNullOrWhiteSpace(xml) ? "<Entries />" : xml);
             }
         }
         public string WeekListHtml { get; set; }

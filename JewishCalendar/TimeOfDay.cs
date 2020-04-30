@@ -33,8 +33,10 @@ namespace JewishCalendar
         /// Returns a TimeSpan representation of this TimeOfDay
         /// </summary>
         /// <returns></returns>
-        public TimeSpan ToTimeSpan() =>
-            new TimeSpan(this.Hour, this.Minute, this.Seconds);
+        public TimeSpan ToTimeSpan()
+        {
+            return new TimeSpan(this.Hour, this.Minute, this.Seconds);
+        }
 
         /// <summary>
         /// An TimeOfDay that does not represent a real time.
@@ -54,7 +56,7 @@ namespace JewishCalendar
         /// <returns></returns>
         public static TimeOfDay operator +(TimeOfDay t, int min)
         {
-            TimeOfDay result = new TimeOfDay
+            var result = new TimeOfDay
             {
                 Hour = t.Hour,
                 Minute = t.Minute + min,
@@ -86,7 +88,7 @@ namespace JewishCalendar
         /// <returns></returns>
         public static TimeOfDay operator +(TimeOfDay t, double min)
         {
-            TimeOfDay result = new TimeOfDay
+            var result = new TimeOfDay
             {
                 Hour = t.Hour,
                 Minute = t.Minute + (int)Math.Floor(min),
@@ -132,8 +134,10 @@ namespace JewishCalendar
         /// <param name="t2"></param>
         /// <returns></returns>
         //Let's cheat and use a real TimeSpan for this.
-        public static TimeOfDay operator +(TimeOfDay t1, TimeOfDay t2) =>
-            (TimeOfDay)(t1.ToTimeSpan().Add(t2.ToTimeSpan()));
+        public static TimeOfDay operator +(TimeOfDay t1, TimeOfDay t2)
+        {
+            return (TimeOfDay)(t1.ToTimeSpan().Add(t2.ToTimeSpan()));
+        }
 
         /// <summary>
         /// Add a TimeSpan to this TimeOfDay
@@ -141,8 +145,10 @@ namespace JewishCalendar
         /// <param name="t"></param>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static TimeOfDay operator +(TimeOfDay t, TimeSpan ts) =>
-            (TimeOfDay)(t.ToTimeSpan().Add(ts));
+        public static TimeOfDay operator +(TimeOfDay t, TimeSpan ts)
+        {
+            return (TimeOfDay)(t.ToTimeSpan().Add(ts));
+        }
 
         /// <summary>
         /// Subtract minutes.
@@ -152,7 +158,7 @@ namespace JewishCalendar
         /// <returns></returns>
         public static TimeOfDay operator -(TimeOfDay t, int min)
         {
-            TimeOfDay result = new TimeOfDay
+            var result = new TimeOfDay
             {
                 Hour = t.Hour,
                 Minute = t.Minute - min,
@@ -190,7 +196,7 @@ namespace JewishCalendar
         /// <returns></returns>
         public static TimeOfDay operator -(TimeOfDay t, double min)
         {
-            TimeOfDay result = new TimeOfDay
+            var result = new TimeOfDay
             {
                 Hour = t.Hour,
                 Minute = t.Minute - (int)Math.Floor(min),
@@ -226,8 +232,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns></returns>
-        public static TimeOfDay operator -(TimeOfDay t1, TimeOfDay t2) =>
-            (TimeOfDay)(t1.ToTimeSpan().Subtract(t2.ToTimeSpan()));
+        public static TimeOfDay operator -(TimeOfDay t1, TimeOfDay t2)
+        {
+            return (TimeOfDay)(t1.ToTimeSpan().Subtract(t2.ToTimeSpan()));
+        }
 
         /// <summary>
         /// Subtract a TimeSpan from this TimeOfDay
@@ -235,8 +243,10 @@ namespace JewishCalendar
         /// <param name="t"></param>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static TimeOfDay operator -(TimeOfDay t, TimeSpan ts) =>
-            (TimeOfDay)(t.ToTimeSpan().Subtract(ts));
+        public static TimeOfDay operator -(TimeOfDay t, TimeSpan ts)
+        {
+            return (TimeOfDay)(t.ToTimeSpan().Subtract(ts));
+        }
 
         /// <summary>
         /// Compares 2 TimeOfDay objects
@@ -244,8 +254,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns></returns>
-        public static bool operator ==(TimeOfDay t1, TimeOfDay t2) =>
-            (t1.Hour == t2.Hour && t1.Minute == t2.Minute && t1.Seconds == t2.Seconds);
+        public static bool operator ==(TimeOfDay t1, TimeOfDay t2)
+        {
+            return (t1.Hour == t2.Hour && t1.Minute == t2.Minute && t1.Seconds == t2.Seconds);
+        }
 
         /// <summary>
         /// Compares 2 TimeOfDay objects for inequality
@@ -253,7 +265,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns></returns>
-        public static bool operator !=(TimeOfDay t1, TimeOfDay t2) => !(t1 == t2);
+        public static bool operator !=(TimeOfDay t1, TimeOfDay t2)
+        {
+            return !(t1 == t2);
+        }
 
         /// <summary>
         /// Compare the current TimeOfDay to a TimeSpan
@@ -261,8 +276,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static bool operator ==(TimeOfDay t1, TimeSpan ts) =>
-            t1.TotalSeconds == Convert.ToInt32(Math.Floor(ts.TotalSeconds));
+        public static bool operator ==(TimeOfDay t1, TimeSpan ts)
+        {
+            return t1.TotalSeconds == Convert.ToInt32(Math.Floor(ts.TotalSeconds));
+        }
 
         /// <summary>
         /// Compare the current TimeOfDay to a TimeSpan for inequality
@@ -270,7 +287,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static bool operator !=(TimeOfDay t1, TimeSpan ts) => !(t1 == ts);
+        public static bool operator !=(TimeOfDay t1, TimeSpan ts)
+        {
+            return !(t1 == ts);
+        }
 
         /// <summary>
         /// Returns true if the current TimeOfDay is after the second one.
@@ -278,8 +298,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns></returns>
-        public static bool operator >(TimeOfDay t1, TimeOfDay t2) =>
-            t1.TotalSeconds > t2.TotalSeconds;
+        public static bool operator >(TimeOfDay t1, TimeOfDay t2)
+        {
+            return t1.TotalSeconds > t2.TotalSeconds;
+        }
 
         /// <summary>
         /// Returns true if the current TimeOfDay is before the second one.
@@ -287,8 +309,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns></returns>
-        public static bool operator <(TimeOfDay t1, TimeOfDay t2) =>
-            t1.TotalSeconds < t2.TotalSeconds;
+        public static bool operator <(TimeOfDay t1, TimeOfDay t2)
+        {
+            return t1.TotalSeconds < t2.TotalSeconds;
+        }
 
         /// <summary>
         /// Returns true if the current TimeOfDay is after the TimeSpan.
@@ -296,8 +320,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static bool operator >(TimeOfDay t1, TimeSpan ts) =>
-            t1.TotalSeconds > ts.TotalSeconds;
+        public static bool operator >(TimeOfDay t1, TimeSpan ts)
+        {
+            return t1.TotalSeconds > ts.TotalSeconds;
+        }
 
         /// <summary>
         /// Returns true if the current TimeOfDay is not before the second one.
@@ -305,8 +331,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns></returns>
-        public static bool operator >=(TimeOfDay t1, TimeOfDay t2) =>
-            t1.TotalSeconds >= t2.TotalSeconds;
+        public static bool operator >=(TimeOfDay t1, TimeOfDay t2)
+        {
+            return t1.TotalSeconds >= t2.TotalSeconds;
+        }
 
         /// <summary>
         /// Returns true if the current TimeOfDay is not after the second one.
@@ -314,8 +342,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns></returns>
-        public static bool operator <=(TimeOfDay t1, TimeOfDay t2) =>
-            ((t1.Hour * 60 + t1.Minute) <= (t2.Hour * 60 + t2.Minute));
+        public static bool operator <=(TimeOfDay t1, TimeOfDay t2)
+        {
+            return ((t1.Hour * 60 + t1.Minute) <= (t2.Hour * 60 + t2.Minute));
+        }
 
         /// <summary>
         /// Returns true if the current TimeOfDay is not before the TimeSpan.
@@ -323,8 +353,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static bool operator >=(TimeOfDay t1, TimeSpan ts) =>
-            ((t1.Hour * 60 + t1.Minute) >= ts.TotalMinutes);
+        public static bool operator >=(TimeOfDay t1, TimeSpan ts)
+        {
+            return ((t1.Hour * 60 + t1.Minute) >= ts.TotalMinutes);
+        }
 
         /// <summary>
         /// Returns true if the current TimeOfDay is not after the TimeSpan.
@@ -332,8 +364,10 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static bool operator <=(TimeOfDay t1, TimeSpan ts) =>
-            ((t1.Hour * 60 + t1.Minute) <= ts.TotalMinutes);
+        public static bool operator <=(TimeOfDay t1, TimeSpan ts)
+        {
+            return ((t1.Hour * 60 + t1.Minute) <= ts.TotalMinutes);
+        }
 
         /// <summary>
         /// Returns true if the current TimeOfDay is before the TimeSpan.
@@ -341,23 +375,30 @@ namespace JewishCalendar
         /// <param name="t1"></param>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static bool operator <(TimeOfDay t1, TimeSpan ts) =>
-            ((t1.Hour * 60 + t1.Minute) < ts.TotalMinutes);
+        public static bool operator <(TimeOfDay t1, TimeSpan ts)
+        {
+            return ((t1.Hour * 60 + t1.Minute) < ts.TotalMinutes);
+        }
 
         /// <summary>
         /// Explicitly convert (cast) an TimeOfDay into a TimeSpan.
         /// </summary>
         /// <param name="hm"></param>
         /// <returns></returns>
-        public static explicit operator TimeSpan(TimeOfDay hm) => hm.ToTimeSpan();
+        public static explicit operator TimeSpan(TimeOfDay hm)
+        {
+            return hm.ToTimeSpan();
+        }
 
         /// <summary>
         /// Explicitly convert (cast) a TimeSpan into an TimeOfDay
         /// </summary>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static explicit operator TimeOfDay(TimeSpan ts) =>
-            new TimeOfDay { Hour = ts.Hours, Minute = ts.Minutes };
+        public static explicit operator TimeOfDay(TimeSpan ts)
+        {
+            return new TimeOfDay { Hour = ts.Hours, Minute = ts.Minutes };
+        }
 
         /// <summary>
         /// The total number of minutes represented by this TimeOfDay (includes the hours)
@@ -369,18 +410,22 @@ namespace JewishCalendar
         /// The hour and minute displayed in the format: h:MM tt
         /// </summary>
         /// <returns></returns>
-        public override string ToString() =>
-            this.ToString(false);
+        public override string ToString()
+        {
+            return this.ToString(false);
+        }
 
         /// <summary>
         /// This TimeOfDay displayed in the format: h:MM:SS tt
         /// </summary>
         /// <returns></returns>
-        public string ToString(bool showSeconds) =>
-            (this.Hour <= 12 ? (this.Hour == 0 ? 12 : this.Hour) : this.Hour - 12).ToString() +
-            ":" + ((this.Minute < 10 ? "0" : "") + this.Minute.ToString()) +
-            (showSeconds ? (":" + (this.Seconds < 10 ? "0" : "") + this.Seconds.ToString()) : "") +
-            (this.Hour < 12 ? " AM" : " PM");
+        public string ToString(bool showSeconds)
+        {
+            return (this.Hour <= 12 ? (this.Hour == 0 ? 12 : this.Hour) : this.Hour - 12).ToString() +
+":" + ((this.Minute < 10 ? "0" : "") + this.Minute.ToString()) +
+(showSeconds ? (":" + (this.Seconds < 10 ? "0" : "") + this.Seconds.ToString()) : "") +
+(this.Hour < 12 ? " AM" : " PM");
+        }
 
         /// <summary>
         /// This TimeOfDay displayed in the format: HH:MM:SS
@@ -389,21 +434,25 @@ namespace JewishCalendar
         /// <param name="amPm"></param>
         /// <param name="showSeconds"></param>
         /// <returns></returns>
-        public string ToString(bool army, bool amPm = true, bool showSeconds = false) =>
-            army
-            ? this.ToString24H(showSeconds) : (amPm ? this.ToString()
-            : (this.Hour <= 12 ? (this.Hour == 0 ? 12 : this.Hour) : this.Hour - 12).ToString() +
-            ":" + (this.Minute < 10 ? "0" + this.Minute.ToString() : this.Minute.ToString())) +
-            (showSeconds ? (":" + (this.Seconds < 10 ? "0" : "") + this.Seconds.ToString()) : "");
+        public string ToString(bool army, bool amPm = true, bool showSeconds = false)
+        {
+            return army
+? this.ToString24H(showSeconds) : (amPm ? this.ToString()
+: (this.Hour <= 12 ? (this.Hour == 0 ? 12 : this.Hour) : this.Hour - 12).ToString() +
+":" + (this.Minute < 10 ? "0" + this.Minute.ToString() : this.Minute.ToString())) +
+(showSeconds ? (":" + (this.Seconds < 10 ? "0" : "") + this.Seconds.ToString()) : "");
+        }
 
         /// <summary>
         /// Returns the current time in the format HH:mm:SS
         /// </summary>
         /// <returns></returns>
-        public string ToString24H(bool showSeconds = false) =>
-            (this.Hour.ToString() +
-            ":" + (this.Minute < 10 ? "0" + this.Minute.ToString() : this.Minute.ToString())) +
-            (showSeconds ? (":" + (this.Seconds < 10 ? "0" : "") + this.Seconds.ToString()) : "");
+        public string ToString24H(bool showSeconds = false)
+        {
+            return (this.Hour.ToString() +
+":" + (this.Minute < 10 ? "0" + this.Minute.ToString() : this.Minute.ToString())) +
+(showSeconds ? (":" + (this.Seconds < 10 ? "0" : "") + this.Seconds.ToString()) : "");
+        }
 
         /// <summary>
         /// Tests 2 TimeOfDay objects for equality.
@@ -426,7 +475,9 @@ namespace JewishCalendar
         /// Returns the hashcode for this instance
         /// </summary>
         /// <returns>The HashCode for this instance</returns>
-        public override int GetHashCode() =>
-            this.Hour.GetHashCode() ^ this.Minute.GetHashCode();
+        public override int GetHashCode()
+        {
+            return this.Hour.GetHashCode() ^ this.Minute.GetHashCode();
+        }
     }
 }

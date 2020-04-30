@@ -61,12 +61,12 @@ namespace ChashInstall
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand)]
         private void ngenCA(System.Collections.IDictionary savedState, string ngenCommand)
         {
-            String[] argsArray;
+            string[] argsArray;
 
             if (string.Compare(ngenCommand, "install", StringComparison.OrdinalIgnoreCase) == 0)
             {
-                String args = this.Context.Parameters["Args"];
-                if (String.IsNullOrEmpty(args))
+                string args = this.Context.Parameters["Args"];
+                if (string.IsNullOrEmpty(args))
                 {
                     throw new System.Configuration.Install.InstallException("No arguments specified");
                 }
@@ -78,7 +78,7 @@ namespace ChashInstall
             }
             else
             {
-                argsArray = (String[])savedState["NgenCAArgs"];
+                argsArray = (string[])savedState["NgenCAArgs"];
             }
 
             // Gets the path to the Framework directory.
@@ -94,7 +94,7 @@ namespace ChashInstall
 
                 string command = ngenCommand + " " + arg;
 
-                ProcessStartInfo si = new ProcessStartInfo(Path.Combine(fxPath, "ngen.exe"), command)
+                var si = new ProcessStartInfo(Path.Combine(fxPath, "ngen.exe"), command)
                 {
                     WindowStyle = ProcessWindowStyle.Hidden
                 };

@@ -100,7 +100,10 @@ namespace JewishCalendar
         /// Returns the name of this special day in English.
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => this.NameEnglish;
+        public override string ToString()
+        {
+            return this.NameEnglish;
+        }
 
         /// <summary>
         /// Returns true if the given day is a day of Yom Tov or Chol Ha'moed in the given location.

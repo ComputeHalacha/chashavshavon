@@ -33,7 +33,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4F06AED8747791508A21A58055331447"
+        "MsmKey" = "8:_3A976E03158A87A60801F8FE42C29813"
         "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -70,7 +70,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4F06AED8747791508A21A58055331447"
+        "OwnerKey" = "8:_3A976E03158A87A60801F8FE42C29813"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -313,14 +313,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4F06AED8747791508A21A58055331447"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3A976E03158A87A60801F8FE42C29813"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:JewishCalendar, Version=2.2.3.0, Culture=neutral, PublicKeyToken=ec00b42c1312038c, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:JewishCalendar, Version=2.2.3.0, Culture=neutral, PublicKeyToken=1604c7bbd70d8125, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_4F06AED8747791508A21A58055331447"
+                    "_3A976E03158A87A60801F8FE42C29813"
                     {
                     "Name" = "8:JewishCalendar.dll"
                     "Attributes" = "3:512"
@@ -348,7 +348,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Tahara, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b5991e0be6fbb447, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Tahara, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1604c7bbd70d8125, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_C7727CA193F4F76CD6BDAD0C959AEAB1"
@@ -527,15 +527,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
-        "ProductCode" = "8:{B36F50CC-DEBE-4603-9FF1-91053128B386}"
-        "PackageCode" = "8:{BE7BF59B-DB9D-4993-BE42-4D75408BAFA9}"
+        "ProductCode" = "8:{5C973BD8-C6DD-4300-A5E1-F39147EE033F}"
+        "PackageCode" = "8:{9FDD3825-C92D-44E9-A1E7-728AC63C8056}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:4.5.0"
+        "ProductVersion" = "8:4.5.1"
         "Manufacturer" = "8:Compute Software Solutions"
         "ARPHELPTELEPHONE" = "8:058-327-7718"
         "ARPHELPLINK" = "8:https://www.compute.co.il/contact"

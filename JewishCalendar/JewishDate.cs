@@ -124,7 +124,7 @@ namespace JewishCalendar
         public JewishDate(DateTime date, Location location)
         {
             int abs = JewishDateCalculations.GetAbsoluteFromGregorianDate(date);
-            Zmanim zman = new Zmanim(date, location);
+            var zman = new Zmanim(date, location);
 
             if (zman.GetShkia() <= date.TimeOfDay)
             {
@@ -202,10 +202,7 @@ namespace JewishCalendar
         /// </summary>
         public int AbsoluteDate
         {
-            get
-            {
-                return this._absoluteDate;
-            }
+            get => this._absoluteDate;
             set
             {
                 if (value != this._absoluteDate)
@@ -257,10 +254,7 @@ namespace JewishCalendar
         /// <returns></returns>
         public DateTime GregorianDate
         {
-            get
-            {
-                return this._gregorianDate;
-            }
+            get => this._gregorianDate;
             set
             {
                 if (this._gregorianDate != value)
@@ -382,7 +376,7 @@ namespace JewishCalendar
                 day = this._day,
                 miy = JewishDateCalculations.MonthsInJewishYear(year);
 
-            for (var i = 0; i < Math.Abs(months); i++)
+            for (int i = 0; i < Math.Abs(months); i++)
             {
                 if (months > 0)
                 {
@@ -464,7 +458,10 @@ namespace JewishCalendar
         /// Returns the HashCode for this instance
         /// </summary>
         /// <returns></returns>
-        public override int GetHashCode() => this._year.GetHashCode() ^ this._month.GetHashCode() ^ this._day.GetHashCode();
+        public override int GetHashCode()
+        {
+            return this._year.GetHashCode() ^ this._month.GetHashCode() ^ this._day.GetHashCode();
+        }
 
         /// <summary>
         /// Returns the Jewish date in the format: The 14th day of Adar, 5775
@@ -527,7 +524,10 @@ namespace JewishCalendar
         /// Returns the Jewish date in the format: Adar 14, 5775
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => this.ToShortDateString();
+        public override string ToString()
+        {
+            return this.ToShortDateString();
+        }
 
         #endregion Public Functions
 
@@ -539,7 +539,10 @@ namespace JewishCalendar
         /// <param name="hd"></param>
         /// <param name="days"></param>
         /// <returns></returns>
-        public static JewishDate operator -(JewishDate hd, int days) => new JewishDate(hd.AbsoluteDate - days);
+        public static JewishDate operator -(JewishDate hd, int days)
+        {
+            return new JewishDate(hd.AbsoluteDate - days);
+        }
 
         /// <summary>
         /// Gets the difference in days between two Jewish dates.
@@ -547,7 +550,10 @@ namespace JewishCalendar
         /// <param name="hd"></param>
         /// <param name="hd2"></param>
         /// <returns></returns>
-        public static int operator -(JewishDate hd, JewishDate hd2) => hd.AbsoluteDate - hd2.AbsoluteDate;
+        public static int operator -(JewishDate hd, JewishDate hd2)
+        {
+            return hd.AbsoluteDate - hd2.AbsoluteDate;
+        }
 
         /// <summary>
         /// Returns true if both objects do not have the same day, month and year
@@ -555,7 +561,10 @@ namespace JewishCalendar
         /// <param name="jd1"></param>
         /// <param name="jd2"></param>
         /// <returns></returns>
-        public static bool operator !=(JewishDate jd1, JewishDate jd2) => !(jd1 == jd2);
+        public static bool operator !=(JewishDate jd1, JewishDate jd2)
+        {
+            return !(jd1 == jd2);
+        }
 
         /// <summary>
         /// Add days to a Jewish date.
@@ -563,7 +572,10 @@ namespace JewishCalendar
         /// <param name="hd"></param>
         /// <param name="days"></param>
         /// <returns></returns>
-        public static JewishDate operator +(JewishDate hd, int days) => new JewishDate(hd.AbsoluteDate + days);
+        public static JewishDate operator +(JewishDate hd, int days)
+        {
+            return new JewishDate(hd.AbsoluteDate + days);
+        }
 
         /// <summary>
         /// Returns true if the current JewishDateMicro object is chronologically before the second JewishDate object

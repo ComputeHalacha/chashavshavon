@@ -118,10 +118,10 @@
                 jDay = jDate.Day;
             //The fist day of Ellul.
             //The year/month/day/absoluteDay constructor for JewishDateMicro is used for efficiency.
-            JewishDate day1 = new JewishDate(jYear, 6, 1, jDate.AbsoluteDate - jDate.Day + 1);
+            var day1 = new JewishDate(jYear, 6, 1, jDate.AbsoluteDate - jDate.Day + 1);
             int day1DOW = day1.DayInWeek;
             int shabbos1Day = day1DOW == 6 ? 1 : ((6 - (day1DOW + 6) % 6) + 1);
-            JewishDate shabbos1Date = new JewishDate(jYear, 6, shabbos1Day, day1.AbsoluteDate + shabbos1Day - 1);
+            var shabbos1Date = new JewishDate(jYear, 6, shabbos1Day, day1.AbsoluteDate + shabbos1Day - 1);
             //Which shabbos in Ellul are we working out now?
             int currentShabbosNumber = jDay == shabbos1Day ? 1 : ((jDay - shabbos1Day) / 7) + 1;
 

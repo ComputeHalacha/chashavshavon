@@ -88,7 +88,10 @@ namespace JewishCalendar
             new Parsha("Vezos Habracha", "וזאת הברכה")
         };
 
-        private static int GetDayOnOrBefore(int day_of_week, int date) => date - ((date - day_of_week) % 7);
+        private static int GetDayOnOrBefore(int day_of_week, int date)
+        {
+            return date - ((date - day_of_week) % 7);
+        }
 
         private static readonly int[] shabbos_short = {
             52, 52, 53, 53, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
@@ -198,7 +201,7 @@ namespace JewishCalendar
             bool longCheshvon = JewishDateCalculations.IsLongCheshvan(year);
             bool shortKislev = JewishDateCalculations.IsShortKislev(year);
             int roshHashana = JewishDateCalculations.GetAbsoluteFromJewishDate(year, 7, 1);
-            DayOfWeek roshHashanaDOW = (DayOfWeek)Math.Abs(roshHashana % 7);
+            var roshHashanaDOW = (DayOfWeek)Math.Abs(roshHashana % 7);
             YearType yearType;
 
             if (longCheshvon && !shortKislev)
@@ -338,7 +341,7 @@ namespace JewishCalendar
                 return new Parsha[] { ParshaList[53] };
             }
 
-            Sedra sedraOrder = new Sedra(date.Year, inIsrael);
+            var sedraOrder = new Sedra(date.Year, inIsrael);
             int absDate = date.AbsoluteDate;
             int index;
             int weekNum;

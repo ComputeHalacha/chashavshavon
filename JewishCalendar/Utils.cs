@@ -188,8 +188,10 @@ namespace JewishCalendar
         /// <param name="obj">The object to test</param>
         /// <param name="list">Any number of parameters which together make up the list of objects to look through</param>
         /// <returns>True; if the item is in the parameter list. Otherwise, False</returns>
-        public static bool In(this object obj, params Object[] list) =>
-            Array.IndexOf(list, obj) > -1;
+        public static bool In(this object obj, params object[] list)
+        {
+            return Array.IndexOf(list, obj) > -1;
+        }
 
         /// <summary>
         /// Determine if the given SpecialDayType contains the given type. Equivalent to Enum.HasFlag.
@@ -197,8 +199,10 @@ namespace JewishCalendar
         /// <param name="specialDayType"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static bool IsSpecialDayType(this SpecialDayTypes specialDayType, SpecialDayTypes value) =>
-            (specialDayType & value) == value;
+        public static bool IsSpecialDayType(this SpecialDayTypes specialDayType, SpecialDayTypes value)
+        {
+            return (specialDayType & value) == value;
+        }
 
         /// <summary>
         /// Determines if the given Gregorian date and time is within the rules for DST.
@@ -246,7 +250,7 @@ namespace JewishCalendar
             }
 
             int n = number;
-            StringBuilder retval = new StringBuilder();
+            var retval = new StringBuilder();
 
             if (n >= 1000)
             {
@@ -413,7 +417,7 @@ namespace JewishCalendar
             else if (month == 3)
             {
                 //Gets date of the Friday before the last Sunday
-                var lastFriday = (31 - getDOW(year, 3, 31)) - 2;
+                int lastFriday = (31 - getDOW(year, 3, 31)) - 2;
                 return (day > lastFriday || (day == lastFriday && hour >= 2));
             }
             //DST ends at 2 AM on the last Sunday in October
@@ -421,7 +425,7 @@ namespace JewishCalendar
             {
                 //We are in October.
                 //Get the date of last Sunday in October
-                var lastSunday = 31 - getDOW(year, 10, 31);
+                int lastSunday = 31 - getDOW(year, 10, 31);
                 return (day < lastSunday || (day == lastSunday && hour < 2));
             }
         }

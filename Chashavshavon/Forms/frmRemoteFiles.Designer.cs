@@ -175,7 +175,7 @@
             this.groupBox2.Size = new System.Drawing.Size(300, 384);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "קבצי רשת קיימים";
+            this.groupBox2.Text = "קבצי רשת בחשבון";
             // 
             // btnPreview
             // 
@@ -187,7 +187,7 @@
             this.btnPreview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPreview.Font = new System.Drawing.Font("Narkisim", 10F);
             this.btnPreview.ForeColor = System.Drawing.Color.Lavender;
-            this.btnPreview.Location = new System.Drawing.Point(193, 337);
+            this.btnPreview.Location = new System.Drawing.Point(116, 337);
             this.btnPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnPreview.Name = "btnPreview";
             this.btnPreview.Size = new System.Drawing.Size(69, 25);
@@ -225,12 +225,12 @@
             this.btnOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpen.Font = new System.Drawing.Font("Narkisim", 10F);
             this.btnOpen.ForeColor = System.Drawing.Color.Lavender;
-            this.btnOpen.Location = new System.Drawing.Point(116, 337);
+            this.btnOpen.Location = new System.Drawing.Point(193, 338);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(69, 25);
             this.btnOpen.TabIndex = 1;
-            this.btnOpen.Text = "פתח";
+            this.btnOpen.Text = "הורדה";
             this.btnOpen.UseVisualStyleBackColor = false;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
@@ -300,7 +300,7 @@
             this.groupBox3.Size = new System.Drawing.Size(405, 90);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "שמור קובץ הנוכחי ברשת";
+            this.groupBox3.Text = "גיבוי קובץ הנוכחי ברשת";
             // 
             // btnSaveCurrent
             // 
@@ -317,7 +317,7 @@
             this.btnSaveCurrent.Name = "btnSaveCurrent";
             this.btnSaveCurrent.Size = new System.Drawing.Size(64, 24);
             this.btnSaveCurrent.TabIndex = 1;
-            this.btnSaveCurrent.Text = "שמור";
+            this.btnSaveCurrent.Text = "המשך";
             this.btnSaveCurrent.UseVisualStyleBackColor = false;
             this.btnSaveCurrent.Click += new System.EventHandler(this.btnSaveCurrent_Click);
             // 
@@ -361,12 +361,12 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Narkisim", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label4.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.label4.Location = new System.Drawing.Point(505, 15);
+            this.label4.Location = new System.Drawing.Point(390, 15);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(195, 43);
+            this.label4.Size = new System.Drawing.Size(314, 43);
             this.label4.TabIndex = 17;
-            this.label4.Text = "קובצי רשת";
+            this.label4.Text = "גיבוי קבצים ברשת";
             // 
             // llSite
             // 
@@ -427,7 +427,7 @@
             this.RightToLeftLayout = true;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "קובצי רשת";
+            this.Text = "גיבוי קבצים ברשת";
             this.Load += new System.EventHandler(this.frmRemoteFiles_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

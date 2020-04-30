@@ -14,12 +14,11 @@ namespace Chashavshavon
         public frmPreferences()
         {
             this.InitializeComponent();
+            this.SetRadioButtons();
         }
 
         private void Preferences_Load(object sender, EventArgs e)
         {
-            this.rbPlacesInIsrael.Checked = Program.CurrentLocation.IsInIsrael;
-            this.rbPlacesInDiaspora.Checked = (!this.rbPlacesInIsrael.Checked);
 
             if (this.cbPlaces.Items.Count == 0)
             {
@@ -28,7 +27,7 @@ namespace Chashavshavon
 
             for (int i = 0; i < this.cbPlaces.Items.Count; i++)
             {
-                Location place = (Location)this.cbPlaces.Items[i];
+                var place = (Location)this.cbPlaces.Items[i];
                 if (place.Name == Program.CurrentLocation.Name)
                 {
                     this.cbPlaces.SelectedIndex = i;
@@ -37,16 +36,22 @@ namespace Chashavshavon
             }
 
             this._regKey = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Chashavshavon", true);
-            this.cbRequirePassword.Checked = (this._regKey.GetValue("Straight").ToString() == "0");
-            string pw = Convert.ToString(this._regKey.GetValue("Entry"));
-            if (!string.IsNullOrEmpty(pw))
+            if (this._regKey == null)
             {
-                this.txtPassword.Text = GeneralUtils.Decrypt(pw, "kedoshimteeheeyoo");
+                this._regKey = Registry.CurrentUser.OpenSubKey("Software", true).CreateSubKey("Chashavshavon", RegistryKeyPermissionCheck.ReadWriteSubTree);
+                this._regKey.SetValue("Entry", "", RegistryValueKind.String);
+                this._regKey.SetValue("Straight", "1", RegistryValueKind.String);
             }
-            this.rbOpenLastFile.Checked = Properties.Settings.Default.OpenLastFile;
-            this.rbOpenLastFileName.Checked = Properties.Settings.Default.openLastFileName;
-            this.rbOpenNewFile.Checked = Properties.Settings.Default.openNewFile;
-            this.rbOpenFileDialog.Checked = Properties.Settings.Default.openFileDialog;
+            else
+            {
+                this.cbRequirePassword.Checked = (this._regKey.GetValue("Straight").ToString() == "0");
+                string pw = Convert.ToString(this._regKey.GetValue("Entry"));
+                if (!string.IsNullOrEmpty(pw))
+                {
+                    this.txtPassword.Text = GeneralUtils.Decrypt(pw, "kedoshimteeheeyoo");
+                }
+            }
+
         }
 
         private void FillPlaces()
@@ -100,6 +105,7 @@ namespace Chashavshavon
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.Reload();
             this.Close();
         }
 
@@ -127,22 +133,111 @@ namespace Chashavshavon
 
         private void pbShowPassword_Click(object sender, EventArgs e)
         {
-            if (this.txtPassword.PasswordChar == Char.MinValue)
+            if (this.txtPassword.PasswordChar == char.MinValue)
             {
                 this.txtPassword.PasswordChar = '•';
             }
             else
             {
-                this.txtPassword.PasswordChar = Char.MinValue;
+                this.txtPassword.PasswordChar = char.MinValue;
             }
         }
 
         private void rbOpenLastFile_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.OpenLastFile = this.rbOpenLastFile.Checked;
-            Properties.Settings.Default.openLastFileName = this.rbOpenLastFileName.Checked;
-            Properties.Settings.Default.openNewFile = this.rbOpenNewFile.Checked;
-            Properties.Settings.Default.openFileDialog = this.rbOpenFileDialog.Checked;            
+            Properties.Settings.Default.OpenLastFile = false;
+            Properties.Settings.Default.openNewFile = false;
+            Properties.Settings.Default.openFileDialog = false;
+            Properties.Settings.Default.openNoFile = false;
+
+            if (this.rbOpenLastFile.Checked)
+            {
+                Properties.Settings.Default.OpenLastFile = true;
+            }
+            else if (this.rbOpenNewFile.Checked)
+            {
+                Properties.Settings.Default.openNewFile = true;
+            }
+            else if (this.rbOpenFileDialog.Checked)
+            {
+                Properties.Settings.Default.openFileDialog = true;
+            }
+            else if (this.rbDontOpenFile.Checked)
+            {
+                Properties.Settings.Default.openNoFile = true;
+            }
+        }
+
+        private void SetRadioButtons()
+        {
+            this.rbPlacesInIsrael.Checked = Program.CurrentLocation.IsInIsrael;
+            this.rbPlacesInDiaspora.Checked = (!this.rbPlacesInIsrael.Checked);
+            this.rbOpenLastFile.Checked = Properties.Settings.Default.OpenLastFile;
+            this.rbOpenNewFile.Checked = Properties.Settings.Default.openNewFile;
+            this.rbOpenFileDialog.Checked = Properties.Settings.Default.openFileDialog;
+            this.rbDontOpenFile.Checked = Properties.Settings.Default.openNoFile;
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reload();
+            this.SetRadioButtons();
+            Program.CurrentLocation = Locations.GetPlace(Properties.Settings.Default.LocationName);
+            for (int i = 0; i < this.cbPlaces.Items.Count; i++)
+            {
+                var place = (Location)this.cbPlaces.Items[i];
+                if (place.Name == Program.CurrentLocation.Name)
+                {
+                    this.cbPlaces.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            this._regKey = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Chashavshavon", true);
+            this.cbRequirePassword.Checked = (this._regKey.GetValue("Straight").ToString() == "0");
+            string pw = Convert.ToString(this._regKey.GetValue("Entry"));
+            if (!string.IsNullOrEmpty(pw))
+            {
+                this.txtPassword.Text = GeneralUtils.Decrypt(pw, "kedoshimteeheeyoo");
+            }
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("האם אתם בטוחים שברצונכם לאפס כל ההעדפות לברירת מחדל?",
+                    "חשבשבון - איפוס",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2,
+                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+            {
+                //The current file doesn't get reset.
+                string currentFile = Properties.Settings.Default.CurrentFile;
+                Properties.Settings.Default.Reset();
+                Properties.Settings.Default.CurrentFile = currentFile;
+
+                this.SetRadioButtons();
+                Program.CurrentLocation = Locations.GetPlace(Properties.Settings.Default.LocationName);
+                for (int i = 0; i < this.cbPlaces.Items.Count; i++)
+                {
+                    var place = (Location)this.cbPlaces.Items[i];
+                    if (place.Name == Program.CurrentLocation.Name)
+                    {
+                        this.cbPlaces.SelectedIndex = i;
+                        break;
+                    }
+                }
+
+                this._regKey = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Chashavshavon", true);
+                if (this._regKey == null)
+                {
+                    this._regKey = Registry.CurrentUser.OpenSubKey("Software", true).CreateSubKey("Chashavshavon", RegistryKeyPermissionCheck.ReadWriteSubTree);
+                }
+                this._regKey.SetValue("Entry", "", RegistryValueKind.String);
+                this._regKey.SetValue("Straight", "1", RegistryValueKind.String);
+                this.cbRequirePassword.Checked = false;
+                this.txtPassword.Text = "";
+            }
         }
     }
 }
