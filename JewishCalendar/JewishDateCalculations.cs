@@ -143,13 +143,13 @@ namespace JewishCalendar
                 int m = 7;
                 while (m <= (MonthsInJewishYear(year)))
                 {
-                    dayInYear = dayInYear + DaysInJewishMonth(year, m);
+                    dayInYear += DaysInJewishMonth(year, m);
                     m++;
                 };
                 m = 1;
                 while (m < month)
                 {
-                    dayInYear = dayInYear + DaysInJewishMonth(year, m);
+                    dayInYear += DaysInJewishMonth(year, m);
                     m++;
                 }
             }
@@ -158,7 +158,7 @@ namespace JewishCalendar
                 int m = 7;
                 while (m < month)
                 {
-                    dayInYear = dayInYear + DaysInJewishMonth(year, m);
+                    dayInYear += DaysInJewishMonth(year, m);
                     m++;
                 }
             }

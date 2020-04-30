@@ -255,7 +255,7 @@ namespace JewishCalendar
             if (n >= 1000)
             {
                 retval.AppendFormat("{0}'", _sings[((n - (n % 1000)) / 1000) - 1]);
-                n = n % 1000;
+                n %= 1000;
             }
 
             while (n >= 400)
@@ -267,7 +267,7 @@ namespace JewishCalendar
             if (n >= 100)
             {
                 retval.Append(_hundreds[((n - (n % 100)) / 100) - 1]);
-                n = n % 100;
+                n %= 100;
             }
 
             if (n == 15)

@@ -125,15 +125,15 @@
                     switch (count)
                     {
                         case 36:
-                            blatt = blatt + 21;
+                            blatt += 21;
                             break;
 
                         case 37:
-                            blatt = blatt + 24;
+                            blatt += 24;
                             break;
 
                         case 38:
-                            blatt = blatt + 33;
+                            blatt += 33;
                             break;
 
                         default:

@@ -124,7 +124,7 @@ namespace Chashavshavon
             if (n >= 1000)
             {
                 retval += _jsd[(n - (n % 1000)) / 1000 - 1].ToString() + '\'';
-                n = n % 1000;
+                n %= 1000;
             }
 
             while (n >= 400)
@@ -136,7 +136,7 @@ namespace Chashavshavon
             if (n >= 100)
             {
                 retval += _jhd[(n - (n % 100)) / 100 - 1].ToString();
-                n = n % 100;
+                n %= 100;
             }
 
             if (n == 15)
