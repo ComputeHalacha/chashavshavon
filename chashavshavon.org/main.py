@@ -218,8 +218,9 @@ class GetFileListLinks(webapp2.RequestHandler):
           self.response.out.write('''<tr style="background-color:%s;">
                                          <td>%s.</td>
                                          <td width="400"><span onclick="javascript:go('GetFileAsHTML', '%s');return false;" class="link">%s</span></td>
-                                         <td><a class="link" href="" onclick="javascript:deleteFile('%s');return false;">Delete File</a> |
-                                             <a class="link" href="" onclick="javascript:go('GetFileText', '%s');return false;">View Source</a></td>
+                                         <td><a class="link" href="" onclick="javascript:go('GetFileAsHTML', '%s');return false;">Open File</a> |
+                                             <a class="link" href="" onclick="javascript:deleteFile('%s');return false;">Delete File</a> |
+                                             <a class="link" href="" onclick="javascript:go('GetFileText', '%s');return false;">View File Source</a></td>
                                      </tr>''' % ('#ffffff' if count % 2 else '#f1f1f1', count, file.fileName, file.fileName, file.fileName, file.fileName))
       self.response.out.write('</table></body></html>')
 
