@@ -11,13 +11,15 @@ namespace Chashavshavon
     public partial class frmPreferences : Form
     {
         private RegistryKey _regKey;
+        private bool _loading = true;
+
         public frmPreferences()
         {
             this.InitializeComponent();
             this.SetRadioButtons();
         }
 
-        private void Preferences_Load(object sender, EventArgs e)
+        private void frmPreferences_Load(object sender, EventArgs e)
         {
 
             if (this.cbPlaces.Items.Count == 0)
@@ -51,7 +53,7 @@ namespace Chashavshavon
                     this.txtPassword.Text = GeneralUtils.Decrypt(pw, "kedoshimteeheeyoo");
                 }
             }
-
+            this._loading = false;
         }
 
         private void FillPlaces()
@@ -82,30 +84,45 @@ namespace Chashavshavon
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (this.SavePreferencesBeforeClose())
+            {
+                this.Close();
+            }
+        }
+
+        private bool SavePreferencesBeforeClose()
+        {
             if (this.cbRequirePassword.Checked && this.txtPassword.Text.Length < 4)
             {
                 MessageBox.Show("הסיסמה חייבת להיות לפחות 4 תוים",
                             "חשבשבון",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation);
-                return;
+                return false;
             }
             else
             {
                 this._regKey.SetValue("Entry", GeneralUtils.Encrypt(this.txtPassword.Text, "kedoshimteeheeyoo"), RegistryValueKind.String);
                 this._regKey.SetValue("Straight", this.cbRequirePassword.Checked ? "0" : "1", RegistryValueKind.String);
+                this._regKey.Close();
+                //the form closing method checks to see if the regKey was nullified to determine if preferences were already saved.
+                this._regKey = null;
             }
-
             Program.CurrentLocation = ((Location)this.cbPlaces.SelectedItem);
             Properties.Settings.Default.LocationName = Program.CurrentLocation.Name;
             Properties.Settings.Default.Save();
             ((frmMain)this.Owner).AfterChangePreferences();
-            this.Close();
+            return true;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Reload();
+            this._regKey.Close();
+            //the form closing method checks to see if the regKey was nullified to determine if preferences were already saved.
+            //In this function, where the user wants to cancel all changes and close this form, we inform the closing function,
+            //that you can go ahead and close now without doing anything...
+            this._regKey = null;
             this.Close();
         }
 
@@ -120,7 +137,21 @@ namespace Chashavshavon
 
         private void frmPreferences_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this._regKey.Close();
+            //If the user opted to close the form without clicking on a cancel button, we will save the preferences.
+            //We check to see if the regKey was nullified to determine if the preferences were already saved.
+            if (this._regKey != null)
+            {
+                if (e.CloseReason == CloseReason.UserClosing && !this.SavePreferencesBeforeClose())
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                if (this._regKey != null)
+                {
+                    this._regKey.Close();
+                    this._regKey = null;
+                }
+            }
         }
 
         private void cbPlacess_Format(object sender, ListControlConvertEventArgs e)
@@ -145,37 +176,43 @@ namespace Chashavshavon
 
         private void rbOpenLastFile_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.OpenLastFile = false;
-            Properties.Settings.Default.openNewFile = false;
-            Properties.Settings.Default.openFileDialog = false;
-            Properties.Settings.Default.openNoFile = false;
+            if (!this._loading)
+            {
+                Properties.Settings.Default.OpenLastFile = false;
+                Properties.Settings.Default.openNewFile = false;
+                Properties.Settings.Default.openFileDialog = false;
+                Properties.Settings.Default.openNoFile = false;
 
-            if (this.rbOpenLastFile.Checked)
-            {
-                Properties.Settings.Default.OpenLastFile = true;
-            }
-            else if (this.rbOpenNewFile.Checked)
-            {
-                Properties.Settings.Default.openNewFile = true;
-            }
-            else if (this.rbOpenFileDialog.Checked)
-            {
-                Properties.Settings.Default.openFileDialog = true;
-            }
-            else if (this.rbDontOpenFile.Checked)
-            {
-                Properties.Settings.Default.openNoFile = true;
+                if (this.rbOpenLastFile.Checked)
+                {
+                    Properties.Settings.Default.OpenLastFile = true;
+                }
+                else if (this.rbOpenNewFile.Checked)
+                {
+                    Properties.Settings.Default.openNewFile = true;
+                }
+                else if (this.rbOpenFileDialog.Checked)
+                {
+                    Properties.Settings.Default.openFileDialog = true;
+                }
+                else if (this.rbDontOpenFile.Checked)
+                {
+                    Properties.Settings.Default.openNoFile = true;
+                }
             }
         }
 
         private void SetRadioButtons()
         {
+            var wasLoading = this._loading;
+            this._loading = true;
             this.rbPlacesInIsrael.Checked = Program.CurrentLocation.IsInIsrael;
             this.rbPlacesInDiaspora.Checked = (!this.rbPlacesInIsrael.Checked);
             this.rbOpenLastFile.Checked = Properties.Settings.Default.OpenLastFile;
             this.rbOpenNewFile.Checked = Properties.Settings.Default.openNewFile;
             this.rbOpenFileDialog.Checked = Properties.Settings.Default.openFileDialog;
             this.rbDontOpenFile.Checked = Properties.Settings.Default.openNoFile;
+            this._loading = wasLoading;
         }
 
         private void btnReload_Click(object sender, EventArgs e)
@@ -199,7 +236,7 @@ namespace Chashavshavon
             if (!string.IsNullOrEmpty(pw))
             {
                 this.txtPassword.Text = GeneralUtils.Decrypt(pw, "kedoshimteeheeyoo");
-            }
+            }         
         }
 
         private void btnReset_Click(object sender, EventArgs e)
