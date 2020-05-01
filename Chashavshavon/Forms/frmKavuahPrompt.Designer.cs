@@ -1,6 +1,6 @@
 ﻿namespace Chashavshavon
 {
-    partial class frmKavuahPrompt
+    partial class FrmKavuahPrompt
     {
         /// <summary>
         /// Required designer variable.

@@ -8,12 +8,12 @@ using System.Windows.Forms;
 
 namespace Chashavshavon
 {
-    public partial class frmPreferences : Form
+    public partial class FrmPreferences : Form
     {
         private RegistryKey _regKey;
         private bool _loading = true;
 
-        public frmPreferences()
+        public FrmPreferences()
         {
             this.InitializeComponent();
             this.SetRadioButtons();
@@ -108,7 +108,7 @@ namespace Chashavshavon
             Program.CurrentLocation = ((Location)this.cbPlaces.SelectedItem);
             Properties.Settings.Default.LocationName = Program.CurrentLocation.Name;
             Properties.Settings.Default.Save();
-            ((frmMain)this.Owner).AfterChangePreferences();
+            ((FrmMain)this.Owner).AfterChangePreferences();
             return true;
         }
 
@@ -201,7 +201,7 @@ namespace Chashavshavon
 
         private void SetRadioButtons()
         {
-            var wasLoading = this._loading;
+            bool wasLoading = this._loading;
             this._loading = true;
             this.rbPlacesInIsrael.Checked = Program.CurrentLocation.IsInIsrael;
             this.rbPlacesInDiaspora.Checked = (!this.rbPlacesInIsrael.Checked);
@@ -233,7 +233,7 @@ namespace Chashavshavon
             if (!string.IsNullOrEmpty(pw))
             {
                 this.txtPassword.Text = GeneralUtils.Decrypt(pw, "kedoshimteeheeyoo");
-            }         
+            }
         }
 
         private void btnReset_Click(object sender, EventArgs e)

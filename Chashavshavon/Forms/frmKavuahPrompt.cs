@@ -5,11 +5,11 @@ using Tahara;
 
 namespace Chashavshavon
 {
-    public partial class frmKavuahPrompt : Form
+    public partial class FrmKavuahPrompt : Form
     {
         private readonly List<Kavuah> _listToAdd = new List<Kavuah>();
 
-        public frmKavuahPrompt(List<Kavuah> list)
+        public FrmKavuahPrompt(List<Kavuah> list)
         {
             this.InitializeComponent();
             this._listToAdd.AddRange(list);

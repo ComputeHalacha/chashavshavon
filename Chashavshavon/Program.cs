@@ -10,7 +10,7 @@ using Tahara;
 
 namespace Chashavshavon
 {
-    static class Program        
+    static class Program
     {
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
         public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
@@ -27,7 +27,7 @@ namespace Chashavshavon
         public static Onah NowOnah { get; set; }
         //Keeps track of where user is; for calculating zmanim
         public static Location CurrentLocation { get; set; }
-        public static frmMain MainForm { get; set; }
+        public static FrmMain MainForm { get; set; }
 
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Chashavshavon
                 Directory.CreateDirectory(Program.BackupFolderPath);
             }
 
-            if(Properties.Settings.Default.DevMode)
+            if (Properties.Settings.Default.DevMode)
             {
                 RunInDevMode = true;
             }
@@ -85,11 +85,11 @@ namespace Chashavshavon
 
             if (args.Length > 0)
             {
-                MainForm = new frmMain(args[0]);
+                MainForm = new FrmMain(args[0]);
             }
             else
             {
-                MainForm = new frmMain();
+                MainForm = new FrmMain();
             }
             Application.Run(MainForm);
         }

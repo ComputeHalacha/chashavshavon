@@ -7,18 +7,18 @@ using System.Xml;
 
 namespace Chashavshavon
 {
-    public partial class frmRemoteFiles : Form
+    public partial class FrmRemoteFiles : Form
     {
-        private frmMain _mainForm;
+        private FrmMain _mainForm;
 
-        public frmRemoteFiles()
+        public FrmRemoteFiles()
         {
             this.InitializeComponent();
         }
 
         private void frmRemoteFiles_Load(object sender, EventArgs e)
         {
-            this._mainForm = (frmMain)this.Owner;
+            this._mainForm = (FrmMain)this.Owner;
 
             if (!this._mainForm.TestInternet())
             {
@@ -158,7 +158,7 @@ namespace Chashavshavon
             {
                 string html = Utils.RemoteFunctions.GetRemoteResponseText("GetFileAsHTML",
                                     Utils.RemoteFunctions.NewParam("fileName", this.lbFileNames.SelectedItem.ToString()));
-                var fb = new frmBrowser
+                var fb = new FrmBrowser
                 {
                     Text = "הצגת קובץ רשת - " + this.lbFileNames.SelectedItem.ToString(),
                     Html = html

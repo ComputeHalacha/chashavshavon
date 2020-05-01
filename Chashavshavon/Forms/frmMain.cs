@@ -15,7 +15,7 @@ using Tahara;
 
 namespace Chashavshavon
 {
-    public partial class frmMain : Form
+    public partial class FrmMain : Form
     {
         #region Private Variables
 
@@ -35,12 +35,12 @@ namespace Chashavshavon
 
         #region Constructors
 
-        public frmMain()
+        public FrmMain()
         {
             this.StartUp();
         }
 
-        public frmMain(string filePath)
+        public FrmMain(string filePath)
         {
             this.CurrentFile = filePath;
             this.StartUp();
@@ -102,7 +102,7 @@ namespace Chashavshavon
 
         private void AbouToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var ab = new AboutBox())
+            using (var ab = new FrmAboutBox())
             {
                 ab.ShowDialog(this);
             }
@@ -115,7 +115,7 @@ namespace Chashavshavon
 
         private void AddNewEntry(object sender, EventArgs e)
         {
-            using (var f = new frmAddNewEntry((DateTime)((Control)sender).Tag))
+            using (var f = new FrmAddNewEntry((DateTime)((Control)sender).Tag))
             {
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {
@@ -127,7 +127,7 @@ namespace Chashavshavon
 
         private void btnAddEntry_Click(object sender, EventArgs e)
         {
-            var f = new frmAddNewEntry(Program.Today);
+            var f = new FrmAddNewEntry(Program.Today);
             if (f.ShowDialog(this) == DialogResult.OK)
             {
                 //Refresh in case of change to current month
@@ -174,7 +174,7 @@ namespace Chashavshavon
 
         private void btnPrefs_Click(object sender, EventArgs e)
         {
-            var prefs = new frmPreferences();
+            var prefs = new FrmPreferences();
             prefs.Show(this);
         }
 
@@ -381,13 +381,13 @@ namespace Chashavshavon
 
         private void pbWeb_Click(object sender, EventArgs e)
         {
-            var f = new frmRemoteFiles();
+            var f = new FrmRemoteFiles();
             f.Show(this);
         }
 
         private void PreferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var prefs = new frmPreferences();
+            var prefs = new FrmPreferences();
             prefs.Show(this);
         }
 
@@ -511,7 +511,7 @@ namespace Chashavshavon
 
         private void toolStripMenuItemRemote_Click(object sender, EventArgs e)
         {
-            var f = new frmRemoteFiles();
+            var f = new FrmRemoteFiles();
             f.Show(this);
         }
 
@@ -528,7 +528,7 @@ namespace Chashavshavon
             {
                 return;
             }
-            using (var i = new frmImport(this.openFileDialog1.FileName))
+            using (var i = new FrmImport(this.openFileDialog1.FileName))
             {
                 bool added = false;
                 if (i.ShowDialog() == DialogResult.OK)
@@ -599,7 +599,7 @@ namespace Chashavshavon
 
         private void ShowKavuahList()
         {
-            using (var f = new frmKavuahs())
+            using (var f = new FrmKavuahs())
             {
                 if (f.ShowDialog(this) != DialogResult.Cancel)
                 {
@@ -639,7 +639,7 @@ namespace Chashavshavon
             else
             {
                 //Prompt for a password and don't stop prompting until the user gets it right or gives up
-                using (var f = new frmEnterPassword(password))
+                using (var f = new FrmEnterPassword(password))
                 {
                     do
                     {
@@ -1056,9 +1056,9 @@ namespace Chashavshavon
             Program.CurrentLocation = Utils.Locations.GetPlace(location);
         }
 
-        private frmBrowser ShowCalendarTextList(bool print = false)
+        private FrmBrowser ShowCalendarTextList(bool print = false)
         {
-            var fb = new frmBrowser(print)
+            var fb = new FrmBrowser(print)
             {
                 Text = "לוח חשבשבון_" + Program.Today.ToString("dd_MMM_yyyy").Replace("'", "").Replace("\"", ""),
                 Html = this.WeekListHtml
@@ -1068,9 +1068,9 @@ namespace Chashavshavon
         }
 
 
-        private frmBrowser ShowEntryTextList(bool print = false)
+        private FrmBrowser ShowEntryTextList(bool print = false)
         {
-            var fb = new frmBrowser(print)
+            var fb = new FrmBrowser(print)
             {
                 Text = "רשימת חשבשבון_" + Program.Today.ToString("dd_MMM_yyyy").Replace("'", "").Replace("\"", ""),
                 Html = this.GetEntryListText()
@@ -1095,7 +1095,7 @@ namespace Chashavshavon
 
         public bool AddNewKavuah(Form owner)
         {
-            using (var f = new frmAddKavuah())
+            using (var f = new FrmAddKavuah())
             {
                 f.ShowDialog(owner);
                 if (f.DialogResult != DialogResult.Cancel)
@@ -1235,7 +1235,7 @@ namespace Chashavshavon
             if (kavuahList.Count > 0)
             {
                 //Prompt user to decide which ones to keep and edit their details
-                using (var fkp = new frmKavuahPrompt(kavuahList))
+                using (var fkp = new FrmKavuahPrompt(kavuahList))
                 {
                     if (fkp.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {

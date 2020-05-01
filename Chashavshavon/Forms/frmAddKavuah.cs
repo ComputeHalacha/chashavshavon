@@ -5,9 +5,9 @@ using Tahara;
 
 namespace Chashavshavon
 {
-    public partial class frmAddKavuah : Form
+    public partial class FrmAddKavuah : Form
     {
-        public frmAddKavuah()
+        public FrmAddKavuah()
         {
             this.InitializeComponent();
         }

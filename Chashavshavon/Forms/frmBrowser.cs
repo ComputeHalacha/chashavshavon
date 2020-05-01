@@ -4,11 +4,11 @@ using System.Windows.Forms;
 
 namespace Chashavshavon
 {
-    public partial class frmBrowser : Form
+    public partial class FrmBrowser : Form
     {
         private readonly bool _isForPrint = false;
 
-        public frmBrowser(bool print = false)
+        public FrmBrowser(bool print = false)
         {
             this.InitializeComponent();
             this._isForPrint = print;

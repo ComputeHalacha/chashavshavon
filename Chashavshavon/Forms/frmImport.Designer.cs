@@ -1,6 +1,6 @@
 ﻿namespace Chashavshavon
 {
-    partial class frmImport
+    partial class FrmImport
     {
         /// <summary>
         /// Required designer variable.

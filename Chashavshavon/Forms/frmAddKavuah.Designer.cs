@@ -1,6 +1,6 @@
 ﻿namespace Chashavshavon
 {
-    partial class frmAddKavuah
+    partial class FrmAddKavuah
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddKavuah));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAddKavuah));
             this.lblNumber = new System.Windows.Forms.Label();
             this.cmbNumber = new System.Windows.Forms.ComboBox();
             this.rbDayOfMonth = new System.Windows.Forms.RadioButton();

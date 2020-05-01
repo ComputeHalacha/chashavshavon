@@ -3,10 +3,10 @@ using System.Windows.Forms;
 
 namespace Chashavshavon
 {
-    public partial class frmEnterPassword : Form
+    public partial class FrmEnterPassword : Form
     {
         private readonly string _password;
-        public frmEnterPassword(string password)
+        public FrmEnterPassword(string password)
         {
             this.InitializeComponent();
             this._password = password;

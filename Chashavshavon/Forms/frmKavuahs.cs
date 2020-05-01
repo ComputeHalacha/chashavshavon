@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace Chashavshavon
 {
-    public partial class frmKavuahs : Form
+    public partial class FrmKavuahs : Form
     {
-        public frmKavuahs()
+        public FrmKavuahs()
         {
             this.InitializeComponent();
             this.kavuahBindingSource.DataSource = Program.KavuahList;

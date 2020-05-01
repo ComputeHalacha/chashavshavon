@@ -10,7 +10,7 @@ using Tahara;
 
 namespace Chashavshavon
 {
-    public partial class frmAddNewEntry : Form
+    public partial class FrmAddNewEntry : Form
     {
         private static readonly Calendar _gregCal = new GregorianCalendar(GregorianCalendarTypes.Localized);
 
@@ -23,7 +23,7 @@ namespace Chashavshavon
         private DailyZmanim _dailyZmanim;
 
 
-        public frmAddNewEntry(DateTime date)
+        public FrmAddNewEntry(DateTime date)
         {
             this.InitializeComponent();
             this._displayingSecularDate = date;

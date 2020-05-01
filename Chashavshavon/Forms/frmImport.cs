@@ -7,14 +7,14 @@ using Tahara;
 
 namespace Chashavshavon
 {
-    public partial class frmImport : Form
+    public partial class FrmImport : Form
     {
         private bool _loading = true;
 
         public List<Entry> EntryList { get; private set; }
         public List<Kavuah> KavuahList { get; private set; }
 
-        public frmImport(string path)
+        public FrmImport(string path)
         {
             this.InitializeComponent();
 
