@@ -31,10 +31,7 @@ namespace Chashavshavon
             if (this.saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 System.IO.File.WriteAllText(this.saveFileDialog1.FileName, this.webBrowser1.DocumentText, Encoding.UTF8);
-                MessageBox.Show("\"הקובץ " + this.saveFileDialog1.FileName + "\", נשמרה בהצלחה",
-                    "חשבשבון",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                Program.Inform("\"הקובץ " + this.saveFileDialog1.FileName + "\", נשמרה בהצלחה");
             }
         }
 

@@ -45,37 +45,25 @@ namespace Chashavshavon.Utils
             return ExecuteRemoteCall("GetFileText", NewParam("fileName", fileName)).OuterXml;
         }
 
-        public static XmlDocument GetRemoteResponse(string function, params KeyValuePair<string, string>[] fields)
+        public static void RunRemoteAction(string functionName, Action<XmlDocument> onSuccess, Action<string> onFail, params KeyValuePair<string, string>[] fields)
         {
             XmlDocument doc;
             try
             {
-                doc = ExecuteRemoteCall(function, fields);
+                doc = ExecuteRemoteCall(functionName, fields);
                 XmlNode errorNode = doc.SelectSingleNode("//error");
                 if (errorNode != null)
                 {
-                    MessageBox.Show(errorNode.InnerText,
-                        "חשבשבון",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                    return null;
+                    onFail?.Invoke(errorNode.InnerText);
                 }
                 else
                 {
-                    return doc;
+                    onSuccess?.Invoke(doc);
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("לא ניתן כעת להתחבר לשרת חשבשבון." + Environment.NewLine + e.Message,
-                    "חשבשבון",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-                return null;
+                onFail?.Invoke("לא ניתן כעת להתחבר לשרת חשבשבון." + Environment.NewLine + e.Message);
             }
         }
 

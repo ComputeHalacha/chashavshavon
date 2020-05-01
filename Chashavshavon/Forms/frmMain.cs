@@ -151,7 +151,7 @@ namespace Chashavshavon
             }
             else
             {
-                MessageBox.Show("לא נמצאו וסת קבוע אפשריים");
+                Program.Inform("לא נמצאו וסת קבוע אפשריים");
             }
         }
 
@@ -266,13 +266,7 @@ namespace Chashavshavon
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ארעה שגיעה.\nיתכן שלא נשמר הפעולות אחרונות שנעשתה בתוכנה.\nפרטי השגיעה רשומים למטה.\n---------------------------------------------\n."
-                    + ex.Message,
-                                              "חשבשבון",
-                                              MessageBoxButtons.OK,
-                                              MessageBoxIcon.Error,
-                                              MessageBoxDefaultButton.Button1,
-                                              MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Program.ErrorMessage("ארעה שגיעה.\nיתכן שלא נשמר הפעולות אחרונות שנעשתה בתוכנה.\nפרטי השגיעה רשומים למטה.\n---------------------------------------------\n." + ex.Message);
             }
         }
 
@@ -342,29 +336,19 @@ namespace Chashavshavon
                         }
                         catch
                         {
-                            MessageBox.Show("רשימת וסת קבוע בקובץ\"" +
-                                Path.GetFileName(this.openFileDialog1.FileName) + "\" .איננה תקינה",
-                                "חשבשבון",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                            Program.Exclaim("רשימת וסת קבוע בקובץ\"" +
+                                Path.GetFileName(this.openFileDialog1.FileName) + "\" .איננה תקינה");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("רשימת וסת קבוע בקובץ\"" +
-                            Path.GetFileName(this.openFileDialog1.FileName) + "\" ריקה.",
-                            "חשבשבון",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                        Program.Inform("רשימת וסת קבוע בקובץ\"" +
+                            Path.GetFileName(this.openFileDialog1.FileName) + "\" ריקה.");
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    Program.ErrorMessage(ex.Message);
                 }
             }
         }
@@ -425,13 +409,8 @@ namespace Chashavshavon
             else
             {
                 this.recentFilesToolStripMenuItem.HideDropDown(); // was blocking message box
-                if (MessageBox.Show("הקובץ \"" + e.ClickedItem.Text +
-                        "\" לא נמצא.\nלהסירה מרשימת קבצים אחרונים?",
-                     "חשבשבון",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Exclamation,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                if (Program.AskUser("הקובץ \"" + e.ClickedItem.Text +
+                        "\" לא נמצא.\nלהסירה מרשימת קבצים אחרונים?"))
                 {
                     Properties.Settings.Default.RecentFiles.Remove(e.ClickedItem.Text);
                     this.recentFilesToolStripMenuItem.DropDownItems.Remove(e.ClickedItem);
@@ -453,10 +432,7 @@ namespace Chashavshavon
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.SaveCurrentFile();
-            MessageBox.Show("הקובץ נשמרה",
-                            "חשבשבון",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+            Program.Inform("הקובץ נשמרה");
         }
 
         private void SearchForKavuahsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -470,7 +446,7 @@ namespace Chashavshavon
             }
             else
             {
-                MessageBox.Show("לא נמצאו וסת קבוע אפשריים");
+                Program.Inform("לא נמצאו וסת קבוע אפשריים");
             }
         }
 
@@ -500,12 +476,7 @@ namespace Chashavshavon
             }
             else
             {
-                MessageBox.Show(".הצגת מקור מצריך קובץ",
-                        "חשבשבון",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Program.Exclaim(".הצגת מקור מצריך קובץ");
             }
         }
 
@@ -519,12 +490,7 @@ namespace Chashavshavon
             }
             else
             {
-                MessageBox.Show(".הצגת מקור מצריך קובץ",
-                        "חשבשבון",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Program.Exclaim(".הצגת מקור מצריך קובץ");
             }
         }
 
@@ -680,10 +646,7 @@ namespace Chashavshavon
                         f.ShowDialog(this);
                         if (f.DialogResult == DialogResult.No)
                         {
-                            MessageBox.Show("סיסמה שגויה",
-                            "חשבשבון",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                            Program.Exclaim("סיסמה שגויה");
                         }
                     }
                     while (f.DialogResult == DialogResult.No);
@@ -1156,25 +1119,17 @@ namespace Chashavshavon
 
         public void DeleteEntry(Entry entry)
         {
-            if (MessageBox.Show("האם אתם בטוחים שברצונכם למחוק השורה של " +
+            if (Program.AskUser("האם אתם בטוחים שברצונכם למחוק השורה של " +
                                                     entry.DateTime.ToString("dd MMMM yyyy"),
-                                                  "מחיקת שורה " + entry.DateTime.ToString("dd MMMM yyyy"),
-                                                  MessageBoxButtons.YesNo,
-                                                  MessageBoxIcon.Question,
-                                                  MessageBoxDefaultButton.Button1,
-                                                  MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                                                  "מחיקת שורה " + entry.DateTime.ToString("dd MMMM yyyy")))
             {
                 if (Program.KavuahList.Exists(k => k.SettingEntry == entry ||
                     (k.SettingEntryDate == entry.DateTime && k.DayNight == entry.DayNight)))
                 {
-                    if (MessageBox.Show(" נמצאו וסתי קבוע שהוגדרו על פי רשומה הזאת. האם אתם עדיין בטוחים שברצונכם למחוק השורה של " +
+                    if (Program.AskUser(" נמצאו וסתי קבוע שהוגדרו על פי רשומה הזאת. האם אתם עדיין בטוחים שברצונכם למחוק השורה של " +
                                                 entry.DateTime.ToString("dd MMMM yyyy") +
                                                 " וגם כל וסת הקבוע שנרשמו בגללה?",
-                                              "מחיקת שורה " + entry.DateTime.ToString("dd MMMM yyyy"),
-                                              MessageBoxButtons.YesNo,
-                                              MessageBoxIcon.Exclamation,
-                                              MessageBoxDefaultButton.Button2,
-                                              MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                                              "מחיקת שורה " + entry.DateTime.ToString("dd MMMM yyyy")))
                     {
                         Program.KavuahList.RemoveAll(k => k.SettingEntry == entry ||
                             (k.SettingEntryDate == entry.DateTime && k.DayNight == entry.DayNight));
@@ -1219,14 +1174,9 @@ namespace Chashavshavon
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("הקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
+                    Program.Exclaim("הקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
                         this.CurrentFile + "\"" + Environment.NewLine +
-                        " איננה קובץ חשבשבון תקינה. תפתח רשימה ריקה.",
-                        "חשבשבון",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                        " איננה קובץ חשבשבון תקינה. תפתח רשימה ריקה.");
                     //Clear previous list data
                     Program.EntryList.Clear();
                     //Clear previous Kavuahs
@@ -1380,12 +1330,7 @@ namespace Chashavshavon
             while (string.IsNullOrEmpty(this.CurrentFile))
             {
                 if (((Program.EntryList.Count + Program.KavuahList.Count) > 0) &&
-                    MessageBox.Show("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש",
-                        "חשבשבון",
-                        MessageBoxButtons.YesNoCancel,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                    Program.AskUser("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש"))
                 {
                     this.SaveAs(sourceForm);
                 }
@@ -1414,13 +1359,8 @@ namespace Chashavshavon
                     Directory.CreateDirectory(path);
                 }
                 this.CurrentFile = this.CurrentFile.Replace(dir, path);
-                MessageBox.Show("חשבשבון היה צריל להעתיק הקובץ הפעילה למיקום אחר.\nהקובץ עכשיו נמצא ב: \n" +
-                    this.CurrentFile,
-                    "חשבשבון",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Program.Exclaim("חשבשבון היה צריל להעתיק הקובץ הפעילה למיקום אחר.\nהקובץ עכשיו נמצא ב: \n" +
+                    this.CurrentFile);
             }
             Stream stream = File.CreateText(this.CurrentFile).BaseStream;
 

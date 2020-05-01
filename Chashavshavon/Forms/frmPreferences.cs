@@ -94,10 +94,7 @@ namespace Chashavshavon
         {
             if (this.cbRequirePassword.Checked && this.txtPassword.Text.Length < 4)
             {
-                MessageBox.Show("הסיסמה חייבת להיות לפחות 4 תוים",
-                            "חשבשבון",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Exclamation);
+                Program.Exclaim("הסיסמה חייבת להיות לפחות 4 תוים");
                 return false;
             }
             else
@@ -241,12 +238,8 @@ namespace Chashavshavon
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("האם אתם בטוחים שברצונכם לאפס כל ההעדפות לברירת מחדל?",
-                    "חשבשבון - איפוס",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2,
-                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+            if (Program.AskUser("האם אתם בטוחים שברצונכם לאפס כל ההעדפות לברירת מחדל?",
+                    "חשבשבון - איפוס"))
             {
                 //The current file doesn't get reset.
                 string currentFile = Properties.Settings.Default.CurrentFile;

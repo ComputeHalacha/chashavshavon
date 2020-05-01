@@ -233,22 +233,12 @@ namespace Chashavshavon
 
             if (lVersion == null || lVersion <= tVersion)
             {
-                MessageBox.Show("יש לכם גירסה האחרונה: " + tVersion.ToString(),
-                    "חשבשבון",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Program.Inform("יש לכם גירסה האחרונה: " + tVersion.ToString());
             }
             else
             {
-                if (MessageBox.Show("יש גירסה חדשה. גירסה: " + lVersion.ToString() +
-                    "\nהאם אתם רוצים להורידו ולהתקינו?",
-                    "חשבשבון",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                if (Program.AskUser("יש גירסה חדשה. גירסה: " + lVersion.ToString() +
+                    "\nהאם אתם רוצים להורידו ולהתקינו?"))
                 {
                     using (var bgw = new BackgroundWorker())
                     {
@@ -283,12 +273,7 @@ namespace Chashavshavon
                             }
                             else
                             {
-                                MessageBox.Show("נכשלה התקנת גירסה החדשה.",
-                                    "חשבשבון",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Warning,
-                                    MessageBoxDefaultButton.Button1,
-                                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                                Program.Warn("נכשלה התקנת גירסה החדשה.");
                             }
                         };
                         bgw.RunWorkerAsync();

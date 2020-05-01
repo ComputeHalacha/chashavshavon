@@ -130,7 +130,7 @@ namespace Chashavshavon
 
                     if (Program.RunInDevMode)
                     {
-                        MessageBox.Show(excep.Message);
+                        Program.ErrorMessage(excep.Message);
                     }
 
                     try
@@ -144,30 +144,20 @@ namespace Chashavshavon
                     {
                         if (Program.RunInDevMode)
                         {
-                            MessageBox.Show(ex.Message);
+                            Program.ErrorMessage(ex.Message);
                         }
                     }
 
                     if ((Utils.RemoteFunctions.IsConnectedToInternet() || Program.RunInDevMode) &&
                                (silent ||
-                               MessageBox.Show("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.",
-                                               "חשבשבון",
-                                               MessageBoxButtons.YesNo,
-                                               MessageBoxIcon.Exclamation,
-                                               MessageBoxDefaultButton.Button1,
-                                               MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes))
+                               Program.AskUser("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.")))
                     {
                         try
                         {
                             Utils.RemoteFunctions.ProcessRemoteException(excep, logFilePath);
                             if (!silent)
                             {
-                                MessageBox.Show("פרטי השגיאה נשלחו בהצלחה.",
-                                        "חשבשבון",
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.None,
-                                        MessageBoxDefaultButton.Button1,
-                                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                                Program.Inform("פרטי השגיאה נשלחו בהצלחה.");
                             }
                         }
                         catch (Exception ex)
@@ -184,12 +174,7 @@ namespace Chashavshavon
 
                             if (!silent)
                             {
-                                MessageBox.Show("נכשלה שליחת פרטי השגיאה",
-                                        "חשבשבון",
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.Exclamation,
-                                        MessageBoxDefaultButton.Button1,
-                                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                                Program.Exclaim("נכשלה שליחת פרטי השגיאה");
                             }
                         }
                     }
@@ -302,6 +287,49 @@ namespace Chashavshavon
         {
             return specialDayType.HasFlag(value);
         }
+
+        public static void PopMessage(string message, MessageBoxIcon icon, string caption = "חשבשבון")
+        {
+            MessageBox.Show(message, caption,
+                            MessageBoxButtons.OK,
+                            icon,
+                            MessageBoxDefaultButton.Button1,
+                            MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+
+        }
+
+        public static bool AskUser(string message, string caption = "חשבשבון")
+        {
+            return MessageBox.Show(message,
+                caption,
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2,
+                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes;
+        }
+
+
+        public static void Inform(string message, string caption = "חשבשבון")
+        {
+            PopMessage(message, MessageBoxIcon.Information, caption);
+        }
+
+        public static void Warn(string message, string caption = "חשבשבון")
+        {
+            PopMessage(message, MessageBoxIcon.Warning, caption);
+        }
+
+        public static void Exclaim(string message, string caption = "חשבשבון")
+        {
+            PopMessage(message, MessageBoxIcon.Exclamation, caption);
+        }
+
+        public static void ErrorMessage(string message, string caption = "חשבשבון")
+        {
+            PopMessage(message, MessageBoxIcon.Error, caption);
+        }
+
+
 
         #endregion
     }

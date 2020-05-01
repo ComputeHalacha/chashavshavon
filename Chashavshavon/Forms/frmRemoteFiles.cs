@@ -22,12 +22,7 @@ namespace Chashavshavon
 
             if (!this._mainForm.TestInternet())
             {
-                MessageBox.Show("אין גישה לרשת כרגע",
-                    "חשבשבון",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation,
-                    MessageBoxDefaultButton.Button1,
-                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Program.Exclaim("אין גישה לרשת כרגע");
                 this.Close();
                 return;
             }
@@ -55,12 +50,14 @@ namespace Chashavshavon
             if (this.ValidateUserFields())
             {
                 this.SaveUser();
-                if (Utils.RemoteFunctions.GetRemoteResponse("NewUser") != null)
-                {
-                    MessageBox.Show("משתמש החדש נבראה בהצלחה", "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.lbFileNames.Items.Add("אין קבצים...");
-                    this.txtCurrentFileName.Text = this._mainForm.CurrentFileName;
-                }
+                Utils.RemoteFunctions.RunRemoteAction("NewUser",
+                    xml =>
+                    {
+                        Program.Inform("משתמש החדש נבראה בהצלחה");
+                        this.lbFileNames.Items.Add("אין קבצים...");
+                        this.txtCurrentFileName.Text = this._mainForm.CurrentFileName;
+                    },
+                    s => Program.Warn(s));
             }
         }
 
@@ -69,34 +66,29 @@ namespace Chashavshavon
             this.SaveUser();
             if (this.lbFileNames.Items.Contains(this.txtCurrentFileName.Text))
             {
-                if (MessageBox.Show(
-                    string.Format("קובץ בשם" + "{0}\"{1}\"{0}" +
+                if (Program.AskUser(string.Format("קובץ בשם" + "{0}\"{1}\"{0}" +
                         ".כבר קיים ברשימת קובצים שלכם{0}?האם להחליפו בקובץ הנוכחי",
                         Environment.NewLine,
-                        this.txtCurrentFileName.Text),
-                    "חשבשבון",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2,
-                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                        this.txtCurrentFileName.Text)))
                 {
-                    if (!this.SaveCurrentFile(this.txtCurrentFileName.Text, this._mainForm.CurrentFileXML))
-                    {
-                        return;
-                    }
+                    this.SaveCurrentFile(this.txtCurrentFileName.Text, this._mainForm.CurrentFileXML);
+
                 }
             }
-            else if (!this.AddCurrentFile(this.txtCurrentFileName.Text, this._mainForm.CurrentFileXML))
+            else
             {
-                return;
+                string fileName = this.txtCurrentFileName.Text;
+
+                Utils.RemoteFunctions.RunRemoteAction("AddFile",
+                doc =>
+                    {
+                        Program.Inform(":הקובץ נשמרה ברשת בשם" + Environment.NewLine + fileName);
+                        this.LogIn();
+                    },
+                s => Program.Warn(s),
+                Utils.RemoteFunctions.NewParam("fileName", fileName),
+                Utils.RemoteFunctions.NewParam("fileText", this._mainForm.CurrentFileXML));
             }
-            MessageBox.Show(":הקובץ נשמרה ברשת בשם" + Environment.NewLine + this.txtCurrentFileName.Text,
-                            "חשבשבון",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-            this.LogIn();
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -111,25 +103,24 @@ namespace Chashavshavon
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            if ((!this.ValidateUserFields()) || MessageBox.Show("?האם אתם בטוחים שאתם רוצים למחוק משתמש הזאת מהמערכת עם כל הקבצים השמורים ברשימה",
-                                    "חשבשבון",
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question,
-                                    MessageBoxDefaultButton.Button2,
-                                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
+            if ((!this.ValidateUserFields()) ||
+                !Program.AskUser("?האם אתם בטוחים שאתם רוצים למחוק משתמש הזאת מהמערכת עם כל הקבצים השמורים ברשימה"))
             {
                 return;
             }
 
-            if (Utils.RemoteFunctions.GetRemoteResponse("DeleteUser") != null)
-            {
-                MessageBox.Show("המשתמש נמחקה בהצלחה", "חשבשבון", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.lbFileNames.Items.Clear();
-                this.txtUserName.Text = "";
-                this.txtPassword.Text = "";
-                Properties.Settings.Default.RemotePassword = "";
-                Properties.Settings.Default.RemoteUserName = "";
-            }
+            Utils.RemoteFunctions.RunRemoteAction("DeleteUser",
+                    doc =>
+                    {
+                        Program.Inform("המשתמש נמחקה בהצלחה");
+                        this.lbFileNames.Items.Clear();
+                        this.txtUserName.Text = "";
+                        this.txtPassword.Text = "";
+                        Properties.Settings.Default.RemotePassword = "";
+                        Properties.Settings.Default.RemoteUserName = "";
+                    },
+                    s => Program.ErrorMessage(s));
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -137,35 +128,21 @@ namespace Chashavshavon
             this.SaveUser();
             if (this.lbFileNames.SelectedItem != null)
             {
-                if (MessageBox.Show(" האם אתם בטוחים שאתם רוצים למחוק את הקובץ בשם" + Environment.NewLine + this.lbFileNames.SelectedItem.ToString(),
-                                    "חשבשבון",
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question,
-                                    MessageBoxDefaultButton.Button2,
-                                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) == DialogResult.Yes
-                    &&
-                    Utils.RemoteFunctions.GetRemoteResponse("DeleteFile",
-                                      Utils.RemoteFunctions.NewParam("fileName",
-                                      this.lbFileNames.SelectedItem.ToString())) != null)
+                if (Program.AskUser(" האם אתם בטוחים שאתם רוצים למחוק את הקובץ בשם" + Environment.NewLine + this.lbFileNames.SelectedItem.ToString()))
                 {
-                    MessageBox.Show("הקובץ " + this.lbFileNames.SelectedItem + " נמחקה",
-                                    "חשבשבון",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information,
-                                    MessageBoxDefaultButton.Button1,
-                                    MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
-
-                    this.lbFileNames.Items.Remove(this.lbFileNames.SelectedItem);
+                    Utils.RemoteFunctions.RunRemoteAction("DeleteFile",
+                        doc =>
+                        {
+                            Program.Inform("הקובץ " + this.lbFileNames.SelectedItem + " נמחקה");
+                            this.lbFileNames.Items.Remove(this.lbFileNames.SelectedItem);
+                        },
+                        w => Program.Warn(w),
+                        Utils.RemoteFunctions.NewParam("fileName", this.lbFileNames.SelectedItem.ToString()));
                 }
             }
             else
             {
-                MessageBox.Show("אנא בחרו קובץ מהרשימה לפני לחיצת הכפתור",
-                               "חשבשבון",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Exclamation,
-                               MessageBoxDefaultButton.Button1,
-                               MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Program.Exclaim("אנא בחרו קובץ מהרשימה לפני לחיצת הכפתור");
             }
         }
 
@@ -190,12 +167,7 @@ namespace Chashavshavon
             }
             else
             {
-                MessageBox.Show("אנא בחרו קובץ מהרשימה לפני לחיצת הכפתור",
-                                "חשבשבון",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Program.Exclaim("אנא בחרו קובץ מהרשימה לפני לחיצת הכפתור");
             }
         }
 
@@ -228,47 +200,38 @@ namespace Chashavshavon
                     {
                         string xml = Utils.RemoteFunctions.GetFileXml(this.lbFileNames.SelectedItem.ToString());
                         File.WriteAllText(sfd.FileName, xml);
-                        MessageBox.Show("הקובץ נשמרה ב" + sfd.FileName,
-                                "חשבשבון",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                        Program.Inform("הקובץ נשמרה ב" + sfd.FileName);
                     }
 
                 }
             }
             else
             {
-                MessageBox.Show("אנא בחרו קובץ מהרשימה לפני לחיצת הכפתור",
-                                "חשבשבון",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Program.Exclaim("אנא בחרו קובץ מהרשימה לפני לחיצת הכפתור");
             }
         }
 
         private void LogIn()
         {
-            XmlDocument doc = Utils.RemoteFunctions.GetRemoteResponse("GetFileList");
-            if (doc != null)
-            {
-                this.SaveUser();
-                this.lbFileNames.Items.Clear();
-                XmlNode files = doc.SelectSingleNode("//files");
-                if (files.HasChildNodes)
-                {
-                    foreach (XmlNode file in files.SelectNodes("//file"))
+            Utils.RemoteFunctions.RunRemoteAction("GetFileList",
+                doc =>
                     {
-                        this.lbFileNames.Items.Add(file.Attributes["fileName"].Value);
-                    }
-                }
-                else
-                {
-                    this.lbFileNames.Items.Add("אין קבצים...");
-                }
-            }
+                        this.SaveUser();
+                        this.lbFileNames.Items.Clear();
+                        XmlNode files = doc.SelectSingleNode("//files");
+                        if (files.HasChildNodes)
+                        {
+                            foreach (XmlNode file in files.SelectNodes("//file"))
+                            {
+                                this.lbFileNames.Items.Add(file.Attributes["fileName"].Value);
+                            }
+                        }
+                        else
+                        {
+                            this.lbFileNames.Items.Add("אין קבצים...");
+                        }
+                    },
+                s => Program.Warn(s));
         }
 
         private bool ValidateUserFields()
@@ -284,12 +247,8 @@ namespace Chashavshavon
             }
             if (messages.Count > 0)
             {
-                MessageBox.Show("אנא תיקנו הבעיות הבאות" + Environment.NewLine + string.Join(Environment.NewLine, messages.ToArray()),
-                                "חשבשבון",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                Program.Inform("אנא תיקנו הבעיות הבאות" + Environment.NewLine +
+                    string.Join(Environment.NewLine, messages.ToArray()));
                 return false;
             }
             else
@@ -298,18 +257,13 @@ namespace Chashavshavon
             }
         }
 
-        private bool AddCurrentFile(string fileName, string xml)
+        private void SaveCurrentFile(string fileName, string xml)
         {
-            return Utils.RemoteFunctions.GetRemoteResponse("AddFile",
-                                    Utils.RemoteFunctions.NewParam("fileName", fileName),
-                                    Utils.RemoteFunctions.NewParam("fileText", xml)) != null;
-        }
-
-        private bool SaveCurrentFile(string fileName, string xml)
-        {
-            return Utils.RemoteFunctions.GetRemoteResponse("SetFileText",
-                                    Utils.RemoteFunctions.NewParam("fileName", fileName),
-                                    Utils.RemoteFunctions.NewParam("fileText", xml)) != null;
+            Utils.RemoteFunctions.RunRemoteAction("SetFileText",
+                doc => Program.Inform(":הקובץ נשמרה ברשת בשם" + Environment.NewLine + fileName),
+                s => Program.Warn(s),
+                Utils.RemoteFunctions.NewParam("fileName", fileName),
+                Utils.RemoteFunctions.NewParam("fileText", xml));
         }
     }
 }

@@ -157,16 +157,11 @@ namespace Chashavshavon
 
                 if (this.AddedKavuah.DayNight != entry.DayNight)
                 {
-                    if (MessageBox.Show("העונה של הראייה הקובעת הוא [עונת " +
+                    if (!Program.AskUser("העונה של הראייה הקובעת הוא [עונת " +
                             entry.HebrewDayNight +
                             "[,\nאבל העונה שנבחרה להקבוע החדש הוא " +
                             this.AddedKavuah.ToString() +
-                            ".\nהאם להמשיך בכל זאת?",
-                        "חשבשבון",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
+                            ".\nהאם להמשיך בכל זאת?"))
                     {
                         return;
                     }
@@ -175,16 +170,11 @@ namespace Chashavshavon
                 if (this.AddedKavuah.KavuahType.In(KavuahType.Haflagah, KavuahType.HaflagaMaayanPasuach) &&
                     this.AddedKavuah.Number != entry.Interval)
                 {
-                    if (MessageBox.Show("ההפלגה של הראייה הקובעת הוא " +
+                    if (!Program.AskUser("ההפלגה של הראייה הקובעת הוא " +
                            entry.Interval.ToString() +
                             " ימים,\nאבל ההפלגה שנבחרה להקבוע החדש הוא " +
                             this.cmbNumber.Text +
-                            " ימים.\nהאם להמשיך בכל זאת?",
-                        "חשבשבון",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
+                            " ימים.\nהאם להמשיך בכל זאת?"))
                     {
                         return;
                     }
@@ -193,16 +183,11 @@ namespace Chashavshavon
                 if (this.AddedKavuah.KavuahType.In(KavuahType.DayOfMonth, KavuahType.DayOfMonthMaayanPasuach) &&
                     this.AddedKavuah.Number != entry.Day)
                 {
-                    if (MessageBox.Show("היום החודש של הראייה הקובעת הוא יום " +
+                    if (!Program.AskUser("היום החודש של הראייה הקובעת הוא יום " +
                            GeneralUtils.DaysOfMonthHebrew[entry.Day] +
                             " בחודש,\nאבל היום החודש שנבחרה להקבוע החדש הוא יום " +
                             this.cmbNumber.Text +
-                            " בחודש.\nהאם להמשיך בכל זאת?",
-                        "חשבשבון",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading) != DialogResult.Yes)
+                            " בחודש.\nהאם להמשיך בכל זאת?"))
                     {
                         return;
                     }
