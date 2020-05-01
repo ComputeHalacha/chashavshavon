@@ -50,7 +50,7 @@ def GetEntriesHTML(fileName, filexml):
        html += '<td width="20">%s</td><td>%s</td><td>%s</td><td width="460">%s</td></tr>' % (count, entry.date, entry.dn, entry.notes or '&nbsp;')
     html += '</table>'
     kavuahs = lists.kavuahList
-    if kavuahs.count > 0:
+    if kavuahs and kavuahs.count > 0:
         count = 0
         html += '''<br /><span class="header">List of Kavuahs in File: %s</span>
             <table cellspacing="0" cellpadding="5"><tr><td>&nbsp;</td><td>Active?</td><td>Type</td>

@@ -824,30 +824,28 @@ namespace JewishCalendar
         {
             TimeOfDay sunrise = TimeOfDay.NoValue, sunset = TimeOfDay.NoValue;
             int day = GetDayOfYear(date);
-            double zeninthDeg = 90, zenithMin = 50, lonHour = 0, longitude = 0, latitude = 0, cosLat = 0, sinLat = 0, cosZen = 0, sinDec = 0, cosDec = 0,
-                xmRise = 0, xmSet = 0, xlRise = 0, xlSet = 0, aRise = 0, aSet = 0, ahrRise = 0, ahrSet = 0,
-                hRise = 0, hSet = 0, tRise = 0, tSet = 0, utRise = 0, utSet = 0, earthRadius = 6356900,
+            double zeninthDeg = 90, zenithMin = 50, earthRadius = 6356900,
                 zenithAtElevation = DegToDec(zeninthDeg, zenithMin) + RadToDeg(Math.Acos(earthRadius / (earthRadius +
                     (considerElevation ? location.Elevation : 0))));
 
             zeninthDeg = Math.Floor(zenithAtElevation);
             zenithMin = (zenithAtElevation - Math.Floor(zenithAtElevation)) * 60d;
-            cosZen = Math.Cos(0.01745 * DegToDec(zeninthDeg, zenithMin));
-            longitude = DegToDec(location.LongitudeDegrees, location.LongitudeMinutes) *
-                (location.LongitudeType == Location.LongitudeTypes.West ? 1 : -1);
-            lonHour = longitude / 15d;
-            latitude = DegToDec(location.LatitudeDegrees, location.LatitudeMinutes) *
-                (location.LatitudeType == Location.LatitudeTypes.North ? 1 : -1);
-            cosLat = Math.Cos(0.01745 * latitude);
-            sinLat = Math.Sin(0.01745 * latitude);
-            tRise = day + (6 + lonHour) / 24d;
-            tSet = day + (18 + lonHour) / 24d;
-            xmRise = M(tRise);
-            xlRise = L(xmRise);
-            xmSet = M(tSet);
-            xlSet = L(xmSet);
-            aRise = 57.29578 * Math.Atan(0.91746 * Math.Tan(0.01745 * xlRise));
-            aSet = 57.29578 * Math.Atan(0.91746 * Math.Tan(0.01745 * xlSet));
+            double cosZen = Math.Cos(0.01745 * DegToDec(zeninthDeg, zenithMin));
+            double longitude = DegToDec(location.LongitudeDegrees, location.LongitudeMinutes) *
+    (location.LongitudeType == Location.LongitudeTypes.West ? 1 : -1);
+            double lonHour = longitude / 15d;
+            double latitude = DegToDec(location.LatitudeDegrees, location.LatitudeMinutes) *
+    (location.LatitudeType == Location.LatitudeTypes.North ? 1 : -1);
+            double cosLat = Math.Cos(0.01745 * latitude);
+            double sinLat = Math.Sin(0.01745 * latitude);
+            double tRise = day + (6 + lonHour) / 24d;
+            double tSet = day + (18 + lonHour) / 24d;
+            double xmRise = M(tRise);
+            double xlRise = L(xmRise);
+            double xmSet = M(tSet);
+            double xlSet = L(xmSet);
+            double aRise = 57.29578 * Math.Atan(0.91746 * Math.Tan(0.01745 * xlRise));
+            double aSet = 57.29578 * Math.Atan(0.91746 * Math.Tan(0.01745 * xlSet));
             if (Math.Abs(aRise + 360 - xlRise) > 90)
             {
                 aRise += 180d;
@@ -864,18 +862,19 @@ namespace JewishCalendar
             {
                 aSet -= 360d;
             }
-            ahrRise = aRise / 15d;
-            sinDec = 0.39782 * Math.Sin(0.01745 * xlRise);
-            cosDec = Math.Sqrt(1 - sinDec * sinDec);
-            hRise = (cosZen - sinDec * sinLat) / (cosDec * cosLat);
-            ahrSet = aSet / 15d;
+
+            double ahrRise = aRise / 15d;
+            double sinDec = 0.39782 * Math.Sin(0.01745 * xlRise);
+            double cosDec = Math.Sqrt(1 - sinDec * sinDec);
+            double hRise = (cosZen - sinDec * sinLat) / (cosDec * cosLat);
+            double ahrSet = aSet / 15d;
             sinDec = 0.39782 * Math.Sin(0.01745 * xlSet);
             cosDec = Math.Sqrt(1 - sinDec * sinDec);
-            hSet = (cosZen - sinDec * sinLat) / (cosDec * cosLat);
+            double hSet = (cosZen - sinDec * sinLat) / (cosDec * cosLat);
             if (Math.Abs(hRise) <= 1)
             {
                 hRise = 57.29578 * Math.Acos(hRise);
-                utRise = ((360d - hRise) / 15d) + ahrRise + Adj(tRise) + lonHour;
+                double utRise = ((360d - hRise) / 15d) + ahrRise + Adj(tRise) + lonHour;
                 sunrise = TimeAdj(utRise + location.TimeZone, date, location);
                 if (sunrise.Hour > 12)
                 {
@@ -886,7 +885,7 @@ namespace JewishCalendar
             if (Math.Abs(hSet) <= 1)
             {
                 hSet = 57.29578 * Math.Acos(hSet);
-                utSet = (hRise / 15d) + ahrSet + Adj(tSet) + lonHour;
+                double utSet = (hRise / 15d) + ahrSet + Adj(tSet) + lonHour;
                 sunset = TimeAdj(utSet + location.TimeZone, date, location);
                 if (sunset.Hour > 0 && sunset.Hour < 12)
                 {

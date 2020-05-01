@@ -10,7 +10,7 @@ using Tahara;
 
 namespace Chashavshavon
 {
-    static class Program
+    static class Program        
     {
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
         public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
@@ -20,12 +20,15 @@ namespace Chashavshavon
         public static readonly List<Kavuah> KavuahList = new List<Kavuah>();
         public static readonly List<Onah> ProblemOnahs = new List<Onah>();
 
+        public static bool RunInDevMode { get; private set; } = false;
+
         //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
         public static DateTime Today { get; set; }
         public static Onah NowOnah { get; set; }
         //Keeps track of where user is; for calculating zmanim
         public static Location CurrentLocation { get; set; }
         public static frmMain MainForm { get; set; }
+
 
         /// <summary>
         /// The main entry point for the application.
@@ -53,6 +56,15 @@ namespace Chashavshavon
             {
                 Directory.CreateDirectory(Program.BackupFolderPath);
             }
+
+            if(Properties.Settings.Default.DevMode)
+            {
+                RunInDevMode = true;
+            }
+
+#if DEBUG
+            RunInDevMode = true;
+#endif
 
             if (string.IsNullOrEmpty(Properties.Settings.Default.ChashFilesPath))
             {
@@ -116,7 +128,7 @@ namespace Chashavshavon
                         excep = excep.InnerException;
                     }
 
-                    if (Properties.Settings.Default.DevMode)
+                    if (Program.RunInDevMode)
                     {
                         MessageBox.Show(excep.Message);
                     }
@@ -130,13 +142,13 @@ namespace Chashavshavon
                     }
                     catch (Exception ex)
                     {
-                        if (Properties.Settings.Default.DevMode)
+                        if (Program.RunInDevMode)
                         {
                             MessageBox.Show(ex.Message);
                         }
                     }
 
-                    if ((Utils.RemoteFunctions.IsConnectedToInternet() || Properties.Settings.Default.DevMode) &&
+                    if ((Utils.RemoteFunctions.IsConnectedToInternet() || Program.RunInDevMode) &&
                                (silent ||
                                MessageBox.Show("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.",
                                                "חשבשבון",

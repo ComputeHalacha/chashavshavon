@@ -47,7 +47,7 @@ namespace Chashavshavon.Utils
 
         public static XmlDocument GetRemoteResponse(string function, params KeyValuePair<string, string>[] fields)
         {
-            var doc = new XmlDocument();
+            XmlDocument doc;
             try
             {
                 doc = ExecuteRemoteCall(function, fields);
@@ -83,7 +83,7 @@ namespace Chashavshavon.Utils
         {
             string responseText = null;
             var request = WebRequest.Create(
-                                (Properties.Settings.Default.DevMode ?
+                                (Program.RunInDevMode ?
                                     Properties.Resources.LocalAppURL : Properties.Resources.AppURL) +
                                 "/" + function);
             request.Method = "POST";
@@ -256,7 +256,7 @@ namespace Chashavshavon.Utils
 
         private static string GetComputeURL(string relativeURL)
         {
-            return "http://" + (Properties.Settings.Default.DevMode ?
+            return "http://" + (Program.RunInDevMode ?
                 Properties.Resources.ComputeURLLocalHost : Properties.Resources.ComputeURLHost) +
                 relativeURL;
         }

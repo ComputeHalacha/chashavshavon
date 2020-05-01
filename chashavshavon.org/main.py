@@ -221,7 +221,7 @@ class GetFileListLinks(webapp2.RequestHandler):
                                          <td><a class="link" href="" onclick="javascript:go('GetFileAsHTML', '%s');return false;">Open File</a> |
                                              <a class="link" href="" onclick="javascript:deleteFile('%s');return false;">Delete File</a> |
                                              <a class="link" href="" onclick="javascript:go('GetFileText', '%s');return false;">View File Source</a></td>
-                                     </tr>''' % ('#ffffff' if count % 2 else '#f1f1f1', count, file.fileName, file.fileName, file.fileName, file.fileName))
+                                     </tr>''' % ('#ffffff' if count % 2 else '#f1f1f1', count, file.fileName, file.fileName, file.fileName, file.fileName, file.fileName))
       self.response.out.write('</table></body></html>')
 
 class GetUsersListLinks(webapp2.RequestHandler):

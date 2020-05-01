@@ -218,7 +218,7 @@ namespace Chashavshavon
         {
             this.lblVersion.Text += " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.llContact.Visible = this.llGetLatestVersion.Visible =
-                Properties.Settings.Default.DevMode || Utils.RemoteFunctions.IsConnectedToInternet();
+                Program.RunInDevMode || Utils.RemoteFunctions.IsConnectedToInternet();
         }
 
         private void llContact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

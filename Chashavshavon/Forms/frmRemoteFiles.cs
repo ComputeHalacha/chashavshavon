@@ -67,7 +67,7 @@ namespace Chashavshavon
         private void btnSaveCurrent_Click(object sender, EventArgs e)
         {
             this.SaveUser();
-            if (Path.GetFileName(this._mainForm.CurrentFileName) == this.txtCurrentFileName.Text)
+            if (this.lbFileNames.Items.Contains(this.txtCurrentFileName.Text))
             {
                 if (MessageBox.Show(
                     string.Format("קובץ בשם" + "{0}\"{1}\"{0}" +
@@ -171,7 +171,7 @@ namespace Chashavshavon
 
         private void llSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(Properties.Settings.Default.DevMode ? Properties.Resources.LocalAppURL : Properties.Resources.AppURL);
+            Process.Start(Program.RunInDevMode ? Properties.Resources.LocalAppURL : Properties.Resources.AppURL);
         }
 
         private void btnPreview_Click(object sender, EventArgs e)

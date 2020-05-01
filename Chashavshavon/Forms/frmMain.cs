@@ -919,10 +919,8 @@ namespace Chashavshavon
                         {
                             float halfX = pWidth / 2f;
 
-                            g.DrawImage(dayBgImgLeft == null ? dayBgImgMain : dayBgImgLeft,
-                                0, 0, halfX, pHeight);
-                            g.DrawImage(dayBgImgRight == null ? dayBgImgMain : dayBgImgRight,
-                                halfX, 0, halfX, pHeight);
+                            g.DrawImage(dayBgImgLeft ?? dayBgImgMain, 0, 0, halfX, pHeight);
+                            g.DrawImage(dayBgImgRight ?? dayBgImgMain, halfX, 0, halfX, pHeight);
                         }
                         if (highlightDay && date.Date == this._monthToDisplay.Date)
                         {
@@ -1064,37 +1062,6 @@ namespace Chashavshavon
             this.ShowEntryTextList(true);
         }
 
-        private void ProccessProblem(Label lbl, Label lblDate, Onah problemOnah)
-        {
-            lbl.Text = lbl.Text.Trim();
-            if (problemOnah.IsIgnored)
-            {
-                lbl.Text += string.Format("{0}[{1}]",
-                    (lbl.Text.Length > 0 ? Environment.NewLine : ""),
-                    problemOnah.Name);
-            }
-            else
-            {
-                lbl.Text += (lbl.Text.Length > 0 ? Environment.NewLine : "") + problemOnah.Name;
-            }
-
-            this.toolTip1.SetToolTip(lbl, lbl.Text);
-
-            //If this onah is to be ignored and the same onah doesn't have another non-ignoreable problem
-
-            lblDate.BackColor = Color.SlateGray;
-            lblDate.ForeColor = Color.Lavender;
-            if (lbl.Name.Contains("Today") && Program.NowOnah.DayNight == problemOnah.DayNight)
-            {
-                lbl.BackColor = Color.Red;
-                lbl.ForeColor = Color.Lavender;
-            }
-            else
-            {
-                lbl.BackColor = Color.Lavender;
-            }
-        }
-
         private void RefreshData()
         {
             this.TestInternet();
@@ -1137,13 +1104,6 @@ namespace Chashavshavon
             return fb;
         }
 
-        private void ShowDayDetails(DateTime dateTime)
-        {
-            using (var f = new frmAddNewEntry(dateTime))
-            {
-                f.ShowDialog(this);
-            }
-        }
 
         private frmBrowser ShowEntryTextList(bool print = false)
         {
@@ -1436,9 +1396,6 @@ namespace Chashavshavon
             }
 
             XmlTextWriter xtw;
-            Stream stream = null;
-
-
             string dir = Path.GetDirectoryName(this.CurrentFile);
 
             try
@@ -1465,7 +1422,7 @@ namespace Chashavshavon
                     MessageBoxDefaultButton.Button1,
                     MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
             }
-            stream = File.CreateText(this.CurrentFile).BaseStream;
+            Stream stream = File.CreateText(this.CurrentFile).BaseStream;
 
             xtw = new XmlTextWriter(stream, Encoding.UTF8);
             xtw.WriteStartDocument();
@@ -1520,7 +1477,7 @@ namespace Chashavshavon
         /// <returns></returns>
         public bool TestInternet()
         {
-            bool hasInternet = Properties.Settings.Default.DevMode || Utils.RemoteFunctions.IsConnectedToInternet();
+            bool hasInternet = Program.RunInDevMode || Utils.RemoteFunctions.IsConnectedToInternet();
             this.RemoteToolStripMenuItem.Visible = hasInternet;
             return hasInternet;
         }
