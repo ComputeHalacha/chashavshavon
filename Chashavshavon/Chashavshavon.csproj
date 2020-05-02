@@ -319,13 +319,12 @@
     <None Include="Resources\Marble\ParchmentMarbleTile.jpg" />
     <None Include="Resources\Marble\PinkMarbleTile.jpg" />
     <None Include="Resources\Marble\WhiteMarble.jpg" />
-    <None Include="Resources\Marble\NightParchmentMarbleTile.jpg" />
-    <None Include="Resources\Marble\NightPinkMarbleTile.jpg" />
-    <None Include="Resources\Marble\TodayMarble.png" />
     <None Include="Resources\Marble\LightBlueMarble.jpg" />
     <None Include="Resources\LocationsList.xml" />
     <None Include="Resources\InfoHTMLHeb.html" />
     <None Include="Resources\today.png" />
+    <None Include="Resources\EntryListHtmlTemplate.html" />
+    <Content Include="Resources\WeekProblemListHtmlTemplate.html" />
     <Content Include="scroll.ico" />
   </ItemGroup>
   <ItemGroup>

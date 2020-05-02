@@ -117,6 +117,7 @@ namespace Chashavshavon
                 c.Dispose();
             }
             this.tableLayoutPanel1.Controls.Clear();
+
             if (Program.EntryList.Count > 0)
             {
                 Entry entry = Program.EntryList.FirstOrDefault(en => !en.IsInvisible && en.DateTime.IsSameday(this._displayingSecularDate));

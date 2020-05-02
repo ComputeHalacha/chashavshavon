@@ -979,26 +979,21 @@ namespace Chashavshavon
 
         private string GetEntryListText()
         {
-            var sb = new StringBuilder("<html><head><meta content='text/html;charset=UTF-8;' />" +
-                "<title>רשימת וסתות</title>" +
-                "<style>body,table,td{text-align:right;direction:rtl;font-family:Narkisim;}" +
-                "table{border:solid 1px silver;width:100%;}" +
-                "td{padding:3px;margin:1px;}tr.alt td{background-color:#f1f1f1;}</style></head>");
-            sb.AppendFormat("<body><h3>רשימת וסתות - {0}</h3><table>", Program.Today.ToLongDateString());
-            sb.Append("<tr><th>מספר</th><th>תאריך</th><th>יום/לילה</th><th>הפלגה</th><th>הערות</th></tr>");
+            var sb = new StringBuilder();
             int count = 0;
             foreach (Entry e in Program.EntryList.Where(en => !en.IsInvisible))
             {
                 sb.AppendFormat("<tr{0}><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
-                    (count++ % 2 == 0 ? " class='alt'" : ""),
-                    count,
-                    e.DateTime.ToLongDateString(),
-                    e.HebrewDayNight,
-                    e.Interval,
-                    (string.IsNullOrEmpty(e.Notes) ? "&nbsp;" : e.Notes));
+                   (count++ % 2 == 0 ? " class='alt'" : ""),
+                   count,
+                   e.DateTime.ToLongDateString(),
+                   e.HebrewDayNight,
+                   e.Interval,
+                   (string.IsNullOrEmpty(e.Notes) ? "&nbsp;" : e.Notes));
             }
-            sb.Append("</table></body></html>");
-            return sb.ToString();
+            return Properties.Resources.EntryListHtmlTemplate
+                .Replace("{{DATE}}", Program.Today.ToLongDateString())
+                .Replace("{{ENTRY_ROWS}}", sb.ToString());
         }
 
         private string GetPassword()
@@ -1282,38 +1277,28 @@ namespace Chashavshavon
                 }
             }
 
-            var sb = new StringBuilder("<html><head><meta content='text/html;charset=UTF-8;' />" +
-                "<title>לוח חשבשבון ");
-            sb.Append(Program.Today.ToLongDateString());
-            sb.Append("</title><style>" +
-                "body,table,td{text-align:right;direction:rtl;font-family:Narkisim;}" +
-                "table{border:solid 1px silver;width:100%;}" +
-                "div.ignored{float:right;color:#999999;width:400px;text-align:right;}" +
-                "td{padding:3px;margin:1px;}" +
-                "tr.alt td{background-color:#f1f1f1;}" +
-                "tr.red td{color:#ff0000;}" +
-                "tr.ignored td{color:#999999;}</style></head>");
-            sb.AppendFormat("<body><h3>לוח חשבשבון - עונות הבאות - {0}</h3>", Program.Today.ToLongDateString());
+
+            var sb = new StringBuilder();
             if (onahsToAdd.Exists(o => o.IsIgnored))
             {
-                sb.Append("<div class='ignored'>רשומות באפור לא פעילים עקב וסת קבוע</div>");
+                sb.Append("<tr><td class='ignored' colspan='6'>רשומות באפור לא פעילים עקב וסת קבוע</td></tr>");
             }
-            sb.Append("<table><tr><th>יום</th><th>תאריך</th><th>יום/לילה</th><th>סיבה</th></tr>");
 
-            int count = 0;
             foreach (Onah onah in onahsToAdd)
             {
-                sb.AppendFormat("<tr class='{0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
-                    (count++ % 2 == 0 ? "alt" : "") + (Onah.IsSameOnahPeriod(Program.NowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
+                sb.AppendFormat("<tr class='prob {0}'><td>{1}</td><td>{2} {3}</td><td>{4}</td><td width='50%'>{5}</td></tr>",
+                    (Onah.IsSameOnahPeriod(Program.NowOnah, onah) ? " red" : "") + (onah.IsIgnored ? " ignored" : ""),
                     GeneralUtils.GetDayOfWeekText(onah.DateTime),
                     GeneralUtils.DaysOfMonthHebrew[onah.Day],
                     onah.Month.ToString(),
                     onah.HebrewDayNight,
                     onah.Name);
             }
-            sb.AppendFormat("</table><br /><hr /><strong>{0}</strong><hr />", this.lblNextProblem.Text);
-            sb.Append("</body></html>");
-            return sb.ToString();
+
+            return Properties.Resources.WeekProblemListHtmlTemplate
+                .Replace("{{DATE}}", Program.Today.ToLongDateString())
+                .Replace("{{PROBLEM_ROWS}}", sb.ToString())
+                .Replace("{{NEXT_PROBLEM_TEXT}}", this.lblNextProblem.Text);
         }
 
         /// <summary>

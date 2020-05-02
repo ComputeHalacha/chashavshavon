@@ -19,7 +19,7 @@ namespace Chashavshavon.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -257,6 +257,28 @@ namespace Chashavshavon.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;html&gt;
+        ///    &lt;head&gt;
+        ///        &lt;meta content=&quot;text/html;charset=UTF-8;&quot; /&gt;
+        ///        &lt;title&gt;רשימת וסתות {{DATE}}&lt;/title&gt;
+        ///        &lt;style&gt;
+        ///            body,
+        ///            table,
+        ///            td {
+        ///                text-align: right;
+        ///                direction: rtl;
+        ///                font-family: Narkisim;
+        ///            }
+        ///            body {
+        ///                background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QCsRXhpZgAATU0AKgAAAAgACQEaAAUAAAABAAAAegEbAAUAAAABAAAAggEoAAMAAAABAAIAAAExAAIAAAASAAA [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string EntryListHtmlTemplate {
+            get {
+                return ResourceManager.GetString("EntryListHtmlTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /Products/Chashavshavon/VERSION.txt.
         /// </summary>
         internal static string GetLatestVersionURL {
@@ -434,6 +456,23 @@ namespace Chashavshavon.Properties {
             get {
                 object obj = ResourceManager.GetObject("today", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta content=&quot;text/html;charset=UTF-8;&quot; /&gt;
+        ///    &lt;title&gt;לוח חשבשבון
+        ///            {{DATE}}
+        ///    &lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body, table, td { text-align: right; direction: rtl; font-family: Narkisim; }
+        ///        body { background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QCsRXhpZgAATU0AKgAAAAgACQEaAAUAAAABAAAAegEbAAUAAAABAAAAggEoAAMAAAABAAIAAAExAAIAAAASAAAAigMBAAUAAAABAAAAnAMDAAEAAAABAAAAAFEQAAEAAAABAQAAAFERAAQAAAABAAALElESAAQAAAABAAALEgAAAAAAARkvAAAD6AABGS8AAAPoUGF [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string WeekProblemListHtmlTemplate {
+            get {
+                return ResourceManager.GetString("WeekProblemListHtmlTemplate", resourceCulture);
             }
         }
         
