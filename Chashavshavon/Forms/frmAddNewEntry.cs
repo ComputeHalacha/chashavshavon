@@ -450,7 +450,7 @@ namespace Chashavshavon
         private void AddLine(StringBuilder sb, string header, string value, bool wideDescription = true, bool bold = false, bool emphasizeValue = false)
         {
             sb.Append("<tr>");
-            sb.AppendFormat("<td class=\"{0}{1}\"><span>{2}</span></td><td>&nbsp;</td>",
+            sb.AppendFormat("<td class=\"{0}{1}\"><span class=\"header\">{2}</span></td><td>&nbsp;</td>",
                 (wideDescription ? "wide" : "medium"),
                 (bold ? " bold" : ""), header);
             sb.AppendFormat("<td class=\"{0} {1} bold nobg\">{2}</td>",
@@ -543,5 +543,22 @@ namespace Chashavshavon
             this._secularDateAtMidnight = JewishDateCalculations.GetGregorianDateFromJewishDate(this._displayingJewishDate);
         }
         #endregion private functions
+
+        private void btnPrintDailyInfo_Click(object sender, EventArgs e)
+        {
+            this.webBrowser1.ShowPrintDialog();
+        }
+
+        private void btnSaveDailyInfo_Click(object sender, EventArgs e)
+        {
+            using (var sd = new SaveFileDialog {FileName= this.Text.Replace("'", "").Replace("\"", "") + ".html" })
+            {                
+                if (sd.ShowDialog() == DialogResult.OK)
+                {
+                    System.IO.File.WriteAllText(sd.FileName, this.webBrowser1.DocumentText, Encoding.UTF8);
+                    Program.Inform("\"הקובץ " + sd.FileName + "\", נשמרה בהצלחה");
+                }
+            }
+        }
     }
 }

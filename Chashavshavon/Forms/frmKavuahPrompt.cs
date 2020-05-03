@@ -19,18 +19,18 @@ namespace Chashavshavon
         private void btnAdd_Click(object sender, EventArgs e)
         {
             this.bindingSource1.EndEdit();
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this._listToAdd.Clear();
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
         }
 
         private void dgvKavuahList_CellContentClick(object sender, DataGridViewCellEventArgs e)

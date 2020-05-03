@@ -152,7 +152,7 @@ namespace Tahara
 
         public bool Equals(Onah other)
         {
-            return other != null && Onah.IsSameOnahPeriod(this, other);
+            return other != null && IsSameOnahPeriod(this, other);
         }
 
         public override int GetHashCode()

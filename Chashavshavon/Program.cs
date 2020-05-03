@@ -47,14 +47,14 @@ namespace Chashavshavon
                 Properties.Settings.Default.NeedsSettingsUpgrade = false;
             }
 
-            if (!Directory.Exists(Program.TempFolderPath))
+            if (!Directory.Exists(TempFolderPath))
             {
-                Directory.CreateDirectory(Program.TempFolderPath);
+                Directory.CreateDirectory(TempFolderPath);
             }
 
-            if (!Directory.Exists(Program.BackupFolderPath))
+            if (!Directory.Exists(BackupFolderPath))
             {
-                Directory.CreateDirectory(Program.BackupFolderPath);
+                Directory.CreateDirectory(BackupFolderPath);
             }
 
             if (Properties.Settings.Default.DevMode)
@@ -102,11 +102,11 @@ namespace Chashavshavon
         public static void BeforeExit(bool keepTemp)
         {
             Properties.Settings.Default.Save();
-            if (!keepTemp && Directory.Exists(Program.TempFolderPath))
+            if (!keepTemp && Directory.Exists(TempFolderPath))
             {
                 try
                 {
-                    Directory.Delete(Program.TempFolderPath, true);
+                    Directory.Delete(TempFolderPath, true);
                 }
                 catch (Exception ex)
                 {
@@ -128,9 +128,9 @@ namespace Chashavshavon
                         excep = excep.InnerException;
                     }
 
-                    if (Program.RunInDevMode)
+                    if (RunInDevMode)
                     {
-                        Program.ErrorMessage(excep.Message);
+                        ErrorMessage(excep.Message);
                     }
 
                     try
@@ -142,22 +142,22 @@ namespace Chashavshavon
                     }
                     catch (Exception ex)
                     {
-                        if (Program.RunInDevMode)
+                        if (RunInDevMode)
                         {
-                            Program.ErrorMessage(ex.Message);
+                            ErrorMessage(ex.Message);
                         }
                     }
 
-                    if ((Utils.RemoteFunctions.IsConnectedToInternet() || Program.RunInDevMode) &&
+                    if ((Utils.RemoteFunctions.IsConnectedToInternet() || RunInDevMode) &&
                                (silent ||
-                               Program.AskUser("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.")))
+                               AskUser("ארעה שגיעה.\nהאם אתם מסכימים שישלח פרטי השגיאה למתכנתי חשבשבון כדי שיוכלו להיות מודעים להבעיה והאיך לטפל בה?\nלא תשלח שום מידע שיכול לפגוע בפרטיות המשתמש.")))
                     {
                         try
                         {
                             Utils.RemoteFunctions.ProcessRemoteException(excep, logFilePath);
                             if (!silent)
                             {
-                                Program.Inform("פרטי השגיאה נשלחו בהצלחה.");
+                                Inform("פרטי השגיאה נשלחו בהצלחה.");
                             }
                         }
                         catch (Exception ex)
@@ -174,7 +174,7 @@ namespace Chashavshavon
 
                             if (!silent)
                             {
-                                Program.Exclaim("נכשלה שליחת פרטי השגיאה");
+                                Exclaim("נכשלה שליחת פרטי השגיאה");
                             }
                         }
                     }
@@ -186,8 +186,8 @@ namespace Chashavshavon
 
         internal static string GetCurrentPlaceName()
         {
-            return string.IsNullOrWhiteSpace(Program.CurrentLocation.NameHebrew) ?
-                Program.CurrentLocation.Name : Program.CurrentLocation.NameHebrew;
+            return string.IsNullOrWhiteSpace(CurrentLocation.NameHebrew) ?
+                CurrentLocation.Name : CurrentLocation.NameHebrew;
         }
 
         internal static (List<Entry> entries, List<Kavuah> kavuahs) LoadEntriesKavuahsFromXml(string xmlString)

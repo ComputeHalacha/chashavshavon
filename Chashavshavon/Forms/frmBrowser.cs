@@ -28,7 +28,7 @@ namespace Chashavshavon
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
             this.saveFileDialog1.FileName = this.Text + ".html";
-            if (this.saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 System.IO.File.WriteAllText(this.saveFileDialog1.FileName, this.webBrowser1.DocumentText, Encoding.UTF8);
                 Program.Inform("\"הקובץ " + this.saveFileDialog1.FileName + "\", נשמרה בהצלחה");

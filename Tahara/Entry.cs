@@ -56,7 +56,7 @@ namespace Tahara
         /// </summary>
         public static void SortEntriesAndSetInterval(List<Entry> list)
         {
-            list.Sort(Onah.CompareOnahs);
+            list.Sort(CompareOnahs);
 
             Entry previousEntry = null;
             foreach (Entry entry in list.Where(en => !en.IsInvisible))

@@ -1232,7 +1232,7 @@ namespace Chashavshavon
                 //Prompt user to decide which ones to keep and edit their details
                 using (var fkp = new FrmKavuahPrompt(kavuahList))
                 {
-                    if (fkp.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (fkp.ShowDialog() == DialogResult.OK)
                     {
                         //For each found Kavuah, either we add it to the main list 
                         //or we set it as a "NoKavuah" for the third entry so it shouldn't pop up again

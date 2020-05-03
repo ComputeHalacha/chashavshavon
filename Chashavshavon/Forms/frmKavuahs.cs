@@ -33,7 +33,7 @@ namespace Chashavshavon
         private void frmKavuahs_FormClosed(object sender, FormClosedEventArgs e)
         {
             //The owner form does a refresh when this closes, so this is how we tell it that we are closed
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
         }
 
         private void dgvKavuahList_CellContentClick(object sender, DataGridViewCellEventArgs e)

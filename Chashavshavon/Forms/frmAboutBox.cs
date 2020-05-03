@@ -39,11 +39,11 @@ namespace Chashavshavon
             // 
             // panel1
             // 
-            this.panel1.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right);
+            this.panel1.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom)
+            | AnchorStyles.Left)
+            | AnchorStyles.Right);
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.BorderStyle = BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.llContact);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
@@ -54,7 +54,7 @@ namespace Chashavshavon
             // 
             // llContact
             // 
-            this.llContact.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+            this.llContact.Anchor = (AnchorStyles.Bottom | AnchorStyles.Right);
             this.llContact.AutoSize = true;
             this.llContact.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.llContact.Location = new System.Drawing.Point(244, 198);
@@ -67,7 +67,7 @@ namespace Chashavshavon
             // 
             // label5
             // 
-            this.label5.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            this.label5.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 177);
             this.label5.Location = new System.Drawing.Point(280, 18);
@@ -78,7 +78,7 @@ namespace Chashavshavon
             // 
             // label4
             // 
-            this.label4.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            this.label4.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
             this.label4.Font = new System.Drawing.Font("Tahoma", 7F);
             this.label4.Location = new System.Drawing.Point(12, 50);
             this.label4.Name = "label4";
@@ -88,13 +88,13 @@ namespace Chashavshavon
             // 
             // button1
             // 
-            this.button1.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
+            this.button1.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
             this.button1.BackColor = System.Drawing.Color.Lavender;
-            this.button1.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkBlueMarbleTile;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.BackgroundImage = Properties.Resources.DarkBlueMarbleTile;
+            this.button1.BackgroundImageLayout = ImageLayout.Stretch;
+            this.button1.Cursor = Cursors.Hand;
+            this.button1.DialogResult = DialogResult.Cancel;
+            this.button1.FlatStyle = FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Narkisim", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 177);
             this.button1.ForeColor = System.Drawing.Color.Lavender;
             this.button1.Location = new System.Drawing.Point(12, 346);
@@ -107,7 +107,7 @@ namespace Chashavshavon
             // 
             // label1
             // 
-            this.label1.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            this.label1.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Narkisim", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 177);
@@ -120,7 +120,7 @@ namespace Chashavshavon
             // 
             // label2
             // 
-            this.label2.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            this.label2.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 9.75F, (System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic), System.Drawing.GraphicsUnit.Point, 177);
@@ -132,13 +132,13 @@ namespace Chashavshavon
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right);
+            this.pictureBox1.Anchor = (AnchorStyles.Top | AnchorStyles.Right);
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::Chashavshavon.Properties.Resources.scroll;
+            this.pictureBox1.Image = Properties.Resources.scroll;
             this.pictureBox1.Location = new System.Drawing.Point(388, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(61, 61);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -147,7 +147,7 @@ namespace Chashavshavon
             this.lblVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblVersion.Location = new System.Drawing.Point(7, 14);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblVersion.RightToLeft = RightToLeft.Yes;
             this.lblVersion.Size = new System.Drawing.Size(105, 13);
             this.lblVersion.TabIndex = 5;
             this.lblVersion.Text = "גירסה";
@@ -168,7 +168,7 @@ namespace Chashavshavon
             // 
             // panel2
             // 
-            this.panel2.BackgroundImage = global::Chashavshavon.Properties.Resources.BlueMarble;
+            this.panel2.BackgroundImage = Properties.Resources.BlueMarble;
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.llGetLatestVersion);
             this.panel2.Controls.Add(this.panel1);
@@ -176,7 +176,7 @@ namespace Chashavshavon
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Dock = DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(448, 387);
@@ -191,14 +191,14 @@ namespace Chashavshavon
             this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Narkisim", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 177);
             this.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutBox";
-            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RightToLeft = RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.AboutBox_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

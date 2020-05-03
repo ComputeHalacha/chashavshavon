@@ -49,6 +49,9 @@
             this.lblCaption = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label6 = new System.Windows.Forms.Label();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnPrintDailyInfo = new System.Windows.Forms.ToolStripButton();
+            this.btnSaveDailyInfo = new System.Windows.Forms.ToolStripButton();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.Button();
@@ -58,6 +61,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -150,7 +154,7 @@
             this.rbDay.Location = new System.Drawing.Point(22, 23);
             this.rbDay.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(104, 29);
+            this.rbDay.Size = new System.Drawing.Size(110, 29);
             this.rbDay.TabIndex = 19;
             this.rbDay.Text = "עונת יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -178,7 +182,7 @@
             this.rbNight.Location = new System.Drawing.Point(128, 23);
             this.rbNight.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(123, 29);
+            this.rbNight.Size = new System.Drawing.Size(129, 29);
             this.rbNight.TabIndex = 18;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "עונת לילה";
@@ -373,6 +377,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.toolStrip1);
             this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainer1.Size = new System.Drawing.Size(1271, 538);
@@ -394,6 +399,43 @@
             this.label6.TabIndex = 27;
             this.label6.Text = "רשימת חששות ביום זה";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(15, 15);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnPrintDailyInfo,
+            this.btnSaveDailyInfo});
+            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.toolStrip1.Location = new System.Drawing.Point(0, 510);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(715, 24);
+            this.toolStrip1.TabIndex = 3;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // btnPrintDailyInfo
+            // 
+            this.btnPrintDailyInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPrintDailyInfo.Image = global::Chashavshavon.Properties.Resources.printer;
+            this.btnPrintDailyInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPrintDailyInfo.Name = "btnPrintDailyInfo";
+            this.btnPrintDailyInfo.Size = new System.Drawing.Size(29, 19);
+            this.btnPrintDailyInfo.Text = "toolStripButton1";
+            this.btnPrintDailyInfo.ToolTipText = "הדפס זמני היום";
+            this.btnPrintDailyInfo.Click += new System.EventHandler(this.btnPrintDailyInfo_Click);
+            // 
+            // btnSaveDailyInfo
+            // 
+            this.btnSaveDailyInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSaveDailyInfo.Image = global::Chashavshavon.Properties.Resources.save;
+            this.btnSaveDailyInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSaveDailyInfo.Name = "btnSaveDailyInfo";
+            this.btnSaveDailyInfo.Size = new System.Drawing.Size(29, 19);
+            this.btnSaveDailyInfo.Text = "toolStripButton2";
+            this.btnSaveDailyInfo.ToolTipText = "שמור זמני היום בקובץ";
+            this.btnSaveDailyInfo.Click += new System.EventHandler(this.btnSaveDailyInfo_Click);
             // 
             // webBrowser1
             // 
@@ -438,7 +480,7 @@
             this.btnClose.Text = "סגור";
             this.btnClose.UseVisualStyleBackColor = false;
             // 
-            // frmAddNewEntry
+            // FrmAddNewEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -453,7 +495,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmAddNewEntry";
+            this.Name = "FrmAddNewEntry";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.ShowInTaskbar = false;
@@ -466,8 +508,11 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -497,5 +542,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblCaption;
         private System.Windows.Forms.Button btnToday;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton btnPrintDailyInfo;
+        private System.Windows.Forms.ToolStripButton btnSaveDailyInfo;
     }
 }

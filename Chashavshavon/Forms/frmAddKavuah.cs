@@ -215,7 +215,7 @@ namespace Chashavshavon
             this.AddedKavuah.Notes = this.tbNotes.Text;
 
             Program.KavuahList.Add(this.AddedKavuah);
-            this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
         }
 
         private void cmbSettingEntry_SelectedIndexChanged(object sender, EventArgs e)
@@ -253,7 +253,7 @@ namespace Chashavshavon
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
         }
 
         public Kavuah AddedKavuah { get; set; }

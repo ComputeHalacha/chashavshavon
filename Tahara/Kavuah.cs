@@ -182,9 +182,9 @@ namespace Tahara
             foreach (Entry entry in entryList.Where(en => !en.IsInvisible))
             {
                 //First we work out those Kavuahs that are not dependent on their Entries being 3 in a row
-                Kavuah.FindDayOfMonthKavuah(entry, entryList, foundKavuahList);
-                Kavuah.FindDilugDayOfMonthKavuah(entry, entryList, foundKavuahList);
-                Kavuah.FindDayOfWeekKavuah(entry, entryList, foundKavuahList);
+                FindDayOfMonthKavuah(entry, entryList, foundKavuahList);
+                FindDilugDayOfMonthKavuah(entry, entryList, foundKavuahList);
+                FindDayOfWeekKavuah(entry, entryList, foundKavuahList);
 
                 //For cheshboning out the other Kavuahs we need the last 3 entries
                 //First, add the current entry of the loop.
@@ -205,12 +205,12 @@ namespace Tahara
                     if ((last3Array[0].DayNight == last3Array[1].DayNight) &&
                         (last3Array[1].DayNight == last3Array[2].DayNight))
                     {
-                        Kavuah.FindHaflagahKavuah(last3Array, foundKavuahList);
-                        Kavuah.FindSirugKavuah(last3Array, foundKavuahList);
-                        Kavuah.FindDilugHaflagahKavuah(last3Array, foundKavuahList);
+                        FindHaflagahKavuah(last3Array, foundKavuahList);
+                        FindSirugKavuah(last3Array, foundKavuahList);
+                        FindDilugHaflagahKavuah(last3Array, foundKavuahList);
                     }
                     //The Maayan-Pasuach Haflagah needs 3 in-a-row but doesn't need to be the same DayNight
-                    Kavuah.FindMaayanPasuachHaflagahKavuah(last3Array, prevKavuahs, foundKavuahList);
+                    FindMaayanPasuachHaflagahKavuah(last3Array, prevKavuahs, foundKavuahList);
                 }
             }
 
