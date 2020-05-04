@@ -10,11 +10,16 @@ namespace Tahara
         private static readonly char[] _jhd = { 'ק', 'ר', 'ש', 'ת' };
 
         public static readonly HebrewCalendar HebrewCalendar = new HebrewCalendar();
-        public static readonly CultureInfo CultureInfo = new CultureInfo("he-IL", false);
+        public static readonly CultureInfo CultureInfo = CultureInfo.CreateSpecificCulture("he-IL");
         public static string[] DaysOfWeekHebrewFull = { "ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת קודש" };
         public static string[] DaysOfWeekHebrew = { "יום א", "יום ב", "יום ג", "יום ד", "יום ה", "יום ו", "שבת" };
         //To translate a day number into a hebrew date - days start at 1, not 0.
         public static string[] DaysOfMonthHebrew = { "", "א'", "ב'", "ג'", "ד'", "ה'", "ו'", "ז'", "ח'", "ט'", "י'", "י\"א", "י\"ב", "י\"ג", "י\"ד", "ט\"ו", "ט\"ז", "י\"ז", "י\"ח", "י\"ט", "כ'", "כ\"א", "כ\"ב", "כ\"ג", "כ\"ד", "כ\"ה", "כ\"ו", "כ\"ז", "כ\"ח", "כ\"ט", "ל'" };
+
+        static Utils()
+        {
+            Utils.CultureInfo.DateTimeFormat.Calendar = HebrewCalendar;
+        }
 
         /// <summary>
         /// Gets the Jewish representation of a number (365 = שס"ה)

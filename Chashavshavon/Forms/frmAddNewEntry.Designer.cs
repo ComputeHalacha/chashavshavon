@@ -73,7 +73,7 @@
             this.label3.Location = new System.Drawing.Point(893, 12);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(26, 18);
+            this.label3.Size = new System.Drawing.Size(21, 14);
             this.label3.TabIndex = 22;
             this.label3.Text = "יום";
             // 
@@ -85,7 +85,7 @@
             this.label4.Location = new System.Drawing.Point(480, 46);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 18);
+            this.label4.Size = new System.Drawing.Size(43, 14);
             this.label4.TabIndex = 24;
             this.label4.Text = "הערות";
             // 
@@ -103,7 +103,7 @@
             this.cmbMonth.Location = new System.Drawing.Point(780, 35);
             this.cmbMonth.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cmbMonth.Name = "cmbMonth";
-            this.cmbMonth.Size = new System.Drawing.Size(72, 24);
+            this.cmbMonth.Size = new System.Drawing.Size(72, 21);
             this.cmbMonth.TabIndex = 15;
             this.cmbMonth.ValueMember = "MonthIndex";
             this.cmbMonth.SelectedIndexChanged += new System.EventHandler(this.cmbMonth_SelectedIndexChanged);
@@ -122,7 +122,7 @@
             this.cmbDay.Location = new System.Drawing.Point(856, 35);
             this.cmbDay.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cmbDay.Name = "cmbDay";
-            this.cmbDay.Size = new System.Drawing.Size(58, 24);
+            this.cmbDay.Size = new System.Drawing.Size(58, 21);
             this.cmbDay.TabIndex = 14;
             this.cmbDay.ValueMember = "Key";
             this.cmbDay.SelectedIndexChanged += new System.EventHandler(this.cmbDay_SelectedIndexChanged);
@@ -140,7 +140,7 @@
             this.cmbYear.Location = new System.Drawing.Point(707, 35);
             this.cmbYear.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cmbYear.Name = "cmbYear";
-            this.cmbYear.Size = new System.Drawing.Size(66, 24);
+            this.cmbYear.Size = new System.Drawing.Size(66, 21);
             this.cmbYear.TabIndex = 16;
             this.cmbYear.SelectedIndexChanged += new System.EventHandler(this.cmbYear_SelectedIndexChanged);
             this.cmbYear.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.cmbYear_Format);
@@ -151,10 +151,10 @@
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbDay.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.rbDay.Location = new System.Drawing.Point(22, 23);
+            this.rbDay.Location = new System.Drawing.Point(22, 28);
             this.rbDay.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(110, 29);
+            this.rbDay.Size = new System.Drawing.Size(88, 24);
             this.rbDay.TabIndex = 19;
             this.rbDay.Text = "עונת יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -168,7 +168,7 @@
             this.label1.Location = new System.Drawing.Point(748, 12);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 18);
+            this.label1.Size = new System.Drawing.Size(30, 14);
             this.label1.TabIndex = 17;
             this.label1.Text = "שנה";
             // 
@@ -179,10 +179,10 @@
             this.rbNight.Checked = true;
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbNight.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.rbNight.Location = new System.Drawing.Point(128, 23);
+            this.rbNight.Location = new System.Drawing.Point(128, 28);
             this.rbNight.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(129, 29);
+            this.rbNight.Size = new System.Drawing.Size(104, 24);
             this.rbNight.TabIndex = 18;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "עונת לילה";
@@ -196,7 +196,7 @@
             this.label2.Location = new System.Drawing.Point(821, 12);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 18);
+            this.label2.Size = new System.Drawing.Size(36, 14);
             this.label2.TabIndex = 20;
             this.label2.Text = "חודש";
             // 
@@ -216,18 +216,19 @@
             // btnEnter
             // 
             this.btnEnter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnEnter.BackColor = System.Drawing.Color.Transparent;
-            this.btnEnter.BackgroundImage = global::Chashavshavon.Properties.Resources.PinkMarbleTile;
+            this.btnEnter.BackColor = System.Drawing.Color.LavenderBlush;
             this.btnEnter.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEnter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEnter.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnEnter.FlatAppearance.BorderSize = 0;
+            this.btnEnter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEnter.Font = new System.Drawing.Font("Narkisim", 15F);
             this.btnEnter.ForeColor = System.Drawing.Color.DarkRed;
-            this.btnEnter.Location = new System.Drawing.Point(22, 59);
+            this.btnEnter.Location = new System.Drawing.Point(22, 83);
             this.btnEnter.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnEnter.Name = "btnEnter";
-            this.btnEnter.Size = new System.Drawing.Size(235, 69);
+            this.btnEnter.Size = new System.Drawing.Size(143, 45);
             this.btnEnter.TabIndex = 23;
-            this.btnEnter.Text = "הוסף רשומה";
+            this.btnEnter.Text = "הוסף רשומה זו";
             this.btnEnter.UseVisualStyleBackColor = false;
             this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
             // 
@@ -263,7 +264,7 @@
             this.label5.Location = new System.Drawing.Point(320, 10);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(224, 27);
+            this.label5.Size = new System.Drawing.Size(183, 22);
             this.label5.TabIndex = 25;
             this.label5.Text = "הוסף רשומה חדשה";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -395,7 +396,7 @@
             this.label6.Location = new System.Drawing.Point(285, 10);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(259, 27);
+            this.label6.Size = new System.Drawing.Size(210, 22);
             this.label6.TabIndex = 27;
             this.label6.Text = "רשימת חששות ביום זה";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -409,9 +410,9 @@
             this.btnPrintDailyInfo,
             this.btnSaveDailyInfo});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 510);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 512);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(715, 24);
+            this.toolStrip1.Size = new System.Drawing.Size(715, 22);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -421,7 +422,7 @@
             this.btnPrintDailyInfo.Image = global::Chashavshavon.Properties.Resources.printer;
             this.btnPrintDailyInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrintDailyInfo.Name = "btnPrintDailyInfo";
-            this.btnPrintDailyInfo.Size = new System.Drawing.Size(29, 19);
+            this.btnPrintDailyInfo.Size = new System.Drawing.Size(23, 19);
             this.btnPrintDailyInfo.Text = "toolStripButton1";
             this.btnPrintDailyInfo.ToolTipText = "הדפס זמני היום";
             this.btnPrintDailyInfo.Click += new System.EventHandler(this.btnPrintDailyInfo_Click);
@@ -432,7 +433,7 @@
             this.btnSaveDailyInfo.Image = global::Chashavshavon.Properties.Resources.save;
             this.btnSaveDailyInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSaveDailyInfo.Name = "btnSaveDailyInfo";
-            this.btnSaveDailyInfo.Size = new System.Drawing.Size(29, 19);
+            this.btnSaveDailyInfo.Size = new System.Drawing.Size(23, 19);
             this.btnSaveDailyInfo.Text = "toolStripButton2";
             this.btnSaveDailyInfo.ToolTipText = "שמור זמני היום בקובץ";
             this.btnSaveDailyInfo.Click += new System.EventHandler(this.btnSaveDailyInfo_Click);
@@ -482,7 +483,7 @@
             // 
             // FrmAddNewEntry
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(922, 670);
