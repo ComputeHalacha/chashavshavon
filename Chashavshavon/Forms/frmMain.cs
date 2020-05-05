@@ -115,7 +115,7 @@ namespace Chashavshavon
 
         private void AddNewEntry(object sender, EventArgs e)
         {
-            using (var f = new FrmAddNewEntry((DateTime)((Control)sender).Tag))
+            using (var f = new FrmDailyInfo((DateTime)((Control)sender).Tag))
             {
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {
@@ -127,7 +127,7 @@ namespace Chashavshavon
 
         private void btnAddEntry_Click(object sender, EventArgs e)
         {
-            var f = new FrmAddNewEntry(Program.Today);
+            var f = new FrmDailyInfo(Program.Today);
             if (f.ShowDialog(this) == DialogResult.OK)
             {
                 //Refresh in case of change to current month

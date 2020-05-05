@@ -172,11 +172,11 @@
     <Compile Include="Forms\frmImport.Designer.cs">
       <DependentUpon>frmImport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmAddNewEntry.cs">
+    <Compile Include="Forms\FrmDailyInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmAddNewEntry.Designer.cs">
-      <DependentUpon>frmAddNewEntry.cs</DependentUpon>
+    <Compile Include="Forms\FrmDailyInfo.Designer.cs">
+      <DependentUpon>FrmDailyInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmBrowser.cs">
       <SubType>Form</SubType>
@@ -233,8 +233,8 @@
     <EmbeddedResource Include="Forms\frmImport.resx">
       <DependentUpon>frmImport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAddNewEntry.resx">
-      <DependentUpon>frmAddNewEntry.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FrmDailyInfo.resx">
+      <DependentUpon>FrmDailyInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmBrowser.resx">
       <DependentUpon>frmBrowser.cs</DependentUpon>
