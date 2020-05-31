@@ -42,6 +42,7 @@ namespace Tahara
 
             //Clean out doubles
             Onah.ClearDoubleOnahs(this.ProblemOnahList);
+            this.ProblemOnahList.Sort(Onah.CompareOnahs);
 
             return this.ProblemOnahList;
         }
