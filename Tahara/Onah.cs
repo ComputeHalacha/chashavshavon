@@ -188,7 +188,7 @@ namespace Tahara
 
         public static bool operator >(Onah first, Onah second)
         {
-            if (first == null || second == null)
+            if (first == null || second == null || first.Equals(second))
             {
                 return false;
             }
@@ -205,7 +205,7 @@ namespace Tahara
 
         public static bool operator <(Onah first, Onah second)
         {
-            if (first == null || second == null)
+            if (first == null || second == null || first.Equals(second))
             {
                 return false;
             }

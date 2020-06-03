@@ -527,15 +527,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
-        "ProductCode" = "8:{5C973BD8-C6DD-4300-A5E1-F39147EE033F}"
-        "PackageCode" = "8:{9FDD3825-C92D-44E9-A1E7-728AC63C8056}"
+        "ProductCode" = "8:{077D5A81-C757-46AD-ACAF-EFE120AAEAB4}"
+        "PackageCode" = "8:{D0894452-1269-4680-BD9F-810C899E7FE8}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:4.5.1"
+        "ProductVersion" = "8:4.5.2"
         "Manufacturer" = "8:Compute Software Solutions"
         "ARPHELPTELEPHONE" = "8:058-327-7718"
         "ARPHELPLINK" = "8:https://www.compute.co.il/contact"
@@ -1121,7 +1121,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_010BB34F6CCC48F5A63ADAFCA30F85D7"
             {
-            "SourcePath" = "8:..\\Chashavshavon\\obj\\Debug\\Chashavshavon.exe"
+            "SourcePath" = "8:..\\Chashavshavon\\obj\\Release\\Chashavshavon.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"

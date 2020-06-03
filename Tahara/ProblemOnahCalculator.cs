@@ -42,6 +42,7 @@ namespace Tahara
 
             //Clean out doubles
             Onah.ClearDoubleOnahs(this.ProblemOnahList);
+            this.ProblemOnahList.Sort(Onah.CompareOnahs);
 
             return this.ProblemOnahList;
         }
@@ -196,27 +197,30 @@ namespace Tahara
             //Haflagah
             if (entry.Interval > 1)
             {
-                Onah intervalHaflagah = entry.AddDays(entry.Interval - 1);
+                Onah onasHaflagah = entry.AddDays(entry.Interval - 1);
                 if (this.KeepLongerHaflaga ||
-                    !entryList.Any(e => e > entry && e < intervalHaflagah))
+                    !entryList.Any(e => e > entry && e < onasHaflagah))
                 {
                     //Note the Haflaga is always just the Onah it occurred on - not 24 hours  -
                     //even according to those that require it for 30, 31 and Yom Hachodesh.
-                    this.AddProblemOnah(intervalHaflagah,
+                    this.AddProblemOnah(onasHaflagah,
                         "יום הפלגה (" + entry.Interval + ")", cancelKavuah);
                 }
 
                 //The Ta"z
                 if (this.KeepLongerHaflaga)
                 {
-                    //Go through all earlier entries in the list that have a longer haflaga than this one
-                    foreach (Entry e in entryList.Where(en => en < entry && en.Interval > entry.Interval))
+                    //Go through all earlier entries in the list that have a longer haflaga than this one  - 
+                    //and they are not kept anyways due to onah Beinonis
+                    foreach (Entry e in entryList.Where(en =>
+                                        en < entry && en.Interval > entry.Interval &&
+                                        en.Interval != 30 && en.Interval != 31))
                     {
                         //See if their haflaga was never surpassed by an Entry after them
                         if (!entryList.Any(oe => oe > e && oe.Interval > e.Interval))
                         {
-                            this.AddProblemOnah(e.AddDays(entry.Interval - 1),
-                                  "יום הפלגה (" + entry.Interval + ") שלא נתבטלה", cancelKavuah);
+                            this.AddProblemOnah(entry.AddDays(e.Interval - 1),
+                                  "יום הפלגה (" + e.Interval + ") שלא נתבטלה", cancelKavuah);
                         }
                     }
                 }
