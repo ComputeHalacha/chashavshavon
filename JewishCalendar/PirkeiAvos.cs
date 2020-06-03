@@ -78,7 +78,12 @@
             }
 
             //How many days after the first day of pesach was the first shabbos after pesach
-            int firstShabbosInterval = (inIsrael ? 7 : 8) + (6 - _savedPesachDay1.DayInWeek);
+            int firstShabbosInterval = 13 - _savedPesachDay1.DayInWeek;
+            //If we are in Chu"l and peash was on shabbos, then Achron shel pesach was also on Shabbos
+            if (!inIsrael && _savedPesachDay1.DayOfWeek == System.DayOfWeek.Saturday)
+            {
+                firstShabbosInterval += 7;
+            }
             //What number shabbos after pesach is the current date
             int currentShabbosNumber = (jMonth == 1 && jDay == (firstShabbosInterval + 15) ? 1 :
                 ((jDate.AbsoluteDate - (_savedPesachDay1.AbsoluteDate + firstShabbosInterval)) / 7) + 1);
