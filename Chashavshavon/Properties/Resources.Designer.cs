@@ -19,7 +19,7 @@ namespace Chashavshavon.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -258,19 +258,14 @@ namespace Chashavshavon.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;html&gt;
-        ///    &lt;head&gt;
-        ///        &lt;meta content=&quot;text/html;charset=UTF-8;&quot; /&gt;
-        ///        &lt;title&gt;רשימת וסתות {{DATE}}&lt;/title&gt;
-        ///        &lt;style&gt;
-        ///            body,
-        ///            table,
-        ///            td {
-        ///                text-align: right;
-        ///                direction: rtl;
-        ///                font-family: Narkisim;
-        ///            }
-        ///            body {
-        ///                background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QCsRXhpZgAATU0AKgAAAAgACQEaAAUAAAABAAAAegEbAAUAAAABAAAAggEoAAMAAAABAAIAAAExAAIAAAASAAA [rest of string was truncated]&quot;;.
+        ///&lt;head&gt;
+        ///    &lt;meta content=&quot;text/html;charset=UTF-8;&quot; /&gt;
+        ///    &lt;title&gt;רשימת וסתות {{DATE}}&lt;/title&gt;
+        ///    &lt;style&gt;
+        ///        body,
+        ///        table,
+        ///        td { text-align: right; direction: rtl; font-family: Narkisim; }
+        ///        body { background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QCsRXhpZgAATU0AKgAAAAgACQEaAAUAAAABAAAAegEbAAUAAAABAAAAggEoAAMAAAABAAIAAAExAAIAAAASAAAAigMBAAUAAAABAAAAnAMDAAEAAAABAAAAAFEQAAEAAAABAQAAAFERAAQAAAABAAALElESAAQAAAABAAALEgAAAAAAARkvAAAD6AABGS8AAAPoUGFp [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EntryListHtmlTemplate {
             get {
@@ -290,21 +285,17 @@ namespace Chashavshavon.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
-        ///    &lt;head&gt;
-        ///        &lt;title&gt;Luach Project Daily Info&lt;/title&gt;
-        ///        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        ///        &lt;meta http-equiv=&quot;Content-type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
-        ///        &lt;style type=&quot;text/css&quot;&gt;
-        ///            html,
-        ///            body {
-        ///                height: 100%;
-        ///                font-family: Tahoma;
-        ///                font-size: 8pt;
-        ///                color: #696969;
-        ///                margin: 0;
-        ///                padding: 5px 5px 0 0;
-        ///                direction: rtl;
-        ///       [rest of string was truncated]&quot;;.
+        ///&lt;head&gt;
+        ///    &lt;title&gt;Luach Project Daily Info&lt;/title&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;meta http-equiv=&quot;Content-type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+        ///    &lt;style type=&quot;text/css&quot;&gt;
+        ///        html,
+        ///        body { height: 100%; font-family: Tahoma; font-size: 8pt; color: #696969; margin: 0; padding: 5px 5px 0 0; direction: rtl; background-color: #f7f7f9; }
+        ///        .seven { font-size: 7.3pt; }
+        ///        .nine { font-size: 9pt; }
+        ///        .bold { font-weight: bold; }
+        ///        .reg  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string InfoHTMLHeb {
             get {
@@ -463,12 +454,13 @@ namespace Chashavshavon.Properties {
         ///   Looks up a localized string similar to &lt;html&gt;
         ///&lt;head&gt;
         ///    &lt;meta content=&quot;text/html;charset=UTF-8;&quot; /&gt;
-        ///    &lt;title&gt;לוח חשבשבון
-        ///            {{DATE}}
+        ///    &lt;title&gt;
+        ///        לוח חשבשבון
+        ///        {{DATE}}
         ///    &lt;/title&gt;
         ///    &lt;style&gt;
         ///        body, table, td { text-align: right; direction: rtl; font-family: Narkisim; }
-        ///        body { background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QCsRXhpZgAATU0AKgAAAAgACQEaAAUAAAABAAAAegEbAAUAAAABAAAAggEoAAMAAAABAAIAAAExAAIAAAASAAAAigMBAAUAAAABAAAAnAMDAAEAAAABAAAAAFEQAAEAAAABAQAAAFERAAQAAAABAAALElESAAQAAAABAAALEgAAAAAAARkvAAAD6AABGS8AAAPoUGF [rest of string was truncated]&quot;;.
+        ///        body { background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QCsRXhpZgAATU0AKgAAAAgACQEaAAUAAAABAAAAegEbAAUAAAABAAAAggEoAAMAAAABAAIAAAExAAIAAAASAAAAigMBAAUAAAABAAAAnAMDAAEAAAABAAAAAFEQAAEAAAABAQAAAFERAAQAAAABAAALElESAAQAAAABAAALEgAAAAAAARkvAAAD6AABGS8AA [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string WeekProblemListHtmlTemplate {
             get {

@@ -188,7 +188,7 @@ namespace Tahara
 
         public static bool operator >(Onah first, Onah second)
         {
-            if (first == null || second == null || first.Equals(second))
+            if (first == second || first is null || second is null)
             {
                 return false;
             }
@@ -205,7 +205,7 @@ namespace Tahara
 
         public static bool operator <(Onah first, Onah second)
         {
-            if (first == null || second == null || first.Equals(second))
+            if (first == second || first is null || second is null)
             {
                 return false;
             }
@@ -218,6 +218,28 @@ namespace Tahara
             {
                 return first.DateTime < second.DateTime;
             }
+        }
+
+        public static bool operator ==(Onah first, Onah second)
+        {
+            return (first is null && second is null) ||
+                (!(first is null) && !(second is null) &&
+                (first.Equals(second) || Onah.IsSameOnahPeriod(first, second)));
+        }
+
+        public static bool operator !=(Onah first, Onah second)
+        {
+            return !(first == second);
+        }
+
+        public static bool operator <=(Onah first, Onah second)
+        {
+            return (first == second) || (first < second);
+        }
+
+        public static bool operator >=(Onah first, Onah second)
+        {
+            return (first == second) || (first > second);
         }
     }
 }

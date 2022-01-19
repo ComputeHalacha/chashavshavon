@@ -111,7 +111,10 @@ namespace Tahara
             foreach (Entry entry in entryList)
             {
                 this.SetOnahBeinenisProblemOnahs(entry, entryList.Where(e => e != entry));
-                this.SetEntryDependentKavuahProblemOnahs(entry);
+                if (entry >= entryList.Last())
+                {
+                    this.SetEntryDependentKavuahProblemOnahs(entry);
+                }
             }
         }
 
@@ -187,12 +190,17 @@ namespace Tahara
             //Yom Hachodesh
             this.AddOnahBeinunisProblem(entry.AddMonths(1), "יום החודש", cancelKavuah);
 
+            //The haflaga based probelm onahs are only calculated from the last entry
+            if (entry < entryList.LastOrDefault())
+            {
+                return;
+            }
+
             //Day Thirty
             this.AddOnahBeinunisProblem(entry.AddDays(29), "יום שלושים", cancelKavuah);
 
             //Day Thirty One
             this.AddOnahBeinunisProblem(entry.AddDays(30), "יום ל\"א", cancelKavuah);
-
 
             //Haflagah
             if (entry.Interval > 1)
