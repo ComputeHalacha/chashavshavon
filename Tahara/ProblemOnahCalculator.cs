@@ -84,7 +84,7 @@ namespace Tahara
             return nextProblemText;
         }
 
-        private void SetEntryDependentKavuahProblemOnahs(Entry entry)
+        private void SetEntryDependentKavuahProblemOnahs(Entry entry, IEnumerable<Entry> otherEntries)
         {
             //Kavuah Haflagah - with or without Maayan Pasuach
             foreach (Kavuah kavuah in this.KavuahList.Where(k =>
@@ -92,7 +92,10 @@ namespace Tahara
             {
                 Onah kavuahHaflaga = entry.AddDays(kavuah.Number - 1);
                 kavuahHaflaga.DayNight = kavuah.DayNight;
-                this.AddProblemOnah(kavuahHaflaga, "קבוע " + kavuah.ToString());
+                if (!otherEntries.Any(e => e > entry && e < kavuahHaflaga))
+                {
+                    this.AddProblemOnah(kavuahHaflaga, "קבוע " + kavuah.ToString());
+                }
             }
 
             //Kavuah Dilug Haflagos - from each actual entry. 
@@ -101,7 +104,10 @@ namespace Tahara
             {
                 Onah kavuahDilugHaflaga = entry.AddDays(entry.Interval + kavuah.Number - 1);
                 kavuahDilugHaflaga.DayNight = kavuah.DayNight;
-                this.AddProblemOnah(kavuahDilugHaflaga, "קבוע " + kavuah.ToString() + " ע\"פ ראייה");
+                if (!otherEntries.Any(e => e > entry && e < kavuahDilugHaflaga))
+                {
+                    this.AddProblemOnah(kavuahDilugHaflaga, "קבוע " + kavuah.ToString() + " ע\"פ ראייה");
+                }
             }
         }
 
@@ -110,11 +116,9 @@ namespace Tahara
             IEnumerable<Entry> entryList = this.EntryList.Where(en => !en.IsInvisible);
             foreach (Entry entry in entryList)
             {
-                this.SetOnahBeinenisProblemOnahs(entry, entryList.Where(e => e != entry));
-                if (entry >= entryList.Last())
-                {
-                    this.SetEntryDependentKavuahProblemOnahs(entry);
-                }
+                var otherEntries = entryList.Where(e => e != entry);
+                this.SetOnahBeinenisProblemOnahs(entry, otherEntries);
+                this.SetEntryDependentKavuahProblemOnahs(entry, otherEntries);
             }
         }
 
@@ -182,7 +186,7 @@ namespace Tahara
             }
         }
 
-        private void SetOnahBeinenisProblemOnahs(Entry entry, IEnumerable<Entry> entryList)
+        private void SetOnahBeinenisProblemOnahs(Entry entry, IEnumerable<Entry> otherEntries)
         {
             Kavuah cancelKavuah =
                 this.KavuahList.LastOrDefault(k => k.Active && k.CancelsOnahBeinanis);
@@ -190,24 +194,25 @@ namespace Tahara
             //Yom Hachodesh
             this.AddOnahBeinunisProblem(entry.AddMonths(1), "יום החודש", cancelKavuah);
 
-            //The haflaga based probelm onahs are only calculated from the last entry
-            if (entry < entryList.LastOrDefault())
+            //Day Thirty
+            Onah dayThirty = entry.AddDays(29);
+            if (!otherEntries.Any(e => e > entry && e < dayThirty))
             {
-                return;
+                this.AddOnahBeinunisProblem(dayThirty, "יום שלושים", cancelKavuah);
             }
 
-            //Day Thirty
-            this.AddOnahBeinunisProblem(entry.AddDays(29), "יום שלושים", cancelKavuah);
-
             //Day Thirty One
-            this.AddOnahBeinunisProblem(entry.AddDays(30), "יום ל\"א", cancelKavuah);
+            Onah dayThirtyOne = entry.AddDays(30);
+            if (!otherEntries.Any(e => e > entry && e < dayThirtyOne))
+            {
+                this.AddOnahBeinunisProblem(dayThirtyOne, "יום ל\"א", cancelKavuah);
+            }
 
             //Haflagah
             if (entry.Interval > 1)
             {
                 Onah onasHaflagah = entry.AddDays(entry.Interval - 1);
-                if (this.KeepLongerHaflaga ||
-                    !entryList.Any(e => e > entry && e < onasHaflagah))
+                if (!otherEntries.Any(e => e > entry && e < onasHaflagah))
                 {
                     //Note the Haflaga is always just the Onah it occurred on - not 24 hours  -
                     //even according to those that require it for 30, 31 and Yom Hachodesh.
@@ -220,16 +225,22 @@ namespace Tahara
                 {
                     //Go through all earlier entries in the list that have a longer haflaga than this one  - 
                     //and they are not kept anyways due to onah Beinonis
-                    foreach (Entry e in entryList.Where(en =>
-                                        en < entry && en.Interval > entry.Interval &&
-                                        en.Interval != 30 && en.Interval != 31))
+                    //and their haflaga was never surpassed by an Entry after them
+                    foreach (Entry e in otherEntries.Where(en =>
+                                        en < entry &&
+                                        en.Interval > entry.Interval &&
+                                        en.Interval != 30 &&
+                                        en.Interval != 31 &&
+                                        !otherEntries.Any(oe => oe > en && oe.Interval > en.Interval)))
                     {
-                        //See if their haflaga was never surpassed by an Entry after them
-                        if (!entryList.Any(oe => oe > e && oe.Interval > e.Interval))
+
+                        Onah nextOne = entry.AddDays(e.Interval - 1);
+                        if (!otherEntries.Any(en => en > entry && en < nextOne))
                         {
-                            this.AddProblemOnah(entry.AddDays(e.Interval - 1),
+                            this.AddProblemOnah(nextOne,
                                   "יום הפלגה (" + e.Interval + ") שלא נתבטלה", cancelKavuah);
                         }
+
                     }
                 }
             }
