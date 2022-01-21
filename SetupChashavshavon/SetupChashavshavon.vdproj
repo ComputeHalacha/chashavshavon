@@ -21,25 +21,25 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_0E8DCE059090FE288CE6F30E794F6699"
-        "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_117A60BAD4044FA99441EEFB71B6224F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_3A976E03158A87A60801F8FE42C29813"
+        "MsmKey" = "8:_2F74A081EF8C7D9325CD3221986F209F"
         "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C7727CA193F4F76CD6BDAD0C959AEAB1"
+        "MsmKey" = "8:_426896A8CC90D4BE94B9FB15B3FC017F"
+        "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7749CD6A220C8337F23474D150966B53"
         "OwnerKey" = "8:_010BB34F6CCC48F5A63ADAFCA30F85D7"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -64,19 +64,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C7727CA193F4F76CD6BDAD0C959AEAB1"
+        "OwnerKey" = "8:_426896A8CC90D4BE94B9FB15B3FC017F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3A976E03158A87A60801F8FE42C29813"
+        "OwnerKey" = "8:_2F74A081EF8C7D9325CD3221986F209F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0E8DCE059090FE288CE6F30E794F6699"
+        "OwnerKey" = "8:_7749CD6A220C8337F23474D150966B53"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -138,10 +138,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.8"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:Microsoft .NET Framework 4.8 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.8"
                     }
                 }
             }
@@ -254,7 +254,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.7.2"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.8"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=9832"
                 }
@@ -262,37 +262,6 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0E8DCE059090FE288CE6F30E794F6699"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Itenso.TimePeriod, Version=1.4.11.0, Culture=neutral, PublicKeyToken=d7f23b760ed5c748, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_0E8DCE059090FE288CE6F30E794F6699"
-                    {
-                    "Name" = "8:Itenso.TimePeriod.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Itenso.TimePeriod.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_117A60BAD4044FA99441EEFB71B6224F"
             {
             "SourcePath" = "8:..\\BypassPassword.reg"
@@ -313,14 +282,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3A976E03158A87A60801F8FE42C29813"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2F74A081EF8C7D9325CD3221986F209F"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:JewishCalendar, Version=2.2.3.0, Culture=neutral, PublicKeyToken=1604c7bbd70d8125, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:JewishCalendar, Version=2.2.4.0, Culture=neutral, PublicKeyToken=1604c7bbd70d8125, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_3A976E03158A87A60801F8FE42C29813"
+                    "_2F74A081EF8C7D9325CD3221986F209F"
                     {
                     "Name" = "8:JewishCalendar.dll"
                     "Attributes" = "3:512"
@@ -344,20 +313,51 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C7727CA193F4F76CD6BDAD0C959AEAB1"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_426896A8CC90D4BE94B9FB15B3FC017F"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Tahara, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1604c7bbd70d8125, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Tahara, Version=1.1.0.0, Culture=neutral, PublicKeyToken=1604c7bbd70d8125, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C7727CA193F4F76CD6BDAD0C959AEAB1"
+                    "_426896A8CC90D4BE94B9FB15B3FC017F"
                     {
                     "Name" = "8:Tahara.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:Tahara.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7749CD6A220C8337F23474D150966B53"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Itenso.TimePeriod, Version=1.4.11.0, Culture=neutral, PublicKeyToken=d7f23b760ed5c748, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_7749CD6A220C8337F23474D150966B53"
+                    {
+                    "Name" = "8:Itenso.TimePeriod.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Itenso.TimePeriod.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F240F467926B4F928A35E13F2588BEAA"
@@ -527,15 +527,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
-        "ProductCode" = "8:{077D5A81-C757-46AD-ACAF-EFE120AAEAB4}"
-        "PackageCode" = "8:{D0894452-1269-4680-BD9F-810C899E7FE8}"
+        "ProductCode" = "8:{40E3BFCF-E8C6-4BEC-B26F-A159A5063BF0}"
+        "PackageCode" = "8:{53863F32-78B1-4A65-A6F5-6F5069669FF0}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:4.5.2"
+        "ProductVersion" = "8:4.5.3"
         "Manufacturer" = "8:Compute Software Solutions"
         "ARPHELPTELEPHONE" = "8:058-327-7718"
         "ARPHELPLINK" = "8:https://www.compute.co.il/contact"

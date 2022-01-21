@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Chashavshavon")]
 [assembly: AssemblyCompany("Compute Software Solutions, LLC")]
 [assembly: AssemblyProduct("Chashavshavon")]
-[assembly: AssemblyCopyright("Compute Software Solutions 5780")]
+[assembly: AssemblyCopyright("Compute Software Solutions 5782")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,6 +29,6 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("4.5.2.0")]
-[assembly: AssemblyFileVersion("4.5.2.0")]
+[assembly: AssemblyVersion("4.5.3.0")]
+[assembly: AssemblyFileVersion("4.5.3.0")]
 [assembly: NeutralResourcesLanguage("")]
