@@ -1,4 +1,5 @@
 ﻿using JewishCalendar;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -245,6 +246,58 @@ namespace Chashavshavon
 
             return lists;
         }
+
+
+        internal static (List<Entry> entries, List<Kavuah> kavuahs) LoadEntriesKavuahsFromJson(string jsonString)
+        {            
+            var lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>());
+            var js = JToken.Parse(jsonString);
+
+            
+            if (js.HasValues)
+            {
+                foreach (JToken entry in js["Entries"])
+                {
+                    bool isInvisible = entry.Value<bool>("IsInvisible");
+                    int abs = entry.Value<int>("Abs");
+                    var dayNight = (DayNight)entry.Value<int>("DN");
+                    string notes = entry.Value<string>("Notes");                    
+                    var newEntry = new Entry(JewishDateCalculations.GetGregorianDateFromAbsolute(abs), dayNight, notes)
+                    {
+                        IsInvisible = isInvisible
+                    };
+
+                    // If during the addition of a new Entry the program finds
+                    // a set of 3 entries that might have been considered a Kavuah;
+                    // such as if there are 3 of the same haflagas in a row,
+                    // the user is prompted to create a new kavuah. If they choose not to,
+                    // a NoKavuah element is added to the 3rd entry so the user
+                    // won't be prompted again each time the list is reloaded.
+                    foreach (JToken noKavuahNode in js["NoKavuah"])
+                    {
+                        var ka = new Kavuah(
+                            (KavuahType)Enum.Parse(typeof(KavuahType), noKavuahNode.Value<string>("KavuahType")),
+                            newEntry.DayNight)
+                        {
+                            Number = noKavuahNode.Value<int>("Number"),
+                            SettingEntryDate = newEntry.DateTime
+                        };
+                        newEntry.NoKavuahList.Add(ka);
+                    }
+                    lists.entries.Add(newEntry);
+                }
+                Entry.SortEntriesAndSetInterval(lists.entries);
+
+                //After the list of Entries, there is a lst of Kavuahs
+                foreach (JToken kavuah in js["Kavuahs"])
+                {                    
+                    lists.kavuahs.Add(kavuah.ToObject<Kavuah>());
+                }
+            }
+
+            return lists;
+        }
+
 
 
         #region Extention Methods

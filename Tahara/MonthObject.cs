@@ -1,5 +1,7 @@
-﻿using System;
+﻿using JewishCalendar;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Tahara
 {
@@ -29,6 +31,25 @@ namespace Tahara
                 this.MonthIndex = monthInYear;
             }
             this.MonthName = Utils.CultureInfo.DateTimeFormat.MonthNames[this.MonthIndex];
+        }
+
+        public static int GetMonthFromNissan(int year, int monthFromTishrei)
+        {
+            if (monthFromTishrei <= 6)
+            {
+                return ((monthFromTishrei + 6) % 12);
+            }
+            else
+            {
+                if (JewishDateCalculations.IsJewishLeapYear(year))
+                {
+                    return ((monthFromTishrei + 5) % 12) + 12;
+                }
+                else
+                {
+                    return ((monthFromTishrei + 7) % 12);
+                }
+            }
         }
 
         public override bool Equals(object obj)

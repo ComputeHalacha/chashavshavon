@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JewishCalendar;
 
 namespace Tahara
 {
@@ -13,8 +14,17 @@ namespace Tahara
     {
         private string _name;
 
+        /// <summary>
+        /// The day of the jewish month
+        /// </summary>
         public int Day { get; set; }
+        /// <summary>
+        /// The Jewish month. Note Tishrei is month #1
+        /// </summary>
         public MonthObject Month { get; set; }
+        /// <summary>
+        /// The Jewish year 
+        /// </summary>
         public int Year { get; set; }
         public DayNight DayNight { get; set; }
         public bool IsIgnored { get; set; }
@@ -44,10 +54,20 @@ namespace Tahara
         }
 
         public Onah(DateTime dateTime, DayNight dayNight)
-            : this(dateTime)
+           : this(dateTime)
         {
             this.DayNight = dayNight;
         }
+
+        public Onah(JewishDate jdate, DayNight dayNight)
+            : this(jdate)
+        {
+            this.DayNight = dayNight;
+        }
+
+        public Onah(JewishDate jdate)
+            : this(jdate.GregorianDate)
+        { }
 
         public override string ToString()
         {
@@ -169,6 +189,18 @@ namespace Tahara
             {
                 var hDate = new DateTime(this.Year, this.Month.MonthInYear, this.Day, Utils.HebrewCalendar);
                 return hDate;
+            }
+        }
+
+        public JewishDate JewishDate
+        {
+            get { return new JewishDate(this.DateTime); }
+            set
+            {
+                var date = value.GregorianDate;
+                this.Day = Utils.HebrewCalendar.GetDayOfMonth(date);
+                this.Year = Utils.HebrewCalendar.GetYear(date);
+                this.Month = new MonthObject(this.Year, Utils.HebrewCalendar.GetMonth(date));
             }
         }
 

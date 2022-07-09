@@ -7,3 +7,4 @@ bin/
 obj/
 Debug/
 .vs/
+/packages/Newtonsoft.Json.13.0.1

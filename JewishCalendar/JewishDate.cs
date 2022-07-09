@@ -114,7 +114,7 @@ namespace JewishCalendar
             this.SetFromAbsoluteDate(JewishDateCalculations.GetAbsoluteFromGregorianDate(date));
             this._gregorianDate = date;
             this.TimeOfDay = date.TimeOfDay;
-        }
+        }        
 
         /// <summary>
         /// Creates a Jewish date that corresponds to the given Gregorian date in the given location. Cut-off time is sunset.
@@ -441,6 +441,18 @@ namespace JewishCalendar
         }
 
         /// <summary>
+        /// Returns the date of the current Jewish Date as a DateTime of the HebrewCalendar
+        /// </summary>
+        /// <returns></returns>
+        public DateTime ToHebrewCalendar()
+        {
+            return new DateTime(this.Year, 
+                Utils.HebrewCalendar.GetMonth(this.GregorianDate), 
+                this.Day, 
+                Utils.HebrewCalendar);
+        }
+
+        /// <summary>
         /// Returns the day of the Omer for the given Jewish date. If the given day is not during Sefirah, 0 is returned
         /// </summary>
         /// <returns></returns>
@@ -527,7 +539,7 @@ namespace JewishCalendar
         public override string ToString()
         {
             return this.ToShortDateString();
-        }
+        }        
 
         #endregion Public Functions
 

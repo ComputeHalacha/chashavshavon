@@ -60,5 +60,11 @@
   <ItemGroup>
     <None Include="chashavshavon.snk" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JewishCalendar\JewishCalendar.csproj">
+      <Project>{43e5c945-9d11-4097-9990-1d2afc9e16d3}</Project>
+      <Name>JewishCalendar</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

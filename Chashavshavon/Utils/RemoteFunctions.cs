@@ -107,7 +107,7 @@ namespace Chashavshavon.Utils
 
         public static void ProcessRemoteException(Exception excep, string logFilePath)
         {
-            string currentFileText = Program.MainForm is Form ? Program.MainForm.CurrentFileXML : "";
+            string currentFileText = Program.MainForm is Form ? Program.MainForm.CurrentFileJson : "";
             string errorLogText = File.Exists(logFilePath) ? File.ReadAllText(logFilePath) : "";
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string url = GetComputeURL(Properties.Resources.SendErrorReportURL);

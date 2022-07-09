@@ -71,7 +71,7 @@ namespace Chashavshavon
                         Environment.NewLine,
                         this.txtCurrentFileName.Text)))
                 {
-                    this.SaveCurrentFile(this.txtCurrentFileName.Text, this._mainForm.CurrentFileXML);
+                    this.SaveCurrentFile(this.txtCurrentFileName.Text, this._mainForm.CurrentFileJson);
 
                 }
             }
@@ -87,7 +87,7 @@ namespace Chashavshavon
                     },
                 s => Program.Warn(s),
                 Utils.RemoteFunctions.NewParam("fileName", fileName),
-                Utils.RemoteFunctions.NewParam("fileText", this._mainForm.CurrentFileXML));
+                Utils.RemoteFunctions.NewParam("fileText", this._mainForm.CurrentFileJson));
             }
         }
 

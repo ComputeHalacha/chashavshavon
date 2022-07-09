@@ -20,14 +20,21 @@ namespace Chashavshavon
 
             if (File.Exists(path))
             {
-                string xml = File.ReadAllText(path);
-
-                if (string.IsNullOrWhiteSpace(xml))
+                string fileText = File.ReadAllText(path);
+                if (string.IsNullOrEmpty(fileText))
                 {
-                    xml = "<Entries />";
+                    fileText = "<Entries />";
                 }
-                (this.EntryList, this.KavuahList) =
-                    Program.LoadEntriesKavuahsFromXml(xml);
+                if (fileText.TrimStart().StartsWith("<"))
+                {
+                    (this.EntryList, this.KavuahList) =
+                   Program.LoadEntriesKavuahsFromXml(fileText);
+                }
+                else if (fileText.TrimStart().StartsWith("{"))
+                {
+                    (this.EntryList, this.KavuahList) =
+                   Program.LoadEntriesKavuahsFromJson(fileText);
+                }
 
                 foreach (Entry e in this.EntryList)
                 {

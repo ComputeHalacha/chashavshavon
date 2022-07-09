@@ -215,7 +215,7 @@ namespace JewishCalendar
         {
             if (abs >= 730120) // 1/1/2000
             {
-                return new DateTime(2000, 1, 1).AddDays(abs - 730120);
+                return new DateTime(2000, 1, 1, Utils.GregorianCalendar).AddDays(abs - 730120);
             }
             else
             {
@@ -245,7 +245,7 @@ namespace JewishCalendar
 
                 day = abs - GetAbsoluteFromGregorianDate(year, month, 1) + 1;
 
-                return new DateTime(year, month, day);
+                return new DateTime(year, month, day, Utils.GregorianCalendar);
             }
         }
 

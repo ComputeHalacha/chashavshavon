@@ -50,6 +50,12 @@ namespace JewishCalendar
         public static string[] DaysOfWeek = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Erev Shabbos", "Shabbos Kodesh" };
 
         /// <summary>
+        /// A .NET Gregorian calendar.
+        /// IMPORTANT NOTE: For using this file with a .NET Micro Framework project, the following must be removed.
+        /// </summary>
+        public static GregorianCalendar GregorianCalendar = new GregorianCalendar();
+
+        /// <summary>
         /// A .NET Hebrew calendar.
         /// IMPORTANT NOTE: For using this file with a .NET Micro Framework project, the following must be removed.
         /// </summary>

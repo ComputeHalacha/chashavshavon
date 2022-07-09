@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using Tahara;
+using Newtonsoft.Json;
+using System.Security.Cryptography;
 
 namespace Chashavshavon
 {
@@ -20,7 +22,7 @@ namespace Chashavshavon
         #region Private Variables
 
         private DateTime _monthToDisplay;
-        private static readonly string _tempXMLFileName = Program.TempFolderPath + @"\ChashavshavonTempFile.xml";
+        private static readonly string _tempJSONFileName = Program.TempFolderPath + @"\ChashavshavonTempFile.json";
         private static Font _smallFont;
         private static readonly Font _hebrewDayFont = new Font("Verdana", 18f, FontStyle.Bold);
         private static readonly Font _goyishDateFont = new Font("Verdana", 8f, FontStyle.Bold);
@@ -67,8 +69,8 @@ namespace Chashavshavon
                 this.saveFileDialog1.CreatePrompt = false;
                 this.saveFileDialog1.CheckFileExists = false;
                 this.saveFileDialog1.OverwritePrompt = true;
-                this.saveFileDialog1.DefaultExt = "pm";
-                this.saveFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pm";
+                this.saveFileDialog1.DefaultExt = "pmj";
+                this.saveFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pmj";
 
                 if (this.saveFileDialog1.ShowDialog(this) == DialogResult.OK)
                 {
@@ -87,7 +89,7 @@ namespace Chashavshavon
                 this.CurrentFile = null;
             }
             //Load the last opened file. If it does not exist or this is the first run, a blank list is presented
-            this.LoadXmlFile();
+            this.LoadJSONFile();
             this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
             this._monthToDisplay = Program.Today;
             this.DisplayMonth();
@@ -374,7 +376,7 @@ namespace Chashavshavon
             this.openFileDialog1.ShowDialog(this);
             this.openFileDialog1.CheckFileExists = true;
             this.CurrentFile = this.openFileDialog1.FileName;
-            this.LoadXmlFile();
+            this.LoadJSONFile();
             this.CalculateProblemOnahs();
             this.DisplayMonth();
         }
@@ -402,7 +404,7 @@ namespace Chashavshavon
             {
                 this.SaveCurrentFile();
                 this.CurrentFile = e.ClickedItem.Text;
-                this.LoadXmlFile();
+                this.LoadJSONFile();
                 this.CalculateProblemOnahs();
                 this.DisplayMonth();
             }
@@ -485,8 +487,8 @@ namespace Chashavshavon
             if (!string.IsNullOrWhiteSpace(this.CurrentFile))
             {
                 this.SaveCurrentFile();
-                this.GetTempXmlFile();
-                System.Diagnostics.Process.Start(_tempXMLFileName);
+                this.GetTempJSONFile();
+                System.Diagnostics.Process.Start(_tempJSONFileName);
             }
             else
             {
@@ -523,7 +525,7 @@ namespace Chashavshavon
         private void ImportEntriesStripMenuItem_Click(object sender, EventArgs e)
         {
             this.openFileDialog1.CheckFileExists = false;
-            this.openFileDialog1.DefaultExt = "pm";
+            this.openFileDialog1.DefaultExt = "pmj";
             if (this.openFileDialog1.ShowDialog(this) != DialogResult.OK)
             {
                 return;
@@ -573,8 +575,8 @@ namespace Chashavshavon
             this.saveFileDialog1.CreatePrompt = true;
             this.saveFileDialog1.CheckFileExists = false;
             this.saveFileDialog1.OverwritePrompt = true;
-            this.saveFileDialog1.DefaultExt = "pm";
-            this.saveFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pm";
+            this.saveFileDialog1.DefaultExt = "pmj";
+            this.saveFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pmj";
 
             if (this.saveFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
@@ -586,8 +588,8 @@ namespace Chashavshavon
         private void SaveAs(Form sourceForm = null)
         {
             this.openFileDialog1.CheckFileExists = false;
-            this.openFileDialog1.DefaultExt = "pm";
-            this.openFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pm";
+            this.openFileDialog1.DefaultExt = "pmj";
+            this.openFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pmj";
             if (this.openFileDialog1.ShowDialog(sourceForm ?? this) != DialogResult.OK)
             {
                 return;
@@ -605,7 +607,7 @@ namespace Chashavshavon
                 {
                     this.SaveCurrentFile();
                     this.TestInternet();
-                    this.LoadXmlFile();
+                    this.LoadJSONFile();
                 }
 
                 //In case some Kavuahs were added or deleted...
@@ -966,10 +968,10 @@ namespace Chashavshavon
                         Path.GetFileNameWithoutExtension(this.CurrentFile) +
                         "_" +
                         DateTime.Now.ToString("d-MMM-yy_HH-mm-ss", CultureInfo.GetCultureInfo("en-us").DateTimeFormat) +
-                        ".pm";
+                        ".pmj";
                     if (File.Exists(path))
                     {
-                        path = path.Replace(".pm", "_Version_1" + DateTime.Now.Millisecond.ToString() + ".pm");
+                        path = path.Replace(".pmj", "_Version_1" + DateTime.Now.Millisecond.ToString() + ".pmj");
                     }
                     File.Copy(this.CurrentFile, path);
                 }
@@ -1023,7 +1025,7 @@ namespace Chashavshavon
         private void RefreshData()
         {
             this.TestInternet();
-            this.LoadXmlFile();
+            this.LoadJSONFile();
             this.DisplayMonth();
         }
 
@@ -1145,13 +1147,13 @@ namespace Chashavshavon
             }
         }
 
-        public string GetTempXmlFile()
+        public string GetTempJSONFile()
         {
-            File.WriteAllText(_tempXMLFileName, this.CurrentFileXML ?? "");
-            return _tempXMLFileName;
+            File.WriteAllText(_tempJSONFileName, this.CurrentFileJson ?? "");
+            return _tempJSONFileName;
         }
 
-        public void LoadXmlFile()
+        public void LoadJSONFile()
         {
             this.CreateLocalBackup();
             this.lblNextProblem.Text = "";
@@ -1161,7 +1163,7 @@ namespace Chashavshavon
                 try
                 {
                     (List<Entry> entryList, List<Kavuah> kavuahList) =
-                        Program.LoadEntriesKavuahsFromXml(this.CurrentFileXML);
+                        Program.LoadEntriesKavuahsFromJson(this.CurrentFileJson);
                     Program.EntryList.Clear();
                     Program.EntryList.AddRange(entryList);
                     Program.KavuahList.Clear();
@@ -1325,6 +1327,8 @@ namespace Chashavshavon
                 }
             }
 
+            JsonTextWriter writer;
+
             XmlTextWriter xtw;
             string dir = Path.GetDirectoryName(this.CurrentFile);
 
@@ -1347,38 +1351,32 @@ namespace Chashavshavon
                 Program.Exclaim("חשבשבון היה צריל להעתיק הקובץ הפעילה למיקום אחר.\nהקובץ עכשיו נמצא ב: \n" +
                     this.CurrentFile);
             }
-            Stream stream = File.CreateText(this.CurrentFile).BaseStream;
-
-            xtw = new XmlTextWriter(stream, Encoding.UTF8);
-            xtw.WriteStartDocument();
-            xtw.WriteStartElement("Entries");
-            foreach (Entry entry in Program.EntryList)
+            using (FileStream fs = File.Open(this.CurrentFile, FileMode.Create))
+            using (StreamWriter sw = new StreamWriter(fs))
+            using (JsonWriter jw = new JsonTextWriter(sw))
             {
-                xtw.WriteStartElement("Entry");
-                xtw.WriteElementString("IsInvisible", entry.IsInvisible.ToString());
-                xtw.WriteElementString("Date", entry.DateTime.ToString("dd MMMM yyyy") + " " + entry.HebrewDayNight);
-                xtw.WriteElementString("Day", entry.Day.ToString());
-                xtw.WriteElementString("Month", entry.Month.MonthInYear.ToString());
-                xtw.WriteElementString("Year", entry.Year.ToString());
-                xtw.WriteElementString("DN", ((int)entry.DayNight).ToString());
-                xtw.WriteElementString("Notes", entry.Notes);
-                foreach (Kavuah k in entry.NoKavuahList)
+                JsonSerializer jsonSerializer = new JsonSerializer
                 {
-                    xtw.WriteStartElement("NoKavuah");
-                    xtw.WriteAttributeString("KavuahType", k.KavuahType.ToString());
-                    xtw.WriteAttributeString("Number", k.Number.ToString());
-                    xtw.WriteEndElement();
-                }
-                xtw.WriteEndElement();
+                    Formatting = Newtonsoft.Json.Formatting.Indented
+                };
+                jsonSerializer.Serialize(jw, new
+                {
+                    Entries = Program.EntryList.Select(e => new
+                    {
+                        Abs = e.JewishDate.AbsoluteDate,
+                        DN = (int)e.DayNight,
+                        e.IsInvisible,
+                        e.Notes,
+                        NoKavuah = e.NoKavuahList.Select(nk => new
+                        {
+                            KavuahType = nk.KavuahType.ToString(),
+                            nk.Number
+                        })
+
+                    }),
+                    Kavuahs = Program.KavuahList
+                });
             }
-
-            var ser = new XmlSerializer(typeof(List<Kavuah>));
-            ser.Serialize(xtw, Program.KavuahList);
-
-            xtw.WriteEndDocument();
-            xtw.Flush();
-            xtw.Close();
-            stream.Dispose();
             Properties.Settings.Default.CurrentFile = this.CurrentFile;
             Properties.Settings.Default.Save();
             this.SetCaptionText();
@@ -1426,7 +1424,7 @@ namespace Chashavshavon
 
         public string CurrentFileName => Path.GetFileName(this.CurrentFile);
 
-        public string CurrentFileXML
+        public string CurrentFileJson
         {
             get
             {

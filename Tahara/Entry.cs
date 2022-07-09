@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Tahara
@@ -12,8 +13,28 @@ namespace Tahara
 
         public Entry() : base() { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="day">The day of the jewish month</param>
+        /// <param name="month">The Jewish month. Note Tishrei is month #1</param>
+        /// <param name="year">The Jewish year</param>
+        /// <param name="dayNight"></param>
+        /// <param name="notes"></param>
         public Entry(int day, int month, int year, DayNight dayNight, string notes)
             : base(day, month, year, dayNight)
+        {
+            this.Notes = notes;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="date">The secular date</param>
+        /// <param name="dayNight"></param>
+        /// <param name="notes"></param>
+        public Entry(DateTime date, DayNight dayNight, string notes)
+            : base(date, dayNight)
         {
             this.Notes = notes;
         }
