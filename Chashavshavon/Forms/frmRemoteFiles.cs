@@ -191,7 +191,7 @@ namespace Chashavshavon
                 using (var sfd = new SaveFileDialog
                 {
                     OverwritePrompt = true,
-                    DefaultExt = ".pm",
+                    DefaultExt = ".pmj",
                     InitialDirectory = Program.BackupFolderPath,
                     RestoreDirectory = false
                 })

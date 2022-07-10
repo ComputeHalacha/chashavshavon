@@ -48,9 +48,12 @@ namespace Tahara
 
         public Onah(DateTime dateTime)
         {
-            this.Day = Utils.HebrewCalendar.GetDayOfMonth(dateTime);
-            this.Year = Utils.HebrewCalendar.GetYear(dateTime);
-            this.Month = new MonthObject(this.Year, Utils.HebrewCalendar.GetMonth(dateTime));
+            if (dateTime > DateTime.MinValue)
+            {
+                this.Day = Utils.HebrewCalendar.GetDayOfMonth(dateTime);
+                this.Year = Utils.HebrewCalendar.GetYear(dateTime);
+                this.Month = new MonthObject(this.Year, Utils.HebrewCalendar.GetMonth(dateTime));
+            }
         }
 
         public Onah(DateTime dateTime, DayNight dayNight)

@@ -524,8 +524,7 @@ namespace Chashavshavon
 
         private void ImportEntriesStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.openFileDialog1.CheckFileExists = false;
-            this.openFileDialog1.DefaultExt = "pmj";
+            this.openFileDialog1.CheckFileExists = false;            
             if (this.openFileDialog1.ShowDialog(this) != DialogResult.OK)
             {
                 return;
@@ -1326,10 +1325,6 @@ namespace Chashavshavon
                     return;
                 }
             }
-
-            JsonTextWriter writer;
-
-            XmlTextWriter xtw;
             string dir = Path.GetDirectoryName(this.CurrentFile);
 
             try
@@ -1363,6 +1358,7 @@ namespace Chashavshavon
                 {
                     Entries = Program.EntryList.Select(e => new
                     {
+                        When = $"עונת {e.HebrewDayNight} - {e.JewishDate.ToLongDateStringHeb()}",
                         Abs = e.JewishDate.AbsoluteDate,
                         DN = (int)e.DayNight,
                         e.IsInvisible,
