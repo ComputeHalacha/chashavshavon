@@ -23,7 +23,8 @@ namespace Chashavshavon
 
         public static bool RunInDevMode { get; private set; } = false;
 
-        //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
+        //We need to keep track of the Jewish "today" as DateTime.
+        //Now will give the wrong day if it is now after shkiah and before midnight.
         public static DateTime Today { get; set; }
         public static Onah NowOnah { get; set; }
         //Keeps track of where user is; for calculating zmanim
@@ -191,7 +192,23 @@ namespace Chashavshavon
                 CurrentLocation.Name : CurrentLocation.NameHebrew;
         }
 
-        internal static (List<Entry> entries, List<Kavuah> kavuahs) LoadEntriesKavuahsFromXml(string xmlString)
+        internal static (List<Entry> entries, List<Kavuah> kavuahs) LoadFromText(string fileText)
+        {
+            if (fileText.TrimStart().StartsWith("<"))
+{
+                return Program.LoadFromXml(fileText);
+            }
+            else if (fileText.TrimStart().StartsWith("{"))
+{
+                return Program.LoadFromJson(fileText);
+            }
+            else
+            {
+                return default;                
+            }
+        }
+
+        private static (List<Entry> entries, List<Kavuah> kavuahs) LoadFromXml(string xmlString)
         {
             var lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>());
             var xml = new XmlDocument();
@@ -247,8 +264,7 @@ namespace Chashavshavon
             return lists;
         }
 
-
-        internal static (List<Entry> entries, List<Kavuah> kavuahs) LoadEntriesKavuahsFromJson(string jsonString)
+        private static (List<Entry> entries, List<Kavuah> kavuahs) LoadFromJson(string jsonString)
         {
             var lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>());
             var js = JToken.Parse(jsonString);
@@ -300,8 +316,6 @@ namespace Chashavshavon
 
             return lists;
         }
-
-
 
         #region Extention Methods
         /// <summary>

@@ -9,11 +9,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Serialization;
 using Tahara;
 using Newtonsoft.Json;
-using System.Security.Cryptography;
 
 namespace Chashavshavon
 {
@@ -291,17 +288,21 @@ namespace Chashavshavon
             {
                 try
                 {
-                    var doc = new XmlDocument();
-                    doc.Load(this.openFileDialog1.FileName);
-                    if (doc.SelectNodes("//Kavuah").Count > 0)
+                    var fileText = File.ReadAllText(this.openFileDialog1.FileName);
+                    var lists = Program.LoadFromText(fileText);                    
+                    if(lists == default)
+                    {
+                        Program.Exclaim("רשימת וסת קבוע בקובץ\"" +
+                                Path.GetFileName(this.openFileDialog1.FileName) + "\" .איננה תקינה");
+                        return;
+                    }
+
+                    
+                    if (lists.kavuahs.Count > 0)
                     {
                         try
-                        {
-                            var ser = new XmlSerializer(typeof(List<Kavuah>));
-                            var list = (List<Kavuah>)ser.Deserialize(
-                                new StringReader(doc.SelectSingleNode("//ArrayOfKavuah").OuterXml));
-
-                            Program.KavuahList.AddRange(list);
+                        {                            
+                            Program.KavuahList.AddRange(lists.kavuahs);
 
                             /* If the setting entry of the Kavuah is not contained
                             * on the current list, than frmKavuah will cause an error
@@ -311,7 +312,7 @@ namespace Chashavshavon
                             * needs a corresponding Entry in the EntryList.
                             * This is the scenario that prompted the whole IsInvisible property of the
                             * Entry class. */
-                            foreach (Kavuah kav in list)
+                            foreach (Kavuah kav in lists.kavuahs)
                             {
                                 if (!Program.EntryList.Exists(en =>
                                     en.DateTime.IsSameday(kav.SettingEntryDate) &&
@@ -524,7 +525,7 @@ namespace Chashavshavon
 
         private void ImportEntriesStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.openFileDialog1.CheckFileExists = false;            
+            this.openFileDialog1.CheckFileExists = false;
             if (this.openFileDialog1.ShowDialog(this) != DialogResult.OK)
             {
                 return;
@@ -1162,7 +1163,7 @@ namespace Chashavshavon
                 try
                 {
                     (List<Entry> entryList, List<Kavuah> kavuahList) =
-                        Program.LoadEntriesKavuahsFromJson(this.CurrentFileJson);
+                        Program.LoadFromText(this.CurrentFileJson);
                     Program.EntryList.Clear();
                     Program.EntryList.AddRange(entryList);
                     Program.KavuahList.Clear();

@@ -25,17 +25,11 @@ namespace Chashavshavon
                 {
                     fileText = "<Entries />";
                 }
-                if (fileText.TrimStart().StartsWith("<"))
+                var lists = Program.LoadFromText(fileText);
+                if(lists != default)
                 {
-                    (this.EntryList, this.KavuahList) =
-                   Program.LoadEntriesKavuahsFromXml(fileText);
+                    (this.EntryList, this.KavuahList) = lists;
                 }
-                else if (fileText.TrimStart().StartsWith("{"))
-                {
-                    (this.EntryList, this.KavuahList) =
-                   Program.LoadEntriesKavuahsFromJson(fileText);
-                }
-
                 foreach (Entry e in this.EntryList)
                 {
                     this.lvEntries.Items.Add(new ListViewItem(e.ToString()) { Tag = e });
