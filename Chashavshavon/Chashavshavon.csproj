@@ -147,6 +147,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ChoiceSwitch.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Classes\DoubleBufferedLayoutTable.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -328,6 +331,8 @@
     <None Include="Resources\InfoHTMLHeb.html" />
     <None Include="Resources\today.png" />
     <None Include="Resources\EntryListHtmlTemplate.html" />
+    <None Include="Resources\SwitchHead.bmp" />
+    <None Include="Resources\SwitchHead.png" />
     <Content Include="Resources\WeekProblemListHtmlTemplate.html" />
     <Content Include="scroll.ico" />
   </ItemGroup>

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -19,6 +20,7 @@ namespace Chashavshavon
         public static readonly string BackupFolderPath = Directory.GetCurrentDirectory() + @"\Backups";
         public static readonly List<Entry> EntryList = new List<Entry>();
         public static readonly List<Kavuah> KavuahList = new List<Kavuah>();
+        public static readonly List<TaharaEvent> TaharaEventList = new List<TaharaEvent>();
         public static readonly List<Onah> ProblemOnahs = new List<Onah>();
 
         public static bool RunInDevMode { get; private set; } = false;
@@ -248,9 +250,9 @@ namespace Chashavshavon
         }
 
 
-        internal static (List<Entry> entries, List<Kavuah> kavuahs) LoadEntriesKavuahsFromJson(string jsonString)
+        internal static (List<Entry>, List<Kavuah>, List<TaharaEvent>) LoadEntriesKavuahsFromJson(string jsonString)
         {
-            var lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>());
+            var lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>(), taharaEvents: new List<TaharaEvent>());
             var js = JToken.Parse(jsonString);
 
 
@@ -291,10 +293,20 @@ namespace Chashavshavon
                 }
                 Entry.SortEntriesAndSetInterval(lists.entries);
 
-                //After the list of Entries, there is a lst of Kavuahs
+                //After the list of Entries, there is a list of Kavuahs
                 foreach (JToken kavuah in js["Kavuahs"])
                 {
                     lists.kavuahs.Add(kavuah.ToObject<Kavuah>());
+                }
+
+                //After the list of Kavuahs, there is a list of Tahara Events
+                if (js["TaharaEvents"] != null)
+                {
+                    foreach (JToken taharaEvent in js["TaharaEvents"])
+                    {
+                        lists.taharaEvents.Add(taharaEvent.ToObject<TaharaEvent>());
+                    }
+                    TaharaEvent.SortList(lists.taharaEvents);
                 }
             }
 
@@ -303,7 +315,7 @@ namespace Chashavshavon
 
 
 
-        #region Extention Methods
+        #region Extension Methods
         /// <summary>
         /// Tests to see if an object equals any one of the objects in a list.
         /// This function works like the SQL keyword "IN" - "SELECT * FROM Orders WHERE OrderId IN (5432, 9886, 8824)".

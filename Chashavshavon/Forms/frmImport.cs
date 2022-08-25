@@ -13,6 +13,7 @@ namespace Chashavshavon
 
         public List<Entry> EntryList { get; private set; }
         public List<Kavuah> KavuahList { get; private set; }
+        public List<TaharaEvent> TaharaEventList { get; private set; }
 
         public FrmImport(string path)
         {
@@ -32,7 +33,7 @@ namespace Chashavshavon
                 }
                 else if (fileText.TrimStart().StartsWith("{"))
                 {
-                    (this.EntryList, this.KavuahList) =
+                    (this.EntryList, this.KavuahList, this.TaharaEventList) =
                    Program.LoadEntriesKavuahsFromJson(fileText);
                 }
 
@@ -43,6 +44,10 @@ namespace Chashavshavon
                 foreach (Kavuah k in this.KavuahList)
                 {
                     this.lvKavuahs.Items.Add(new ListViewItem(k.ToString()) { Tag = k });
+                }
+                foreach (TaharaEvent t in this.TaharaEventList)
+                {
+                    this.lvTaharaEvents.Items.Add(new ListViewItem(t.ToString()) { Tag = t });
                 }
             }
             this._loading = false;
@@ -70,6 +75,13 @@ namespace Chashavshavon
                 if (i.Checked)
                 {
                     this.KavuahList.Add((Kavuah)i.Tag);
+                }
+            }
+            foreach (ListViewItem i in this.lvTaharaEvents.Items)
+            {
+                if (i.Checked)
+                {
+                    this.TaharaEventList.Add((TaharaEvent)i.Tag);
                 }
             }
             this.DialogResult = DialogResult.OK;
@@ -106,6 +118,24 @@ namespace Chashavshavon
                 foreach (ListViewItem i in this.lvKavuahs.Items)
                 {
                     i.Checked = this.cbAllKavuahs.Checked;
+                }
+            }
+            this._loading = prev;
+        }
+
+        private void cbAllTaharaEvents_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this._loading)
+            {
+                return;
+            }
+            bool prev = this._loading;
+            this._loading = true;
+            if (this.cbAllTaharaEvents.CheckState != CheckState.Indeterminate)
+            {
+                foreach (ListViewItem i in this.lvTaharaEvents.Items)
+                {
+                    i.Checked = this.cbAllTaharaEvents.Checked;
                 }
             }
             this._loading = prev;
@@ -165,6 +195,34 @@ namespace Chashavshavon
             this._loading = prev;
         }
 
+        private void lvTaharaEvents_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            if (this._loading)
+            {
+                return;
+            }
+            bool prev = this._loading;
+            this._loading = true;
+            IEnumerable<ListViewItem> lv = this.lvTaharaEvents.Items.Cast<ListViewItem>();
+            if (lv.All(lvi => lvi.Checked))
+            {
+                this.cbAllTaharaEvents.Checked = true;
+                this.cbAllTaharaEvents.CheckState = CheckState.Checked;
+            }
+            else if (lv.All(lvi => !lvi.Checked))
+            {
+                this.cbAllTaharaEvents.Checked = false;
+                this.cbAllTaharaEvents.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                this.cbAllTaharaEvents.Checked = false;
+                this.cbAllTaharaEvents.CheckState = CheckState.Indeterminate;
+            }
+            this._loading = prev;
+
+        }
+
         private void lvEntries_ItemActivate(object sender, EventArgs e)
         {
             bool isc = this.lvEntries.SelectedItems[0].Checked;
@@ -177,5 +235,11 @@ namespace Chashavshavon
             bool isc = this.lvKavuahs.SelectedItems[0].Checked;
             this.lvKavuahs.SelectedItems[0].Checked = !isc;
         }
+
+        private void lvTaharaEvents_ItemActivate(object sender, EventArgs e)
+        {
+            bool isc = this.lvTaharaEvents.SelectedItems[0].Checked;
+            this.lvTaharaEvents.SelectedItems[0].Checked = !isc;
+        }        
     }
 }

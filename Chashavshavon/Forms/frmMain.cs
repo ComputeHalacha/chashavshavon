@@ -14,6 +14,8 @@ using System.Xml.Serialization;
 using Tahara;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
+using Itenso.TimePeriod;
+using System.Runtime.CompilerServices;
 
 namespace Chashavshavon
 {
@@ -24,6 +26,7 @@ namespace Chashavshavon
         private DateTime _monthToDisplay;
         private static readonly string _tempJSONFileName = Program.TempFolderPath + @"\ChashavshavonTempFile.json";
         private static Font _smallFont;
+        private static Font _medFont;
         private static readonly Font _hebrewDayFont = new Font("Verdana", 18f, FontStyle.Bold);
         private static readonly Font _goyishDateFont = new Font("Verdana", 8f, FontStyle.Bold);
         private static readonly SolidBrush _highlightBrush = new SolidBrush(Color.FromArgb(50, Color.DarkSlateBlue));
@@ -524,7 +527,7 @@ namespace Chashavshavon
 
         private void ImportEntriesStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.openFileDialog1.CheckFileExists = false;            
+            this.openFileDialog1.CheckFileExists = false;
             if (this.openFileDialog1.ShowDialog(this) != DialogResult.OK)
             {
                 return;
@@ -624,6 +627,7 @@ namespace Chashavshavon
             this.InitializeComponent();
 
             _smallFont = new Font(this.Font.FontFamily, 6f);
+            _medFont = new Font(this.Font.FontFamily, 8f);
 
             //The following sets all output displays of date time functions to Jewish dates for the current thread
             Program.CultureInfo.DateTimeFormat.Calendar = Program.HebrewCalendar;
@@ -867,6 +871,8 @@ namespace Chashavshavon
                     });
                 }
 
+                var taharaEvents = Program.TaharaEventList.Where(te =>
+                   te.DateTime.IsSameday(date));
 
                 pnl.Paint += delegate (object sender, PaintEventArgs e)
                 {
@@ -925,6 +931,34 @@ namespace Chashavshavon
                                 }
                             }
                         }
+                        var counter = 0;
+                        foreach (var te in taharaEvents)
+                        {
+                            Brush color = Brushes.Black;
+                            var x = 0.0f;
+                            switch(te.TaharaEventType)
+                            {
+                                case TaharaEventType.Hefsek:
+                                    color = Brushes.Blue;
+                                    x = pWidth - 75;
+                                    break;
+                                case TaharaEventType.Mikvah:
+                                    color = Brushes.Green;
+                                    x = (pWidth /2)-15;
+                                    break;
+                                case TaharaEventType.Shailah:
+                                    color = Brushes.MediumVioletRed;
+                                    x = 35;
+                                    break;
+                            }
+                            counter++;
+                            g.DrawString(te.TaharaEventTypeName,
+                                _medFont,
+                                color,
+                                x,
+                                pHeight - 50);
+                        }
+
                     }
                 };
 
@@ -1104,6 +1138,23 @@ namespace Chashavshavon
             return false;
         }
 
+        public void AddTaharaEvent(TaharaEvent te, Form sourceForm = null)
+        {
+            Program.TaharaEventList.Add(te);
+            TaharaEvent.SortList(Program.TaharaEventList);
+            this.SaveCurrentFile(sourceForm);
+            this.RefreshData();
+        }
+
+
+        public void RemoveTaharaEvent(TaharaEvent te, Form sourceForm = null)
+        {
+            Program.TaharaEventList.Remove(te);
+            this.SaveCurrentFile(sourceForm);
+            this.RefreshData();
+        }
+
+
         public void AfterChangePreferences()
         {
             this.SetLocation();
@@ -1161,12 +1212,14 @@ namespace Chashavshavon
             {
                 try
                 {
-                    (List<Entry> entryList, List<Kavuah> kavuahList) =
+                    (List<Entry> entryList, List<Kavuah> kavuahList, List<TaharaEvent> taharaEvents) =
                         Program.LoadEntriesKavuahsFromJson(this.CurrentFileJson);
                     Program.EntryList.Clear();
                     Program.EntryList.AddRange(entryList);
                     Program.KavuahList.Clear();
                     Program.KavuahList.AddRange(kavuahList);
+                    Program.TaharaEventList.Clear();
+                    Program.TaharaEventList.AddRange(taharaEvents);
                 }
                 catch (Exception)
                 {
@@ -1346,7 +1399,18 @@ namespace Chashavshavon
                 Program.Exclaim("חשבשבון היה צריל להעתיק הקובץ הפעילה למיקום אחר.\nהקובץ עכשיו נמצא ב: \n" +
                     this.CurrentFile);
             }
-            using (FileStream fs = File.Open(this.CurrentFile, FileMode.Create))
+
+            FileStream fs;
+            if (!File.Exists(this.CurrentFile))
+            {
+                fs = File.Create(this.CurrentFile);
+            }
+            else
+            {
+                fs = File.Open(this.CurrentFile, FileMode.Create);
+            }
+
+            using (fs)
             using (StreamWriter sw = new StreamWriter(fs))
             using (JsonWriter jw = new JsonTextWriter(sw))
             {
@@ -1370,7 +1434,8 @@ namespace Chashavshavon
                         })
 
                     }),
-                    Kavuahs = Program.KavuahList
+                    Kavuahs = Program.KavuahList,
+                    TaharaEvents = Program.TaharaEventList
                 });
             }
             Properties.Settings.Default.CurrentFile = this.CurrentFile;

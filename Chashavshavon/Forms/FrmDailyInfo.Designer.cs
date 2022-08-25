@@ -48,6 +48,7 @@
             this.btnToday = new System.Windows.Forms.Button();
             this.lblCaption = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnPrintDailyInfo = new System.Windows.Forms.ToolStripButton();
@@ -55,12 +56,16 @@
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.Button();
+            this.choiceSwitcherMikvah = new Chashavshavon.ChoiceSwitcher();
+            this.choiceSwitcherHefsek = new Chashavshavon.ChoiceSwitcher();
+            this.choiceSwitcherShailah = new Chashavshavon.ChoiceSwitcher();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
@@ -73,7 +78,7 @@
             this.label3.Location = new System.Drawing.Point(893, 12);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(21, 14);
+            this.label3.Size = new System.Drawing.Size(26, 18);
             this.label3.TabIndex = 22;
             this.label3.Text = "יום";
             // 
@@ -85,7 +90,7 @@
             this.label4.Location = new System.Drawing.Point(480, 46);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 14);
+            this.label4.Size = new System.Drawing.Size(52, 18);
             this.label4.TabIndex = 24;
             this.label4.Text = "הערות";
             // 
@@ -103,7 +108,7 @@
             this.cmbMonth.Location = new System.Drawing.Point(780, 35);
             this.cmbMonth.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cmbMonth.Name = "cmbMonth";
-            this.cmbMonth.Size = new System.Drawing.Size(72, 21);
+            this.cmbMonth.Size = new System.Drawing.Size(72, 24);
             this.cmbMonth.TabIndex = 15;
             this.cmbMonth.ValueMember = "MonthIndex";
             this.cmbMonth.SelectedIndexChanged += new System.EventHandler(this.cmbMonth_SelectedIndexChanged);
@@ -122,7 +127,7 @@
             this.cmbDay.Location = new System.Drawing.Point(856, 35);
             this.cmbDay.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cmbDay.Name = "cmbDay";
-            this.cmbDay.Size = new System.Drawing.Size(58, 21);
+            this.cmbDay.Size = new System.Drawing.Size(58, 24);
             this.cmbDay.TabIndex = 14;
             this.cmbDay.ValueMember = "Key";
             this.cmbDay.SelectedIndexChanged += new System.EventHandler(this.cmbDay_SelectedIndexChanged);
@@ -140,7 +145,7 @@
             this.cmbYear.Location = new System.Drawing.Point(707, 35);
             this.cmbYear.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cmbYear.Name = "cmbYear";
-            this.cmbYear.Size = new System.Drawing.Size(66, 21);
+            this.cmbYear.Size = new System.Drawing.Size(66, 24);
             this.cmbYear.TabIndex = 16;
             this.cmbYear.SelectedIndexChanged += new System.EventHandler(this.cmbYear_SelectedIndexChanged);
             this.cmbYear.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.cmbYear_Format);
@@ -151,10 +156,10 @@
             this.rbDay.AutoSize = true;
             this.rbDay.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbDay.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.rbDay.Location = new System.Drawing.Point(22, 28);
+            this.rbDay.Location = new System.Drawing.Point(22, 23);
             this.rbDay.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.rbDay.Name = "rbDay";
-            this.rbDay.Size = new System.Drawing.Size(88, 24);
+            this.rbDay.Size = new System.Drawing.Size(110, 29);
             this.rbDay.TabIndex = 19;
             this.rbDay.Text = "עונת יום";
             this.rbDay.UseVisualStyleBackColor = true;
@@ -168,7 +173,7 @@
             this.label1.Location = new System.Drawing.Point(748, 12);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 14);
+            this.label1.Size = new System.Drawing.Size(36, 18);
             this.label1.TabIndex = 17;
             this.label1.Text = "שנה";
             // 
@@ -179,10 +184,10 @@
             this.rbNight.Checked = true;
             this.rbNight.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rbNight.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.rbNight.Location = new System.Drawing.Point(128, 28);
+            this.rbNight.Location = new System.Drawing.Point(128, 23);
             this.rbNight.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.rbNight.Name = "rbNight";
-            this.rbNight.Size = new System.Drawing.Size(104, 24);
+            this.rbNight.Size = new System.Drawing.Size(129, 29);
             this.rbNight.TabIndex = 18;
             this.rbNight.TabStop = true;
             this.rbNight.Text = "עונת לילה";
@@ -196,7 +201,7 @@
             this.label2.Location = new System.Drawing.Point(821, 12);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 14);
+            this.label2.Size = new System.Drawing.Size(43, 18);
             this.label2.TabIndex = 20;
             this.label2.Text = "חודש";
             // 
@@ -234,8 +239,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.LavenderBlush;
             this.groupBox1.BackgroundImage = global::Chashavshavon.Properties.Resources.PinkMarbleTile;
             this.groupBox1.Controls.Add(this.label5);
@@ -244,8 +247,9 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.rbNight);
             this.groupBox1.Controls.Add(this.rbDay);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(0, 387);
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
@@ -264,7 +268,7 @@
             this.label5.Location = new System.Drawing.Point(320, 10);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(183, 22);
+            this.label5.Size = new System.Drawing.Size(224, 27);
             this.label5.TabIndex = 25;
             this.label5.Text = "הוסף רשומה חדשה";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -284,8 +288,7 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.AutoScroll = true;
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
@@ -294,13 +297,13 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Tahoma", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.tableLayoutPanel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 53);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 370);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(542, 329);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(542, 166);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel2
@@ -371,6 +374,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackgroundImage = global::Chashavshavon.Properties.Resources.ParchmentMarbleTile;
+            this.splitContainer1.Panel1.Controls.Add(this.panel1);
             this.splitContainer1.Panel1.Controls.Add(this.label6);
             this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel1);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
@@ -386,17 +390,31 @@
             this.splitContainer1.SplitterWidth = 2;
             this.splitContainer1.TabIndex = 32;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.DimGray;
+            this.panel1.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkMarble;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.choiceSwitcherShailah);
+            this.panel1.Controls.Add(this.choiceSwitcherHefsek);
+            this.panel1.Controls.Add(this.choiceSwitcherMikvah);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 146);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(546, 184);
+            this.panel1.TabIndex = 28;
+            // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Tahoma", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
-            this.label6.Location = new System.Drawing.Point(285, 10);
+            this.label6.Location = new System.Drawing.Point(285, 340);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(210, 22);
+            this.label6.Size = new System.Drawing.Size(259, 27);
             this.label6.TabIndex = 27;
             this.label6.Text = "רשימת חששות ביום זה";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -422,7 +440,7 @@
             this.btnPrintDailyInfo.Image = global::Chashavshavon.Properties.Resources.printer;
             this.btnPrintDailyInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrintDailyInfo.Name = "btnPrintDailyInfo";
-            this.btnPrintDailyInfo.Size = new System.Drawing.Size(23, 19);
+            this.btnPrintDailyInfo.Size = new System.Drawing.Size(29, 19);
             this.btnPrintDailyInfo.Text = "toolStripButton1";
             this.btnPrintDailyInfo.ToolTipText = "הדפס זמני היום";
             this.btnPrintDailyInfo.Click += new System.EventHandler(this.btnPrintDailyInfo_Click);
@@ -433,7 +451,7 @@
             this.btnSaveDailyInfo.Image = global::Chashavshavon.Properties.Resources.save;
             this.btnSaveDailyInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSaveDailyInfo.Name = "btnSaveDailyInfo";
-            this.btnSaveDailyInfo.Size = new System.Drawing.Size(23, 19);
+            this.btnSaveDailyInfo.Size = new System.Drawing.Size(29, 19);
             this.btnSaveDailyInfo.Text = "toolStripButton2";
             this.btnSaveDailyInfo.ToolTipText = "שמור זמני היום בקובץ";
             this.btnSaveDailyInfo.Click += new System.EventHandler(this.btnSaveDailyInfo_Click);
@@ -481,9 +499,99 @@
             this.btnClose.Text = "סגור";
             this.btnClose.UseVisualStyleBackColor = false;
             // 
-            // FrmAddNewEntry
+            // choiceSwitcherMikvah
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.choiceSwitcherMikvah.BackColor = System.Drawing.Color.Silver;
+            this.choiceSwitcherMikvah.BackColorNotSelected = System.Drawing.Color.Empty;
+            this.choiceSwitcherMikvah.BackColorSelected = System.Drawing.Color.Empty;
+            this.choiceSwitcherMikvah.BackColorSlot = System.Drawing.Color.ForestGreen;
+            this.choiceSwitcherMikvah.BackColorSlotChoiceTwo = System.Drawing.Color.DarkGray;
+            this.choiceSwitcherMikvah.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("choiceSwitcherMikvah.BackgroundImage")));
+            this.choiceSwitcherMikvah.ChoiceChosen = Chashavshavon.ChoiceSwitcherChoices.ChoiceTwo;
+            this.choiceSwitcherMikvah.ChoiceOneSelected = false;
+            this.choiceSwitcherMikvah.ChoiceTwoSelected = true;
+            this.choiceSwitcherMikvah.DisplayAsYesNo = false;
+            this.choiceSwitcherMikvah.FontNotSelected = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.choiceSwitcherMikvah.FontSelected = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.choiceSwitcherMikvah.FontSize = 7.8F;
+            this.choiceSwitcherMikvah.ForeColorNotSelected = System.Drawing.Color.DimGray;
+            this.choiceSwitcherMikvah.ForeColorSelected = System.Drawing.Color.Green;
+            this.choiceSwitcherMikvah.Location = new System.Drawing.Point(307, 108);
+            this.choiceSwitcherMikvah.Name = "choiceSwitcherMikvah";
+            this.choiceSwitcherMikvah.Padding = new System.Windows.Forms.Padding(10);
+            this.choiceSwitcherMikvah.SelectedValue = true;
+            this.choiceSwitcherMikvah.Size = new System.Drawing.Size(221, 60);
+            this.choiceSwitcherMikvah.TabIndex = 0;
+            this.choiceSwitcherMikvah.Text = "choiceSwitcher1";
+            this.choiceSwitcherMikvah.TextChoiceOne = "מקוה";
+            this.choiceSwitcherMikvah.TextChoiceTwo = "";
+            this.choiceSwitcherMikvah.ValueChoiceOne = false;
+            this.choiceSwitcherMikvah.ValueChoiceTwo = true;
+            this.choiceSwitcherMikvah.ChoiceSwitched += new System.EventHandler(this.choiceSwitcherMikvah_ChoiceSwitched);
+            // 
+            // choiceSwitcherHefsek
+            // 
+            this.choiceSwitcherHefsek.BackColor = System.Drawing.Color.Silver;
+            this.choiceSwitcherHefsek.BackColorNotSelected = System.Drawing.Color.Empty;
+            this.choiceSwitcherHefsek.BackColorSelected = System.Drawing.Color.Transparent;
+            this.choiceSwitcherHefsek.BackColorSlot = System.Drawing.Color.ForestGreen;
+            this.choiceSwitcherHefsek.BackColorSlotChoiceTwo = System.Drawing.Color.DarkGray;
+            this.choiceSwitcherHefsek.BackgroundImage = global::Chashavshavon.Properties.Resources.DarkMarble;
+            this.choiceSwitcherHefsek.ChoiceChosen = Chashavshavon.ChoiceSwitcherChoices.ChoiceTwo;
+            this.choiceSwitcherHefsek.ChoiceOneSelected = false;
+            this.choiceSwitcherHefsek.ChoiceTwoSelected = true;
+            this.choiceSwitcherHefsek.DisplayAsYesNo = false;
+            this.choiceSwitcherHefsek.FontNotSelected = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.choiceSwitcherHefsek.FontSelected = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.choiceSwitcherHefsek.FontSize = 7.8F;
+            this.choiceSwitcherHefsek.ForeColorNotSelected = System.Drawing.Color.DimGray;
+            this.choiceSwitcherHefsek.ForeColorSelected = System.Drawing.Color.Green;
+            this.choiceSwitcherHefsek.Location = new System.Drawing.Point(270, 17);
+            this.choiceSwitcherHefsek.Name = "choiceSwitcherHefsek";
+            this.choiceSwitcherHefsek.Padding = new System.Windows.Forms.Padding(10);
+            this.choiceSwitcherHefsek.SelectedValue = true;
+            this.choiceSwitcherHefsek.Size = new System.Drawing.Size(258, 60);
+            this.choiceSwitcherHefsek.TabIndex = 1;
+            this.choiceSwitcherHefsek.Text = "choiceSwitcher2";
+            this.choiceSwitcherHefsek.TextChoiceOne = "הפסק טהרה";
+            this.choiceSwitcherHefsek.TextChoiceTwo = "";
+            this.choiceSwitcherHefsek.ValueChoiceOne = false;
+            this.choiceSwitcherHefsek.ValueChoiceTwo = true;
+            this.choiceSwitcherHefsek.ChoiceSwitched += new System.EventHandler(this.choiceSwitcherHefsek_ChoiceSwitched);
+            // 
+            // choiceSwitcherShailah
+            // 
+            this.choiceSwitcherShailah.BackColor = System.Drawing.Color.Silver;
+            this.choiceSwitcherShailah.BackColorNotSelected = System.Drawing.Color.Empty;
+            this.choiceSwitcherShailah.BackColorSelected = System.Drawing.Color.Transparent;
+            this.choiceSwitcherShailah.BackColorSlot = System.Drawing.Color.ForestGreen;
+            this.choiceSwitcherShailah.BackColorSlotChoiceTwo = System.Drawing.Color.DarkGray;
+            this.choiceSwitcherShailah.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("choiceSwitcherShailah.BackgroundImage")));
+            this.choiceSwitcherShailah.ChoiceChosen = Chashavshavon.ChoiceSwitcherChoices.ChoiceTwo;
+            this.choiceSwitcherShailah.ChoiceOneSelected = false;
+            this.choiceSwitcherShailah.ChoiceTwoSelected = true;
+            this.choiceSwitcherShailah.DisplayAsYesNo = false;
+            this.choiceSwitcherShailah.FontNotSelected = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.choiceSwitcherShailah.FontSelected = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.choiceSwitcherShailah.FontSize = 7.8F;
+            this.choiceSwitcherShailah.ForeColorNotSelected = System.Drawing.Color.DimGray;
+            this.choiceSwitcherShailah.ForeColorSelected = System.Drawing.Color.Green;
+            this.choiceSwitcherShailah.Location = new System.Drawing.Point(21, 63);
+            this.choiceSwitcherShailah.Name = "choiceSwitcherShailah";
+            this.choiceSwitcherShailah.Padding = new System.Windows.Forms.Padding(10);
+            this.choiceSwitcherShailah.SelectedValue = true;
+            this.choiceSwitcherShailah.Size = new System.Drawing.Size(221, 60);
+            this.choiceSwitcherShailah.TabIndex = 2;
+            this.choiceSwitcherShailah.Text = "choiceSwitcher3";
+            this.choiceSwitcherShailah.TextChoiceOne = "שאלה";
+            this.choiceSwitcherShailah.TextChoiceTwo = "";
+            this.choiceSwitcherShailah.ValueChoiceOne = false;
+            this.choiceSwitcherShailah.ValueChoiceTwo = true;
+            this.choiceSwitcherShailah.ChoiceSwitched += new System.EventHandler(this.choiceSwitcherShailah_ChoiceSwitched);
+            // 
+            // FrmDailyInfo
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(922, 670);
@@ -496,7 +604,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FrmAddNewEntry";
+            this.Name = "FrmDailyInfo";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.ShowInTaskbar = false;
@@ -512,6 +620,7 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -546,5 +655,9 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnPrintDailyInfo;
         private System.Windows.Forms.ToolStripButton btnSaveDailyInfo;
+        private System.Windows.Forms.Panel panel1;
+        private ChoiceSwitcher choiceSwitcherHefsek;
+        private ChoiceSwitcher choiceSwitcherMikvah;
+        private ChoiceSwitcher choiceSwitcherShailah;
     }
 }

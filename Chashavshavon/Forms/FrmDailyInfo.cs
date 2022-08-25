@@ -27,6 +27,7 @@ namespace Chashavshavon
             this.InitDropdowns();
             this.GoToDate(date);
             this.SetDayNightRadio();
+            this.InitSwitchers();
         }
 
         private void GoToDate(DateTime date)
@@ -169,6 +170,19 @@ namespace Chashavshavon
             this.rbNight.Checked = isNight;
         }
 
+        private void InitSwitchers()
+        {
+            this.choiceSwitcherHefsek.ChoiceOneSelected = Program.TaharaEventList.Any(te =>
+               te.DateTime.IsSameday(this._displayingSecularDate) &&
+               te.TaharaEventType == TaharaEventType.Hefsek);
+            this.choiceSwitcherMikvah.ChoiceOneSelected = Program.TaharaEventList.Any(te =>
+               te.DateTime.IsSameday(this._displayingSecularDate) &&
+               te.TaharaEventType == TaharaEventType.Mikvah);
+            this.choiceSwitcherShailah.ChoiceOneSelected = Program.TaharaEventList.Any(te =>
+               te.DateTime.IsSameday(this._displayingSecularDate) &&
+               te.TaharaEventType == TaharaEventType.Shailah);
+        }
+
         private void InitDropdowns()
         {
             for (int i = 5750; i < 6000; i++)
@@ -239,6 +253,51 @@ namespace Chashavshavon
             }
         }
 
+        private void choiceSwitcherHefsek_ChoiceSwitched(object sender, EventArgs e)
+        {
+            var hefesk = Program.TaharaEventList.FirstOrDefault(te =>
+                te.DateTime.IsSameday(this._displayingSecularDate) &&
+                te.TaharaEventType == TaharaEventType.Hefsek);
+            if (this.choiceSwitcherHefsek.ChoiceOneSelected && hefesk == null)
+            {
+                Program.MainForm.AddTaharaEvent(new TaharaEvent(TaharaEventType.Hefsek) { DateTime = this._displayingSecularDate });
+            }
+            else if (!this.choiceSwitcherHefsek.ChoiceOneSelected && hefesk != null)
+            {
+                Program.MainForm.RemoveTaharaEvent(hefesk);
+            }
+        }
+
+        private void choiceSwitcherMikvah_ChoiceSwitched(object sender, EventArgs e)
+        {
+            var mikvah = Program.TaharaEventList.FirstOrDefault(te =>
+                te.DateTime.IsSameday(this._displayingSecularDate) &&
+                te.TaharaEventType == TaharaEventType.Mikvah);
+            if (this.choiceSwitcherMikvah.ChoiceOneSelected && mikvah == null)
+            {
+                Program.MainForm.AddTaharaEvent(new TaharaEvent(TaharaEventType.Mikvah) { DateTime = this._displayingSecularDate });
+            }
+            else if (!this.choiceSwitcherMikvah.ChoiceOneSelected && mikvah != null)
+            {
+                Program.MainForm.RemoveTaharaEvent(mikvah);
+            }
+        }
+
+        private void choiceSwitcherShailah_ChoiceSwitched(object sender, EventArgs e)
+        {
+            var shailah = Program.TaharaEventList.FirstOrDefault(te =>
+                te.DateTime.IsSameday(this._displayingSecularDate) &&
+                te.TaharaEventType == TaharaEventType.Shailah);
+            if (this.choiceSwitcherShailah.ChoiceOneSelected && shailah == null)
+            {
+                Program.MainForm.AddTaharaEvent(new TaharaEvent(TaharaEventType.Shailah) { DateTime = this._displayingSecularDate });
+            }
+            else if (!this.choiceSwitcherShailah.ChoiceOneSelected && shailah != null)
+            {
+                Program.MainForm.RemoveTaharaEvent(shailah);
+            }
+        }
+
 
         private void btnToday_Click(object sender, EventArgs e)
         {
@@ -298,7 +357,7 @@ namespace Chashavshavon
             double shaaZmanis = this._dailyZmanim.ShaaZmanis;
             double shaaZmanis90 = this._dailyZmanim.ShaaZmanisMga;
             var html = new StringBuilder();
-            
+
             html.AppendFormat("<div class=\"padWidth royalBlue bold\">{0}",
                 this._displayingJewishDate.ToLongDateStringHeb());
             html.AppendFormat("<span class=\"sdate\">{0}</span></div>",
@@ -498,7 +557,7 @@ namespace Chashavshavon
                     var dateDiff = new Itenso.TimePeriod.DateDiff(
                         this._displayingSecularDate,
                         now.GregorianDate,
-                        GeneralUtils.SecularDateCultureInfo.DateTimeFormat.Calendar, 
+                        GeneralUtils.SecularDateCultureInfo.DateTimeFormat.Calendar,
                         DayOfWeek.Sunday, Itenso.TimePeriod.YearMonth.January);
                     int years = Math.Abs(dateDiff.ElapsedYears),
                         months = Math.Abs(dateDiff.ElapsedMonths);
@@ -549,8 +608,8 @@ namespace Chashavshavon
 
         private void btnSaveDailyInfo_Click(object sender, EventArgs e)
         {
-            using (var sd = new SaveFileDialog {FileName= this.Text.Replace("'", "").Replace("\"", "") + ".html" })
-            {                
+            using (var sd = new SaveFileDialog { FileName = this.Text.Replace("'", "").Replace("\"", "") + ".html" })
+            {
                 if (sd.ShowDialog() == DialogResult.OK)
                 {
                     System.IO.File.WriteAllText(sd.FileName, this.webBrowser1.DocumentText, Encoding.UTF8);
@@ -558,5 +617,6 @@ namespace Chashavshavon
                 }
             }
         }
+
     }
 }

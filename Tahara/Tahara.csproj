@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entry.cs" />
+    <Compile Include="TaharaEvent.cs" />
     <Compile Include="Kavuah.cs" />
     <Compile Include="MonthObject.cs" />
     <Compile Include="Onah.cs" />
