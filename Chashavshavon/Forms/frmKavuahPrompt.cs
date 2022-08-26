@@ -11,36 +11,36 @@ namespace Chashavshavon
 
         public FrmKavuahPrompt(List<Kavuah> list)
         {
-            this.InitializeComponent();
-            this._listToAdd.AddRange(list);
-            this.bindingSource1.DataSource = this._listToAdd;
+            InitializeComponent();
+            _listToAdd.AddRange(list);
+            bindingSource1.DataSource = _listToAdd;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            this.bindingSource1.EndEdit();
-            this.DialogResult = DialogResult.OK;
+            bindingSource1.EndEdit();
+            DialogResult = DialogResult.OK;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this._listToAdd.Clear();
-            this.DialogResult = DialogResult.OK;
+            _listToAdd.Clear();
+            DialogResult = DialogResult.OK;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
         }
 
         private void dgvKavuahList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
             {
-                this.bindingSource1.Remove(this.dgvKavuahList.Rows[e.RowIndex].DataBoundItem);
+                bindingSource1.Remove(dgvKavuahList.Rows[e.RowIndex].DataBoundItem);
             }
         }
 
-        public List<Kavuah> ListToAdd => this._listToAdd;
+        public List<Kavuah> ListToAdd => _listToAdd;
     }
 }

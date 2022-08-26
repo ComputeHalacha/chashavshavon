@@ -13,49 +13,49 @@ namespace Chashavshavon
 
         public FrmRemoteFiles()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void frmRemoteFiles_Load(object sender, EventArgs e)
         {
-            this._mainForm = (FrmMain)this.Owner;
+            _mainForm = (FrmMain)Owner;
 
-            if (!this._mainForm.TestInternet())
+            if (!_mainForm.TestInternet())
             {
                 Program.Exclaim("אין גישה לרשת כרגע");
-                this.Close();
+                Close();
                 return;
             }
 
-            this.txtCurrentFileName.Text = this._mainForm.CurrentFileName;
+            txtCurrentFileName.Text = _mainForm.CurrentFileName;
 
             if (!string.IsNullOrEmpty(Properties.Settings.Default.RemoteUserName))
             {
-                this.txtUserName.Text = Properties.Settings.Default.RemoteUserName;
-                this.txtPassword.Text = Properties.Settings.Default.RemotePassword;
-                this.LogIn();
+                txtUserName.Text = Properties.Settings.Default.RemoteUserName;
+                txtPassword.Text = Properties.Settings.Default.RemotePassword;
+                LogIn();
             }
         }
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            if (this.ValidateUserFields())
+            if (ValidateUserFields())
             {
-                this.LogIn();
+                LogIn();
             }
         }
 
         private void btnNewUser_Click(object sender, EventArgs e)
         {
-            if (this.ValidateUserFields())
+            if (ValidateUserFields())
             {
-                this.SaveUser();
+                SaveUser();
                 Utils.RemoteFunctions.RunRemoteAction("NewUser",
                     xml =>
                     {
                         Program.Inform("משתמש החדש נבראה בהצלחה");
-                        this.lbFileNames.Items.Add("אין קבצים...");
-                        this.txtCurrentFileName.Text = this._mainForm.CurrentFileName;
+                        lbFileNames.Items.Add("אין קבצים...");
+                        txtCurrentFileName.Text = _mainForm.CurrentFileName;
                     },
                     s => Program.Warn(s));
             }
@@ -63,47 +63,47 @@ namespace Chashavshavon
 
         private void btnSaveCurrent_Click(object sender, EventArgs e)
         {
-            this.SaveUser();
-            if (this.lbFileNames.Items.Contains(this.txtCurrentFileName.Text))
+            SaveUser();
+            if (lbFileNames.Items.Contains(txtCurrentFileName.Text))
             {
                 if (Program.AskUser(string.Format("קובץ בשם" + "{0}\"{1}\"{0}" +
                         ".כבר קיים ברשימת קובצים שלכם{0}?האם להחליפו בקובץ הנוכחי",
                         Environment.NewLine,
-                        this.txtCurrentFileName.Text)))
+                        txtCurrentFileName.Text)))
                 {
-                    this.SaveCurrentFile(this.txtCurrentFileName.Text, this._mainForm.CurrentFileJson);
+                    SaveCurrentFile(txtCurrentFileName.Text, _mainForm.CurrentFileJson);
 
                 }
             }
             else
             {
-                string fileName = this.txtCurrentFileName.Text;
+                string fileName = txtCurrentFileName.Text;
 
                 Utils.RemoteFunctions.RunRemoteAction("AddFile",
                 doc =>
                     {
                         Program.Inform(":הקובץ נשמרה ברשת בשם" + Environment.NewLine + fileName);
-                        this.LogIn();
+                        LogIn();
                     },
                 s => Program.Warn(s),
                 Utils.RemoteFunctions.NewParam("fileName", fileName),
-                Utils.RemoteFunctions.NewParam("fileText", this._mainForm.CurrentFileJson));
+                Utils.RemoteFunctions.NewParam("fileText", _mainForm.CurrentFileJson));
             }
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            this.OpenFileFromList();
+            OpenFileFromList();
         }
 
         private void lbFileNames_DoubleClick(object sender, EventArgs e)
         {
-            this.OpenFileFromList();
+            OpenFileFromList();
         }
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            if ((!this.ValidateUserFields()) ||
+            if ((!ValidateUserFields()) ||
                 !Program.AskUser("?האם אתם בטוחים שאתם רוצים למחוק משתמש הזאת מהמערכת עם כל הקבצים השמורים ברשימה"))
             {
                 return;
@@ -113,9 +113,9 @@ namespace Chashavshavon
                     doc =>
                     {
                         Program.Inform("המשתמש נמחקה בהצלחה");
-                        this.lbFileNames.Items.Clear();
-                        this.txtUserName.Text = "";
-                        this.txtPassword.Text = "";
+                        lbFileNames.Items.Clear();
+                        txtUserName.Text = "";
+                        txtPassword.Text = "";
                         Properties.Settings.Default.RemotePassword = "";
                         Properties.Settings.Default.RemoteUserName = "";
                     },
@@ -125,19 +125,19 @@ namespace Chashavshavon
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            this.SaveUser();
-            if (this.lbFileNames.SelectedItem != null)
+            SaveUser();
+            if (lbFileNames.SelectedItem != null)
             {
-                if (Program.AskUser(" האם אתם בטוחים שאתם רוצים למחוק את הקובץ בשם" + Environment.NewLine + this.lbFileNames.SelectedItem.ToString()))
+                if (Program.AskUser(" האם אתם בטוחים שאתם רוצים למחוק את הקובץ בשם" + Environment.NewLine + lbFileNames.SelectedItem.ToString()))
                 {
                     Utils.RemoteFunctions.RunRemoteAction("DeleteFile",
                         doc =>
                         {
-                            Program.Inform("הקובץ " + this.lbFileNames.SelectedItem + " נמחקה");
-                            this.lbFileNames.Items.Remove(this.lbFileNames.SelectedItem);
+                            Program.Inform("הקובץ " + lbFileNames.SelectedItem + " נמחקה");
+                            lbFileNames.Items.Remove(lbFileNames.SelectedItem);
                         },
                         w => Program.Warn(w),
-                        Utils.RemoteFunctions.NewParam("fileName", this.lbFileNames.SelectedItem.ToString()));
+                        Utils.RemoteFunctions.NewParam("fileName", lbFileNames.SelectedItem.ToString()));
                 }
             }
             else
@@ -153,14 +153,14 @@ namespace Chashavshavon
 
         private void btnPreview_Click(object sender, EventArgs e)
         {
-            this.SaveUser();
-            if (this.lbFileNames.SelectedItem != null)
+            SaveUser();
+            if (lbFileNames.SelectedItem != null)
             {
                 string html = Utils.RemoteFunctions.GetRemoteResponseText("GetFileAsHTML",
-                                    Utils.RemoteFunctions.NewParam("fileName", this.lbFileNames.SelectedItem.ToString()));
-                var fb = new FrmBrowser
+                                    Utils.RemoteFunctions.NewParam("fileName", lbFileNames.SelectedItem.ToString()));
+                FrmBrowser fb = new FrmBrowser
                 {
-                    Text = "הצגת קובץ רשת - " + this.lbFileNames.SelectedItem.ToString(),
+                    Text = "הצגת קובץ רשת - " + lbFileNames.SelectedItem.ToString(),
                     Html = html
                 };
                 fb.ShowDialog(this);
@@ -173,22 +173,22 @@ namespace Chashavshavon
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void SaveUser()
         {
-            Properties.Settings.Default.RemoteUserName = this.txtUserName.Text;
-            Properties.Settings.Default.RemotePassword = this.txtPassword.Text;
+            Properties.Settings.Default.RemoteUserName = txtUserName.Text;
+            Properties.Settings.Default.RemotePassword = txtPassword.Text;
             Properties.Settings.Default.Save();
         }
 
         private void OpenFileFromList()
         {
-            this.SaveUser();
-            if (this.lbFileNames.SelectedItem != null)
+            SaveUser();
+            if (lbFileNames.SelectedItem != null)
             {
-                using (var sfd = new SaveFileDialog
+                using (SaveFileDialog sfd = new SaveFileDialog
                 {
                     OverwritePrompt = true,
                     DefaultExt = ".pmj",
@@ -198,7 +198,7 @@ namespace Chashavshavon
                 {
                     if (sfd.ShowDialog(this) == DialogResult.OK)
                     {
-                        string xml = Utils.RemoteFunctions.GetFileXml(this.lbFileNames.SelectedItem.ToString());
+                        string xml = Utils.RemoteFunctions.GetFileXml(lbFileNames.SelectedItem.ToString());
                         File.WriteAllText(sfd.FileName, xml);
                         Program.Inform("הקובץ נשמרה ב" + sfd.FileName);
                     }
@@ -216,19 +216,19 @@ namespace Chashavshavon
             Utils.RemoteFunctions.RunRemoteAction("GetFileList",
                 doc =>
                     {
-                        this.SaveUser();
-                        this.lbFileNames.Items.Clear();
+                        SaveUser();
+                        lbFileNames.Items.Clear();
                         XmlNode files = doc.SelectSingleNode("//files");
                         if (files.HasChildNodes)
                         {
                             foreach (XmlNode file in files.SelectNodes("//file"))
                             {
-                                this.lbFileNames.Items.Add(file.Attributes["fileName"].Value);
+                                lbFileNames.Items.Add(file.Attributes["fileName"].Value);
                             }
                         }
                         else
                         {
-                            this.lbFileNames.Items.Add("אין קבצים...");
+                            lbFileNames.Items.Add("אין קבצים...");
                         }
                     },
                 s => Program.Warn(s));
@@ -236,12 +236,12 @@ namespace Chashavshavon
 
         private bool ValidateUserFields()
         {
-            var messages = new List<string>();
-            if (this.txtUserName.Text.Length < 3)
+            List<string> messages = new List<string>();
+            if (txtUserName.Text.Length < 3)
             {
                 messages.Add(string.Format("{0}             שם משתמש שהוקש איננה חוקי  * {0}          אורך השם משתמש חייב להיות לפחות שני תווים", Environment.NewLine));
             }
-            if (this.txtPassword.Text.Length < 4)
+            if (txtPassword.Text.Length < 4)
             {
                 messages.Add(string.Format("{0}             סיסמה שהוקש איננה חוקי  * {0}          אורך הסיסמה חייב להיות לפחות ארבע תווים", Environment.NewLine));
             }

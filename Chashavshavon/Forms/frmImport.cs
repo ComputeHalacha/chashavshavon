@@ -17,7 +17,7 @@ namespace Chashavshavon
 
         public FrmImport(string path)
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             if (File.Exists(path))
             {
@@ -28,218 +28,218 @@ namespace Chashavshavon
                 }
                 if (fileText.TrimStart().StartsWith("<"))
                 {
-                    (this.EntryList, this.KavuahList) =
+                    (EntryList, KavuahList) =
                    Program.LoadEntriesKavuahsFromXml(fileText);
                 }
                 else if (fileText.TrimStart().StartsWith("{"))
                 {
-                    (this.EntryList, this.KavuahList, this.TaharaEventList) =
+                    (EntryList, KavuahList, TaharaEventList) =
                    Program.LoadEntriesKavuahsFromJson(fileText);
                 }
 
-                foreach (Entry e in this.EntryList)
+                foreach (Entry e in EntryList)
                 {
-                    this.lvEntries.Items.Add(new ListViewItem(e.ToString()) { Tag = e });
+                    lvEntries.Items.Add(new ListViewItem(e.ToString()) { Tag = e });
                 }
-                foreach (Kavuah k in this.KavuahList)
+                foreach (Kavuah k in KavuahList)
                 {
-                    this.lvKavuahs.Items.Add(new ListViewItem(k.ToString()) { Tag = k });
+                    lvKavuahs.Items.Add(new ListViewItem(k.ToString()) { Tag = k });
                 }
-                foreach (TaharaEvent t in this.TaharaEventList)
+                foreach (TaharaEvent t in TaharaEventList)
                 {
-                    this.lvTaharaEvents.Items.Add(new ListViewItem(t.ToString()) { Tag = t });
+                    lvTaharaEvents.Items.Add(new ListViewItem(t.ToString()) { Tag = t });
                 }
             }
-            this._loading = false;
+            _loading = false;
         }
 
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
         }
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            this.EntryList.Clear();
-            foreach (ListViewItem i in this.lvEntries.Items)
+            Hide();
+            EntryList.Clear();
+            foreach (ListViewItem i in lvEntries.Items)
             {
                 if (i.Checked)
                 {
-                    this.EntryList.Add((Entry)i.Tag);
+                    EntryList.Add((Entry)i.Tag);
                 }
             }
-            foreach (ListViewItem i in this.lvKavuahs.Items)
+            foreach (ListViewItem i in lvKavuahs.Items)
             {
                 if (i.Checked)
                 {
-                    this.KavuahList.Add((Kavuah)i.Tag);
+                    KavuahList.Add((Kavuah)i.Tag);
                 }
             }
-            foreach (ListViewItem i in this.lvTaharaEvents.Items)
+            foreach (ListViewItem i in lvTaharaEvents.Items)
             {
                 if (i.Checked)
                 {
-                    this.TaharaEventList.Add((TaharaEvent)i.Tag);
+                    TaharaEventList.Add((TaharaEvent)i.Tag);
                 }
             }
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
         }
 
         private void cbAllEntries_CheckedChanged(object sender, EventArgs e)
         {
-            if (this._loading)
+            if (_loading)
             {
                 return;
             }
-            bool prev = this._loading;
-            this._loading = true;
-            if (this.cbAllEntries.CheckState != CheckState.Indeterminate)
+            bool prev = _loading;
+            _loading = true;
+            if (cbAllEntries.CheckState != CheckState.Indeterminate)
             {
-                foreach (ListViewItem i in this.lvEntries.Items)
+                foreach (ListViewItem i in lvEntries.Items)
                 {
-                    i.Checked = this.cbAllEntries.Checked;
+                    i.Checked = cbAllEntries.Checked;
                 }
             }
-            this._loading = prev;
+            _loading = prev;
         }
 
         private void cbAllKavuahs_CheckedChanged(object sender, EventArgs e)
         {
-            if (this._loading)
+            if (_loading)
             {
                 return;
             }
-            bool prev = this._loading;
-            this._loading = true;
-            if (this.cbAllKavuahs.CheckState != CheckState.Indeterminate)
+            bool prev = _loading;
+            _loading = true;
+            if (cbAllKavuahs.CheckState != CheckState.Indeterminate)
             {
-                foreach (ListViewItem i in this.lvKavuahs.Items)
+                foreach (ListViewItem i in lvKavuahs.Items)
                 {
-                    i.Checked = this.cbAllKavuahs.Checked;
+                    i.Checked = cbAllKavuahs.Checked;
                 }
             }
-            this._loading = prev;
+            _loading = prev;
         }
 
         private void cbAllTaharaEvents_CheckedChanged(object sender, EventArgs e)
         {
-            if (this._loading)
+            if (_loading)
             {
                 return;
             }
-            bool prev = this._loading;
-            this._loading = true;
-            if (this.cbAllTaharaEvents.CheckState != CheckState.Indeterminate)
+            bool prev = _loading;
+            _loading = true;
+            if (cbAllTaharaEvents.CheckState != CheckState.Indeterminate)
             {
-                foreach (ListViewItem i in this.lvTaharaEvents.Items)
+                foreach (ListViewItem i in lvTaharaEvents.Items)
                 {
-                    i.Checked = this.cbAllTaharaEvents.Checked;
+                    i.Checked = cbAllTaharaEvents.Checked;
                 }
             }
-            this._loading = prev;
+            _loading = prev;
         }
 
         private void lvEntries_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (this._loading)
+            if (_loading)
             {
                 return;
             }
-            bool prev = this._loading;
-            this._loading = true;
-            IEnumerable<ListViewItem> lv = this.lvEntries.Items.Cast<ListViewItem>();
+            bool prev = _loading;
+            _loading = true;
+            IEnumerable<ListViewItem> lv = lvEntries.Items.Cast<ListViewItem>();
             if (lv.All(lvi => lvi.Checked))
             {
-                this.cbAllEntries.Checked = true;
-                this.cbAllEntries.CheckState = CheckState.Checked;
+                cbAllEntries.Checked = true;
+                cbAllEntries.CheckState = CheckState.Checked;
             }
             else if (lv.All(lvi => !lvi.Checked))
             {
-                this.cbAllEntries.Checked = false;
-                this.cbAllEntries.CheckState = CheckState.Unchecked;
+                cbAllEntries.Checked = false;
+                cbAllEntries.CheckState = CheckState.Unchecked;
             }
             else
             {
-                this.cbAllEntries.Checked = false;
-                this.cbAllEntries.CheckState = CheckState.Indeterminate;
+                cbAllEntries.Checked = false;
+                cbAllEntries.CheckState = CheckState.Indeterminate;
             }
-            this._loading = prev;
+            _loading = prev;
         }
 
         private void lvKavuahs_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (this._loading)
+            if (_loading)
             {
                 return;
             }
-            bool prev = this._loading;
-            this._loading = true;
-            IEnumerable<ListViewItem> lv = this.lvKavuahs.Items.Cast<ListViewItem>();
+            bool prev = _loading;
+            _loading = true;
+            IEnumerable<ListViewItem> lv = lvKavuahs.Items.Cast<ListViewItem>();
             if (lv.All(lvi => lvi.Checked))
             {
-                this.cbAllKavuahs.Checked = true;
-                this.cbAllKavuahs.CheckState = CheckState.Checked;
+                cbAllKavuahs.Checked = true;
+                cbAllKavuahs.CheckState = CheckState.Checked;
             }
             else if (lv.All(lvi => !lvi.Checked))
             {
-                this.cbAllKavuahs.Checked = false;
-                this.cbAllKavuahs.CheckState = CheckState.Unchecked;
+                cbAllKavuahs.Checked = false;
+                cbAllKavuahs.CheckState = CheckState.Unchecked;
             }
             else
             {
-                this.cbAllKavuahs.Checked = false;
-                this.cbAllKavuahs.CheckState = CheckState.Indeterminate;
+                cbAllKavuahs.Checked = false;
+                cbAllKavuahs.CheckState = CheckState.Indeterminate;
             }
-            this._loading = prev;
+            _loading = prev;
         }
 
         private void lvTaharaEvents_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (this._loading)
+            if (_loading)
             {
                 return;
             }
-            bool prev = this._loading;
-            this._loading = true;
-            IEnumerable<ListViewItem> lv = this.lvTaharaEvents.Items.Cast<ListViewItem>();
+            bool prev = _loading;
+            _loading = true;
+            IEnumerable<ListViewItem> lv = lvTaharaEvents.Items.Cast<ListViewItem>();
             if (lv.All(lvi => lvi.Checked))
             {
-                this.cbAllTaharaEvents.Checked = true;
-                this.cbAllTaharaEvents.CheckState = CheckState.Checked;
+                cbAllTaharaEvents.Checked = true;
+                cbAllTaharaEvents.CheckState = CheckState.Checked;
             }
             else if (lv.All(lvi => !lvi.Checked))
             {
-                this.cbAllTaharaEvents.Checked = false;
-                this.cbAllTaharaEvents.CheckState = CheckState.Unchecked;
+                cbAllTaharaEvents.Checked = false;
+                cbAllTaharaEvents.CheckState = CheckState.Unchecked;
             }
             else
             {
-                this.cbAllTaharaEvents.Checked = false;
-                this.cbAllTaharaEvents.CheckState = CheckState.Indeterminate;
+                cbAllTaharaEvents.Checked = false;
+                cbAllTaharaEvents.CheckState = CheckState.Indeterminate;
             }
-            this._loading = prev;
+            _loading = prev;
 
         }
 
         private void lvEntries_ItemActivate(object sender, EventArgs e)
         {
-            bool isc = this.lvEntries.SelectedItems[0].Checked;
-            this.lvEntries.SelectedItems[0].Checked = !isc;
+            bool isc = lvEntries.SelectedItems[0].Checked;
+            lvEntries.SelectedItems[0].Checked = !isc;
         }
 
         private void lvKavuahs_ItemActivate(object sender, EventArgs e)
         {
 
-            bool isc = this.lvKavuahs.SelectedItems[0].Checked;
-            this.lvKavuahs.SelectedItems[0].Checked = !isc;
+            bool isc = lvKavuahs.SelectedItems[0].Checked;
+            lvKavuahs.SelectedItems[0].Checked = !isc;
         }
 
         private void lvTaharaEvents_ItemActivate(object sender, EventArgs e)
         {
-            bool isc = this.lvTaharaEvents.SelectedItems[0].Checked;
-            this.lvTaharaEvents.SelectedItems[0].Checked = !isc;
+            bool isc = lvTaharaEvents.SelectedItems[0].Checked;
+            lvTaharaEvents.SelectedItems[0].Checked = !isc;
         }        
     }
 }

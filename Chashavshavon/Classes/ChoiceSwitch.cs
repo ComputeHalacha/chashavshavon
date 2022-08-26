@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.Drawing;
 using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 namespace Chashavshavon
 {
     public enum ChoiceSwitcherChoices
@@ -35,128 +35,125 @@ namespace Chashavshavon
 
         public ChoiceSwitcher()
         {
-            this.InitializeProps();
+            InitializeProps();
         }
 
         public object ValueChoiceOne
         {
-            get { return this._valueChoiceOne; }
-            set { this._valueChoiceOne = value; }
+            get => _valueChoiceOne;
+            set => _valueChoiceOne = value;
         }
         public object ValueChoiceTwo
         {
-            get { return this._valueChoiceTwo; }
-            set { this._valueChoiceTwo = value; }
+            get => _valueChoiceTwo;
+            set => _valueChoiceTwo = value;
         }
         public Color BackColorSelected
         {
-            get { return this._backColorSelected; }
+            get => _backColorSelected;
             set
             {
-                if (this._backColorSelected != value)
+                if (_backColorSelected != value)
                 {
-                    this._backColorSelected = value;
-                    this.Invalidate();
+                    _backColorSelected = value;
+                    Invalidate();
                 }
             }
         }
         public Color BackColorNotSelected
         {
-            get { return this._backColorNotSelected; }
+            get => _backColorNotSelected;
             set
             {
-                if (this._backColorNotSelected != value)
+                if (_backColorNotSelected != value)
                 {
-                    this._backColorNotSelected = value;
-                    this.Invalidate();
+                    _backColorNotSelected = value;
+                    Invalidate();
                 }
             }
         }
         public Font FontSelected
         {
-            get { return this._fontSelected; }
+            get => _fontSelected;
             set
             {
-                if (this._fontSelected != value)
+                if (_fontSelected != value)
                 {
-                    this._fontSelected = value;
-                    this.Invalidate();
+                    _fontSelected = value;
+                    Invalidate();
                 }
             }
         }
         public Font FontNotSelected
         {
-            get { return this._fontNotSelected; }
+            get => _fontNotSelected;
             set
             {
-                if (this._fontNotSelected != value)
+                if (_fontNotSelected != value)
                 {
-                    this._fontNotSelected = value;
-                    this.Invalidate();
+                    _fontNotSelected = value;
+                    Invalidate();
                 }
             }
         }
         public Color ForeColorSelected
         {
-            get { return this._foreColorSelected; }
+            get => _foreColorSelected;
             set
             {
-                if (this._foreColorSelected != value)
+                if (_foreColorSelected != value)
                 {
-                    this._foreColorSelected = value;
-                    this.Invalidate();
+                    _foreColorSelected = value;
+                    Invalidate();
                 }
             }
         }
         public Color ForeColorNotSelected
         {
-            get { return this._foreColorNotSelected; }
+            get => _foreColorNotSelected;
             set
             {
-                if (this._foreColorNotSelected != value)
+                if (_foreColorNotSelected != value)
                 {
-                    this._foreColorNotSelected = value;
-                    this.Invalidate();
+                    _foreColorNotSelected = value;
+                    Invalidate();
                 }
             }
         }
         public float FontSize
         {
-            get { return this._fontSize; }
+            get => _fontSize;
             set
             {
-                if (this._fontSize != value)
+                if (_fontSize != value)
                 {
-                    this._fontSize = value;
-                    this.Font = new Font(this.Font.FontFamily, value, this.Font.Style);
-                    this._fontSelected = new Font(this._fontSelected.FontFamily, value, this._fontSelected.Style);
-                    this._fontNotSelected = new Font(this._fontNotSelected.FontFamily, value, this._fontNotSelected.Style);
-                    this.Invalidate();
+                    _fontSize = value;
+                    Font = new Font(Font.FontFamily, value, Font.Style);
+                    _fontSelected = new Font(_fontSelected.FontFamily, value, _fontSelected.Style);
+                    _fontNotSelected = new Font(_fontNotSelected.FontFamily, value, _fontNotSelected.Style);
+                    Invalidate();
                 }
             }
         }
         public object SelectedValue
         {
-            get
-            {
-                return this._choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
-                    this._valueChoiceOne : this._valueChoiceTwo;
-            }
+            get => _choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
+                    _valueChoiceOne : _valueChoiceTwo;
             set
             {
                 if (value == null)
                 {
                     return;
                 }
-                if (this.SelectedValue != value)
+                if (SelectedValue != value)
                 {
-                    if (value.Equals(this._valueChoiceOne))
+                    if (value.Equals(_valueChoiceOne))
                     {
-                        this.ChoiceChosen = ChoiceSwitcherChoices.ChoiceOne;
+                        ChoiceChosen = ChoiceSwitcherChoices.ChoiceOne;
                     }
-                    else if (value.Equals(this._valueChoiceTwo))
+                    else if (value.Equals(_valueChoiceTwo))
                     {
-                        this.ChoiceChosen = ChoiceSwitcherChoices.ChoiceTwo;
+                        ChoiceChosen = ChoiceSwitcherChoices.ChoiceTwo;
                     }
                     else
                     {
@@ -167,196 +164,171 @@ namespace Chashavshavon
         }
         public string TextChoiceOne
         {
-            get
-            {
-                return this._textChoiceOne;
-            }
+            get => _textChoiceOne;
             set
             {
-                this._textChoiceOne = value;
-                this.Invalidate();
+                _textChoiceOne = value;
+                Invalidate();
             }
         }
         public string TextChoiceTwo
         {
-            get
-            {
-                return this._textChoiceTwo;
-            }
+            get => _textChoiceTwo;
             set
             {
-                this._textChoiceTwo = value;
-                this.Invalidate();
+                _textChoiceTwo = value;
+                Invalidate();
             }
         }
         public ChoiceSwitcherChoices ChoiceChosen
         {
-            get
-            {
-                return this._choiceChosen;
-            }
+            get => _choiceChosen;
             set
             {
-                if (this._choiceChosen != value)
+                if (_choiceChosen != value)
                 {
-                    this._choiceChosen = value;
+                    _choiceChosen = value;
                     ChoiceSwitched(this, new EventArgs());
-                    this.Invalidate();
+                    Invalidate();
                 }
             }
         }
         public bool ChoiceOneSelected
         {
-            get
-            {
-                return this._choiceChosen == ChoiceSwitcherChoices.ChoiceOne;
-            }
+            get => _choiceChosen == ChoiceSwitcherChoices.ChoiceOne;
             set
             {
-                if (this.ChoiceOneSelected != value)
+                if (ChoiceOneSelected != value)
                 {
-                    this.ChoiceChosen = value ?
+                    ChoiceChosen = value ?
                         ChoiceSwitcherChoices.ChoiceOne : ChoiceSwitcherChoices.ChoiceTwo;
                 }
             }
         }
         public bool ChoiceTwoSelected
         {
-            get
-            {
-                return this._choiceChosen == ChoiceSwitcherChoices.ChoiceTwo;
-            }
+            get => _choiceChosen == ChoiceSwitcherChoices.ChoiceTwo;
             set
             {
-                if (this.ChoiceTwoSelected != value)
+                if (ChoiceTwoSelected != value)
                 {
-                    this.ChoiceChosen = value ?
+                    ChoiceChosen = value ?
                         ChoiceSwitcherChoices.ChoiceTwo : ChoiceSwitcherChoices.ChoiceOne;
                 }
             }
         }
         public Color BackColorSlot
         {
-            get
-            {
-                return this._backColorSlot;
-            }
+            get => _backColorSlot;
             set
             {
-                if (this._backColorSlot != value)
+                if (_backColorSlot != value)
                 {
-                    this._backColorSlot = value;
-                    this.Invalidate();
+                    _backColorSlot = value;
+                    Invalidate();
                 }
             }
         }
         public Color BackColorSlotChoiceTwo
         {
-            get
-            {
-                return this._backColorSlotChoiceTwo;
-            }
+            get => _backColorSlotChoiceTwo;
             set
             {
-                if (this._backColorSlotChoiceTwo != value)
+                if (_backColorSlotChoiceTwo != value)
                 {
-                    this._backColorSlotChoiceTwo = value;
-                    this.Invalidate();
+                    _backColorSlotChoiceTwo = value;
+                    Invalidate();
                 }
             }
         }
         public bool DisplayAsYesNo
         {
-            get
-            {
-                return
-                    (this._textChoiceOne.ToLower() == "no" || this._textChoiceOne.ToLower() == "true") &&
-                    (this._textChoiceTwo.ToLower() == "yes" || this._textChoiceTwo.ToLower() == "true") &&
-                    this._valueChoiceOne == (object)false &&
-                    this._valueChoiceTwo == (object)true;
-            }
+            get => (_textChoiceOne.ToLower() == "no" || _textChoiceOne.ToLower() == "true") &&
+                    (_textChoiceTwo.ToLower() == "yes" || _textChoiceTwo.ToLower() == "true") &&
+                    _valueChoiceOne == (object)false &&
+                    _valueChoiceTwo == (object)true;
             set
             {
-                if (this.DisplayAsYesNo != value)
+                if (DisplayAsYesNo != value)
                 {
                     if (value)
                     {
-                        this._textChoiceOne = "No";
-                        this._valueChoiceOne = false;
-                        this._textChoiceTwo = "Yes";
-                        this._valueChoiceTwo = true;
-                        this._backColorSlot = Color.Gray;
-                        this._backColorSlotChoiceTwo = Color.Teal;
+                        _textChoiceOne = "No";
+                        _valueChoiceOne = false;
+                        _textChoiceTwo = "Yes";
+                        _valueChoiceTwo = true;
+                        _backColorSlot = Color.Gray;
+                        _backColorSlotChoiceTwo = Color.Teal;
                     }
                     else
                     {
-                        this.InitializeProps();
+                        InitializeProps();
                     }
-                    this.Invalidate();
+                    Invalidate();
                 }
             }
         }
         protected override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
-            this.ChoiceChosen =
-                this._choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
+            ChoiceChosen =
+                _choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
                 ChoiceSwitcherChoices.ChoiceTwo : ChoiceSwitcherChoices.ChoiceOne;
         }
         protected override void OnPaint(PaintEventArgs e)
         {
-            this.SuspendLayout();
+            SuspendLayout();
             base.OnPaint(e);
-            using (var g = e.Graphics)
+            using (Graphics g = e.Graphics)
             {
                 try
                 {
                     g.SmoothingMode = SmoothingMode.HighQuality;
 
-                    SizeF textOneSize = TextRenderer.MeasureText(this._textChoiceOne,
-                            this._fontSelected),
-                        textTwoSize = TextRenderer.MeasureText(this._textChoiceTwo,
-                            this._fontSelected);
+                    SizeF textOneSize = TextRenderer.MeasureText(_textChoiceOne,
+                            _fontSelected),
+                        textTwoSize = TextRenderer.MeasureText(_textChoiceTwo,
+                            _fontSelected);
                     float textWidth = textOneSize.Width + textTwoSize.Width + 2,
-                        slotWidth = ((this.Width - textWidth) * 0.8f) - 2,
-                        slotHeight = this.Height * 0.7f,
-                        slotTop = (this.Height - slotHeight) / 2f,
+                        slotWidth = ((Width - textWidth) * 0.8f) - 2,
+                        slotHeight = Height * 0.7f,
+                        slotTop = (Height - slotHeight) / 2f,
                         slotLeft = textOneSize.Width + 5f;
                     Brush slotBrush = new SolidBrush(
-                        this._choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
-                            this._backColorSlot : this._backColorSlotChoiceTwo),
-                        selectedBackBrush = new SolidBrush(this._backColorSelected),
-                        notSelectedBackBrush = new SolidBrush(this._backColorNotSelected);
+                        _choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
+                            _backColorSlot : _backColorSlotChoiceTwo),
+                        selectedBackBrush = new SolidBrush(_backColorSelected),
+                        notSelectedBackBrush = new SolidBrush(_backColorNotSelected);
 
-                    if (this._choiceChosen == ChoiceSwitcherChoices.ChoiceOne &&
-                        this._backColorSelected != this.BackColor)
+                    if (_choiceChosen == ChoiceSwitcherChoices.ChoiceOne &&
+                        _backColorSelected != BackColor)
                     {
                         g.FillRectangle(
                             selectedBackBrush,
                             0,
                             0,
                             textOneSize.Width,
-                            this.Height);
+                            Height);
 
                     }
-                    else if (this._choiceChosen == ChoiceSwitcherChoices.ChoiceTwo &&
-                        this._backColorNotSelected != this.BackColor)
+                    else if (_choiceChosen == ChoiceSwitcherChoices.ChoiceTwo &&
+                        _backColorNotSelected != BackColor)
                     {
                         g.FillRectangle(
                             notSelectedBackBrush,
                             0,
                             0,
                             textOneSize.Width,
-                            this.Height);
+                            Height);
 
                     }
                     TextRenderer.DrawText(g,
-                        this._textChoiceOne,
-                        this._choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
-                            this._fontSelected : this._fontNotSelected,
-                        new Point(0, (int)((this.Height / 2) - (textOneSize.Height / 2))),
-                         this._choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
-                            this._foreColorSelected : this._foreColorNotSelected);
+                        _textChoiceOne,
+                        _choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
+                            _fontSelected : _fontNotSelected,
+                        new Point(0, (int)((Height / 2) - (textOneSize.Height / 2))),
+                         _choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
+                            _foreColorSelected : _foreColorNotSelected);
                     GraphicsPath graphPath = new GraphicsPath
                     {
                         FillMode = FillMode.Winding
@@ -377,39 +349,39 @@ namespace Chashavshavon
                     g.DrawImage(
                         Properties.Resources.SwitchHead,
                         new RectangleF(
-                            (this._choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
+                            (_choiceChosen == ChoiceSwitcherChoices.ChoiceOne ?
                                 slotLeft - 2 : slotLeft + (slotWidth - slotHeight)) - 2,
                             0,
-                            this.Height,
-                            this.Height));
-                    if (this._backColorSelected != this.BackColor &&
-                        this._choiceChosen == ChoiceSwitcherChoices.ChoiceTwo)
+                            Height,
+                            Height));
+                    if (_backColorSelected != BackColor &&
+                        _choiceChosen == ChoiceSwitcherChoices.ChoiceTwo)
                     {
                         g.FillRectangle(
                             selectedBackBrush,
                             (slotLeft + slotWidth) + 5,
                             0,
                             textTwoSize.Width,
-                            this.Height);
+                            Height);
                     }
-                    else if (this._backColorNotSelected != this.BackColor &&
-                        this._choiceChosen == ChoiceSwitcherChoices.ChoiceOne)
+                    else if (_backColorNotSelected != BackColor &&
+                        _choiceChosen == ChoiceSwitcherChoices.ChoiceOne)
                     {
                         g.FillRectangle(
                             notSelectedBackBrush,
                             (slotLeft + slotWidth) + 5,
                             0,
                             textTwoSize.Width,
-                            this.Height);
+                            Height);
                     }
                     TextRenderer.DrawText(g,
-                    this._textChoiceTwo,
-                     this._choiceChosen == ChoiceSwitcherChoices.ChoiceTwo ?
-                         this._fontSelected : this._fontNotSelected,
+                    _textChoiceTwo,
+                     _choiceChosen == ChoiceSwitcherChoices.ChoiceTwo ?
+                         _fontSelected : _fontNotSelected,
                      new Point((int)((slotLeft + slotWidth) + 5),
-                        (int)((this.Height / 2) - (textOneSize.Height / 2))),
-                      this._choiceChosen == ChoiceSwitcherChoices.ChoiceTwo ?
-                         this._foreColorSelected : this._foreColorNotSelected);
+                        (int)((Height / 2) - (textOneSize.Height / 2))),
+                      _choiceChosen == ChoiceSwitcherChoices.ChoiceTwo ?
+                         _foreColorSelected : _foreColorNotSelected);
 
                     slotBrush.Dispose();
                     selectedBackBrush.Dispose();
@@ -420,26 +392,26 @@ namespace Chashavshavon
                     Console.Write(ex.Message);
                 }
             }
-            this.ResumeLayout();
+            ResumeLayout();
         }
         private void InitializeProps()
         {
-            this.Width = 100;
-            this.Height = 25;
-            this._textChoiceOne = "One";
-            this._textChoiceTwo = "Two";
-            this._valueChoiceOne = false;
-            this._valueChoiceTwo = true;
-            this._choiceChosen = ChoiceSwitcherChoices.ChoiceOne;
-            this._backColorSlot = SystemColors.ControlDark;
-            this._backColorSlotChoiceTwo = this._backColorSlot;
-            this._fontSize = this.Font.Size;
-            this._fontSelected = this.Font;
-            this._fontNotSelected = this._fontSelected;
-            this._backColorSelected = Color.Transparent;
-            this._backColorNotSelected = this._backColorSelected;
-            this._foreColorSelected = this.ForeColor;
-            this._foreColorNotSelected = this._foreColorSelected;
+            Width = 100;
+            Height = 25;
+            _textChoiceOne = "One";
+            _textChoiceTwo = "Two";
+            _valueChoiceOne = false;
+            _valueChoiceTwo = true;
+            _choiceChosen = ChoiceSwitcherChoices.ChoiceOne;
+            _backColorSlot = SystemColors.ControlDark;
+            _backColorSlotChoiceTwo = _backColorSlot;
+            _fontSize = Font.Size;
+            _fontSelected = Font;
+            _fontNotSelected = _fontSelected;
+            _backColorSelected = Color.Transparent;
+            _backColorNotSelected = _backColorSelected;
+            _foreColorSelected = ForeColor;
+            _foreColorNotSelected = _foreColorSelected;
         }
     }
 }

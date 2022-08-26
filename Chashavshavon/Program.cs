@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -120,7 +119,7 @@ namespace Chashavshavon
 
         public static void HandleException(Exception excep, bool silent)
         {
-            using (var bgw = new System.ComponentModel.BackgroundWorker())
+            using (System.ComponentModel.BackgroundWorker bgw = new System.ComponentModel.BackgroundWorker())
             {
                 bgw.DoWork += delegate
                 {
@@ -195,8 +194,8 @@ namespace Chashavshavon
 
         internal static (List<Entry> entries, List<Kavuah> kavuahs) LoadEntriesKavuahsFromXml(string xmlString)
         {
-            var lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>());
-            var xml = new XmlDocument();
+            (List<Entry> entries, List<Kavuah> kavuahs) lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>());
+            XmlDocument xml = new XmlDocument();
 
             xml.LoadXml(xmlString);
             if (xml.HasChildNodes)
@@ -209,10 +208,10 @@ namespace Chashavshavon
                     int day = Convert.ToInt32(entryNode.SelectSingleNode("Day").InnerText);
                     int month = Convert.ToInt32(entryNode.SelectSingleNode("Month").InnerText);
                     int year = Convert.ToInt32(entryNode.SelectSingleNode("Year").InnerText); ;
-                    var dayNight = (DayNight)Convert.ToInt32(entryNode.SelectSingleNode("DN").InnerText);
+                    DayNight dayNight = (DayNight)Convert.ToInt32(entryNode.SelectSingleNode("DN").InnerText);
                     string notes = entryNode.SelectSingleNode("Notes").InnerText;
 
-                    var newEntry = new Entry(day, month, year, dayNight, notes)
+                    Entry newEntry = new Entry(day, month, year, dayNight, notes)
                     {
                         IsInvisible = isInvisible
                     };
@@ -225,7 +224,7 @@ namespace Chashavshavon
                     // won't be prompted again each time the list is reloaded.
                     foreach (XmlNode k in entryNode.SelectNodes("NoKavuah"))
                     {
-                        var ka = new Kavuah(
+                        Kavuah ka = new Kavuah(
                             (KavuahType)Enum.Parse(typeof(KavuahType), k.Attributes["KavuahType"].InnerText),
                             newEntry.DayNight)
                         {
@@ -240,7 +239,7 @@ namespace Chashavshavon
                 //After the list of Entries, there is a lst of Kavuahs
                 if (xml.SelectNodes("//Kavuah").Count > 0)
                 {
-                    var ser = new XmlSerializer(typeof(List<Kavuah>));
+                    XmlSerializer ser = new XmlSerializer(typeof(List<Kavuah>));
                     lists.kavuahs.AddRange((List<Kavuah>)ser.Deserialize(
                         new StringReader(xml.SelectSingleNode("//ArrayOfKavuah").OuterXml)));
                 }
@@ -252,8 +251,8 @@ namespace Chashavshavon
 
         internal static (List<Entry>, List<Kavuah>, List<TaharaEvent>) LoadEntriesKavuahsFromJson(string jsonString)
         {
-            var lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>(), taharaEvents: new List<TaharaEvent>());
-            var js = JToken.Parse(jsonString);
+            (List<Entry> entries, List<Kavuah> kavuahs, List<TaharaEvent> taharaEvents) lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>(), taharaEvents: new List<TaharaEvent>());
+            JToken js = JToken.Parse(jsonString);
 
 
             if (js.HasValues)
@@ -262,9 +261,9 @@ namespace Chashavshavon
                 {
                     bool isInvisible = entry.Value<bool>("IsInvisible");
                     int abs = entry.Value<int>("Abs");
-                    var dayNight = (DayNight)entry.Value<int>("DN");
+                    DayNight dayNight = (DayNight)entry.Value<int>("DN");
                     string notes = entry.Value<string>("Notes");
-                    var newEntry = new Entry(JewishDateCalculations.GetGregorianDateFromAbsolute(abs), dayNight, notes)
+                    Entry newEntry = new Entry(JewishDateCalculations.GetGregorianDateFromAbsolute(abs), dayNight, notes)
                     {
                         IsInvisible = isInvisible
                     };
@@ -279,7 +278,7 @@ namespace Chashavshavon
                         // won't be prompted again each time the list is reloaded.
                         foreach (JToken noKavuahNode in js["NoKavuah"])
                         {
-                            var ka = new Kavuah(
+                            Kavuah ka = new Kavuah(
                                 (KavuahType)Enum.Parse(typeof(KavuahType), noKavuahNode.Value<string>("KavuahType")),
                                 newEntry.DayNight)
                             {

@@ -12,38 +12,38 @@ namespace ChashInstall
     {
         public Installer()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand)]
         public override void Install(IDictionary stateSaver)
         {
             base.Install(stateSaver);
-            this.Context.LogMessage(">>>> ngenCA: install");
-            this.ngenCA(stateSaver, "install");
+            Context.LogMessage(">>>> ngenCA: install");
+            ngenCA(stateSaver, "install");
         }
 
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand)]
         public override void Commit(IDictionary savedState)
         {
             base.Commit(savedState);
-            this.Context.LogMessage(">>>> ngenCA: commit");
+            Context.LogMessage(">>>> ngenCA: commit");
         }
 
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand)]
         public override void Rollback(IDictionary savedState)
         {
             base.Rollback(savedState);
-            this.Context.LogMessage(">>>> ngenCA: uninstall");
-            this.ngenCA(savedState, "uninstall");
+            Context.LogMessage(">>>> ngenCA: uninstall");
+            ngenCA(savedState, "uninstall");
         }
 
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand)]
         public override void Uninstall(IDictionary savedState)
         {
             base.Uninstall(savedState);
-            this.Context.LogMessage(">>>> ngenCA: uninstall");
-            this.ngenCA(savedState, "uninstall");
+            Context.LogMessage(">>>> ngenCA: uninstall");
+            ngenCA(savedState, "uninstall");
         }
 
         protected override void OnBeforeInstall(IDictionary savedState)
@@ -65,7 +65,7 @@ namespace ChashInstall
 
             if (string.Compare(ngenCommand, "install", StringComparison.OrdinalIgnoreCase) == 0)
             {
-                string args = this.Context.Parameters["Args"];
+                string args = Context.Parameters["Args"];
                 if (string.IsNullOrEmpty(args))
                 {
                     throw new System.Configuration.Install.InstallException("No arguments specified");
@@ -94,7 +94,7 @@ namespace ChashInstall
 
                 string command = ngenCommand + " " + arg;
 
-                var si = new ProcessStartInfo(Path.Combine(fxPath, "ngen.exe"), command)
+                ProcessStartInfo si = new ProcessStartInfo(Path.Combine(fxPath, "ngen.exe"), command)
                 {
                     WindowStyle = ProcessWindowStyle.Hidden
                 };
@@ -103,7 +103,7 @@ namespace ChashInstall
 
                 try
                 {
-                    this.Context.LogMessage(">>>>" + Path.Combine(fxPath, "ngen.exe ") + command);
+                    Context.LogMessage(">>>>" + Path.Combine(fxPath, "ngen.exe ") + command);
                     p = Process.Start(si);
                     p.WaitForExit();
                 }

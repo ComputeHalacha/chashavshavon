@@ -7,41 +7,41 @@ namespace Chashavshavon
     {
         public FrmKavuahs()
         {
-            this.InitializeComponent();
-            this.kavuahBindingSource.DataSource = Program.KavuahList;
+            InitializeComponent();
+            kavuahBindingSource.DataSource = Program.KavuahList;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (Program.MainForm.AddNewKavuah(this))
             {
-                this.kavuahBindingSource.DataSource = Program.KavuahList;
-                this.kavuahBindingSource.ResetBindings(false);
+                kavuahBindingSource.DataSource = Program.KavuahList;
+                kavuahBindingSource.ResetBindings(false);
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void frmKavuahs_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.kavuahBindingSource.EndEdit();
+            kavuahBindingSource.EndEdit();
         }
 
         private void frmKavuahs_FormClosed(object sender, FormClosedEventArgs e)
         {
             //The owner form does a refresh when this closes, so this is how we tell it that we are closed
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
         }
 
         private void dgvKavuahList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
             {
-                this.kavuahBindingSource.Remove(this.dgvKavuahList.Rows[e.RowIndex].DataBoundItem);
-                this.kavuahBindingSource.EndEdit();
+                kavuahBindingSource.Remove(dgvKavuahList.Rows[e.RowIndex].DataBoundItem);
+                kavuahBindingSource.EndEdit();
             }
         }
 

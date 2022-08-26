@@ -1,5 +1,6 @@
 ﻿using JewishCalendar;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,10 +13,6 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using Tahara;
-using Newtonsoft.Json;
-using System.Security.Cryptography;
-using Itenso.TimePeriod;
-using System.Runtime.CompilerServices;
 
 namespace Chashavshavon
 {
@@ -42,13 +39,13 @@ namespace Chashavshavon
 
         public FrmMain()
         {
-            this.StartUp();
+            StartUp();
         }
 
         public FrmMain(string filePath)
         {
-            this.CurrentFile = filePath;
-            this.StartUp();
+            CurrentFile = filePath;
+            StartUp();
         }
 
         #endregion Constructors
@@ -56,58 +53,58 @@ namespace Chashavshavon
         #region Event Handlers
         private void frmMain_Load(object sender, EventArgs e)
         {
-            if (this.CloseMeFirst)
+            if (CloseMeFirst)
             {
-                this.Close();
+                Close();
             }
 
-            this.dgEntries.AutoGenerateColumns = false;
+            dgEntries.AutoGenerateColumns = false;
 
             //Checks to see if the user is connected to the internet, and activates remote functionality if they are.
-            this.TestInternet();
+            TestInternet();
             if (Properties.Settings.Default.openNewFile)
             {
-                this.CurrentFile = null;
-                this.saveFileDialog1.Title = "נא לבחור שם ומיקום לקובץ החדש";
-                this.saveFileDialog1.CreatePrompt = false;
-                this.saveFileDialog1.CheckFileExists = false;
-                this.saveFileDialog1.OverwritePrompt = true;
-                this.saveFileDialog1.DefaultExt = "pmj";
-                this.saveFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pmj";
+                CurrentFile = null;
+                saveFileDialog1.Title = "נא לבחור שם ומיקום לקובץ החדש";
+                saveFileDialog1.CreatePrompt = false;
+                saveFileDialog1.CheckFileExists = false;
+                saveFileDialog1.OverwritePrompt = true;
+                saveFileDialog1.DefaultExt = "pmj";
+                saveFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pmj";
 
-                if (this.saveFileDialog1.ShowDialog(this) == DialogResult.OK)
+                if (saveFileDialog1.ShowDialog(this) == DialogResult.OK)
                 {
-                    this.CurrentFile = this.saveFileDialog1.FileName;
+                    CurrentFile = saveFileDialog1.FileName;
                 }
             }
             else if (Properties.Settings.Default.openFileDialog)
             {
-                this.openFileDialog1.ShowDialog(this);
-                this.openFileDialog1.CheckFileExists = true;
-                this.CurrentFile = this.openFileDialog1.FileName;
+                openFileDialog1.ShowDialog(this);
+                openFileDialog1.CheckFileExists = true;
+                CurrentFile = openFileDialog1.FileName;
 
             }
             else if (Properties.Settings.Default.openNoFile)
             {
-                this.CurrentFile = null;
+                CurrentFile = null;
             }
             //Load the last opened file. If it does not exist or this is the first run, a blank list is presented
-            this.LoadJSONFile();
-            this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
-            this._monthToDisplay = Program.Today;
-            this.DisplayMonth();
+            LoadJSONFile();
+            bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
+            _monthToDisplay = Program.Today;
+            DisplayMonth();
 
             foreach (string f in Properties.Settings.Default.RecentFiles)
             {
-                this.recentFilesToolStripMenuItem.DropDownItems.Add(f);
+                recentFilesToolStripMenuItem.DropDownItems.Add(f);
             }
-            this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = this.recentFilesToolStripMenuItem.HasDropDownItems;
+            recentFilesToolStripMenuItem.Enabled = clearRecentFilesToolStripMenuItem.Enabled = recentFilesToolStripMenuItem.HasDropDownItems;
         }
 
 
         private void AbouToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var ab = new FrmAboutBox())
+            using (FrmAboutBox ab = new FrmAboutBox())
             {
                 ab.ShowDialog(this);
             }
@@ -115,44 +112,44 @@ namespace Chashavshavon
 
         private void AddKavuahToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.AddNewKavuah(this);
+            AddNewKavuah(this);
         }
 
         private void AddNewEntry(object sender, EventArgs e)
         {
-            using (var f = new FrmDailyInfo((DateTime)((Control)sender).Tag))
+            using (FrmDailyInfo f = new FrmDailyInfo((DateTime)((Control)sender).Tag))
             {
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {
                     //Refresh in case of change to current month
-                    this.DisplayMonth();
+                    DisplayMonth();
                 }
             }
         }
 
         private void btnAddEntry_Click(object sender, EventArgs e)
         {
-            var f = new FrmDailyInfo(Program.Today);
+            FrmDailyInfo f = new FrmDailyInfo(Program.Today);
             if (f.ShowDialog(this) == DialogResult.OK)
             {
                 //Refresh in case of change to current month
-                this.DisplayMonth();
+                DisplayMonth();
             }
         }
 
         private void btnAddKavuah_Click(object sender, EventArgs e)
         {
-            this.AddNewKavuah(this);
+            AddNewKavuah(this);
         }
 
         private void btnCheshbonKavuahs_Click(object sender, EventArgs e)
         {
-            if (this.FindAndPromptKavuahs())
+            if (FindAndPromptKavuahs())
             {
                 //Save the new Kavuahs to the file
-                this.SaveCurrentFile();
+                SaveCurrentFile();
                 //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-                this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
+                bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
             }
             else
             {
@@ -162,89 +159,89 @@ namespace Chashavshavon
 
         private void btnLastMonth_Click(object sender, EventArgs e)
         {
-            this._monthToDisplay = Program.HebrewCalendar.AddMonths(this._monthToDisplay, -1);
-            this.DisplayMonth();
+            _monthToDisplay = Program.HebrewCalendar.AddMonths(_monthToDisplay, -1);
+            DisplayMonth();
         }
 
         private void btnNextMonth_Click(object sender, EventArgs e)
         {
-            this._monthToDisplay = Program.HebrewCalendar.AddMonths(this._monthToDisplay, 1);
-            this.DisplayMonth();
+            _monthToDisplay = Program.HebrewCalendar.AddMonths(_monthToDisplay, 1);
+            DisplayMonth();
         }
 
         private void btnOpenKavuahs_Click(object sender, EventArgs e)
         {
-            this.ShowKavuahList();
+            ShowKavuahList();
         }
 
         private void btnPrefs_Click(object sender, EventArgs e)
         {
-            var prefs = new FrmPreferences();
+            FrmPreferences prefs = new FrmPreferences();
             prefs.Show(this);
         }
 
         private void btnPrintCalendar_Click(object sender, EventArgs e)
         {
-            this.PrintCalendarList();
+            PrintCalendarList();
         }
 
         private void btnPrintEntryList_Click(object sender, EventArgs e)
         {
-            this.PrintEntryList();
+            PrintEntryList();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            this.RefreshData();
+            RefreshData();
         }
 
         private void btnToday_Click(object sender, EventArgs e)
         {
-            this._monthToDisplay = Program.Today;
-            this.DisplayMonth();
+            _monthToDisplay = Program.Today;
+            DisplayMonth();
         }
 
         private void btnViewTextCalendar_Click(object sender, EventArgs e)
         {
-            this.ShowCalendarTextList();
+            ShowCalendarTextList();
         }
 
         private void btnViewTextEntryList_Click(object sender, EventArgs e)
         {
-            this.ShowEntryTextList();
+            ShowEntryTextList();
         }
 
         private void clearRecentFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.RecentFiles.Clear();
-            this.recentFilesToolStripMenuItem.DropDownItems.Clear();
-            this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = false;
+            recentFilesToolStripMenuItem.DropDownItems.Clear();
+            recentFilesToolStripMenuItem.Enabled = clearRecentFilesToolStripMenuItem.Enabled = false;
         }
 
         private void dgEntries_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (this.dgEntries.Rows[e.RowIndex].DataBoundItem is Entry)
+            if (dgEntries.Rows[e.RowIndex].DataBoundItem is Entry)
             {
-                DataGridViewColumn column = this.dgEntries.Columns[e.ColumnIndex];
-                var entry = (Entry)this.dgEntries.Rows[e.RowIndex].DataBoundItem;
+                DataGridViewColumn column = dgEntries.Columns[e.ColumnIndex];
+                Entry entry = (Entry)dgEntries.Rows[e.RowIndex].DataBoundItem;
 
-                if (column == this.btnDeleteColumn)
+                if (column == btnDeleteColumn)
                 {
-                    this.DeleteEntry(entry);
+                    DeleteEntry(entry);
                 }
-                else if (column == this.DateColumn)
+                else if (column == DateColumn)
                 {
-                    this._monthToDisplay = entry.DateTime;
-                    this.DisplayMonth(highlightDay: true);
+                    _monthToDisplay = entry.DateTime;
+                    DisplayMonth(highlightDay: true);
                 }
             }
         }
 
         private void dgEntries_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == this.dgEntries.Columns["NotesColumn"].Index)
+            if (e.ColumnIndex == dgEntries.Columns["NotesColumn"].Index)
             {
-                DataGridViewRow r = this.dgEntries.Rows[e.RowIndex];
+                DataGridViewRow r = dgEntries.Rows[e.RowIndex];
                 if (r.DataBoundItem is Entry entry)
                 {
                     string nkText = "";
@@ -264,7 +261,7 @@ namespace Chashavshavon
         {
             try
             {
-                this.SaveCurrentFile();
+                SaveCurrentFile();
                 //the temp folder is only deleted if the user manually closed the app.
                 //Otherwise we may be in an installer run and do not want to delete the installation files.
                 Program.BeforeExit(e.CloseReason == CloseReason.UserClosing);
@@ -289,19 +286,19 @@ namespace Chashavshavon
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.SaveCurrentFile(); //why not...
-            if (this.openFileDialog1.ShowDialog(this) == DialogResult.OK)
+            SaveCurrentFile(); //why not...
+            if (openFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 try
                 {
-                    var doc = new XmlDocument();
-                    doc.Load(this.openFileDialog1.FileName);
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(openFileDialog1.FileName);
                     if (doc.SelectNodes("//Kavuah").Count > 0)
                     {
                         try
                         {
-                            var ser = new XmlSerializer(typeof(List<Kavuah>));
-                            var list = (List<Kavuah>)ser.Deserialize(
+                            XmlSerializer ser = new XmlSerializer(typeof(List<Kavuah>));
+                            List<Kavuah> list = (List<Kavuah>)ser.Deserialize(
                                 new StringReader(doc.SelectSingleNode("//ArrayOfKavuah").OuterXml));
 
                             Program.KavuahList.AddRange(list);
@@ -335,20 +332,20 @@ namespace Chashavshavon
                             //Clean out any overlappers
                             Kavuah.ClearDoubleKavuahs(Program.KavuahList);
 
-                            this.CalculateProblemOnahs();
-                            this.DisplayMonth();
-                            this.ShowKavuahList();
+                            CalculateProblemOnahs();
+                            DisplayMonth();
+                            ShowKavuahList();
                         }
                         catch
                         {
                             Program.Exclaim("רשימת וסת קבוע בקובץ\"" +
-                                Path.GetFileName(this.openFileDialog1.FileName) + "\" .איננה תקינה");
+                                Path.GetFileName(openFileDialog1.FileName) + "\" .איננה תקינה");
                         }
                     }
                     else
                     {
                         Program.Inform("רשימת וסת קבוע בקובץ\"" +
-                            Path.GetFileName(this.openFileDialog1.FileName) + "\" ריקה.");
+                            Path.GetFileName(openFileDialog1.FileName) + "\" ריקה.");
                     }
                 }
                 catch (Exception ex)
@@ -360,7 +357,7 @@ namespace Chashavshavon
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.CreateNewFile();
+            CreateNewFile();
         }
 
         private void OpenBackupToolStripMenuItem_Click(object sender, EventArgs e)
@@ -370,84 +367,84 @@ namespace Chashavshavon
 
         private void openKavuaListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.ShowKavuahList();
+            ShowKavuahList();
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.SaveCurrentFile();
-            this.openFileDialog1.ShowDialog(this);
-            this.openFileDialog1.CheckFileExists = true;
-            this.CurrentFile = this.openFileDialog1.FileName;
-            this.LoadJSONFile();
-            this.CalculateProblemOnahs();
-            this.DisplayMonth();
+            SaveCurrentFile();
+            openFileDialog1.ShowDialog(this);
+            openFileDialog1.CheckFileExists = true;
+            CurrentFile = openFileDialog1.FileName;
+            LoadJSONFile();
+            CalculateProblemOnahs();
+            DisplayMonth();
         }
 
         private void pbWeb_Click(object sender, EventArgs e)
         {
-            var f = new FrmRemoteFiles();
+            FrmRemoteFiles f = new FrmRemoteFiles();
             f.Show(this);
         }
 
         private void PreferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var prefs = new FrmPreferences();
+            FrmPreferences prefs = new FrmPreferences();
             prefs.Show(this);
         }
 
         private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.PrintCalendarList();
+            PrintCalendarList();
         }
 
         private void recentFilesToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             if (File.Exists(e.ClickedItem.Text))
             {
-                this.SaveCurrentFile();
-                this.CurrentFile = e.ClickedItem.Text;
-                this.LoadJSONFile();
-                this.CalculateProblemOnahs();
-                this.DisplayMonth();
+                SaveCurrentFile();
+                CurrentFile = e.ClickedItem.Text;
+                LoadJSONFile();
+                CalculateProblemOnahs();
+                DisplayMonth();
             }
             else
             {
-                this.recentFilesToolStripMenuItem.HideDropDown(); // was blocking message box
+                recentFilesToolStripMenuItem.HideDropDown(); // was blocking message box
                 if (Program.AskUser("הקובץ \"" + e.ClickedItem.Text +
                         "\" לא נמצא.\nלהסירה מרשימת קבצים אחרונים?"))
                 {
                     Properties.Settings.Default.RecentFiles.Remove(e.ClickedItem.Text);
-                    this.recentFilesToolStripMenuItem.DropDownItems.Remove(e.ClickedItem);
-                    this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = this.recentFilesToolStripMenuItem.HasDropDownItems;
+                    recentFilesToolStripMenuItem.DropDownItems.Remove(e.ClickedItem);
+                    recentFilesToolStripMenuItem.Enabled = clearRecentFilesToolStripMenuItem.Enabled = recentFilesToolStripMenuItem.HasDropDownItems;
                 }
             }
         }
 
         private void RefreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.RefreshData();
+            RefreshData();
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.SaveAs();
+            SaveAs();
         }
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.SaveCurrentFile();
+            SaveCurrentFile();
             Program.Inform("הקובץ נשמרה");
         }
 
         private void SearchForKavuahsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.FindAndPromptKavuahs())
+            if (FindAndPromptKavuahs())
             {
                 //Save the new Kavuahs to the file
-                this.SaveCurrentFile();
+                SaveCurrentFile();
                 //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-                this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
+                bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
             }
             else
             {
@@ -457,22 +454,22 @@ namespace Chashavshavon
 
         private void SourceTextMenuItem_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(this.CurrentFile) && File.Exists(this.CurrentFile))
+            if (!string.IsNullOrWhiteSpace(CurrentFile) && File.Exists(CurrentFile))
             {
-                this.SaveCurrentFile();
+                SaveCurrentFile();
 
-                var notepad = new System.Diagnostics.Process();
+                System.Diagnostics.Process notepad = new System.Diagnostics.Process();
                 int progThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
 
                 notepad.StartInfo.FileName = "notepad.exe";
-                notepad.StartInfo.Arguments = this.CurrentFile;
+                notepad.StartInfo.Arguments = CurrentFile;
                 notepad.EnableRaisingEvents = true;
                 notepad.Exited += delegate
                 {
                     //sometimes this is called twice - once in a different thread...
                     if (progThreadId == System.Threading.Thread.CurrentThread.ManagedThreadId)
                     {
-                        this.RefreshData();
+                        RefreshData();
                     }
                 };
                 notepad.Start();
@@ -487,10 +484,10 @@ namespace Chashavshavon
 
         private void SourceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(this.CurrentFile))
+            if (!string.IsNullOrWhiteSpace(CurrentFile))
             {
-                this.SaveCurrentFile();
-                this.GetTempJSONFile();
+                SaveCurrentFile();
+                GetTempJSONFile();
                 System.Diagnostics.Process.Start(_tempJSONFileName);
             }
             else
@@ -501,38 +498,38 @@ namespace Chashavshavon
 
         private void TextListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.ShowCalendarTextList();
+            ShowCalendarTextList();
         }
 
         private void toolStripMenuItemEntryList_Click(object sender, EventArgs e)
         {
-            this.ShowEntryTextList();
+            ShowEntryTextList();
         }
 
         private void toolStripMenuItemPrintEntryList_Click(object sender, EventArgs e)
         {
-            this.PrintEntryList();
+            PrintEntryList();
         }
 
         private void toolStripMenuItemRemote_Click(object sender, EventArgs e)
         {
-            var f = new FrmRemoteFiles();
+            FrmRemoteFiles f = new FrmRemoteFiles();
             f.Show(this);
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void ImportEntriesStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.openFileDialog1.CheckFileExists = false;
-            if (this.openFileDialog1.ShowDialog(this) != DialogResult.OK)
+            openFileDialog1.CheckFileExists = false;
+            if (openFileDialog1.ShowDialog(this) != DialogResult.OK)
             {
                 return;
             }
-            using (var i = new FrmImport(this.openFileDialog1.FileName))
+            using (FrmImport i = new FrmImport(openFileDialog1.FileName))
             {
                 bool added = false;
                 if (i.ShowDialog() == DialogResult.OK)
@@ -556,8 +553,8 @@ namespace Chashavshavon
                     }
                     if (added)
                     {
-                        this.SaveCurrentFile();
-                        this.RefreshData();
+                        SaveCurrentFile();
+                        RefreshData();
                     }
                 }
 
@@ -569,82 +566,82 @@ namespace Chashavshavon
 
         private void CreateNewFile()
         {
-            if (!string.IsNullOrEmpty(this.CurrentFile))
+            if (!string.IsNullOrEmpty(CurrentFile))
             {
-                this.SaveCurrentFile();
+                SaveCurrentFile();
             }
-            this.saveFileDialog1.Title = "נא לבחור שם ומיקום לקובץ החדש";
-            this.saveFileDialog1.CreatePrompt = true;
-            this.saveFileDialog1.CheckFileExists = false;
-            this.saveFileDialog1.OverwritePrompt = true;
-            this.saveFileDialog1.DefaultExt = "pmj";
-            this.saveFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pmj";
+            saveFileDialog1.Title = "נא לבחור שם ומיקום לקובץ החדש";
+            saveFileDialog1.CreatePrompt = true;
+            saveFileDialog1.CheckFileExists = false;
+            saveFileDialog1.OverwritePrompt = true;
+            saveFileDialog1.DefaultExt = "pmj";
+            saveFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pmj";
 
-            if (this.saveFileDialog1.ShowDialog(this) == DialogResult.OK)
+            if (saveFileDialog1.ShowDialog(this) == DialogResult.OK)
             {
-                this.CurrentFile = this.saveFileDialog1.FileName;
-                this.RefreshData();
+                CurrentFile = saveFileDialog1.FileName;
+                RefreshData();
             }
         }
 
         private void SaveAs(Form sourceForm = null)
         {
-            this.openFileDialog1.CheckFileExists = false;
-            this.openFileDialog1.DefaultExt = "pmj";
-            this.openFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pmj";
-            if (this.openFileDialog1.ShowDialog(sourceForm ?? this) != DialogResult.OK)
+            openFileDialog1.CheckFileExists = false;
+            openFileDialog1.DefaultExt = "pmj";
+            openFileDialog1.FileName = Program.Today.ToString("ddMMMyyyy").Replace("\"", "").Replace("'", "") + ".pmj";
+            if (openFileDialog1.ShowDialog(sourceForm ?? this) != DialogResult.OK)
             {
                 return;
             }
-            this.CurrentFile = this.openFileDialog1.FileName;
-            this.SaveCurrentFile();
+            CurrentFile = openFileDialog1.FileName;
+            SaveCurrentFile();
             return;
         }
 
         private void ShowKavuahList()
         {
-            using (var f = new FrmKavuahs())
+            using (FrmKavuahs f = new FrmKavuahs())
             {
                 if (f.ShowDialog(this) != DialogResult.Cancel)
                 {
-                    this.SaveCurrentFile();
-                    this.TestInternet();
-                    this.LoadJSONFile();
+                    SaveCurrentFile();
+                    TestInternet();
+                    LoadJSONFile();
                 }
 
                 //In case some Kavuahs were added or deleted...
-                this.CalculateProblemOnahs();
-                this.DisplayMonth();
+                CalculateProblemOnahs();
+                DisplayMonth();
             }
         }
 
         private void StartUp()
         {
             //In case we will display the password entry form, we hide this until form load
-            this.Hide();
-            string password = this.GetPassword();
+            Hide();
+            string password = GetPassword();
 
-            this.InitializeComponent();
+            InitializeComponent();
 
-            _smallFont = new Font(this.Font.FontFamily, 6f);
-            _medFont = new Font(this.Font.FontFamily, 8f);
+            _smallFont = new Font(Font.FontFamily, 6f);
+            _medFont = new Font(Font.FontFamily, 8f);
 
             //The following sets all output displays of date time functions to Jewish dates for the current thread
             Program.CultureInfo.DateTimeFormat.Calendar = Program.HebrewCalendar;
             System.Threading.Thread.CurrentThread.CurrentCulture = Program.CultureInfo;
             System.Threading.Thread.CurrentThread.CurrentUICulture = Program.CultureInfo;
 
-            this.SetLocation();
-            this.SetDateAndDayNight();
+            SetLocation();
+            SetDateAndDayNight();
 
             if (password == null)
             {
-                this.Show();
+                Show();
             }
             else
             {
                 //Prompt for a password and don't stop prompting until the user gets it right or gives up
-                using (var f = new FrmEnterPassword(password))
+                using (FrmEnterPassword f = new FrmEnterPassword(password))
                 {
                     do
                     {
@@ -656,13 +653,13 @@ namespace Chashavshavon
                     }
                     while (f.DialogResult == DialogResult.No);
                     //If the user canceled etc. we will close this in form load
-                    this.CloseMeFirst = f.DialogResult != DialogResult.Yes;
+                    CloseMeFirst = f.DialogResult != DialogResult.Yes;
                 }
             }
 
             for (int i = 0; i < 7; i++)
             {
-                this.dowLayoutTable.Controls.Add(new Label()
+                dowLayoutTable.Controls.Add(new Label()
                 {
                     Text = GeneralUtils.DaysOfWeekHebrewFull[i],
                     Dock = DockStyle.Fill,
@@ -676,32 +673,32 @@ namespace Chashavshavon
 
         private void DisplayMonth(bool highlightDay = false)
         {
-            int year = Program.HebrewCalendar.GetYear(this._monthToDisplay);
-            var month = new MonthObject(year, Program.HebrewCalendar.GetMonth(this._monthToDisplay));
-            DateTime firstDayOfMonth = this._monthToDisplay.AddDays(1 - Program.HebrewCalendar.GetDayOfMonth(this._monthToDisplay));
+            int year = Program.HebrewCalendar.GetYear(_monthToDisplay);
+            MonthObject month = new MonthObject(year, Program.HebrewCalendar.GetMonth(_monthToDisplay));
+            DateTime firstDayOfMonth = _monthToDisplay.AddDays(1 - Program.HebrewCalendar.GetDayOfMonth(_monthToDisplay));
             int firstDayOfWeek = 1 + (int)firstDayOfMonth.DayOfWeek;
             int currentRow = 0, currentColumn = firstDayOfWeek - 1;
 
-            this.luachTableLayout.Visible = false;
-            this.luachTableLayout.SuspendLayout();
+            luachTableLayout.Visible = false;
+            luachTableLayout.SuspendLayout();
 
-            foreach (Control c in this.luachTableLayout.Controls)
+            foreach (Control c in luachTableLayout.Controls)
             {
                 c.Dispose();
             }
-            this.luachTableLayout.Controls.Clear();
+            luachTableLayout.Controls.Clear();
 
-            this.lblMonthName.Text = this._monthToDisplay.ToString("MMM yyyy", Program.CultureInfo);
-            this.btnLastMonth.Text = "  " + Program.HebrewCalendar.AddMonths(this._monthToDisplay, -1).ToString("MMM") + "  ";
-            this.btnNextMonth.Text = "  " + Program.HebrewCalendar.AddMonths(this._monthToDisplay, 1).ToString("MMM") + "  ";
+            lblMonthName.Text = _monthToDisplay.ToString("MMM yyyy", Program.CultureInfo);
+            btnLastMonth.Text = "  " + Program.HebrewCalendar.AddMonths(_monthToDisplay, -1).ToString("MMM") + "  ";
+            btnNextMonth.Text = "  " + Program.HebrewCalendar.AddMonths(_monthToDisplay, 1).ToString("MMM") + "  ";
 
             if (((int)firstDayOfMonth.DayOfWeek >= 6) &&
                    Program.HebrewCalendar.GetDaysInMonth(year, month.MonthInYear)
                 > 29)
             {
-                this.luachTableLayout.RowCount = 6;
-                this.luachTableLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 16.66667F));
-                foreach (RowStyle rs in this.luachTableLayout.RowStyles)
+                luachTableLayout.RowCount = 6;
+                luachTableLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 16.66667F));
+                foreach (RowStyle rs in luachTableLayout.RowStyles)
                 {
                     if (rs.SizeType == SizeType.Percent)
                     {
@@ -711,17 +708,17 @@ namespace Chashavshavon
             }
             else
             {
-                this.luachTableLayout.RowCount = 5;
+                luachTableLayout.RowCount = 5;
             }
 
-            var dayInfoMargin = new Padding(0,
-                (this.luachTableLayout.Height / this.luachTableLayout.RowCount) / 5, 0, 0);
+            Padding dayInfoMargin = new Padding(0,
+                (luachTableLayout.Height / luachTableLayout.RowCount) / 5, 0, 0);
 
 
             for (int i = 1; i < month.DaysInMonth + 1; i++)
             {
-                var date = new DateTime(Program.HebrewCalendar.GetYear(this._monthToDisplay),
-                    Program.HebrewCalendar.GetMonth(this._monthToDisplay),
+                DateTime date = new DateTime(Program.HebrewCalendar.GetYear(_monthToDisplay),
+                    Program.HebrewCalendar.GetMonth(_monthToDisplay),
                     i,
                     Program.HebrewCalendar);
 
@@ -737,11 +734,11 @@ namespace Chashavshavon
                 Image dayBgImgLeft = null;
                 Image dayBgImgRight = null;
 
-                this.luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);
+                luachTableLayout.Controls.Add(pnl, currentColumn, currentRow);
 
                 string daySpecialText = "";
                 bool isInIsrael = Program.CurrentLocation.IsInIsrael;
-                var jd = new JewishDate(date);
+                JewishDate jd = new JewishDate(date);
                 IEnumerable<SpecialDay> holidays = Zmanim.GetHolidays(jd, isInIsrael).Cast<SpecialDay>();
                 if (jd.DayOfWeek == DayOfWeek.Saturday)
                 {
@@ -871,7 +868,7 @@ namespace Chashavshavon
                     });
                 }
 
-                var taharaEvents = Program.TaharaEventList.Where(te =>
+                IEnumerable<TaharaEvent> taharaEvents = Program.TaharaEventList.Where(te =>
                    te.DateTime.IsSameday(date));
 
                 pnl.Paint += delegate (object sender, PaintEventArgs e)
@@ -892,7 +889,7 @@ namespace Chashavshavon
                             g.DrawImage(dayBgImgLeft ?? dayBgImgMain, 0, 0, halfX, pHeight);
                             g.DrawImage(dayBgImgRight ?? dayBgImgMain, halfX, 0, halfX, pHeight);
                         }
-                        if (highlightDay && date.Date == this._monthToDisplay.Date)
+                        if (highlightDay && date.Date == _monthToDisplay.Date)
                         {
                             g.DrawRectangle(new Pen(_highlightBrush, pHeight / 3), pnl.DisplayRectangle);
                         }
@@ -931,11 +928,11 @@ namespace Chashavshavon
                                 }
                             }
                         }
-                        var counter = 0;
-                        foreach (var te in taharaEvents)
+                        int counter = 0;
+                        foreach (TaharaEvent te in taharaEvents)
                         {
                             Brush color = Brushes.Black;
-                            var x = 0.0f;
+                            float x = 0.0f;
                             switch(te.TaharaEventType)
                             {
                                 case TaharaEventType.Hefsek:
@@ -969,14 +966,14 @@ namespace Chashavshavon
                         Environment.NewLine + "--------------------------------" + Environment.NewLine + onahText : "");
 
                 //Sets the tag, tooltip and click function for all controls of the day
-                foreach (Control cntrl in GeneralUtils.GetAllControls(this.luachTableLayout.GetControlFromPosition(currentColumn, currentRow)))
+                foreach (Control cntrl in GeneralUtils.GetAllControls(luachTableLayout.GetControlFromPosition(currentColumn, currentRow)))
                 {
                     cntrl.Tag = date;
-                    cntrl.Click += new EventHandler(this.AddNewEntry);
-                    this.toolTip1.SetToolTip(cntrl, toolTipText);
+                    cntrl.Click += new EventHandler(AddNewEntry);
+                    toolTip1.SetToolTip(cntrl, toolTipText);
                 }
 
-                if (currentColumn == this.luachTableLayout.ColumnCount - 1)
+                if (currentColumn == luachTableLayout.ColumnCount - 1)
                 {
                     currentColumn = 0;
                     currentRow++;
@@ -986,19 +983,19 @@ namespace Chashavshavon
                     currentColumn++;
                 }
             }
-            this.luachTableLayout.ResumeLayout();
-            this.luachTableLayout.Visible = true;
+            luachTableLayout.ResumeLayout();
+            luachTableLayout.Visible = true;
         }
 
         private void CreateLocalBackup()
         {
-            var bgw = new System.ComponentModel.BackgroundWorker();
+            System.ComponentModel.BackgroundWorker bgw = new System.ComponentModel.BackgroundWorker();
             bgw.DoWork += delegate
             {
-                if (File.Exists(this.CurrentFile))
+                if (File.Exists(CurrentFile))
                 {
                     string path = Program.BackupFolderPath + "\\" +
-                        Path.GetFileNameWithoutExtension(this.CurrentFile) +
+                        Path.GetFileNameWithoutExtension(CurrentFile) +
                         "_" +
                         DateTime.Now.ToString("d-MMM-yy_HH-mm-ss", CultureInfo.GetCultureInfo("en-us").DateTimeFormat) +
                         ".pmj";
@@ -1006,7 +1003,7 @@ namespace Chashavshavon
                     {
                         path = path.Replace(".pmj", "_Version_1" + DateTime.Now.Millisecond.ToString() + ".pmj");
                     }
-                    File.Copy(this.CurrentFile, path);
+                    File.Copy(CurrentFile, path);
                 }
             };
             bgw.RunWorkerAsync();
@@ -1014,7 +1011,7 @@ namespace Chashavshavon
 
         private string GetEntryListText()
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             int count = 0;
             foreach (Entry e in Program.EntryList.Where(en => !en.IsInvisible))
             {
@@ -1047,25 +1044,25 @@ namespace Chashavshavon
 
         private void PrintCalendarList()
         {
-            this.ShowCalendarTextList(true);
+            ShowCalendarTextList(true);
         }
 
         private void PrintEntryList()
         {
-            this.ShowEntryTextList(true);
+            ShowEntryTextList(true);
         }
 
         private void RefreshData()
         {
-            this.TestInternet();
-            this.LoadJSONFile();
-            this.DisplayMonth();
+            TestInternet();
+            LoadJSONFile();
+            DisplayMonth();
         }
 
         private void SetDateAndDayNight()
         {
             DateTime date = DateTime.Now;
-            var zman = new Zmanim(date, Program.CurrentLocation);
+            Zmanim zman = new Zmanim(date, Program.CurrentLocation);
             bool isNight = zman.GetShkia() <= date.TimeOfDay;
             if (isNight)
             {
@@ -1088,10 +1085,10 @@ namespace Chashavshavon
 
         private FrmBrowser ShowCalendarTextList(bool print = false)
         {
-            var fb = new FrmBrowser(print)
+            FrmBrowser fb = new FrmBrowser(print)
             {
                 Text = "לוח חשבשבון_" + Program.Today.ToString("dd_MMM_yyyy").Replace("'", "").Replace("\"", ""),
-                Html = this.WeekListHtml
+                Html = WeekListHtml
             };
             fb.Show();
             return fb;
@@ -1100,10 +1097,10 @@ namespace Chashavshavon
 
         private FrmBrowser ShowEntryTextList(bool print = false)
         {
-            var fb = new FrmBrowser(print)
+            FrmBrowser fb = new FrmBrowser(print)
             {
                 Text = "רשימת חשבשבון_" + Program.Today.ToString("dd_MMM_yyyy").Replace("'", "").Replace("\"", ""),
-                Html = this.GetEntryListText()
+                Html = GetEntryListText()
             };
             fb.Show();
             return fb;
@@ -1116,22 +1113,22 @@ namespace Chashavshavon
         {
             Program.EntryList.Add(newEntry);
             Entry.SortEntriesAndSetInterval(Program.EntryList);
-            this.FindAndPromptKavuahs();
-            this.CalculateProblemOnahs();
-            this.SaveCurrentFile(sourceForm);
+            FindAndPromptKavuahs();
+            CalculateProblemOnahs();
+            SaveCurrentFile(sourceForm);
             //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-            this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
+            bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
         }
 
         public bool AddNewKavuah(Form owner)
         {
-            using (var f = new FrmAddKavuah())
+            using (FrmAddKavuah f = new FrmAddKavuah())
             {
                 f.ShowDialog(owner);
                 if (f.DialogResult != DialogResult.Cancel)
                 {
-                    this.SaveCurrentFile();
-                    this.RefreshData();
+                    SaveCurrentFile();
+                    RefreshData();
                     return true;
                 }
             }
@@ -1142,26 +1139,26 @@ namespace Chashavshavon
         {
             Program.TaharaEventList.Add(te);
             TaharaEvent.SortList(Program.TaharaEventList);
-            this.SaveCurrentFile(sourceForm);
-            this.RefreshData();
+            SaveCurrentFile(sourceForm);
+            RefreshData();
         }
 
 
         public void RemoveTaharaEvent(TaharaEvent te, Form sourceForm = null)
         {
             Program.TaharaEventList.Remove(te);
-            this.SaveCurrentFile(sourceForm);
-            this.RefreshData();
+            SaveCurrentFile(sourceForm);
+            RefreshData();
         }
 
 
         public void AfterChangePreferences()
         {
-            this.SetLocation();
-            this.SetDateAndDayNight();
-            this.CalculateProblemOnahs();
-            this.SetCaptionText();
-            this.DisplayMonth();
+            SetLocation();
+            SetDateAndDayNight();
+            CalculateProblemOnahs();
+            SetCaptionText();
+            DisplayMonth();
         }
 
         public void DeleteEntry(Entry entry)
@@ -1188,32 +1185,32 @@ namespace Chashavshavon
                 }
                 Program.EntryList.Remove(entry);
                 Entry.SortEntriesAndSetInterval(Program.EntryList);
-                this.FindAndPromptKavuahs();
-                this.CalculateProblemOnahs();
-                this.SaveCurrentFile();
+                FindAndPromptKavuahs();
+                CalculateProblemOnahs();
+                SaveCurrentFile();
                 //In case there were changes to the notes on some entries such as if there was a NoKavuah added
-                this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
-                this.DisplayMonth();
+                bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
+                DisplayMonth();
             }
         }
 
         public string GetTempJSONFile()
         {
-            File.WriteAllText(_tempJSONFileName, this.CurrentFileJson ?? "");
+            File.WriteAllText(_tempJSONFileName, CurrentFileJson ?? "");
             return _tempJSONFileName;
         }
 
         public void LoadJSONFile()
         {
-            this.CreateLocalBackup();
-            this.lblNextProblem.Text = "";
+            CreateLocalBackup();
+            lblNextProblem.Text = "";
 
-            if (File.Exists(this.CurrentFile))
+            if (File.Exists(CurrentFile))
             {
                 try
                 {
                     (List<Entry> entryList, List<Kavuah> kavuahList, List<TaharaEvent> taharaEvents) =
-                        Program.LoadEntriesKavuahsFromJson(this.CurrentFileJson);
+                        Program.LoadEntriesKavuahsFromJson(CurrentFileJson);
                     Program.EntryList.Clear();
                     Program.EntryList.AddRange(entryList);
                     Program.KavuahList.Clear();
@@ -1224,7 +1221,7 @@ namespace Chashavshavon
                 catch (Exception)
                 {
                     Program.Exclaim("הקובץ שאמור ליפתח" + Environment.NewLine + "\"" +
-                        this.CurrentFile + "\"" + Environment.NewLine +
+                        CurrentFile + "\"" + Environment.NewLine +
                         " איננה קובץ חשבשבון תקינה. תפתח רשימה ריקה.");
                     //Clear previous list data
                     Program.EntryList.Clear();
@@ -1236,21 +1233,21 @@ namespace Chashavshavon
                 }
             }
 
-            if (File.Exists(this.CurrentFile) && !Properties.Settings.Default.RecentFiles.Contains(this.CurrentFile))
+            if (File.Exists(CurrentFile) && !Properties.Settings.Default.RecentFiles.Contains(CurrentFile))
             {
-                Properties.Settings.Default.RecentFiles.Insert(0, this.CurrentFile);
-                this.recentFilesToolStripMenuItem.DropDownItems.Insert(0, new ToolStripMenuItem(this.CurrentFile));
-                this.recentFilesToolStripMenuItem.Enabled = this.clearRecentFilesToolStripMenuItem.Enabled = true;
+                Properties.Settings.Default.RecentFiles.Insert(0, CurrentFile);
+                recentFilesToolStripMenuItem.DropDownItems.Insert(0, new ToolStripMenuItem(CurrentFile));
+                recentFilesToolStripMenuItem.Enabled = clearRecentFilesToolStripMenuItem.Enabled = true;
             }
 
-            this.SetCaptionText();
-            this.CalculateProblemOnahs();
-            this.bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
+            SetCaptionText();
+            CalculateProblemOnahs();
+            bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
         }
 
         private void CalculateProblemOnahs()
         {
-            var c = new ProblemOnahCalculator
+            ProblemOnahCalculator c = new ProblemOnahCalculator
             {
                 EntryList = Program.EntryList,
                 KavuahList = Program.KavuahList,
@@ -1266,8 +1263,8 @@ namespace Chashavshavon
             Program.ProblemOnahs.Clear();
             Program.ProblemOnahs.AddRange(c.CalculateProblemOnahs());
             //The lblNextProblem displays the next upcoming Onah that needs to be kept
-            this.lblNextProblem.Text = c.GetNextOnahText();
-            this.WeekListHtml = this.GetWeekListHtml();
+            lblNextProblem.Text = c.GetNextOnahText();
+            WeekListHtml = GetWeekListHtml();
         }
 
         /// <summary>
@@ -1284,7 +1281,7 @@ namespace Chashavshavon
             if (kavuahList.Count > 0)
             {
                 //Prompt user to decide which ones to keep and edit their details
-                using (var fkp = new FrmKavuahPrompt(kavuahList))
+                using (FrmKavuahPrompt fkp = new FrmKavuahPrompt(kavuahList))
                 {
                     if (fkp.ShowDialog() == DialogResult.OK)
                     {
@@ -1318,7 +1315,7 @@ namespace Chashavshavon
             // First we combine double onahs - such as if one onah is also day 30 and also a haflagah.
             // We will only display it once, but with both descriptions.
             // If one of them is to be ignored though, it will get it's own row.
-            var onahsToAdd = new List<Onah>();
+            List<Onah> onahsToAdd = new List<Onah>();
             foreach (Onah onah in Program.ProblemOnahs.Where(on => on.DateTime >= Program.Today || Program.Today.IsSameday(on.DateTime)))
             {
                 if (onahsToAdd.Exists(o => Onah.IsSameOnahPeriod(o, onah) && o.IsIgnored == onah.IsIgnored))
@@ -1332,7 +1329,7 @@ namespace Chashavshavon
             }
 
 
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             if (onahsToAdd.Exists(o => o.IsIgnored))
             {
                 sb.Append("<tr><td class='ignored' colspan='6'>רשומות באפור לא פעילים עקב וסת קבוע</td></tr>");
@@ -1352,7 +1349,7 @@ namespace Chashavshavon
             return Properties.Resources.WeekProblemListHtmlTemplate
                 .Replace("{{DATE}}", Program.Today.ToLongDateString())
                 .Replace("{{PROBLEM_ROWS}}", sb.ToString())
-                .Replace("{{NEXT_PROBLEM_TEXT}}", this.lblNextProblem.Text);
+                .Replace("{{NEXT_PROBLEM_TEXT}}", lblNextProblem.Text);
         }
 
         /// <summary>
@@ -1366,19 +1363,19 @@ namespace Chashavshavon
             //If no file was originally loaded, CurrentFile will be null.
             //In this case, if there are entries in the list
             //we prompt the user to create a file to save to.
-            while (string.IsNullOrEmpty(this.CurrentFile))
+            while (string.IsNullOrEmpty(CurrentFile))
             {
                 if (((Program.EntryList.Count + Program.KavuahList.Count) > 0) &&
                     Program.AskUser("?שמירת הרשימה מצריך קובץ. האם ליצור קובץ חדש"))
                 {
-                    this.SaveAs(sourceForm);
+                    SaveAs(sourceForm);
                 }
                 else
                 {
                     return;
                 }
             }
-            string dir = Path.GetDirectoryName(this.CurrentFile);
+            string dir = Path.GetDirectoryName(CurrentFile);
 
             try
             {
@@ -1395,19 +1392,19 @@ namespace Chashavshavon
                 {
                     Directory.CreateDirectory(path);
                 }
-                this.CurrentFile = this.CurrentFile.Replace(dir, path);
+                CurrentFile = CurrentFile.Replace(dir, path);
                 Program.Exclaim("חשבשבון היה צריל להעתיק הקובץ הפעילה למיקום אחר.\nהקובץ עכשיו נמצא ב: \n" +
-                    this.CurrentFile);
+                    CurrentFile);
             }
 
             FileStream fs;
-            if (!File.Exists(this.CurrentFile))
+            if (!File.Exists(CurrentFile))
             {
-                fs = File.Create(this.CurrentFile);
+                fs = File.Create(CurrentFile);
             }
             else
             {
-                fs = File.Open(this.CurrentFile, FileMode.Create);
+                fs = File.Open(CurrentFile, FileMode.Create);
             }
 
             using (fs)
@@ -1438,17 +1435,17 @@ namespace Chashavshavon
                     TaharaEvents = Program.TaharaEventList
                 });
             }
-            Properties.Settings.Default.CurrentFile = this.CurrentFile;
+            Properties.Settings.Default.CurrentFile = CurrentFile;
             Properties.Settings.Default.Save();
-            this.SetCaptionText();
+            SetCaptionText();
         }
 
         public void SetCaptionText()
         {
-            string fileName = !string.IsNullOrWhiteSpace(this.CurrentFileName)
-                ? " - " + this.CurrentFileName
+            string fileName = !string.IsNullOrWhiteSpace(CurrentFileName)
+                ? " - " + CurrentFileName
                 : "";
-            this.Text = " חשבשבון גירסה " +
+            Text = " חשבשבון גירסה " +
                 Assembly.GetExecutingAssembly().GetName().Version.ToString() + " - " +
                 Program.GetCurrentPlaceName() + fileName;
 
@@ -1462,7 +1459,7 @@ namespace Chashavshavon
         public bool TestInternet()
         {
             bool hasInternet = Program.RunInDevMode || Utils.RemoteFunctions.IsConnectedToInternet();
-            this.RemoteToolStripMenuItem.Visible = hasInternet;
+            RemoteToolStripMenuItem.Visible = hasInternet;
             return hasInternet;
         }
 
@@ -1479,19 +1476,19 @@ namespace Chashavshavon
             {
                 Properties.Settings.Default.CurrentFile = value;
                 Properties.Settings.Default.Save();
-                this.SetCaptionText();
+                SetCaptionText();
             }
         }
 
-        public string CurrentFileName => Path.GetFileName(this.CurrentFile);
+        public string CurrentFileName => Path.GetFileName(CurrentFile);
 
         public string CurrentFileJson
         {
             get
             {
-                if (!string.IsNullOrWhiteSpace(this.CurrentFile))
+                if (!string.IsNullOrWhiteSpace(CurrentFile))
                 {
-                    return File.ReadAllText(this.CurrentFile);
+                    return File.ReadAllText(CurrentFile);
                 }
                 else
                 {

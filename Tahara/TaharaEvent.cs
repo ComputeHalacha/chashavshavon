@@ -1,7 +1,6 @@
-﻿using JewishCalendar;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Tahara
 {
@@ -42,7 +41,10 @@ namespace Tahara
 
         public DateTime DateTime { get; set; }
         public string Notes { get; set; }
+        
+        [XmlIgnore]
         public string TaharaEventDescriptionHebrew => this.ToString();
+        [XmlIgnore]
         public string TaharaEventDescriptionEnglish => this.ToStringEng();
         #endregion
 
@@ -51,7 +53,7 @@ namespace Tahara
         public override string ToString()
         {
             return TaharaEventTypeName + " - " + this.DateTime.ToString("dddd dd MMM yyyy", Utils.CultureInfo);
-        }
+        }        
         
         public string ToStringEng()
         {
