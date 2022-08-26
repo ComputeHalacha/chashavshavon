@@ -6,7 +6,7 @@ namespace Chashavshavon
     {
         public DoubleBufferedLayoutTable()
         {
-            this.DoubleBuffered = true;
+            DoubleBuffered = true;
         }
     }
 }

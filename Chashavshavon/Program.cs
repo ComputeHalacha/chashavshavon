@@ -19,12 +19,12 @@ namespace Chashavshavon
         public static readonly string BackupFolderPath = Directory.GetCurrentDirectory() + @"\Backups";
         public static readonly List<Entry> EntryList = new List<Entry>();
         public static readonly List<Kavuah> KavuahList = new List<Kavuah>();
+        public static readonly List<TaharaEvent> TaharaEventList = new List<TaharaEvent>();
         public static readonly List<Onah> ProblemOnahs = new List<Onah>();
 
         public static bool RunInDevMode { get; private set; } = false;
 
-        //We need to keep track of the Jewish "today" as DateTime.
-        //Now will give the wrong day if it is now after shkiah and before midnight.
+        //We need to keep track of the Jewish "today" as DateTime.Now will give the wrong day if it is now after shkiah and before midnight.
         public static DateTime Today { get; set; }
         public static Onah NowOnah { get; set; }
         //Keeps track of where user is; for calculating zmanim
@@ -119,7 +119,7 @@ namespace Chashavshavon
 
         public static void HandleException(Exception excep, bool silent)
         {
-            using (var bgw = new System.ComponentModel.BackgroundWorker())
+            using (System.ComponentModel.BackgroundWorker bgw = new System.ComponentModel.BackgroundWorker())
             {
                 bgw.DoWork += delegate
                 {
@@ -192,26 +192,10 @@ namespace Chashavshavon
                 CurrentLocation.Name : CurrentLocation.NameHebrew;
         }
 
-        internal static (List<Entry> entries, List<Kavuah> kavuahs) LoadFromText(string fileText)
+        internal static (List<Entry> entries, List<Kavuah> kavuahs) LoadEntriesKavuahsFromXml(string xmlString)
         {
-            if (fileText.TrimStart().StartsWith("<"))
-{
-                return Program.LoadFromXml(fileText);
-            }
-            else if (fileText.TrimStart().StartsWith("{"))
-{
-                return Program.LoadFromJson(fileText);
-            }
-            else
-            {
-                return default;                
-            }
-        }
-
-        private static (List<Entry> entries, List<Kavuah> kavuahs) LoadFromXml(string xmlString)
-        {
-            var lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>());
-            var xml = new XmlDocument();
+            (List<Entry> entries, List<Kavuah> kavuahs) lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>());
+            XmlDocument xml = new XmlDocument();
 
             xml.LoadXml(xmlString);
             if (xml.HasChildNodes)
@@ -224,10 +208,10 @@ namespace Chashavshavon
                     int day = Convert.ToInt32(entryNode.SelectSingleNode("Day").InnerText);
                     int month = Convert.ToInt32(entryNode.SelectSingleNode("Month").InnerText);
                     int year = Convert.ToInt32(entryNode.SelectSingleNode("Year").InnerText); ;
-                    var dayNight = (DayNight)Convert.ToInt32(entryNode.SelectSingleNode("DN").InnerText);
+                    DayNight dayNight = (DayNight)Convert.ToInt32(entryNode.SelectSingleNode("DN").InnerText);
                     string notes = entryNode.SelectSingleNode("Notes").InnerText;
 
-                    var newEntry = new Entry(day, month, year, dayNight, notes)
+                    Entry newEntry = new Entry(day, month, year, dayNight, notes)
                     {
                         IsInvisible = isInvisible
                     };
@@ -240,7 +224,7 @@ namespace Chashavshavon
                     // won't be prompted again each time the list is reloaded.
                     foreach (XmlNode k in entryNode.SelectNodes("NoKavuah"))
                     {
-                        var ka = new Kavuah(
+                        Kavuah ka = new Kavuah(
                             (KavuahType)Enum.Parse(typeof(KavuahType), k.Attributes["KavuahType"].InnerText),
                             newEntry.DayNight)
                         {
@@ -255,7 +239,7 @@ namespace Chashavshavon
                 //After the list of Entries, there is a lst of Kavuahs
                 if (xml.SelectNodes("//Kavuah").Count > 0)
                 {
-                    var ser = new XmlSerializer(typeof(List<Kavuah>));
+                    XmlSerializer ser = new XmlSerializer(typeof(List<Kavuah>));
                     lists.kavuahs.AddRange((List<Kavuah>)ser.Deserialize(
                         new StringReader(xml.SelectSingleNode("//ArrayOfKavuah").OuterXml)));
                 }
@@ -264,10 +248,11 @@ namespace Chashavshavon
             return lists;
         }
 
-        private static (List<Entry> entries, List<Kavuah> kavuahs) LoadFromJson(string jsonString)
+
+        internal static (List<Entry>, List<Kavuah>, List<TaharaEvent>) LoadEntriesKavuahsFromJson(string jsonString)
         {
-            var lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>());
-            var js = JToken.Parse(jsonString);
+            (List<Entry> entries, List<Kavuah> kavuahs, List<TaharaEvent> taharaEvents) lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>(), taharaEvents: new List<TaharaEvent>());
+            JToken js = JToken.Parse(jsonString);
 
 
             if (js.HasValues)
@@ -276,9 +261,9 @@ namespace Chashavshavon
                 {
                     bool isInvisible = entry.Value<bool>("IsInvisible");
                     int abs = entry.Value<int>("Abs");
-                    var dayNight = (DayNight)entry.Value<int>("DN");
+                    DayNight dayNight = (DayNight)entry.Value<int>("DN");
                     string notes = entry.Value<string>("Notes");
-                    var newEntry = new Entry(JewishDateCalculations.GetGregorianDateFromAbsolute(abs), dayNight, notes)
+                    Entry newEntry = new Entry(JewishDateCalculations.GetGregorianDateFromAbsolute(abs), dayNight, notes)
                     {
                         IsInvisible = isInvisible
                     };
@@ -293,7 +278,7 @@ namespace Chashavshavon
                         // won't be prompted again each time the list is reloaded.
                         foreach (JToken noKavuahNode in js["NoKavuah"])
                         {
-                            var ka = new Kavuah(
+                            Kavuah ka = new Kavuah(
                                 (KavuahType)Enum.Parse(typeof(KavuahType), noKavuahNode.Value<string>("KavuahType")),
                                 newEntry.DayNight)
                             {
@@ -307,17 +292,29 @@ namespace Chashavshavon
                 }
                 Entry.SortEntriesAndSetInterval(lists.entries);
 
-                //After the list of Entries, there is a lst of Kavuahs
+                //After the list of Entries, there is a list of Kavuahs
                 foreach (JToken kavuah in js["Kavuahs"])
                 {
                     lists.kavuahs.Add(kavuah.ToObject<Kavuah>());
+                }
+
+                //After the list of Kavuahs, there is a list of Tahara Events
+                if (js["TaharaEvents"] != null)
+                {
+                    foreach (JToken taharaEvent in js["TaharaEvents"])
+                    {
+                        lists.taharaEvents.Add(taharaEvent.ToObject<TaharaEvent>());
+                    }
+                    TaharaEvent.SortList(lists.taharaEvents);
                 }
             }
 
             return lists;
         }
 
-        #region Extention Methods
+
+
+        #region Extension Methods
         /// <summary>
         /// Tests to see if an object equals any one of the objects in a list.
         /// This function works like the SQL keyword "IN" - "SELECT * FROM Orders WHERE OrderId IN (5432, 9886, 8824)".

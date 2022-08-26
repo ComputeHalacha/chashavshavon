@@ -49,11 +49,11 @@ namespace Chashavshavon
         /// <returns>The encrypted data as a byte array</returns>
         public static byte[] Encrypt(byte[] data, byte[] Key, byte[] IV)
         {
-            var ms = new MemoryStream();
-            var alg = Rijndael.Create();
+            MemoryStream ms = new MemoryStream();
+            Rijndael alg = Rijndael.Create();
             alg.Key = Key;
             alg.IV = IV;
-            var cs = new CryptoStream(ms, alg.CreateEncryptor(), CryptoStreamMode.Write);
+            CryptoStream cs = new CryptoStream(ms, alg.CreateEncryptor(), CryptoStreamMode.Write);
             cs.Write(data, 0, data.Length);
             cs.Close();
             byte[] encryptedData = ms.ToArray();
@@ -69,7 +69,7 @@ namespace Chashavshavon
         public static string Encrypt(string text, string Password)
         {
             byte[] clearBytes = System.Text.Encoding.Unicode.GetBytes(text);
-            var pdb = new PasswordDeriveBytes(Password, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
             byte[] encryptedData = Encrypt(clearBytes, pdb.GetBytes(32), pdb.GetBytes(16));
             return Convert.ToBase64String(encryptedData);
         }
@@ -83,13 +83,13 @@ namespace Chashavshavon
         public static string Decrypt(string cipherText, string Password)
         {
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
-            var pdb = new PasswordDeriveBytes(Password,
+            PasswordDeriveBytes pdb = new PasswordDeriveBytes(Password,
                 new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-            var ms = new MemoryStream();
-            var alg = Rijndael.Create();
+            MemoryStream ms = new MemoryStream();
+            Rijndael alg = Rijndael.Create();
             alg.Key = pdb.GetBytes(32);
             alg.IV = pdb.GetBytes(16);
-            var cs = new CryptoStream(ms, alg.CreateDecryptor(), CryptoStreamMode.Write);
+            CryptoStream cs = new CryptoStream(ms, alg.CreateDecryptor(), CryptoStreamMode.Write);
             cs.Write(cipherBytes, 0, cipherBytes.Length);
             cs.Close();
             cs.Dispose();
@@ -99,7 +99,7 @@ namespace Chashavshavon
         //Recursively gets all controls contained in the given control or any of it's descendants
         public static System.Collections.Generic.IEnumerable<System.Windows.Forms.Control> GetAllControls(System.Windows.Forms.Control control)
         {
-            var l = new System.Collections.Generic.List<System.Windows.Forms.Control> { control };
+            System.Collections.Generic.List<System.Windows.Forms.Control> l = new System.Collections.Generic.List<System.Windows.Forms.Control> { control };
             foreach (System.Windows.Forms.Control c in control.Controls)
             {
                 l.AddRange(GetAllControls(c));

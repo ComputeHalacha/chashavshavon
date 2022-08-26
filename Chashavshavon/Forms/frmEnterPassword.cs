@@ -8,18 +8,18 @@ namespace Chashavshavon
         private readonly string _password;
         public FrmEnterPassword(string password)
         {
-            this.InitializeComponent();
-            this._password = password;
+            InitializeComponent();
+            _password = password;
         }
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            this.DialogResult = GeneralUtils.Encrypt(this.textBox1.Text, "kedoshimteeheeyoo") == this._password ? DialogResult.Yes : DialogResult.No;
+            DialogResult = GeneralUtils.Encrypt(textBox1.Text, "kedoshimteeheeyoo") == _password ? DialogResult.Yes : DialogResult.No;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

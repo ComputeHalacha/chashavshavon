@@ -33,10 +33,10 @@ namespace Chashavshavon.Utils
         public static void LoadLocations()
         {
             LocationsList = new List<Location>();
-            using (var ms = new System.IO.StringReader(Properties.Resources.LocationsList))
+            using (System.IO.StringReader ms = new System.IO.StringReader(Properties.Resources.LocationsList))
             {
-                var settings = new System.Xml.XmlReaderSettings() { IgnoreWhitespace = true };
-                using (var xr = System.Xml.XmlReader.Create(ms, settings))
+                System.Xml.XmlReaderSettings settings = new System.Xml.XmlReaderSettings() { IgnoreWhitespace = true };
+                using (System.Xml.XmlReader xr = System.Xml.XmlReader.Create(ms, settings))
                 {
                     while (xr.ReadToFollowing("L"))
                     {
