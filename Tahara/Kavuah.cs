@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,13 +62,16 @@ namespace Tahara
         public bool IsMaayanPasuach { get; set; }
         public bool CancelsOnahBeinanis { get; set; }
         [XmlIgnore]
+        [JsonIgnore]
         public Entry SettingEntry { get; set; }
         [XmlIgnore]
+        [JsonIgnore]
         public Onah SettingOnah => this.SettingEntry ?? new Onah(this.SettingEntryDate, this.DayNight);
         public DateTime SettingEntryDate { get; set; }
         public int SettingEntryInterval { get; set; }
         public string Notes { get; set; }
         [XmlIgnore]
+        [JsonIgnore]
         public string KavuahDescriptionHebrew => this.ToString();
         #endregion
 

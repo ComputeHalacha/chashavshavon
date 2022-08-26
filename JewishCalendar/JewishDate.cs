@@ -631,9 +631,9 @@ namespace JewishCalendar
         /// <returns></returns>
         public static bool operator ==(JewishDate jd1, JewishDate jd2)
         {
-            if (ReferenceEquals(jd1, null))
+            if (jd1 is null)
             {
-                return ReferenceEquals(jd2, null);
+                return jd2 is null;
             }
             return jd1.Equals(jd2);
         }

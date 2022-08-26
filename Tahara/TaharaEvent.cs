@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Tahara
 {
@@ -43,8 +44,11 @@ namespace Tahara
         public string Notes { get; set; }
         
         [XmlIgnore]
+        [JsonIgnore]
         public string TaharaEventDescriptionHebrew => this.ToString();
+
         [XmlIgnore]
+        [JsonIgnore]
         public string TaharaEventDescriptionEnglish => this.ToStringEng();
         #endregion
 
