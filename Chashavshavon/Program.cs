@@ -312,6 +312,100 @@ namespace Chashavshavon
             return lists;
         }
 
+        internal static (List<Entry>, List<Kavuah>, List<TaharaEvent>) LoadEntriesKavuahsFromSqlite(string filePath)
+        {
+            (List<Entry> entries, List<Kavuah> kavuahs, List<TaharaEvent> taharaEvents) lists = (entries: new List<Entry>(), kavuahs: new List<Kavuah>(), taharaEvents: new List<TaharaEvent>());
+            JToken js = JToken.Parse(jsonString);
+
+
+            if (js.HasValues)
+            {
+                foreach (JToken entry in js["Entries"])
+                {
+                    bool isInvisible = entry.Value<bool>("IsInvisible");
+                    int abs = entry.Value<int>("Abs");
+                    DayNight dayNight = (DayNight)entry.Value<int>("DN");
+                    string notes = entry.Value<string>("Notes");
+                    Entry newEntry = new Entry(JewishDateCalculations.GetGregorianDateFromAbsolute(abs), dayNight, notes)
+                    {
+                        IsInvisible = isInvisible
+                    };
+
+                    if (js["NoKavuah"] != null)
+                    {
+                        // If during the addition of a new Entry the program finds
+                        // a set of 3 entries that might have been considered a Kavuah;
+                        // such as if there are 3 of the same haflagas in a row,
+                        // the user is prompted to create a new kavuah. If they choose not to,
+                        // a NoKavuah element is added to the 3rd entry so the user
+                        // won't be prompted again each time the list is reloaded.
+                        foreach (JToken noKavuahNode in js["NoKavuah"])
+                        {
+                            Kavuah ka = new Kavuah(
+                                (KavuahType)Enum.Parse(typeof(KavuahType), noKavuahNode.Value<string>("KavuahType")),
+                                newEntry.DayNight)
+                            {
+                                Number = noKavuahNode.Value<int>("Number"),
+                                SettingEntryDate = newEntry.DateTime
+                            };
+                            newEntry.NoKavuahList.Add(ka);
+                        }
+                    }
+                    lists.entries.Add(newEntry);
+                }
+                Entry.SortEntriesAndSetInterval(lists.entries);
+
+                //After the list of Entries, there is a list of Kavuahs
+                foreach (JToken kavuah in js["Kavuahs"])
+                {
+                    lists.kavuahs.Add(kavuah.ToObject<Kavuah>());
+                }
+
+                //After the list of Kavuahs, there is a list of Tahara Events
+                if (js["TaharaEvents"] != null)
+                {
+                    foreach (JToken taharaEvent in js["TaharaEvents"])
+                    {
+                        lists.taharaEvents.Add(taharaEvent.ToObject<TaharaEvent>());
+                    }
+                    TaharaEvent.SortList(lists.taharaEvents);
+                }
+            }
+
+            return lists;
+        }
+
+        public static bool IsFileBinary(string filePath, int requiredConsecutiveNul = 1)
+        {
+            const int charsToCheck = 8000;
+            const char nulChar = '\0';
+
+            int nulCount = 0;
+
+            using (var streamReader = new StreamReader(filePath))
+            {
+                for (var i = 0; i < charsToCheck; i++)
+                {
+                    if (streamReader.EndOfStream)
+                        return false;
+
+                    if ((char)streamReader.Read() == nulChar)
+                    {
+                        nulCount++;
+
+                        if (nulCount >= requiredConsecutiveNul)
+                            return true;
+                    }
+                    else
+                    {
+                        nulCount = 0;
+                    }
+                }
+            }
+
+            return false;
+        }
+
 
 
         #region Extension Methods

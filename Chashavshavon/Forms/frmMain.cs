@@ -89,7 +89,7 @@ namespace Chashavshavon
                 CurrentFile = null;
             }
             //Load the last opened file. If it does not exist or this is the first run, a blank list is presented
-            LoadJSONFile();
+            LoadCurrentFile();
             bindingSourceEntries.DataSource = Program.EntryList.Where(en => !en.IsInvisible);
             _monthToDisplay = Program.Today;
             DisplayMonth();
@@ -376,7 +376,7 @@ namespace Chashavshavon
             openFileDialog1.ShowDialog(this);
             openFileDialog1.CheckFileExists = true;
             CurrentFile = openFileDialog1.FileName;
-            LoadJSONFile();
+            LoadCurrentFile();
             CalculateProblemOnahs();
             DisplayMonth();
         }
@@ -404,7 +404,7 @@ namespace Chashavshavon
             {
                 SaveCurrentFile();
                 CurrentFile = e.ClickedItem.Text;
-                LoadJSONFile();
+                LoadCurrentFile();
                 CalculateProblemOnahs();
                 DisplayMonth();
             }
@@ -606,7 +606,7 @@ namespace Chashavshavon
                 {
                     SaveCurrentFile();
                     TestInternet();
-                    LoadJSONFile();
+                    LoadCurrentFile();
                 }
 
                 //In case some Kavuahs were added or deleted...
@@ -1055,7 +1055,7 @@ namespace Chashavshavon
         private void RefreshData()
         {
             TestInternet();
-            LoadJSONFile();
+            LoadCurrentFile();
             DisplayMonth();
         }
 
@@ -1200,7 +1200,7 @@ namespace Chashavshavon
             return _tempJSONFileName;
         }
 
-        public void LoadJSONFile()
+        public void LoadCurrentFile()
         {
             CreateLocalBackup();
             lblNextProblem.Text = "";
@@ -1210,7 +1210,7 @@ namespace Chashavshavon
                 try
                 {
                     (List<Entry> entryList, List<Kavuah> kavuahList, List<TaharaEvent> taharaEvents) =
-                        Program.LoadEntriesKavuahsFromJson(CurrentFileJson);
+                        Program.LoadEntriesKavuahsFromSqlite(CurrentFile);
                     Program.EntryList.Clear();
                     Program.EntryList.AddRange(entryList);
                     Program.KavuahList.Clear();
