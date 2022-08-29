@@ -140,7 +140,7 @@ namespace Chashavshavon.Utils
                 Stream resStream = response.GetResponseStream();
                 StreamReader streamReader = new StreamReader(resStream);
                 string responseText =
-                    jse.Deserialize<System.Collections.Generic.Dictionary<String, String>>(streamReader.ReadToEnd())["d"];
+                    jse.Deserialize<Dictionary<string, string>>(streamReader.ReadToEnd())["d"];
                 streamReader.Close();
                 streamReader.Dispose();
                 resStream.Close();
