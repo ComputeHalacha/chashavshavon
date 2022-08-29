@@ -70,8 +70,6 @@ namespace Tahara
         public DateTime SettingEntryDate { get; set; }
         public int SettingEntryInterval { get; set; }
         public string Notes { get; set; }
-        [XmlIgnore]
-        [JsonIgnore]
         public string KavuahDescriptionHebrew => this.ToString();
         #endregion
 

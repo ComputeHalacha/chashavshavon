@@ -41,8 +41,10 @@ namespace Tahara
         }
 
         public DateTime DateTime { get; set; }
+        [JsonProperty(Required = Required.Default)]
+        public string JewishDate => this.DateTime.ToString("dddd dd MMM yyyy", Utils.CultureInfo);
         public string Notes { get; set; }
-        
+
         [XmlIgnore]
         [JsonIgnore]
         public string TaharaEventDescriptionHebrew => this.ToString();
@@ -57,8 +59,8 @@ namespace Tahara
         public override string ToString()
         {
             return TaharaEventTypeName + " - " + this.DateTime.ToString("dddd dd MMM yyyy", Utils.CultureInfo);
-        }        
-        
+        }
+
         public string ToStringEng()
         {
             string val = "";

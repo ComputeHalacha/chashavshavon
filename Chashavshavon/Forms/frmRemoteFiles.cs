@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -198,8 +199,8 @@ namespace Chashavshavon
                 {
                     if (sfd.ShowDialog(this) == DialogResult.OK)
                     {
-                        string xml = Utils.RemoteFunctions.GetFileXml(lbFileNames.SelectedItem.ToString());
-                        File.WriteAllText(sfd.FileName, xml);
+                        string json = Utils.RemoteFunctions.GetFileJson(lbFileNames.SelectedItem.ToString());
+                        File.WriteAllText(sfd.FileName, json);
                         Program.Inform("הקובץ נשמרה ב" + sfd.FileName);
                     }
 
@@ -218,15 +219,13 @@ namespace Chashavshavon
                     {
                         SaveUser();
                         lbFileNames.Items.Clear();
-                        XmlNode files = doc.SelectSingleNode("//files");
-                        if (files.HasChildNodes)
+
+                        foreach (var file in doc["fileList"])
                         {
-                            foreach (XmlNode file in files.SelectNodes("//file"))
-                            {
-                                lbFileNames.Items.Add(file.Attributes["fileName"].Value);
-                            }
+                            lbFileNames.Items.Add(file);
                         }
-                        else
+
+                        if (lbFileNames.Items.Count == 0)
                         {
                             lbFileNames.Items.Add("אין קבצים...");
                         }
