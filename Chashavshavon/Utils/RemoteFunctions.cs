@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Chashavshavon.Utils
 {
@@ -35,30 +37,66 @@ namespace Chashavshavon.Utils
             return new KeyValuePair<string, string>(name, value);
         }
 
-        public static bool SaveFile(string fileName, string xml)
+        public static bool SaveFile(string fileName, string json)
         {
-            return ExecuteRemoteCall("SetFileText", NewParam("fileName", fileName), NewParam("fileText", xml)) != null;
+            var jtoken = ExecuteRemoteCall("SetFileText", NewParam("fileName", fileName), NewParam("fileText", json));
+            return jtoken.Value<bool>("succeeded");
         }
 
-        public static string GetFileXml(string fileName)
+        public static string GetFileJson(string fileName)
         {
-            return ExecuteRemoteCall("GetFileText", NewParam("fileName", fileName)).OuterXml;
+            var jtoken = ExecuteRemoteCall("GetFileText", NewParam("fileName", fileName));
+            if (jtoken.Value<bool>("succeeded"))
+            {
+                return jtoken.Value<string>("fileText");
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public static void RunRemoteAction(string functionName, Action<XmlDocument> onSuccess, Action<string> onFail, params KeyValuePair<string, string>[] fields)
+        public static void RunRemoteAction(string functionName, Action<JToken> onSuccess, Action<string> onFail, params KeyValuePair<string, string>[] fields)
         {
-            XmlDocument doc;
             try
             {
-                doc = ExecuteRemoteCall(functionName, fields);
-                XmlNode errorNode = doc.SelectSingleNode("//error");
-                if (errorNode != null)
+                string errorMessage = null;
+                var jtoken = ExecuteRemoteCall(functionName, fields);
+                if (!jtoken.Value<bool>("succeeded"))
                 {
-                    onFail?.Invoke(errorNode.InnerText);
+                    switch (jtoken.Value<int>("errorId"))
+                    {
+                        case 1:
+                            errorMessage = "אורך השם משתמש חייב להיות לפחות שני תווים, שם משתמש שהוקשה לא חוקי";
+                            break;
+                        case 2:
+                            errorMessage = "הסיסמה שהוקשה לא חוקי, אורך הסיסמה חייב להיות לפחות ארבע תווים";
+                            break;
+                        case 3:
+                            errorMessage = "שם המשתמש וסיסמה שהוקשו קיימים כבר ברשת";
+                            break;
+                        case 4:
+                            errorMessage = "לא נמצא במערכת משתמש בשם וסיסמה שהוקשו";
+                            break;
+                        case 5:
+                            errorMessage = "לא ניתן לשמור קובץ בלי שם במערכת";
+                            break;
+                        case 6:
+                            errorMessage = "קובץ עם שם הקובץ שהוקש קיים כבר במערכת למשתמש הזאת. נא לשמור הקובץ בשם אחר";
+                            break;
+                        case 7:
+                            errorMessage = "לא נמצא במערכת קובץ בשם זה למשתמש הזאת";
+                            break;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    onFail?.Invoke(errorMessage);
                 }
                 else
                 {
-                    onSuccess?.Invoke(doc);
+                    onSuccess?.Invoke(jtoken);
                 }
             }
             catch (Exception e)
@@ -70,9 +108,8 @@ namespace Chashavshavon.Utils
         public static string GetRemoteResponseText(string function, params KeyValuePair<string, string>[] fields)
         {
             string responseText = null;
-            WebRequest request = WebRequest.Create(
-                                (Program.RunInDevMode ?
-                                    Properties.Resources.LocalAppURL : Properties.Resources.AppURL) +
+            WebRequest request = WebRequest.Create((Program.RunInDevMode ?
+                                                Properties.Resources.LocalAppURL : Properties.Resources.AppURL) +
                                 "/" + function);
             request.Method = "POST";
 
@@ -249,39 +286,10 @@ namespace Chashavshavon.Utils
                 relativeURL;
         }
 
-        private static XmlDocument ExecuteRemoteCall(string function, params KeyValuePair<string, string>[] fields)
+        private static JToken ExecuteRemoteCall(string function, params KeyValuePair<string, string>[] fields)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(GetRemoteResponseText(function, fields));
-            XmlNode errorNode = doc.SelectSingleNode("//error");
-            if (errorNode != null)
-            {
-                switch (int.Parse(errorNode.Attributes["errorId"].InnerText))
-                {
-                    case 1:
-                        errorNode.InnerText = "אורך השם משתמש חייב להיות לפחות שני תווים, שם משתמש שהוקשה לא חוקי";
-                        break;
-                    case 2:
-                        errorNode.InnerText = "הסיסמה שהוקשה לא חוקי, אורך הסיסמה חייב להיות לפחות ארבע תווים";
-                        break;
-                    case 3:
-                        errorNode.InnerText = "שם המשתמש וסיסמה שהוקשו קיימים כבר ברשת";
-                        break;
-                    case 4:
-                        errorNode.InnerText = "לא נמצא במערכת משתמש בשם וסיסמה שהוקשו";
-                        break;
-                    case 5:
-                        errorNode.InnerText = "לא ניתן לשמור קובץ בלי שם במערכת";
-                        break;
-                    case 6:
-                        errorNode.InnerText = "קובץ עם שם הקובץ שהוקש קיים כבר במערכת למשתמש הזאת. נא לשמור הקובץ בשם אחר";
-                        break;
-                    case 7:
-                        errorNode.InnerText = "לא נמצא במערכת קובץ בשם זה למשתמש הזאת";
-                        break;
-                }
-            }
-            return doc;
+            string jsonText = GetRemoteResponseText(function, fields);
+            return JToken.Parse(jsonText);
         }
     }
 }

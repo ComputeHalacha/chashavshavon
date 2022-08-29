@@ -303,7 +303,11 @@ namespace Chashavshavon
                 {
                     foreach (JToken taharaEvent in js["TaharaEvents"])
                     {
-                        lists.taharaEvents.Add(taharaEvent.ToObject<TaharaEvent>());
+                        lists.taharaEvents.Add(new TaharaEvent((TaharaEventType)taharaEvent.Value<int>("TaharaEventType"))
+                        {
+                            DateTime = taharaEvent.Value<DateTime>("DateTime"),
+                            Notes = taharaEvent.Value<string>("Notes")
+                        });
                     }
                     TaharaEvent.SortList(lists.taharaEvents);
                 }

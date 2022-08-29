@@ -124,10 +124,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.8"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.8 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.8"
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
                     }
                 }
             }
@@ -272,7 +272,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.8"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.7.2"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=9832"
                 }
@@ -472,7 +472,7 @@
             "Name" = "8:ChashavshavonFile"
             "Description" = "8:Chashavshavon File"
             "Extensions" = "8:pmj"
-            "MIME" = "8:"
+            "MIME" = "8:application/json"
             "Icon" = "8:_F35B0C2893EF4C12917A08666B9D100A"
             "IconIndex" = "3:0"
                 "Command"
@@ -577,7 +577,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chashavshavon"
         "ProductCode" = "8:{87F37EE1-4A03-4592-929E-3F86804CC665}"
-        "PackageCode" = "8:{33E143E2-09B5-425A-B761-A152BEA40303}"
+        "PackageCode" = "8:{B7FEF35D-C86A-42B1-BA9F-E884C7E0F841}"
         "UpgradeCode" = "8:{8AF7B880-6999-4BEB-AA4D-BAB49F3A01A4}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

@@ -1,33 +1,45 @@
-import xml.dom.minidom
+import json
 
-class EntryLists():
-    def __init__(self, xmlString):
+
+class EntryLists:
+    def __init__(self, json_text):
         self.entryList = []
         self.kavuahList = []
+        self.taharaEventsList = []
 
-        docNode = xml.dom.minidom.parseString(xmlString.encode( "utf-8" ))
+        lists = json.loads(json_text.encode("utf-8"))
 
-        for entry in docNode.getElementsByTagName('Entry'):
+        for entry in lists['Entries']:
             self.entryList.append(Entry(entry))
 
-        for kavuah in docNode.getElementsByTagName('Kavuah'):
+        for kavuah in lists['Kavuahs']:
             self.kavuahList.append(Kavuah(kavuah))
 
-class Entry():
-      def __init__(self, xmlNode):
-          isInvisibleNodes = xmlNode.getElementsByTagName('IsInvisible')
-          self.isInvisible = isInvisibleNodes.length and isInvisibleNodes[0].childNodes[0].data == 'True'
-          self.date = xmlNode.getElementsByTagName('Date')[0].childNodes[0].data
-          self.dn = ((xmlNode.getElementsByTagName('DN')[0].childNodes[0].data == '1' and 'Day') or 'Night')
-          notesNode = xmlNode.getElementsByTagName('Notes')[0].childNodes
-          self.notes = (notesNode.length and notesNode[0].data) or None
+        for taharaEvent in lists['TaharaEvents']:
+            self.taharaEventsList.append(TaharaEvent(taharaEvent))
 
-class Kavuah():
-      def __init__(self, xmlNode):
-          self.active = xmlNode.getElementsByTagName('Active')[0].childNodes[0].data == 'true'
-          self.type = xmlNode.getElementsByTagName('KavuahType')[0].childNodes[0].data
-          self.dn = xmlNode.getElementsByTagName('DayNight')[0].childNodes[0].data
-          self.number = xmlNode.getElementsByTagName('Number')[0].childNodes[0].data
-          self.cancels = xmlNode.getElementsByTagName('CancelsOnahBeinanis')[0].childNodes[0].data == 'true'
-          hasNotesNode = xmlNode.getElementsByTagName('Notes').length and xmlNode.getElementsByTagName('Notes')[0].hasChildNodes()
-          self.notes = (hasNotesNode and xmlNode.getElementsByTagName('Notes')[0].childNodes[0].data) or None
+
+class Entry:
+    def __init__(self, entry):
+        self.isInvisible = entry['IsInvisible']
+        self.date = entry['When']
+        self.dn = 'Day' if entry['DN'] == '1' else 'Night'
+        self.notes = entry['Notes']
+
+
+class Kavuah:
+    def __init__(self, kavuah):
+        self.active = kavuah['Active']
+        self.type = kavuah['KavuahDescriptionHebrew']
+        self.dn = 'Day' if kavuah['DayNight'] == '1' else 'Night'
+        self.number = kavuah['Number']
+        self.cancels = kavuah['CancelsOnahBeinanis']
+        self.notes = kavuah['Notes']
+
+
+class TaharaEvent:
+    def __init__(self, tahara_event):
+        self.type = tahara_event['TaharaEventTypeName']
+        self.date = tahara_event['DateTime']
+        self.jewish_date = tahara_event['JewishDate']
+        self.notes = tahara_event['Notes']

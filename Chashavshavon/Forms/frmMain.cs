@@ -1492,7 +1492,7 @@ namespace Chashavshavon
                 }
                 else
                 {
-                    return "<Entries />";
+                    return "{}";
                 }
             }
         }
