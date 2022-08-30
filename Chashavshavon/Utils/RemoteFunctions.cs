@@ -191,6 +191,22 @@ namespace Chashavshavon.Utils
             File.Delete(logFilePath);
         }
 
+        public static void SaveFile(string filePath, Action<JToken> onSuccess, Action<string> onFail)
+        {
+            SaveFileAs(filePath, Path.GetFileNameWithoutExtension(filePath), onSuccess, onFail);            
+        }
+
+        public static void SaveFileAs(string filePath, string fileName, Action<JToken> onSuccess, Action<string> onFail)
+        {
+            string jsonString = File.ReadAllText(filePath);
+            RunRemoteAction("SetFileText",
+                onSuccess,
+                onFail,
+                NewParam("fileName", fileName),
+                NewParam("fileText", jsonString),
+                NewParam("dateModified", DateTime.Now.ToString("d-MMM-yyyy HH:mm")));
+        }
+
         public static Version GetLatestVersion()
         {
             Version version = null;

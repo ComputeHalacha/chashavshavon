@@ -10,6 +10,7 @@ class Files(db.Model):
     user = db.ReferenceProperty(Users, collection_name='files_set', required=True)
     fileName = db.StringProperty(required=True)
     fileText = db.TextProperty()
+    modifiedDate = db.TextProperty()
 
 def GetUser(userName, password):
     return Users.gql('WHERE userName = :1 AND password = :2',

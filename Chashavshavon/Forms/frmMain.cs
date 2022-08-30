@@ -1,4 +1,5 @@
-﻿using JewishCalendar;
+﻿using Chashavshavon.Utils;
+using JewishCalendar;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -1080,7 +1081,7 @@ namespace Chashavshavon
                 location = Properties.Settings.Default.LocationName = "Jerusalem"; //Yerushalayim
             }
 
-            Program.CurrentLocation = Utils.Locations.GetPlace(location);
+            Program.CurrentLocation = Locations.GetPlace(location);
         }
 
         private FrmBrowser ShowCalendarTextList(bool print = false)
@@ -1438,6 +1439,11 @@ namespace Chashavshavon
             Properties.Settings.Default.CurrentFile = CurrentFile;
             Properties.Settings.Default.Save();
             SetCaptionText();
+
+            if(RemoteFunctions.IsConnectedToInternet() && Properties.Settings.Default.AlwaysUpdateRemote && !string.IsNullOrEmpty(Properties.Settings.Default.RemoteUserName) && !string.IsNullOrEmpty(Properties.Settings.Default.RemotePassword))
+            {
+                RemoteFunctions.SaveFile(CurrentFile, null, null);
+            }
         }
 
         public void SetCaptionText()
@@ -1458,7 +1464,7 @@ namespace Chashavshavon
         /// <returns></returns>
         public bool TestInternet()
         {
-            bool hasInternet = Program.RunInDevMode || Utils.RemoteFunctions.IsConnectedToInternet();
+            bool hasInternet = Program.RunInDevMode || RemoteFunctions.IsConnectedToInternet();
             RemoteToolStripMenuItem.Visible = hasInternet;
             return hasInternet;
         }

@@ -37,10 +37,12 @@
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lvFileNames = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnPreview = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
-            this.lbFileNames = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnDeleteUser = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -52,6 +54,8 @@
             this.llSite = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.switcherAlwaysUpdateRemote = new Chashavshavon.ChoiceSwitcher();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -67,7 +71,7 @@
             this.label1.Location = new System.Drawing.Point(304, 30);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 16);
+            this.label1.Size = new System.Drawing.Size(65, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "שם משתמש";
             // 
@@ -78,7 +82,7 @@
             this.label2.Location = new System.Drawing.Point(339, 80);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 16);
+            this.label2.Size = new System.Drawing.Size(39, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "סיסמה";
             // 
@@ -112,7 +116,7 @@
             this.btnEnter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnter.Font = new System.Drawing.Font("Narkisim", 10F);
             this.btnEnter.ForeColor = System.Drawing.Color.Lavender;
-            this.btnEnter.Location = new System.Drawing.Point(207, 139);
+            this.btnEnter.Location = new System.Drawing.Point(207, 157);
             this.btnEnter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(112, 28);
@@ -131,7 +135,7 @@
             this.btnNewUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewUser.Font = new System.Drawing.Font("Narkisim", 10F);
             this.btnNewUser.ForeColor = System.Drawing.Color.Lavender;
-            this.btnNewUser.Location = new System.Drawing.Point(87, 139);
+            this.btnNewUser.Location = new System.Drawing.Point(87, 157);
             this.btnNewUser.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnNewUser.Name = "btnNewUser";
             this.btnNewUser.Size = new System.Drawing.Size(112, 28);
@@ -147,7 +151,7 @@
             this.txtUserName.Location = new System.Drawing.Point(38, 46);
             this.txtUserName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(350, 24);
+            this.txtUserName.Size = new System.Drawing.Size(350, 20);
             this.txtUserName.TabIndex = 0;
             // 
             // txtPassword
@@ -158,24 +162,53 @@
             this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(350, 24);
+            this.txtPassword.Size = new System.Drawing.Size(350, 20);
             this.txtPassword.TabIndex = 1;
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.White;
+            this.groupBox2.Controls.Add(this.lvFileNames);
             this.groupBox2.Controls.Add(this.btnPreview);
             this.groupBox2.Controls.Add(this.btnDelete);
             this.groupBox2.Controls.Add(this.btnOpen);
-            this.groupBox2.Controls.Add(this.lbFileNames);
             this.groupBox2.Location = new System.Drawing.Point(453, 94);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox2.Size = new System.Drawing.Size(300, 384);
+            this.groupBox2.Size = new System.Drawing.Size(398, 323);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "קבצי רשת בחשבון";
+            // 
+            // lvFileNames
+            // 
+            this.lvFileNames.BackColor = System.Drawing.Color.Lavender;
+            this.lvFileNames.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvFileNames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.lvFileNames.FullRowSelect = true;
+            this.lvFileNames.GridLines = true;
+            this.lvFileNames.HideSelection = false;
+            this.lvFileNames.Location = new System.Drawing.Point(19, 30);
+            this.lvFileNames.Name = "lvFileNames";
+            this.lvFileNames.RightToLeftLayout = true;
+            this.lvFileNames.Size = new System.Drawing.Size(361, 235);
+            this.lvFileNames.TabIndex = 4;
+            this.lvFileNames.UseCompatibleStateImageBehavior = false;
+            this.lvFileNames.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "שם";
+            this.columnHeader1.Width = 200;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "תאריך שינוי";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 161;
             // 
             // btnPreview
             // 
@@ -187,7 +220,7 @@
             this.btnPreview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPreview.Font = new System.Drawing.Font("Narkisim", 10F);
             this.btnPreview.ForeColor = System.Drawing.Color.Lavender;
-            this.btnPreview.Location = new System.Drawing.Point(116, 337);
+            this.btnPreview.Location = new System.Drawing.Point(165, 275);
             this.btnPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnPreview.Name = "btnPreview";
             this.btnPreview.Size = new System.Drawing.Size(69, 25);
@@ -206,7 +239,7 @@
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Narkisim", 10F);
             this.btnDelete.ForeColor = System.Drawing.Color.Lavender;
-            this.btnDelete.Location = new System.Drawing.Point(39, 337);
+            this.btnDelete.Location = new System.Drawing.Point(88, 275);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(69, 25);
@@ -225,7 +258,7 @@
             this.btnOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpen.Font = new System.Drawing.Font("Narkisim", 10F);
             this.btnOpen.ForeColor = System.Drawing.Color.Lavender;
-            this.btnOpen.Location = new System.Drawing.Point(193, 338);
+            this.btnOpen.Location = new System.Drawing.Point(242, 276);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(69, 25);
@@ -233,23 +266,6 @@
             this.btnOpen.Text = "הורדה";
             this.btnOpen.UseVisualStyleBackColor = false;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-            // 
-            // lbFileNames
-            // 
-            this.lbFileNames.BackColor = System.Drawing.Color.Lavender;
-            this.lbFileNames.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbFileNames.Font = new System.Drawing.Font("Narkisim", 10F);
-            this.lbFileNames.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.lbFileNames.FormattingEnabled = true;
-            this.lbFileNames.ItemHeight = 16;
-            this.lbFileNames.Location = new System.Drawing.Point(17, 24);
-            this.lbFileNames.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.lbFileNames.Name = "lbFileNames";
-            this.lbFileNames.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lbFileNames.Size = new System.Drawing.Size(266, 290);
-            this.lbFileNames.Sorted = true;
-            this.lbFileNames.TabIndex = 0;
-            this.lbFileNames.DoubleClick += new System.EventHandler(this.lbFileNames_DoubleClick);
             // 
             // groupBox1
             // 
@@ -264,7 +280,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Size = new System.Drawing.Size(406, 266);
+            this.groupBox1.Size = new System.Drawing.Size(406, 255);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "חשבון הזדהות";
@@ -279,7 +295,7 @@
             this.btnDeleteUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteUser.Font = new System.Drawing.Font("Narkisim", 10F);
             this.btnDeleteUser.ForeColor = System.Drawing.Color.Lavender;
-            this.btnDeleteUser.Location = new System.Drawing.Point(147, 172);
+            this.btnDeleteUser.Location = new System.Drawing.Point(147, 190);
             this.btnDeleteUser.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnDeleteUser.Name = "btnDeleteUser";
             this.btnDeleteUser.Size = new System.Drawing.Size(112, 28);
@@ -328,7 +344,7 @@
             this.label3.Location = new System.Drawing.Point(330, 27);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 16);
+            this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 11;
             this.label3.Text = "שם קובץ";
             // 
@@ -339,7 +355,7 @@
             this.txtCurrentFileName.Location = new System.Drawing.Point(92, 45);
             this.txtCurrentFileName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtCurrentFileName.Name = "txtCurrentFileName";
-            this.txtCurrentFileName.Size = new System.Drawing.Size(294, 24);
+            this.txtCurrentFileName.Size = new System.Drawing.Size(294, 20);
             this.txtCurrentFileName.TabIndex = 0;
             // 
             // pbWeb
@@ -347,7 +363,7 @@
             this.pbWeb.BackColor = System.Drawing.Color.Transparent;
             this.pbWeb.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbWeb.Image = ((System.Drawing.Image)(resources.GetObject("pbWeb.Image")));
-            this.pbWeb.Location = new System.Drawing.Point(716, 3);
+            this.pbWeb.Location = new System.Drawing.Point(794, 10);
             this.pbWeb.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pbWeb.Name = "pbWeb";
             this.pbWeb.Size = new System.Drawing.Size(62, 55);
@@ -361,10 +377,10 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Narkisim", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label4.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.label4.Location = new System.Drawing.Point(390, 15);
+            this.label4.Location = new System.Drawing.Point(468, 22);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(314, 43);
+            this.label4.Size = new System.Drawing.Size(249, 35);
             this.label4.TabIndex = 17;
             this.label4.Text = "גיבוי קבצים ברשת";
             // 
@@ -373,10 +389,10 @@
             this.llSite.AutoSize = true;
             this.llSite.BackColor = System.Drawing.Color.Transparent;
             this.llSite.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.llSite.Location = new System.Drawing.Point(649, 31);
+            this.llSite.Location = new System.Drawing.Point(753, 23);
             this.llSite.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.llSite.Name = "llSite";
-            this.llSite.Size = new System.Drawing.Size(126, 18);
+            this.llSite.Size = new System.Drawing.Size(95, 14);
             this.llSite.TabIndex = 18;
             this.llSite.TabStop = true;
             this.llSite.Text = "פתח אתר חשבשבון";
@@ -390,7 +406,7 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(784, 76);
+            this.panel1.Size = new System.Drawing.Size(871, 76);
             this.panel1.TabIndex = 19;
             // 
             // panel2
@@ -401,16 +417,59 @@
             this.panel2.Controls.Add(this.btnClose);
             this.panel2.Location = new System.Drawing.Point(-1, 501);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(784, 62);
+            this.panel2.Size = new System.Drawing.Size(871, 62);
             this.panel2.TabIndex = 20;
             // 
-            // frmRemoteFiles
+            // label5
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Narkisim", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label5.Location = new System.Drawing.Point(468, 450);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(183, 15);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "שמור שינויים ברשת אוטומתית ";
+            // 
+            // switcherAlwaysUpdateRemote
+            // 
+            this.switcherAlwaysUpdateRemote.BackColorNotSelected = System.Drawing.Color.Transparent;
+            this.switcherAlwaysUpdateRemote.BackColorSelected = System.Drawing.Color.Green;
+            this.switcherAlwaysUpdateRemote.BackColorSlot = System.Drawing.Color.MediumSeaGreen;
+            this.switcherAlwaysUpdateRemote.BackColorSlotChoiceTwo = System.Drawing.SystemColors.ControlDark;
+            this.switcherAlwaysUpdateRemote.ChoiceChosen = Chashavshavon.ChoiceSwitcherChoices.ChoiceOne;
+            this.switcherAlwaysUpdateRemote.ChoiceOneSelected = global::Chashavshavon.Properties.Settings.Default.AlwaysUpdateRemote;
+            this.switcherAlwaysUpdateRemote.ChoiceTwoSelected = false;
+            this.switcherAlwaysUpdateRemote.DataBindings.Add(new System.Windows.Forms.Binding("ChoiceOneSelected", global::Chashavshavon.Properties.Settings.Default, "AlwaysUpdateRemote", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.switcherAlwaysUpdateRemote.DisplayAsYesNo = false;
+            this.switcherAlwaysUpdateRemote.FontNotSelected = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.switcherAlwaysUpdateRemote.FontSelected = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.switcherAlwaysUpdateRemote.FontSize = 8.25F;
+            this.switcherAlwaysUpdateRemote.ForeColorNotSelected = System.Drawing.SystemColors.ControlText;
+            this.switcherAlwaysUpdateRemote.ForeColorSelected = System.Drawing.SystemColors.ControlText;
+            this.switcherAlwaysUpdateRemote.Location = new System.Drawing.Point(644, 436);
+            this.switcherAlwaysUpdateRemote.Name = "switcherAlwaysUpdateRemote";
+            this.switcherAlwaysUpdateRemote.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.switcherAlwaysUpdateRemote.SelectedValue = false;
+            this.switcherAlwaysUpdateRemote.Size = new System.Drawing.Size(112, 42);
+            this.switcherAlwaysUpdateRemote.TabIndex = 21;
+            this.switcherAlwaysUpdateRemote.Text = "choiceSwitcher1";
+            this.switcherAlwaysUpdateRemote.TextChoiceOne = "";
+            this.switcherAlwaysUpdateRemote.TextChoiceTwo = "";
+            this.switcherAlwaysUpdateRemote.ValueChoiceOne = false;
+            this.switcherAlwaysUpdateRemote.ValueChoiceTwo = true;
+            this.switcherAlwaysUpdateRemote.ChoiceSwitched += new System.EventHandler(this.switcherAlwaysUpdateRemote_ChoiceSwitched);
+            // 
+            // FrmRemoteFiles
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(777, 560);
+            this.ClientSize = new System.Drawing.Size(870, 560);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.switcherAlwaysUpdateRemote);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
@@ -422,7 +481,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmRemoteFiles";
+            this.Name = "FrmRemoteFiles";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.ShowInTaskbar = false;
@@ -440,6 +499,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -454,7 +514,6 @@
         private System.Windows.Forms.Button btnNewUser;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnOpen;
-        private System.Windows.Forms.ListBox lbFileNames;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnSaveCurrent;
@@ -468,5 +527,10 @@
         private System.Windows.Forms.Button btnPreview;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ListView lvFileNames;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private ChoiceSwitcher switcherAlwaysUpdateRemote;
+        private System.Windows.Forms.Label label5;
     }
 }

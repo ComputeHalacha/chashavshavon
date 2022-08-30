@@ -72,7 +72,9 @@ class GetFileList(webapp2.RequestHandler):
             return
 
         files = datamodule.Files.gql('WHERE user = :1', user).fetch(1000, 0)
-        self.response.out.write(json.dumps({'succeeded': True, 'fileList': [file.fileName for file in files]}))
+        self.response.out.write(json.dumps({'succeeded': True,
+                                            'fileList': [{'fileName': file.fileName,
+                                                          'modifiedDate': file.modifiedDate} for file in files]}))
 
 
 class AddFile(webapp2.RequestHandler):
@@ -105,7 +107,8 @@ class AddFile(webapp2.RequestHandler):
 
         file = datamodule.Files(user=currUser,
                                 fileName=filename,
-                                fileText=self.request.get('fileText'))
+                                fileText=self.request.get('fileText'),
+                                modifiedDate=self.request.get('dateModified'))
         file.put()
         self.response.out.write(json.dumps({'succeeded': True, 'message': 'File Added'}))
 
@@ -225,16 +228,21 @@ class GetFileListLinks(webapp2.RequestHandler):
         count = 0
         for file in files:
             count += 1
-            self.response.out.write('''<tr style="background-color:%s;">
-                                         <td>%s.</td>
-                                         <td width="400"><span onclick="javascript:go('GetFileAsHTML', '%s');return false;" class="link">%s</span></td>
-                                         <td><a class="link" href="" onclick="javascript:go('GetFileAsHTML', '%s');return false;">Open File</a> |
-                                             <a class="link" href="" onclick="javascript:deleteFile('%s');return false;">Delete File</a> |
-                                             <a class="link" href="" onclick="javascript:go('GetFileText', '%s');return false;">View File Source</a></td>
-                                     </tr>''' % (
-                '#ffffff' if count % 2 else '#f1f1f1', count, file.fileName, file.fileName, file.fileName,
-                file.fileName,
-                file.fileName))
+            self.response.out.write('''<tr style="background-color:%(color);">
+                                         <td>%(count).</td>
+                                         <td width="400"><span onclick="javascript:go('GetFileAsHTML', '%(fileName)');
+                                            return false;" class="link">%(fileName)</span></td>
+                                         <td>%(modifiedDate)</td>
+                                         <td><a class="link" href="" 
+                                            onclick="javascript:go('GetFileAsHTML', '%(fileName)');return false;">
+                                                Open File</a> |
+                                             <a class="link" href="" onclick="javascript:deleteFile('%(fileName)');
+                                                return false;">Delete File</a> |
+                                             <a class="link" href="" 
+                                                onclick="javascript:go('GetFileText', '%(fileName)'); return false;">
+                                                    View File Source</a></td>
+                                     </tr>''' % {'color': ('#ffffff' if count % 2 else '#f1f1f1'), 'count': count,
+                                                 'fileName': file.fileName, "modifiedDate": file.modifiedDate})
         self.response.out.write('</table></body></html>')
 
 
@@ -310,15 +318,18 @@ class SetFileText(webapp2.RequestHandler):
         if not user:
             self.response.out.write(json.dumps({'succeeded': False, 'errorId': 4, 'message': 'User not found'}))
             return
-        file = datamodule.Files.gql('WHERE user = :1 AND fileName = :2',
-                                    user,
-                                    self.request.get('fileName')).get()
+        file_name = self.request.get('fileName').strip()
+        file_text = self.request.get('fileText')
+        modified_date = self.request.get('dateModified')
+        file = datamodule.Files.gql('WHERE user = :1 AND fileName = :2', user, file_name).get()
         if not file:
-            self.response.out.write(json.dumps({'succeeded': False, 'errorId': 7, 'message': 'File not found'}))
-        else:
-            file.fileText = self.request.get('fileText')
-            file.put()
-            self.response.out.write(json.dumps({'succeeded': True, 'message': 'File Updated'}))
+            file = datamodule.Files(user=user, fileName=file_name, fileText=file_text, modifiedDate=modified_date)
+        
+        file.fileText = file_text
+        file.modifiedDate = modified_date
+        file.put()
+
+        self.response.out.write(json.dumps({'succeeded': True, 'message': 'File Updated'}))
 
 
 class GetUsers(webapp2.RequestHandler):
