@@ -218,31 +218,31 @@ class GetFileListLinks(webapp2.RequestHandler):
                 '<span class="header">There are no files on record for this user</span></body></html>')
             return
 
-        self.response.out.write('''<span class="header">List of Files</span>
+        self.response.out.write(u'''<span class="header">List of Files</span>
                                  <form method="post" target="_self">
-                                 <input name="userName" type="hidden" value="%s" />
-                                 <input name="password" type="hidden" value="%s" />
+                                 <input name="userName" type="hidden" value="{}" />
+                                 <input name="password" type="hidden" value="{}" />
                                  <input name="fileName" type="hidden" />
-                                 <table cellspacing="0" cellpadding="5">''' % (
+                                 <table cellspacing="0" cellpadding="5">'''.format(
             self.request.get('userName'), self.request.get('password')))
         count = 0
         for file in files:
             count += 1
-            self.response.out.write('''<tr style="background-color:%(color);">
-                                         <td>%(count).</td>
-                                         <td width="400"><span onclick="javascript:go('GetFileAsHTML', '%(fileName)');
-                                            return false;" class="link">%(fileName)</span></td>
-                                         <td>%(modifiedDate)</td>
+            self.response.out.write(u'''<tr style="background-color:{color};">
+                                         <td>{count}.</td>
+                                         <td width="400"><span onclick="javascript:go('GetFileAsHTML', '{fileName}');
+                                            return false;" class="link">{fileName}</span></td>
+                                         <td>{modifiedDate}</td>
                                          <td><a class="link" href="" 
-                                            onclick="javascript:go('GetFileAsHTML', '%(fileName)');return false;">
+                                            onclick="javascript:go('GetFileAsHTML', '{fileName}');return false;">
                                                 Open File</a> |
-                                             <a class="link" href="" onclick="javascript:deleteFile('%(fileName)');
+                                             <a class="link" href="" onclick="javascript:deleteFile('{fileName}');
                                                 return false;">Delete File</a> |
                                              <a class="link" href="" 
-                                                onclick="javascript:go('GetFileText', '%(fileName)'); return false;">
+                                                onclick="javascript:go('GetFileText', '{fileName}'); return false;">
                                                     View File Source</a></td>
-                                     </tr>''' % {'color': ('#ffffff' if count % 2 else '#f1f1f1'), 'count': count,
-                                                 'fileName': file.fileName, "modifiedDate": file.modifiedDate})
+                                     </tr>'''.format(color='#ffffff' if count % 2 else '#f1f1f1', count=count,
+                                                     fileName=file.fileName, modifiedDate=file.modifiedDate))
         self.response.out.write('</table></body></html>')
 
 
@@ -254,7 +254,7 @@ class GetUsersListLinks(webapp2.RequestHandler):
         self.getUsersListLinks()
 
     def getUsersListLinks(self):
-        self.response.out.write(htmlHelper.getHtmlFrame() + '''<script type="text/javascript" language="javascript">
+        self.response.out.write(htmlHelper.getHtmlFrame() + u'''<script type="text/javascript" language="javascript">
                                                function go(funcName, userName, password){
                                                    document.forms[0].action='/' + funcName;
                                                    document.forms[0].userName.value = userName;
@@ -263,7 +263,9 @@ class GetUsersListLinks(webapp2.RequestHandler):
                                                }
 
                                                function deleteUser(userName, password) {
-                                                   if(confirm('Are you sure that you wish to permanently delete the user "' + userName + '"?')) {
+                                                   if(confirm(
+                                                    'Are you sure that you wish to permanently delete the user "' + 
+                                                        userName + '"?')) {
                                                        go('DeleteUser', userName, password);
                                                    }
                                                }
@@ -273,7 +275,8 @@ class GetUsersListLinks(webapp2.RequestHandler):
                                   self.request.get('password'))
         if not user:
             self.response.out.write(
-                '<strong style="color:red;">User not found</strong> - Please check your User Name and Password.</body></html>')
+                '''<strong style="color:red;">User not found</strong> - 
+                   Please check your User Name and Password.</body></html>''')
             return
 
         users = datamodule.Users.all().fetch(1000, 0)
@@ -291,16 +294,20 @@ class GetUsersListLinks(webapp2.RequestHandler):
         count = 0
         for user in users:
             count += 1
-            self.response.out.write('''<tr style="background-color:%s;">
-                                             <td>%s.</td>
-                                             <td>%s</td>
-                                             <td>%s</td>
-                                             <td>%s</td>
-                                             <td><a class="link" onclick="javascript:go('GetFileListLinks', '%s', '%s');return false;">View Files</a> |
-                                                 <a class="link" onclick="javascript:deleteUser('%s', '%s');return false;">Delete User</a></td>
-                                         </tr>''' % (
-                '#ffffff' if count % 2 else '#f1f1f1', count, user.userName, user.password, str(user.isAdmin),
-                user.userName, user.password, user.userName, user.password,))
+            self.response.out.write(u'''<tr style="background-color:{color};">
+                                             <td>{count}.</td>
+                                             <td>{userName}</td>
+                                             <td>{password}</td>
+                                             <td>{isAdmin}</td>
+                                             <td><a class="link" 
+                                                onclick="javascript:go('GetFileListLinks', '{userName}', '{password}');
+                                                    return false;">View Files</a> |
+                                                 <a class="link" 
+                                                    onclick="javascript:deleteUser('{userName}', '{password}');
+                                                        return false;">Delete User</a></td>
+                                         </tr>'''.format(
+                color='#ffffff' if count % 2 else '#f1f1f1', count=count, userName=user.userName,
+                password=user.password, isAdmin=str(user.isAdmin)))
         self.response.out.write('</table></body></html>')
 
 
@@ -324,7 +331,7 @@ class SetFileText(webapp2.RequestHandler):
         file = datamodule.Files.gql('WHERE user = :1 AND fileName = :2', user, file_name).get()
         if not file:
             file = datamodule.Files(user=user, fileName=file_name, fileText=file_text, modifiedDate=modified_date)
-        
+
         file.fileText = file_text
         file.modifiedDate = modified_date
         file.put()
