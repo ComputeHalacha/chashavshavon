@@ -183,14 +183,15 @@ namespace Chashavshavon
             if (lvFileNames.SelectedItems.Count > 0 || lvFileNames.Items.Count == 1)
             {
                 var file = lvFileNames.Items.Count == 1 ? lvFileNames.Items[0] : lvFileNames.SelectedItems[0];
-                var fileName = file?.Text ?? "";
+                var fileName = file.Text;
 
                 using (SaveFileDialog sfd = new SaveFileDialog
                 {
                     OverwritePrompt = true,
                     DefaultExt = ".pmj",
                     InitialDirectory = Program.BackupFolderPath,
-                    RestoreDirectory = false
+                    RestoreDirectory = false,
+                    FileName = fileName + ".pmj"
                 })
                 {
                     if (sfd.ShowDialog(this) == DialogResult.OK)
@@ -199,7 +200,6 @@ namespace Chashavshavon
                         File.WriteAllText(sfd.FileName, json);
                         Program.Inform("הקובץ נשמרה ב" + sfd.FileName);
                     }
-
                 }
             }
             else
