@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using Tahara;
 
 namespace Chashavshavon
 {
@@ -65,7 +66,7 @@ namespace Chashavshavon
         private void btnSaveCurrent_Click(object sender, EventArgs e)
         {
             SaveUser();
-            if (lvFileNames.FindItemWithText(txtCurrentFileName.Text) != null && 
+            if (lvFileNames.FindItemWithText(txtCurrentFileName.Text) != null &&
                 !Program.AskUser(string.Format("קובץ בשם" + "{0}\"{1}\"{0}" +
                         ".כבר קיים ברשימת קובצים שלכם{0}?האם להחליפו בקובץ הנוכחי",
                         Environment.NewLine,
@@ -261,6 +262,55 @@ namespace Chashavshavon
         private void switcherAlwaysUpdateRemote_ChoiceSwitched(object sender, EventArgs e)
         {
             Properties.Settings.Default.Save();
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            SaveUser();
+            if (lvFileNames.SelectedItems.Count > 0 || lvFileNames.Items.Count == 1)
+            {
+                var file = lvFileNames.Items.Count == 1 ? lvFileNames.Items[0] : lvFileNames.SelectedItems[0];
+                var fileName = file.Text;
+                string fileText = RemoteFunctions.GetFileJson(fileName);
+
+                using (FrmImport i = new FrmImport(fileText))
+                {
+                    bool added = false;
+                    if (i.ShowDialog() == DialogResult.OK)
+                    {
+                        (List<Entry> entries, List<Kavuah> kavuahs, List<TaharaEvent> taharaEvents) = (i.EntryList, i.KavuahList, i.TaharaEventList);
+                        foreach (Entry entry in entries)
+                        {
+                            if (!Program.EntryList.Exists(o => Onah.IsSimilarOnah(o, entry)))
+                            {
+                                Program.EntryList.Add(entry);
+                                added = true;
+                            }
+                        }
+                        foreach (Kavuah kavuah in kavuahs)
+                        {
+                            if (!Program.KavuahList.Exists(o => Kavuah.IsSameKavuah(o, kavuah)))
+                            {
+                                Program.KavuahList.Add(kavuah);
+                                added = true;
+                            }
+                        }
+                        foreach (TaharaEvent taharaEvent in taharaEvents)
+                        {
+                            if (!Program.TaharaEventList.Exists(te => te.TaharaEventType==taharaEvent.TaharaEventType && te.DateTime == taharaEvent.DateTime))
+                            {
+                                Program.TaharaEventList.Add(taharaEvent);
+                                added = true;
+                            }
+                        }
+                        if (added)
+                        {
+                            this._mainForm.SaveCurrentFile();
+                            this._mainForm.RefreshData();
+                        }
+                    }
+                }
+            }
         }
     }
 }

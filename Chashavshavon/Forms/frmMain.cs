@@ -530,12 +530,17 @@ namespace Chashavshavon
             {
                 return;
             }
-            using (FrmImport i = new FrmImport(openFileDialog1.FileName))
+            string fileText = File.ReadAllText(openFileDialog1.FileName);
+            if (string.IsNullOrEmpty(fileText))
+            {
+                return;
+            }
+            using (FrmImport i = new FrmImport(fileText))
             {
                 bool added = false;
                 if (i.ShowDialog() == DialogResult.OK)
                 {
-                    (List<Entry> entries, List<Kavuah> kavuahs) = (i.EntryList, i.KavuahList);
+                    (List<Entry> entries, List<Kavuah> kavuahs, List<TaharaEvent> taharaEvents) = (i.EntryList, i.KavuahList, i.TaharaEventList);
                     foreach (Entry entry in entries)
                     {
                         if (!Program.EntryList.Exists(o => Onah.IsSimilarOnah(o, entry)))
@@ -552,13 +557,20 @@ namespace Chashavshavon
                             added = true;
                         }
                     }
+                    foreach (TaharaEvent taharaEvent in taharaEvents)
+                    {
+                        if (!Program.TaharaEventList.Exists(te => te.TaharaEventType == taharaEvent.TaharaEventType && te.DateTime == taharaEvent.DateTime))
+                        {
+                            Program.TaharaEventList.Add(taharaEvent);
+                            added = true;
+                        }
+                    }
                     if (added)
                     {
                         SaveCurrentFile();
                         RefreshData();
                     }
                 }
-
             }
         }
         #endregion Event Handlers
@@ -934,7 +946,7 @@ namespace Chashavshavon
                         {
                             Brush color = Brushes.Black;
                             float x = 0.0f;
-                            switch(te.TaharaEventType)
+                            switch (te.TaharaEventType)
                             {
                                 case TaharaEventType.Hefsek:
                                     color = Brushes.Blue;
@@ -942,7 +954,7 @@ namespace Chashavshavon
                                     break;
                                 case TaharaEventType.Mikvah:
                                     color = Brushes.Green;
-                                    x = (pWidth /2)-15;
+                                    x = (pWidth / 2) - 15;
                                     break;
                                 case TaharaEventType.Shailah:
                                     color = Brushes.MediumVioletRed;
@@ -1053,7 +1065,7 @@ namespace Chashavshavon
             ShowEntryTextList(true);
         }
 
-        private void RefreshData()
+        public void RefreshData()
         {
             TestInternet();
             LoadJSONFile();
@@ -1440,7 +1452,7 @@ namespace Chashavshavon
             Properties.Settings.Default.Save();
             SetCaptionText();
 
-            if(RemoteFunctions.IsConnectedToInternet() && Properties.Settings.Default.AlwaysUpdateRemote && !string.IsNullOrEmpty(Properties.Settings.Default.RemoteUserName) && !string.IsNullOrEmpty(Properties.Settings.Default.RemotePassword))
+            if (RemoteFunctions.IsConnectedToInternet() && Properties.Settings.Default.AlwaysUpdateRemote && !string.IsNullOrEmpty(Properties.Settings.Default.RemoteUserName) && !string.IsNullOrEmpty(Properties.Settings.Default.RemotePassword))
             {
                 RemoteFunctions.SaveFile(CurrentFile, null, null);
             }

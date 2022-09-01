@@ -15,41 +15,39 @@ namespace Chashavshavon
         public List<Kavuah> KavuahList { get; private set; }
         public List<TaharaEvent> TaharaEventList { get; private set; }
 
-        public FrmImport(string path)
+        public FrmImport(string fileText)
         {
             InitializeComponent();
 
-            if (File.Exists(path))
+            if (string.IsNullOrEmpty(fileText))
             {
-                string fileText = File.ReadAllText(path);
-                if (string.IsNullOrEmpty(fileText))
-                {
-                    fileText = "<Entries />";
-                }
-                if (fileText.TrimStart().StartsWith("<"))
-                {
-                    (EntryList, KavuahList) =
-                   Program.LoadEntriesKavuahsFromXml(fileText);
-                }
-                else if (fileText.TrimStart().StartsWith("{"))
-                {
-                    (EntryList, KavuahList, TaharaEventList) =
-                   Program.LoadEntriesKavuahsFromJson(fileText);
-                }
-
-                foreach (Entry e in EntryList)
-                {
-                    lvEntries.Items.Add(new ListViewItem(e.ToString()) { Tag = e });
-                }
-                foreach (Kavuah k in KavuahList)
-                {
-                    lvKavuahs.Items.Add(new ListViewItem(k.ToString()) { Tag = k });
-                }
-                foreach (TaharaEvent t in TaharaEventList)
-                {
-                    lvTaharaEvents.Items.Add(new ListViewItem(t.ToString()) { Tag = t });
-                }
+                fileText = "{}";
             }
+
+            if (fileText.TrimStart().StartsWith("<"))
+            {
+                (EntryList, KavuahList) =
+               Program.LoadEntriesKavuahsFromXml(fileText);
+            }
+            else if (fileText.TrimStart().StartsWith("{"))
+            {
+                (EntryList, KavuahList, TaharaEventList) =
+               Program.LoadEntriesKavuahsFromJson(fileText);
+            }
+
+            foreach (Entry e in EntryList)
+            {
+                lvEntries.Items.Add(new ListViewItem(e.ToString()) { Tag = e });
+            }
+            foreach (Kavuah k in KavuahList)
+            {
+                lvKavuahs.Items.Add(new ListViewItem(k.ToString()) { Tag = k });
+            }
+            foreach (TaharaEvent t in TaharaEventList)
+            {
+                lvTaharaEvents.Items.Add(new ListViewItem(t.ToString()) { Tag = t });
+            }
+
             _loading = false;
         }
 
@@ -240,6 +238,6 @@ namespace Chashavshavon
         {
             bool isc = lvTaharaEvents.SelectedItems[0].Checked;
             lvTaharaEvents.SelectedItems[0].Checked = !isc;
-        }        
+        }
     }
 }

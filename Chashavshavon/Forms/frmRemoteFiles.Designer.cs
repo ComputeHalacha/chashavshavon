@@ -56,6 +56,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.switcherAlwaysUpdateRemote = new Chashavshavon.ChoiceSwitcher();
+            this.btnImport = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -168,6 +169,7 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.White;
+            this.groupBox2.Controls.Add(this.btnImport);
             this.groupBox2.Controls.Add(this.lvFileNames);
             this.groupBox2.Controls.Add(this.btnPreview);
             this.groupBox2.Controls.Add(this.btnDelete);
@@ -220,7 +222,7 @@
             this.btnPreview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPreview.Font = new System.Drawing.Font("Narkisim", 10F);
             this.btnPreview.ForeColor = System.Drawing.Color.Lavender;
-            this.btnPreview.Location = new System.Drawing.Point(165, 275);
+            this.btnPreview.Location = new System.Drawing.Point(311, 275);
             this.btnPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnPreview.Name = "btnPreview";
             this.btnPreview.Size = new System.Drawing.Size(69, 25);
@@ -239,7 +241,7 @@
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Narkisim", 10F);
             this.btnDelete.ForeColor = System.Drawing.Color.Lavender;
-            this.btnDelete.Location = new System.Drawing.Point(88, 275);
+            this.btnDelete.Location = new System.Drawing.Point(19, 275);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(69, 25);
@@ -258,7 +260,7 @@
             this.btnOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpen.Font = new System.Drawing.Font("Narkisim", 10F);
             this.btnOpen.ForeColor = System.Drawing.Color.Lavender;
-            this.btnOpen.Location = new System.Drawing.Point(242, 276);
+            this.btnOpen.Location = new System.Drawing.Point(234, 275);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(69, 25);
@@ -461,6 +463,25 @@
             this.switcherAlwaysUpdateRemote.ValueChoiceTwo = true;
             this.switcherAlwaysUpdateRemote.ChoiceSwitched += new System.EventHandler(this.switcherAlwaysUpdateRemote_ChoiceSwitched);
             // 
+            // btnImport
+            // 
+            this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnImport.BackColor = System.Drawing.Color.Lavender;
+            this.btnImport.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnImport.BackgroundImage")));
+            this.btnImport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnImport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImport.Font = new System.Drawing.Font("Narkisim", 10F);
+            this.btnImport.ForeColor = System.Drawing.Color.Lavender;
+            this.btnImport.Location = new System.Drawing.Point(157, 275);
+            this.btnImport.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(69, 25);
+            this.btnImport.TabIndex = 5;
+            this.btnImport.Text = "ייבוא";
+            this.btnImport.UseVisualStyleBackColor = false;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
             // FrmRemoteFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -532,5 +553,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private ChoiceSwitcher switcherAlwaysUpdateRemote;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnImport;
     }
 }
