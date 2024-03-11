@@ -12,14 +12,14 @@ namespace Chashavshavon
     {
         private GeneralUtils() { }
 
-        private static readonly char[] _jsd = { 'ΰ', 'α', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ' };
-        private static readonly char[] _jtd = { 'ι', 'λ', 'μ', 'ξ', 'π', 'ρ', 'ς', 'τ', 'φ' };
-        private static readonly char[] _jhd = { 'χ', 'ψ', 'ω', 'ϊ' };
+        private static readonly char[] _jsd = { 'Χ', 'Χ‘', 'Χ’', 'Χ“', 'Χ”', 'Χ•', 'Χ–', 'Χ—', 'Χ' };
+        private static readonly char[] _jtd = { 'Χ™', 'Χ›', 'Χ', 'Χ', 'Χ ', 'Χ΅', 'ΧΆ', 'Χ¤', 'Χ¦' };
+        private static readonly char[] _jhd = { 'Χ§', 'Χ¨', 'Χ©', 'Χª' };
 
-        public static string[] DaysOfWeekHebrewFull = { "ψΰωεο", "ωπι", "ωμιωι", "ψαιςι", "ηξιωι", "ωιωι", "ωαϊ χεγω" };
-        public static string[] DaysOfWeekHebrew = { "ιεν ΰ", "ιεν α", "ιεν β", "ιεν γ", "ιεν δ", "ιεν ε", "ωαϊ" };
+        public static string[] DaysOfWeekHebrewFull = { "Χ¨ΧΧ©Χ•Χ", "Χ©Χ Χ™", "Χ©ΧΧ™Χ©Χ™", "Χ¨Χ‘Χ™ΧΆΧ™", "Χ—ΧΧ™Χ©Χ™", "Χ©Χ™Χ©Χ™", "Χ©Χ‘Χª Χ§Χ•Χ“Χ©" };
+        public static string[] DaysOfWeekHebrew = { "Χ™Χ•Χ Χ", "Χ™Χ•Χ Χ‘", "Χ™Χ•Χ Χ’", "Χ™Χ•Χ Χ“", "Χ™Χ•Χ Χ”", "Χ™Χ•Χ Χ•", "Χ©Χ‘Χª" };
         //To translate a day number into a hebrew date - days start at 1, not 0.
-        public static string[] DaysOfMonthHebrew = { "", "ΰ'", "α'", "β'", "γ'", "δ'", "ε'", "ζ'", "η'", "θ'", "ι'", "ι\"ΰ", "ι\"α", "ι\"β", "ι\"γ", "θ\"ε", "θ\"ζ", "ι\"ζ", "ι\"η", "ι\"θ", "λ'", "λ\"ΰ", "λ\"α", "λ\"β", "λ\"γ", "λ\"δ", "λ\"ε", "λ\"ζ", "λ\"η", "λ\"θ", "μ'" };
+        public static string[] DaysOfMonthHebrew = { "", "Χ'", "Χ‘'", "Χ’'", "Χ“'", "Χ”'", "Χ•'", "Χ–'", "Χ—'", "Χ'", "Χ™'", "Χ™\"Χ", "Χ™\"Χ‘", "Χ™\"Χ’", "Χ™\"Χ“", "Χ\"Χ•", "Χ\"Χ–", "Χ™\"Χ–", "Χ™\"Χ—", "Χ™\"Χ", "Χ›'", "Χ›\"Χ", "Χ›\"Χ‘", "Χ›\"Χ’", "Χ›\"Χ“", "Χ›\"Χ”", "Χ›\"Χ•", "Χ›\"Χ–", "Χ›\"Χ—", "Χ›\"Χ", "Χ'" };
         //Will allow showing secular dates in Hebrew and with the local format used in Israel (dd/mm/yyyy)
         public static readonly CultureInfo SecularDateCultureInfo = CultureInfo.CreateSpecificCulture("he-il");
 
@@ -110,7 +110,7 @@ namespace Chashavshavon
         #endregion
 
         /// <summary>
-        /// Gets the Jewish representation of a number (365 = ωρ"δ)
+        /// Gets the Jewish representation of a number (365 = Χ©Χ΅"Χ”)
         /// Minimum number is 1 and maximum is 9999.
         /// </summary>
         /// <param name="number"></param>
@@ -138,7 +138,7 @@ namespace Chashavshavon
 
             while (n >= 400)
             {
-                retval += 'ϊ';
+                retval += 'Χª';
                 n -= 400;
             }
 
@@ -150,11 +150,11 @@ namespace Chashavshavon
 
             if (n == 15)
             {
-                retval += "θε";
+                retval += "ΧΧ•";
             }
             else if (n == 16)
             {
-                retval += "θζ";
+                retval += "ΧΧ–";
             }
             else
             {
